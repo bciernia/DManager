@@ -1,6 +1,6 @@
-import Card from "./components/UI/Card";
-import Menu from "./components/Layout/Menu";
-import Home from "./components/Layout/Home";
+import Card from "./components/UI/Card/Card";
+import Menu from "./components/Layout/Menu/Menu";
+import Home from "./components/Layout/Home/Home";
 
 function App() {
     return (
