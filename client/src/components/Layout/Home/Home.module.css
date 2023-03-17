@@ -1,5 +1,20 @@
-.test{
-    background: green;
-    width: 100px;
-    height: 100px;
+.layout{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "sidebar main"
+    "footer footer"
+}
+
+.layout-sidebar{
+    grid-area: sidebar;
+}
+
+.layout-main{
+    grid-area: main;
+}
+
+.layout-footer{
+    grid-area: footer;
 }

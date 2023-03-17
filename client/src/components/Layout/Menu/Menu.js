@@ -1,6 +1,8 @@
+import classes from "./Menu.module.css";
+
 const Menu = (props) => {
     return (
-        <div>
+        <div className={classes.container}>
             Test
         </div>
     );
