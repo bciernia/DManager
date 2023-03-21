@@ -1,8 +1,9 @@
 import classes from './Logo.module.css'
+import logoImg from '../../../assets/logo/logo.png'
 
-const Logo = () => {
+const Logo = props => {
     return (
-            <p className={classes.logo}>test</p>
+            <img className={classes.logo} src={logoImg} alt="Logo"/>
     )
 }
 

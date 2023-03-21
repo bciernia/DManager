@@ -5,8 +5,8 @@ import Logo from "./Logo";
 const Sidebar = (props) => {
     return (
         <div className={classes.container}>
-            <Logo/>
-            <Menu/>
+            <Logo />
+            <Menu />
         </div>
     );
 }
