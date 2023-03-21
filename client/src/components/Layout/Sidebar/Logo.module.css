@@ -1,0 +1,9 @@
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: cadetblue;
+    height: 3.75rem;
+    width: 10rem;
+    margin: 0.25rem auto 1rem;
+}

@@ -1,0 +1,10 @@
+.menu-option{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    margin: .5rem 0;
+    background: whitesmoke;
+    width: 100%;
+    height: 2.5rem;
+}
