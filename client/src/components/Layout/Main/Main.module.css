@@ -1,9 +1,30 @@
 .container{
-    height: 92.5vh;
+
 }
 
-.test{
+.session{
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "schedule notes";
     width: 100%;
-    height: 100vh;
-    background-color: #5fb45f;
+    height: 30rem;
+}
+
+.layout{
+    display: grid;
+
+}
+
+/*.{*/
+/*    grid-area: sidebar;*/
+/*}*/
+
+.session__schedule{
+    grid-area: schedule;
+}
+
+.session__notes{
+    grid-area: notes;
 }

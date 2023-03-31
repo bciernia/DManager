@@ -16,7 +16,9 @@ const Home = props => {
                 <Footer />
             </div>
         </section>
+
     )
 }
 
 export default Home;
+

@@ -13,8 +13,13 @@ const Main = props => {
             <Card>
                 <Timer />
             </Card>
-            <div className={classes.test}>
-
+            <div className={classes.session}>
+                <Card className={classes.session__schedule}>
+                    SCHEDULE
+                </Card>
+                <Card className={classes.session__notes}>
+                    NOTES
+                </Card>
             </div>
         </div>
     )
