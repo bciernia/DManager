@@ -1,11 +1,24 @@
 .timer {
-    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.running {
-    background-color: green;
+.timer__stopwatch{
+    border-radius: 14px;
+    padding: .5rem .25rem;
+    font-size: 2rem;
 }
 
-.stopped {
-    background: red;
+.timer__stopwatch--running {
+    background-color: #5fb45f;
+}
+
+.timer__stopwatch--stopped {
+    background: #b64646;
+}
+
+.timer__btn{
+    margin: 0;
 }
