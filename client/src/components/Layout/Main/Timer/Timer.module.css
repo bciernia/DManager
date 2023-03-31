@@ -1,3 +1,11 @@
 .timer {
     font-size: 3rem;
 }
+
+.running {
+    background-color: green;
+}
+
+.stopped {
+    background: red;
+}

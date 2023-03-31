@@ -1,6 +1,7 @@
 import {useStopwatch} from "react-timer-hook";
 import {useState} from "react";
 import classes from './Timer.module.css';
+import Card from "../../../UI/Card/Card";
 
 const Timer = () => {
     const [isStarted, setIsStarted] = useState(false);
@@ -13,23 +14,22 @@ const Timer = () => {
         start,
         pause,
         reset,
-    } = useStopwatch({ autoStart: false });
+    } = useStopwatch({autoStart: false});
+
+    const timerBackground = isRunning ? classes.running : classes.stopped;
 
     return (
-        <div style={{textAlign: 'center'}}>
-            <div className={classes.timer}>
+        <div>
+            <span className={`${classes.timer} ${timerBackground}`}>
                 <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
-            </div>
+            </span>
             <p>{isRunning ? 'Running' : 'Not running'}</p>
-            <button onClick={() => {
-                setIsStarted(true);
-                start();
-            }}>Start</button>
+            <button onClick={start}>Start</button>
             <button onClick={pause}>Pause</button>
             <button onClick={() => {
-                reset();
-                setIsStarted(false);
-            }}>Reset</button>
+                reset(undefined, false);
+            }}>Reset
+            </button>
         </div>
     );
 }

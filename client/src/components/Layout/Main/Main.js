@@ -1,5 +1,6 @@
 import classes from "./Main.module.css";
 import Timer from "./Timer/Timer";
+import Card from "../../UI/Card/Card";
 
 const Main = props => {
 
@@ -9,7 +10,9 @@ const Main = props => {
 
     return (
         <div className={classes.container}>
-            <Timer />
+            <Card>
+                <Timer />
+            </Card>
         </div>
     )
 }
