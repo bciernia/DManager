@@ -1,10 +1,13 @@
 import {useStopwatch} from "react-timer-hook";
 import classes from './Timer.module.css';
-import startBtnImg from '../../../../assets/buttons/play_button.png'
-import stopBtnImg from '../../../../assets/buttons/stop_button.png'
-import pauseBtnImg from '../../../../assets/buttons/pause_button.png'
+import startBtnImg from '../../../../../assets/buttons/play_button.png'
+import stopBtnImg from '../../../../../assets/buttons/stop_button.png'
+import pauseBtnImg from '../../../../../assets/buttons/pause_button.png'
+import {useState} from "react";
 
 const Timer = () => {
+    const [latestTime, setLatestTime] = useState([]);
+
     const {
         seconds,
         minutes,
@@ -16,6 +19,12 @@ const Timer = () => {
     } = useStopwatch({autoStart: false});
 
     const timerBackground = isRunning ? classes["timer__stopwatch--running"] : classes["timer__stopwatch--stopped"];
+
+    const saveTime = (hours, minutes, seconds) => {
+        const newTime = `${hours}:${minutes}:${seconds}`;
+
+        setLatestTime([...latestTime, newTime])
+    }
 
     return (
         <div className={classes.timer}>
@@ -30,6 +39,7 @@ const Timer = () => {
                     <img src={pauseBtnImg}/>
                 </button>
                 <button className={classes.timer__btn} onClick={() => {
+                    saveTime(hours, minutes, seconds);
                     reset(undefined, false);
                 }}>
                     <img src={stopBtnImg}/>

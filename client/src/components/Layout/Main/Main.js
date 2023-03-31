@@ -1,5 +1,5 @@
 import classes from "./Main.module.css";
-import Timer from "./Timer/Timer";
+import Timer from "./SessionStarter/Timer/Timer";
 import Card from "../../UI/Card/Card";
 
 const Main = props => {
@@ -13,6 +13,9 @@ const Main = props => {
             <Card>
                 <Timer />
             </Card>
+            <div className={classes.test}>
+
+            </div>
         </div>
     )
 }
