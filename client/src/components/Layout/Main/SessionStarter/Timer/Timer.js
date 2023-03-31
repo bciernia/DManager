@@ -1,9 +1,11 @@
 import {useStopwatch} from "react-timer-hook";
+import {useState} from "react";
+
 import classes from './Timer.module.css';
+
 import startBtnImg from '../../../../../assets/buttons/play_button.png'
 import stopBtnImg from '../../../../../assets/buttons/stop_button.png'
 import pauseBtnImg from '../../../../../assets/buttons/pause_button.png'
-import {useState} from "react";
 
 const Timer = () => {
     const [latestTime, setLatestTime] = useState([]);

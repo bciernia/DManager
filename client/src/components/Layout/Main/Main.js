@@ -1,16 +1,10 @@
 import classes from "./Main.module.css";
-import Timer from "./SessionStarter/Timer/Timer";
 import Card from "../../UI/Card/Card";
 
 const Main = props => {
 
-    const time = new Date();
-
-    time.setSeconds(time.getSeconds() + 600);
-
     return (
         <div className={classes.container}>
-
             <div className={classes.session}>
                 <Card className={classes.session__schedule}>
                     SCHEDULE
@@ -19,7 +13,6 @@ const Main = props => {
                     NOTES
                 </Card>
             </div>
-
         </div>
     )
 }

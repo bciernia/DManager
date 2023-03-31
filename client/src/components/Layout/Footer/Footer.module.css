@@ -4,3 +4,20 @@
     background: red;
     bottom: 0;
 }
+
+.footer__btn--changeVisibility{
+    position: absolute;
+    top: -2.75rem;
+    right: 5rem;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    transition: all 2s;
+}
+
+.footer__hidden{
+    bottom: -11.1rem;
+}
