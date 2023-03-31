@@ -7,6 +7,8 @@ import {useState} from "react";
 
 const Timer = () => {
     const [latestTime, setLatestTime] = useState([]);
+    const [isSessionStarted, setIsSessionStarted] = useState(false);
+    const [isSessionPaused, setIsSessionPaused] = useState(false);
 
     const {
         seconds,
@@ -26,24 +28,44 @@ const Timer = () => {
         setLatestTime([...latestTime, newTime])
     }
 
+    const startSessionHandler = () => {
+        start();
+        setIsSessionStarted(true);
+    }
+
+    const pauseSessionHandler = () => {
+        isSessionPaused ? start() : pause();
+        setIsSessionPaused(isSessionPaused => !isSessionPaused);
+    }
+
+    const finishSessionHandler = () => {
+        saveTime(hours, minutes, seconds);
+        reset(undefined, false);
+        setIsSessionStarted(false);
+        setIsSessionPaused(false);
+    }
+
     return (
         <div className={classes.timer}>
             <span className={`${classes.timer__stopwatch} ${timerBackground}`}>
                 <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
             </span>
             <div>
-                <button className={classes.timer__btn} onClick={start}>
-                    <img src={startBtnImg}/>
-                </button>
-                <button className={classes.timer__btn} onClick={pause}>
-                    <img src={pauseBtnImg}/>
-                </button>
-                <button className={classes.timer__btn} onClick={() => {
-                    saveTime(hours, minutes, seconds);
-                    reset(undefined, false);
-                }}>
-                    <img src={stopBtnImg}/>
-                </button>
+                {!isSessionStarted ?
+                    (<button className={classes.timer__btn} onClick={startSessionHandler}>
+                        <img src={startBtnImg}/>
+                    </button>) :
+                    (
+                        <div>
+                            <button className={classes.timer__btn} onClick={pauseSessionHandler}>
+                                {isSessionPaused ? ( <img src={startBtnImg}/>) : ( <img src={pauseBtnImg}/>)}
+                            </button>
+                            <button className={classes.timer__btn} onClick={finishSessionHandler}>
+                                <img src={stopBtnImg}/>
+                            </button>
+                        </div>
+                    )
+                }
             </div>
         </div>
     );

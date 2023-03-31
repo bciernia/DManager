@@ -10,9 +10,7 @@ const Main = props => {
 
     return (
         <div className={classes.container}>
-            <Card>
-                <Timer />
-            </Card>
+
             <div className={classes.session}>
                 <Card className={classes.session__schedule}>
                     SCHEDULE
@@ -21,6 +19,7 @@ const Main = props => {
                     NOTES
                 </Card>
             </div>
+
         </div>
     )
 }
