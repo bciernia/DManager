@@ -1,27 +1,8 @@
-.container{
-
-}
-
-.session{
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "schedule   notes"
-    "player1 player2 player3 player4";
-    width: 100%;
-    height: 30rem;
-}
-
-.layout{
-    display: grid;
-
-}
-
-.session__schedule{
-    grid-area: schedule;
-}
-
-.session__notes{
-    grid-area: notes;
+.main-container{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    height: 50rem;
+    width: 80%;
+    min-width: 50rem;
 }

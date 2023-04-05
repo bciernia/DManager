@@ -1,18 +1,12 @@
 import classes from "./Main.module.css";
-import Card from "../../UI/Card/Card";
+import Team from "../../Teams/Team";
+import AddCharacter from "../../Teams/Character/AddCharacter/AddCharacter";
 
-const Main = props => {
-
+const Main = () => {
     return (
-        <div className={classes.container}>
-            <div className={classes.session}>
-                <Card className={classes.session__schedule}>
-                    SCHEDULE
-                </Card>
-                <Card className={classes.session__notes}>
-                    NOTES
-                </Card>
-            </div>
+        <div className={classes["main-container"]}>
+            <AddCharacter/>
+            <Team/>
         </div>
     )
 }

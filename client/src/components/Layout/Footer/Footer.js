@@ -4,7 +4,7 @@ import Timer from "../Main/SessionStarter/Timer/Timer";
 import {useState} from "react";
 
 const Footer = () => {
-    const [isFooterVisible, setIsFooterVisible] = useState(true);
+    const [isFooterVisible, setIsFooterVisible] = useState(false);
 
     const timerBackground = isFooterVisible || classes.footer__hidden;
     const changeFooterVisibilityBtnTitle = isFooterVisible ? 'Hide' : 'Show';

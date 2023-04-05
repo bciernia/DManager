@@ -16,7 +16,6 @@ const Home = props => {
                 <Footer />
             </div>
         </section>
-
     )
 }
 
