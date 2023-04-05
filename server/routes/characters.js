@@ -16,8 +16,6 @@ characterRouter
 
             } catch (e) {
                 throw new Error(e);
-            } finally {
-                await client.close();
             }
         })();
     })
@@ -34,8 +32,6 @@ characterRouter
 
             } catch (e) {
                 throw new Error(e);
-            } finally {
-                await client.close();
             }
         })();
     })
@@ -57,8 +53,6 @@ characterRouter
 
             } catch (e) {
                 throw new Error(e);
-            } finally {
-                await client.close();
             }
         })();
     })
@@ -78,8 +72,8 @@ characterRouter
 
                 res.status(200).send(characterToUpdate);
 
-            } finally {
-                await client.close();
+            } catch (e) {
+                throw new Error(e);
             }
         })();
     })
@@ -94,8 +88,8 @@ characterRouter
                 await characterToDelete.delete();
 
                 res.status(204);
-            } finally {
-                await client.close()
+            } catch (e) {
+                throw new Error(e);
             }
         })();
     })

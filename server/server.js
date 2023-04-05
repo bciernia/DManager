@@ -5,7 +5,7 @@ const {characterRouter} = require("./routes/characters");
 const app = express();
 
 app.use(express.json());
-app.use(express.static('public'));
+app.use(static('public'));
 
 app.use('/', gameRouter);
 app.use('/character', characterRouter);
