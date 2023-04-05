@@ -58,8 +58,8 @@ class CharacterRecord {
 
     static async findAll() {
         const result = await characters.find();
-        const resultArray = await result.toArray();
-        const ourArray = resultArray.map(obj => new CharacterRecord(obj));
+        const characterArray = await result.toArray();
+        const ourArray = characterArray.map(obj => new CharacterRecord(obj));
 
         return ourArray;
     }
