@@ -1,6 +1,7 @@
 const express = require("express");
 const {static} = require("express");
 const {gameRouter} = require("./routes/game");
+const {characterRouter} = require("./routes/characters");
 const app = express();
 
 app.use(express.json());
