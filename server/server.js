@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/', gameRouter);
+app.use('/character', characterRouter);
 
 // app.get('/api', (req, res) => {
 //     res.json({
