@@ -44,7 +44,10 @@ characterRouter
             try {
                 const newCharacter = new CharacterRecord({
                     name: character.name,
+                    characterClass: character.characterClass,
+                    playerName: character.playerName,
                     exp: 0,
+                    isAlive: true,
                 })
 
                 const newCharacterId = await newCharacter.insert();

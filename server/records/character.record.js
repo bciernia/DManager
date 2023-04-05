@@ -6,7 +6,10 @@ class CharacterRecord {
     constructor(obj) {
         this._id = new ObjectId(obj._id);
         this.name = obj.name;
+        this.characterClass = obj.characterClass;
+        this.playerName = obj.playerName;
         this.exp = obj.exp;
+        this.isAlive = obj.isAlive;
     }
 
     _validate() {
@@ -23,7 +26,10 @@ class CharacterRecord {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
             name: this.name.toString(),
+            characterClass: this.characterClass.toString(),
+            playerName: this.playerName.toString(),
             exp: this.exp,
+            isAlive: this.isAlive,
         });
         this._id = insertedId.toString();
 
