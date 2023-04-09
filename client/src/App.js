@@ -1,12 +1,15 @@
-import Card from "./components/UI/Card/Card";
 import Home from "./components/Layout/Home/Home";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import ErrorPage from "./pages/ErrorPage";
+
+const router = createBrowserRouter([
+    {
+        path: '/', element: <Home isError={false}/>, errorElement: <ErrorPage />
+    }
+])
 
 function App() {
-    return (
-        <div className="App">
-            <Home container />
-        </div>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;
