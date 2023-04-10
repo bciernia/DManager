@@ -2,28 +2,29 @@ import {useRef, useState} from "react";
 import classes from "./AddTeam.module.css";
 import Spinner from "../../../UI/Spinner/Spinner";
 import Card from "../../../UI/Card/Card";
+import team from "../Team";
 
 const AddTeam = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const inputTeamNameRef = useRef(null);
     const inputGameSystemRef = useRef(null);
-    const inputPlayerNameRef = useRef(null);
 
-    const createCharacter = () => {
+    const createTeam = () => {
         //TODO check if any of fields is empty
 
         const name = inputTeamNameRef.current.value;
-        const characterClass = inputGameSystemRef.current.value;
-        const playerName = inputPlayerNameRef.current.value;
+        const gameSystem = inputGameSystemRef.current.value;
 
         inputTeamNameRef.current.value = '';
         inputGameSystemRef.current.value = '';
 
+        console.log(name)
+        console.log(gameSystem)
+
         return {
             name,
-            characterClass,
-            playerName,
+            gameSystem,
         }
     }
 
@@ -31,12 +32,12 @@ const AddTeam = () => {
         event.preventDefault();
         setIsLoading(true);
 
-        fetch('http://127.0.0.1:3000/teams', {
+        fetch('http://127.0.0.1:3000/teams/newTeam', {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
             },
-            body: JSON.stringify(createCharacter())
+            body: JSON.stringify(createTeam())
         }).then(res => res.json())
             .finally(() => setIsLoading(false));
     }
