@@ -1,6 +1,7 @@
 const express = require('express');
 const {CharacterRecord} = require("../records/character.record");
 const {client} = require("../utils/db");
+const {ObjectId} = require("mongodb");
 
 const characterRouter = express.Router();
 
@@ -48,6 +49,7 @@ characterRouter
                     playerName: character.playerName,
                     exp: 0,
                     isAlive: true,
+                    teamId: new ObjectId(character.teamId),
                 })
 
                 const newCharacterId = await newCharacter.insert();

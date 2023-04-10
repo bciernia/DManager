@@ -10,6 +10,7 @@ class CharacterRecord {
         this.playerName = obj.playerName;
         this.exp = obj.exp;
         this.isAlive = obj.isAlive;
+        this.teamId = obj.teamId;
     }
 
     _validate() {
@@ -30,6 +31,7 @@ class CharacterRecord {
             playerName: this.playerName.toString(),
             exp: this.exp,
             isAlive: this.isAlive,
+            teamId: this.teamId,
         });
         this._id = insertedId.toString();
 
