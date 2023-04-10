@@ -50,10 +50,11 @@ const AddCharacter = character => {
                 <form onSubmit={addNewCharacterHandler} className={classes["add-character--form"]}>
                     <label htmlFor="characterName">Character name</label>
                     <input id="characterName" type="text" ref={inputCharacterNameRef}/>
+                    {/*TODO Player name has to be dropdown */}
                     <label htmlFor="playerName">Player name</label>
                     <input id="playerName" type="text" ref={inputPlayerNameRef}/>
                     <label htmlFor="characterClass">Character class</label>
-                    {/*Character class has to be dropdown */}
+                    {/*TODO Character class has to be dropdown */}
                     <input id="characterClass" type="text" ref={inputCharacterClassRef}/>
 
                     <button type="submit">Add character</button>

@@ -3,7 +3,6 @@ import Sidebar from "../Sidebar/Sidebar";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import {Outlet} from "react-router-dom";
-import ErrorPage from "../../../pages/ErrorPage";
 
 const Home = props => {
     return (
@@ -13,7 +12,7 @@ const Home = props => {
             </div>
             <div className={classes["layout-main"]}>
                 <Main>
-                    {props.isError ? (<Outlet />) : (<ErrorPage />)}
+                    <Outlet />
                 </Main>
             </div>
             <div className={classes["layout-footer"]}>
