@@ -19,9 +19,6 @@ const AddTeam = () => {
         inputTeamNameRef.current.value = '';
         inputGameSystemRef.current.value = '';
 
-        console.log(name)
-        console.log(gameSystem)
-
         return {
             name,
             gameSystem,
