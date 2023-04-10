@@ -11,9 +11,7 @@ const Home = props => {
                 <Sidebar />
             </div>
             <div className={classes["layout-main"]}>
-                <Main>
-                    <Outlet />
-                </Main>
+                <Outlet />
             </div>
             <div className={classes["layout-footer"]}>
                 <Footer />

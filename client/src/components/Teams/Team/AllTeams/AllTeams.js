@@ -5,3 +5,5 @@ const AllTeams = () => {
         </div>
     )
 }
+
+export default AllTeams;

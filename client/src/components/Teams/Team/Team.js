@@ -1,8 +1,8 @@
-import Character from "./Character/Character";
+import Character from "../Character/Character";
 import {useEffect, useState} from "react";
-import Spinner from "../UI/Spinner/Spinner";
-import Card from "../UI/Card/Card";
-import AddCharacter from "./Character/AddCharacter/AddCharacter";
+import Spinner from "../../UI/Spinner/Spinner";
+import Card from "../../UI/Card/Card";
+import AddCharacter from "../Character/AddCharacter/AddCharacter";
 
 const Team = () => {
     const [isLoading, setIsLoading] = useState(false);

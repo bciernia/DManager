@@ -1,6 +1,4 @@
 const AddTeam = () => {
-
-
     return (
         <div>
             TEST
