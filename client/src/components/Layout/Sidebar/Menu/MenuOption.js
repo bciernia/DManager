@@ -1,9 +1,12 @@
 import classes from './MenuOption.module.css'
+import {NavLink} from "react-router-dom";
 
 const MenuOption = (props) => {
     return (
         <li className={classes["menu-option"]}>
-            <a href={props.linkTo}>{props.optionName}</a>
+            <NavLink to={`${props.linkTo}`}
+                     className={({isActive}) => isActive ? classes.active : undefined}
+                     end>{props.optionName}</NavLink>
         </li>
     )
 }
