@@ -7,9 +7,11 @@ client.connect();
 const db = client.db('DManager');
 
 const characters = db.collection('characters');
+const teams = db.collection('teams');
 
 module.exports = {
     db,
     characters,
+    teams,
     client,
 };
