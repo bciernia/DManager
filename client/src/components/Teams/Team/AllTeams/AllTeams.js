@@ -1,7 +1,20 @@
+import {useEffect, useState} from "react";
+import Spinner from "../../../UI/Spinner/Spinner";
+
 const AllTeams = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+
+    },[]);
+
     return (
         <div>
-            All Teams
+            {isLoading && <Spinner />}
+
+
+
+            Ts
         </div>
     )
 }

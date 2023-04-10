@@ -10,6 +10,7 @@ const Menu = () => {
                 <MenuOption optionName="Create new team" linkTo="teams/newTeam"/>
                 <MenuOption optionName="All teams" linkTo="teams"/>
                 <MenuOption optionName="Session history" linkTo="session/all"/>
+            {/*TODO add Character options to menu when user is in teams context*/}
             </ul>
         </nav>
     )
