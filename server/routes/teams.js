@@ -6,10 +6,21 @@ const teamRouter = express.Router();
 
 teamRouter
 
+    //Get all teams
     .get('/', (req, res) => {
-        res.send('ALL TEAMS');
+        (async () => {
+            try {
+                const teams = await TeamRecord.findAll();
+
+                res.status(200).send(teams);
+
+            } catch (e) {
+                throw new Error(e);
+            }
+        })();
     })
 
+    //Add new team
     .post('/newTeam', (req, res) => {
         const team = req.body;
 
