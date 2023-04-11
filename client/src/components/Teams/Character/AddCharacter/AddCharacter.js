@@ -42,7 +42,10 @@ const AddCharacter = props => {
             },
             body: JSON.stringify(createCharacter())
         }).then(res => res.json())
-            .finally(() => setIsLoading(false));
+            .finally(() => {
+                setIsLoading(false)
+                props.onUpdate();
+            });
     }
 
     return (
