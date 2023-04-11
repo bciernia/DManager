@@ -5,6 +5,7 @@ import StartNewSession from "./components/Sessions/StartNewSession/StartNewSessi
 import SessionHistory from "./components/Sessions/SessionHistory/SessionHistory";
 import AllTeams from "./components/Teams/Team/AllTeams/AllTeams";
 import AddTeam from "./components/Teams/Team/AddTeam/AddTeam";
+import TeamDetails from "./components/Teams/Team/TeamDetails";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,9 @@ const router = createBrowserRouter([
                     {
                         path: "newTeam", element: <AddTeam/>,
                     },
-                    {}
+                    {
+                        path: ":teamId", element: <TeamDetails />,
+                    }
                 ]
             }
         ]

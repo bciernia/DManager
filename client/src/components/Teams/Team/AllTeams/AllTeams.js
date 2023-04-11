@@ -18,17 +18,18 @@ const AllTeams = () => {
             .finally(() => {
                 setIsLoading(false);
             })
-    },[]);
+    }, []);
 
     return (
-        <Card>
-            {isLoading && <Spinner />}
+        <div>
 
-            {teamsArray.map(team => <Team key={team._id} team={team} />)}
+            {isLoading && <Spinner/>}
+
+            {teamsArray.map(team => <Team key={team._id} team={team}/>)}
 
             {/*{teamsArray.length === 0 && <p>No teams</p>}*/}
             {/*{teamsArray.map(character => <Character key={character._id} character={character} />)}*/}
-        </Card>
+        </div>
     )
 }
 

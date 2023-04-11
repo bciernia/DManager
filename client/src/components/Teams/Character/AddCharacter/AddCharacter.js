@@ -2,8 +2,9 @@ import Card from "../../../UI/Card/Card";
 import classes from "./AddCharacter.module.css"
 import {useRef, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
+import team from "../../Team/Team";
 
-const AddCharacter = character => {
+const AddCharacter = props => {
     const [isLoading, setIsLoading] = useState(false);
 
     const inputCharacterNameRef = useRef(null);
@@ -16,6 +17,7 @@ const AddCharacter = character => {
         const name = inputCharacterNameRef.current.value;
         const characterClass = inputCharacterClassRef.current.value;
         const playerName = inputPlayerNameRef.current.value;
+        const teamId = props.teamId;
 
         inputCharacterNameRef.current.value = '';
         inputCharacterClassRef.current.value = '';
@@ -25,6 +27,7 @@ const AddCharacter = character => {
             name,
             characterClass,
             playerName,
+            teamId,
         }
     }
 
@@ -56,6 +59,7 @@ const AddCharacter = character => {
                     <label htmlFor="characterClass">Character class</label>
                     {/*TODO Character class has to be dropdown */}
                     <input id="characterClass" type="text" ref={inputCharacterClassRef}/>
+                    {/*TODO add radio is Player character or NPC*/}
 
                     <button type="submit">Add character</button>
                 </form>
