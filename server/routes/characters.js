@@ -83,6 +83,7 @@ characterRouter
         })();
     })
 
+    //DELETE CHARACTER
     .delete('/:characterId', (req, res) => {
         const {characterId} = req.params;
 

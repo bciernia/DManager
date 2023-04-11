@@ -42,6 +42,23 @@ teamRouter
         })();
     })
 
+    //DELETE TEAM
+    .delete('/:teamId', (req, res) => {
+        const {teamId} = req.params;
+
+        (async () => {
+            try {
+                const teamToDelete = await TeamRecord.find(teamId);
+
+                await teamToDelete.delete();
+
+                res.status(204);
+            }catch (e) {
+                throw new Error(e);
+            }
+        })();
+    })
+
 module.exports = {
     teamRouter,
 }
