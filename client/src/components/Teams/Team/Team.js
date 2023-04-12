@@ -25,7 +25,6 @@ const Team = props => {
 
     return (
         <Card onClick={showTeamDetails}>
-            {/* Add character portrait <img />*/}
             <p> Team name: {props.team.name}</p>
             <p> Game system: {props.team.gameSystem}</p>
             <button onClick={deleteTeam}>Delete</button>

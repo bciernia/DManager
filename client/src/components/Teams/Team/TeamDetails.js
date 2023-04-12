@@ -4,13 +4,13 @@ import Spinner from "../../UI/Spinner/Spinner";
 import Card from "../../UI/Card/Card";
 import AddCharacter from "../Character/AddCharacter/AddCharacter";
 import {useParams} from "react-router-dom";
-import team from "./Team";
 
-const TeamDetails = () => {
+const TeamDetails = props => {
     const params = useParams();
+    const teamId = params.teamId;
+
     const [isLoading, setIsLoading] = useState(false);
     const [charactersArray, setCharactersArray] = useState([]);
-
     //TODO get team by id from parameter
 
     const getAllCharacters = () => {
@@ -32,13 +32,14 @@ const TeamDetails = () => {
 
     return (
         <Card>
-            <AddCharacter teamId={params.teamId} onUpdate={getAllCharacters}/>
+            <AddCharacter teamId={teamId} onUpdate={getAllCharacters}/>
 
             {isLoading && <Spinner />}
 
             {charactersArray.length === 0 && <p>No characters</p>}
 
-            {charactersArray.map(character => <Character key={character._id} character={character} />)}
+            {charactersArray.filter(char => char.teamId === teamId)
+                .map(character => <Character key={character._id} character={character} />)}
         </Card>
     )
 }

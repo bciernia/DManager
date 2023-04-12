@@ -2,7 +2,6 @@ import Card from "../../../UI/Card/Card";
 import classes from "./AddCharacter.module.css"
 import {useRef, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
-import team from "../../Team/Team";
 
 const AddCharacter = props => {
     const [isLoading, setIsLoading] = useState(false);
