@@ -13,12 +13,15 @@ const TeamDetails = props => {
     const [charactersArray, setCharactersArray] = useState([]);
     //TODO get team by id from parameter
 
-    const getAllCharacters = () => {
+    const getAllCharacters = (teamId) => {
         setIsLoading(true);
 
-        fetch('http://127.0.0.1:3000/character/all')
+        fetch(`http://127.0.0.1:3000/character/characterTeam/${teamId}`)
             .then(res => res.json())
-            .then(data => setCharactersArray(data))
+            .then(data => {
+                console.log(data);
+                setCharactersArray(data)
+            })
             .finally(() => {
                 setIsLoading(false);
             });
@@ -27,19 +30,18 @@ const TeamDetails = props => {
     useEffect(() => {
         //TODO find all characters who has been set to team with id from parameter
 
-        getAllCharacters();
+        getAllCharacters(teamId);
     }, []);
 
     return (
         <Card>
-            <AddCharacter teamId={teamId} onUpdate={getAllCharacters}/>
+            <AddCharacter teamId={teamId} onUpdate={() => getAllCharacters(teamId)}/>
 
             {isLoading && <Spinner />}
 
             {charactersArray.length === 0 && <p>No characters</p>}
 
-            {charactersArray.filter(char => char.teamId === teamId)
-                .map(character => <Character key={character._id} character={character} />)}
+            {charactersArray.map(character => <Character key={character._id} character={character} />)}
         </Card>
     )
 }

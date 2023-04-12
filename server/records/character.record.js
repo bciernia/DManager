@@ -66,6 +66,15 @@ class CharacterRecord {
         return ourArray;
     }
 
+    static async findAllByTeamId(teamId){
+        const result = await characters.find();
+        const characterArray = await result.toArray();
+        const ourArray = characterArray.filter(obj => obj.teamId.toString() === teamId)
+            .map(obj => new CharacterRecord(obj));
+
+        return ourArray;
+    }
+
     static async findAllWithCursor() {
         return characters.find();
     }

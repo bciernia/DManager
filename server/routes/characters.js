@@ -37,6 +37,22 @@ characterRouter
         })();
     })
 
+    //GET CHARACTER BY TEAM ID
+    .get('/characterTeam/:teamId', (req, res) => {
+        const {teamId} = req.params;
+
+        (async () => {
+            try {
+                const character = await CharacterRecord.findAllByTeamId(teamId);
+
+                res.status(200).send(character);
+
+            } catch (e) {
+                throw new Error(e);
+            }
+        })();
+    })
+
     //ADD NEW CHARACTER
     .post('/', (req, res) => {
         const character = req.body;
