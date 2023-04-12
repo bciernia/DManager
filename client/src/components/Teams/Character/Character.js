@@ -3,9 +3,8 @@ import Card from "../../UI/Card/Card";
 const Character = (props) => {
     const characterId = props.character._id + '';
 
-    const deleteCharacter = (event) => {
-        event.preventDefault();
-
+    //TODO refresh list after delete
+    const deleteCharacter = () => {
         fetch(`http://127.0.0.1:3000/character/${characterId}`, {
             method: "DELETE",
             headers: {
