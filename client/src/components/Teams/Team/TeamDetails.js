@@ -31,7 +31,7 @@ const TeamDetails = props => {
         //TODO find all characters who has been set to team with id from parameter
 
         getAllCharacters(teamId);
-    }, []);
+    }, [teamId]);
 
     return (
         <Card>
