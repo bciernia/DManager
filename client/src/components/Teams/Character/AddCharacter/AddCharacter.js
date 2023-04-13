@@ -4,6 +4,8 @@ import {useRef, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
 
 const AddCharacter = props => {
+    const teamId = props.teamId;
+
     const [isLoading, setIsLoading] = useState(false);
 
     const inputCharacterNameRef = useRef(null);
@@ -16,7 +18,6 @@ const AddCharacter = props => {
         const name = inputCharacterNameRef.current.value;
         const characterClass = inputCharacterClassRef.current.value;
         const playerName = inputPlayerNameRef.current.value;
-        const teamId = props.teamId;
 
         inputCharacterNameRef.current.value = '';
         inputCharacterClassRef.current.value = '';
@@ -34,7 +35,7 @@ const AddCharacter = props => {
         event.preventDefault();
         setIsLoading(true);
 
-        fetch('http://127.0.0.1:3000/character', {
+        fetch(`http://127.0.0.1:3000/teams/${teamId}/characters/newCharacter`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

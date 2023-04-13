@@ -16,7 +16,7 @@ const TeamDetails = props => {
     const getAllCharacters = (teamId) => {
         setIsLoading(true);
 
-        fetch(`http://127.0.0.1:3000/character/characterTeam/${teamId}`)
+        fetch(`http://127.0.0.1:3000/teams/${teamId}/characters`)
             .then(res => res.json())
             .then(data => setCharactersArray(data))
             .finally(() => {
@@ -38,7 +38,7 @@ const TeamDetails = props => {
 
             {charactersArray.length === 0 && <p>No characters</p>}
 
-            {charactersArray.map(character => <Character key={character._id} character={character}/>)}
+            {charactersArray.map(character => <Character key={character._id} teamId={teamId} character={character}/>)}
         </Card>
     )
 }

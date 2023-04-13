@@ -2,10 +2,11 @@ import Card from "../../UI/Card/Card";
 
 const Character = (props) => {
     const characterId = props.character._id + '';
+    const teamId = props.teamId;
 
     //TODO refresh list after delete
     const deleteCharacter = () => {
-        fetch(`http://127.0.0.1:3000/character/${characterId}`, {
+        fetch(`http://127.0.0.1:3000/teams/${teamId}/characters/${characterId}`, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",
