@@ -33,16 +33,13 @@ const TeamDetails = props => {
 
     return (
         <Wrapper>
-            <AddCharacter teamId={teamId} onUpdate={() => getAllCharacters(teamId)}/>
-
             {isLoading && <Spinner/>}
-
 
             <Box sx={{display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', flexDirection: 'row'}}>
                 {charactersArray.length === 0 && <p>No characters</p>}
-
                 {charactersArray.map(character => <Character key={character._id} teamId={teamId} character={character}/>)}
             </Box>
+            <AddCharacter teamId={teamId} onUpdate={() => getAllCharacters(teamId)}/>
         </Wrapper>
     )
 }
