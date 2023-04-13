@@ -2,7 +2,7 @@ import {useRef, useState} from "react";
 import classes from "./AddTeam.module.css";
 import Spinner from "../../../UI/Spinner/Spinner";
 import Card from "../../../UI/Card/Card";
-import team from "../Team";
+import Wrapper from "../../../../utils/Wrapper";
 
 const AddTeam = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -40,7 +40,7 @@ const AddTeam = () => {
     }
 
     return (
-        <div>
+        <Wrapper>
             <Card>
                 {isLoading && <Spinner/>}
 
@@ -56,7 +56,7 @@ const AddTeam = () => {
                 )}
 
             </Card>
-        </div>
+        </Wrapper>
     )
 }
 
