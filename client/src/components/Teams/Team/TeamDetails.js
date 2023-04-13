@@ -1,9 +1,10 @@
 import Character from "../Character/Character";
 import {useEffect, useState} from "react";
 import Spinner from "../../UI/Spinner/Spinner";
-import Card from "../../UI/Card/Card";
 import AddCharacter from "../Character/AddCharacter/AddCharacter";
 import {useParams} from "react-router-dom";
+import Wrapper from "../../../utils/Wrapper";
+import {Box, Typography} from "@mui/material";
 
 const TeamDetails = props => {
     const params = useParams();
@@ -31,15 +32,18 @@ const TeamDetails = props => {
     }, [teamId]);
 
     return (
-        <Card>
+        <Wrapper>
             <AddCharacter teamId={teamId} onUpdate={() => getAllCharacters(teamId)}/>
 
             {isLoading && <Spinner/>}
 
-            {charactersArray.length === 0 && <p>No characters</p>}
 
-            {charactersArray.map(character => <Character key={character._id} teamId={teamId} character={character}/>)}
-        </Card>
+            <Box sx={{display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', flexDirection: 'row'}}>
+                {charactersArray.length === 0 && <p>No characters</p>}
+
+                {charactersArray.map(character => <Character key={character._id} teamId={teamId} character={character}/>)}
+            </Box>
+        </Wrapper>
     )
 }
 
