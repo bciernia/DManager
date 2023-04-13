@@ -1,37 +1,51 @@
-import Card from "../../../UI/Card/Card";
-import classes from "./AddCharacter.module.css"
-import {useRef, useState} from "react";
+import {useState} from "react";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";
 import Spinner from "../../../UI/Spinner/Spinner";
 
 const AddCharacter = props => {
     const teamId = props.teamId;
 
     const [isLoading, setIsLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
-    const inputCharacterNameRef = useRef(null);
-    const inputCharacterClassRef = useRef(null);
-    const inputPlayerNameRef = useRef(null);
+    const [characterName, setCharacterName] = useState('');
+    const [characterClass, setCharacterClass] = useState('');
+    const [playerName, setPlayerName] = useState('');
+
+    const setEmptyInputs = () => {
+        setCharacterName('');
+        setCharacterClass('');
+        setPlayerName('');
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setEmptyInputs();
+    };
+
+    const inputChangeHandler = (event, setStateFunction) => {
+        setStateFunction(event.target.value);
+    }
 
     const createCharacter = () => {
         //TODO check if any of fields is empty
-
-        const name = inputCharacterNameRef.current.value;
-        const characterClass = inputCharacterClassRef.current.value;
-        const playerName = inputPlayerNameRef.current.value;
-
-        inputCharacterNameRef.current.value = '';
-        inputCharacterClassRef.current.value = '';
-        inputPlayerNameRef.current.value = '';
+        const newCharacterName = characterName;
+        const newCharacterClass = characterClass;
+        const newPlayerName = playerName;
 
         return {
-            name,
-            characterClass,
-            playerName,
+            name: newCharacterName,
+            characterClass: newCharacterClass,
+            playerName: newPlayerName,
             teamId,
         }
     }
 
-    const addNewCharacterHandler = event => {
+    const addNewCharacterHandler = (event) => {
         event.preventDefault();
         setIsLoading(true);
 
@@ -49,27 +63,61 @@ const AddCharacter = props => {
     }
 
     return (
-        <Card>
-            {isLoading && <Spinner/>}
+        <div>
+            {/*TODO add fields validation*/}
+            <Button variant="outlined" onClick={handleClickOpen}>
+                Open form dialog
+            </Button>
+            <Dialog fullWidth={true} maxWidth="md" open={open} onClose={handleClose}>
+                <DialogTitle>New character</DialogTitle>
+                {!isLoading && <DialogContent>
+                    <TextField
+                        required
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Character name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        value={characterName}
+                        onChange={(event) => inputChangeHandler(event, setCharacterName)}
+                    />
 
-            {!isLoading && (
-                // TODO add character img
-                <form onSubmit={addNewCharacterHandler} className={classes["add-character--form"]}>
-                    <label htmlFor="characterName">Character name</label>
-                    <input id="characterName" type="text" ref={inputCharacterNameRef}/>
-                    {/*TODO Player name has to be dropdown */}
-                    <label htmlFor="playerName">Player name</label>
-                    <input id="playerName" type="text" ref={inputPlayerNameRef}/>
-                    <label htmlFor="characterClass">Character class</label>
                     {/*TODO Character class has to be dropdown */}
-                    <input id="characterClass" type="text" ref={inputCharacterClassRef}/>
-                    {/*TODO add radio is Player character or NPC*/}
+                    <TextField
+                        required
+                        margin="dense"
+                        id="name"
+                        label="Character class"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={(event) => inputChangeHandler(event, setCharacterClass)}
+                    />
 
-                    <button type="submit">Add character</button>
-                </form>
-            )}
-
-        </Card>
+                    <TextField
+                        required
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Player name"
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={(event) => inputChangeHandler(event, setPlayerName)}
+                    />
+                    {isLoading && <Spinner />}
+                </DialogContent>}
+                <DialogActions>
+                    <Button variant="outlined" color="error" onClick={handleClose}>Cancel</Button>
+                    <Button variant="outlined" color="success" onClick={(event) => {
+                        addNewCharacterHandler(event);
+                        handleClose();
+                    }}>Add character</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
     )
 }
 
