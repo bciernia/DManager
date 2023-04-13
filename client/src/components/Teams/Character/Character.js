@@ -20,7 +20,6 @@ const Character = (props) => {
     return (
         <Card>
             <Box sx={{position: 'relative', minWidth: '17.5rem', minHeight: '22.5rem'}}>
-                {/* Add character portrait <img />*/}
                 <Avatar src={rainer}
                         sx={{position: 'absolute', top: '-1rem', right: 0, width: '5rem', height: '5rem'}}/>
                 <p> Name: {props.character.name}</p>

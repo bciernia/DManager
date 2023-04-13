@@ -53,6 +53,7 @@ const AddCharacter = props => {
             {isLoading && <Spinner/>}
 
             {!isLoading && (
+                // TODO add character img
                 <form onSubmit={addNewCharacterHandler} className={classes["add-character--form"]}>
                     <label htmlFor="characterName">Character name</label>
                     <input id="characterName" type="text" ref={inputCharacterNameRef}/>
