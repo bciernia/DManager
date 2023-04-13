@@ -38,6 +38,7 @@ const AddCharacter = props => {
         const newPlayerName = playerName;
 
         return {
+            //TODO change field "name" to "characterName"
             name: newCharacterName,
             characterClass: newCharacterClass,
             playerName: newPlayerName,
