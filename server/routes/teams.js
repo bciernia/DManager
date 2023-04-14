@@ -100,6 +100,7 @@ teamRouter
         (async () => {
             try {
                 const newCharacter = new CharacterRecord({
+                    characterPhoto: character.characterPhoto,
                     name: character.name,
                     characterClass: character.characterClass,
                     playerName: character.playerName,

@@ -1,12 +1,11 @@
 import Card from "../../UI/Card/Card";
 import {Avatar, Box, Button} from "@mui/material";
 import rainer from '../../../assets/characterPortaits/rainer.png'
+import {useEffect} from "react";
 
 const Character = (props) => {
     const characterId = props.character._id + '';
     const teamId = props.teamId;
-
-
 
     //TODO refresh list after delete
     const deleteCharacter = () => {

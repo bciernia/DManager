@@ -7,6 +7,7 @@ class CharacterRecord {
         this._id = new ObjectId(obj._id);
         this.name = obj.name;
         this.characterClass = obj.characterClass;
+        this.characterPhoto = obj.characterPhoto;
         this.playerName = obj.playerName;
         this.exp = obj.exp;
         this.isAlive = obj.isAlive;
@@ -27,6 +28,7 @@ class CharacterRecord {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
             name: this.name.toString(),
+            characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
             playerName: this.playerName.toString(),
             exp: this.exp,

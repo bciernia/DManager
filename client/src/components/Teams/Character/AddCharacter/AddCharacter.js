@@ -8,11 +8,13 @@ const AddCharacter = props => {
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
+    const [characterPhoto, setCharacterPhoto] = useState(null);
     const [characterName, setCharacterName] = useState('');
     const [characterClass, setCharacterClass] = useState('');
     const [playerName, setPlayerName] = useState('');
 
     const setEmptyInputs = () => {
+        setCharacterPhoto(null);
         setCharacterName('');
         setCharacterClass('');
         setPlayerName('');
@@ -27,6 +29,18 @@ const AddCharacter = props => {
         setEmptyInputs();
     };
 
+    const handleFileChange = event => {
+        const photo = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.readAsDataURL(photo);
+        reader.onload = () => {
+            setCharacterPhoto(reader.result);
+        }
+
+        console.log(reader.result);
+    }
+
     const inputChangeHandler = (event, setStateFunction) => {
         setStateFunction(event.target.value);
     }
@@ -39,6 +53,7 @@ const AddCharacter = props => {
 
         return {
             //TODO change field "name" to "characterName"
+            characterPhoto,
             name: newCharacterName,
             characterClass: newCharacterClass,
             playerName: newPlayerName,
@@ -72,6 +87,22 @@ const AddCharacter = props => {
             <Dialog fullWidth={true} maxWidth="md" open={open} onClose={handleClose}>
                 <DialogTitle>New character</DialogTitle>
                 {!isLoading && <DialogContent>
+                    {/*<Button*/}
+                    {/*    variant="contained"*/}
+                    {/*    component="label"*/}
+                    {/*>*/}
+                        Upload character photo
+                        <input
+                            onChange={handleFileChange}
+                            type="file"
+                            accept="image/png, image/jpeg"
+                            // hidden
+                            id="photo"
+                            name="photo"
+                            multiple
+                        />
+                    {/*</Button>*/}
+
                     <TextField
                         required
                         autoFocus

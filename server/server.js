@@ -3,10 +3,14 @@ const {static} = require("express");
 const {gameRouter} = require("./routes/game");
 const {characterRouter} = require("./routes/characters");
 const {teamRouter} = require("./routes/teams");
+const bodyParser = require('body-parser');
+
 const app = express();
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(static('public'));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use('/', gameRouter);
 app.use('/character', characterRouter);
