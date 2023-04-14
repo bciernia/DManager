@@ -1,7 +1,5 @@
 import Card from "../../UI/Card/Card";
 import {Avatar, Box, Button} from "@mui/material";
-import rainer from '../../../assets/characterPortaits/rainer.png'
-import {useEffect} from "react";
 
 const Character = (props) => {
     const characterId = props.character._id + '';
@@ -21,7 +19,7 @@ const Character = (props) => {
     return (
         <Card>
             <Box sx={{position: 'relative', minWidth: '17.5rem', minHeight: '22.5rem'}}>
-                <Avatar src={rainer}
+                <Avatar src={props.character.characterPhoto}
                         sx={{position: 'relative', top: 0, left: '12.5rem', width: '5rem', height: '5rem'}}/>
                 <p>Name: {props.character.name}</p>
                 <p>Character class: {props.character.characterClass}</p>
