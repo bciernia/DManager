@@ -19,7 +19,6 @@ teamRouter
                 throw new Error(e);
             }
         })();
-
     })
 
     //Add new team

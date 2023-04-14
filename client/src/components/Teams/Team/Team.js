@@ -1,5 +1,6 @@
-import Card from "../../UI/Card/Card";
 import {useNavigate} from "react-router-dom";
+import Card from "../../UI/Card/Card";
+import classes from "./Team.module.css";
 
 const Team = props => {
 
@@ -24,6 +25,7 @@ const Team = props => {
     }
 
     return (
+        //TODO clicking delete, showing team details
         <Card onClick={showTeamDetails}>
             <p> Team name: {props.team.name}</p>
             <p> Game system: {props.team.gameSystem}</p>

@@ -80,7 +80,7 @@ const AddCharacter = props => {
                         label="Character name"
                         type="text"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         value={characterName}
                         onChange={(event) => inputChangeHandler(event, setCharacterName)}
                     />
@@ -93,7 +93,7 @@ const AddCharacter = props => {
                         label="Character class"
                         type="text"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         onChange={(event) => inputChangeHandler(event, setCharacterClass)}
                     />
 
@@ -105,7 +105,7 @@ const AddCharacter = props => {
                         label="Player name"
                         type="text"
                         fullWidth
-                        variant="standard"
+                        variant="outlined"
                         onChange={(event) => inputChangeHandler(event, setPlayerName)}
                     />
                     {isLoading && <Spinner />}
