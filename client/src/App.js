@@ -6,6 +6,7 @@ import SessionHistory from "./components/Sessions/SessionHistory/SessionHistory"
 import AllTeams from "./components/Teams/Team/AllTeams/AllTeams";
 import AddTeam from "./components/Teams/Team/AddTeam/AddTeam";
 import TeamDetails from "./components/Teams/Team/TeamDetails";
+import Summary from "./components/DMFacilities/Summary/Summary";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,13 @@ const router = createBrowserRouter([
                     },
                     {
                         path: ":teamId", element: <TeamDetails />,
+                    }
+                ]
+            },
+            {
+                path: "dm", children: [
+                    {
+                        path: '', element: <Summary />
                     }
                 ]
             }
