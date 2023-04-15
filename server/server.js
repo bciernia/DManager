@@ -4,6 +4,7 @@ const {gameRouter} = require("./routes/game");
 const {characterRouter} = require("./routes/characters");
 const {teamRouter} = require("./routes/teams");
 const bodyParser = require('body-parser');
+const {dmRouter} = require("./routes/dm");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 app.use('/', gameRouter);
 app.use('/character', characterRouter);
 app.use('/teams', teamRouter);
+app.use('/dm', dmRouter);
 
 // app.get('/api', (req, res) => {
 //     res.json({
