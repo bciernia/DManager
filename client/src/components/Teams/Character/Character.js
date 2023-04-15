@@ -21,7 +21,7 @@ const Character = (props) => {
             <Box sx={{position: 'relative', minWidth: '17.5rem', minHeight: '22.5rem'}}>
                 <Avatar src={props.character.characterPhoto}
                         sx={{position: 'relative', top: 0, left: '12.5rem', width: '5rem', height: '5rem'}}/>
-                <p>Name: {props.character.name}</p>
+                <p>Name: {props.character.characterName}</p>
                 <p>Character class: {props.character.characterClass}</p>
                 <p>Player: {props.character.playerName}</p>
                 <Button variant="outlined" color="error" onClick={deleteCharacter}

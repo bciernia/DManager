@@ -101,7 +101,7 @@ teamRouter
             try {
                 const newCharacter = new CharacterRecord({
                     characterPhoto: character.characterPhoto,
-                    name: character.name,
+                    characterName: character.characterName,
                     characterClass: character.characterClass,
                     playerName: character.playerName,
                     exp: 0,
