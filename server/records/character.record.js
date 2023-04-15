@@ -33,9 +33,9 @@ class CharacterRecord {
         this.characterCharisma = obj.characterCharisma;
         this.characterProficiencyBonus = obj.characterProficiencyBonus;
         this.characterPassiveWisdom = obj.characterPassiveWisdom;
-        this.characterInitiative = obj.characterInitiative;
         this.characterSpeed = obj.characterSpeed;
         this.characterHP = obj.characterHP;
+        this.characterInitiative = obj.characterInitiative;
 
         //SAVING THROWS
         this.hasStrenghtSavingThrowProficiency = obj.hasStrenghtSavingThrowProficiency;
