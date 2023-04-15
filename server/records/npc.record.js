@@ -1,4 +1,4 @@
-const {npcs} = require("../utils/db");
+const {npcs, characters} = require("../utils/db");
 const {v4: uuid} = require('uuid');
 const {ObjectId} = require("mongodb");
 
@@ -6,6 +6,7 @@ class NpcRecord {
     constructor(obj) {
         this._id = new ObjectId(obj._id);
         this.npcName = obj.npcName;
+        this.npcRace = obj.npcRace;
         this.npcType = obj.npcType; //TODO dropdown => Monster, Boss, NPC
         this.npcAlignment = obj.npcAlignment;
         this.npcDescription = obj.npcDescription;
@@ -29,6 +30,7 @@ class NpcRecord {
         const {insertedId} = await npcs.insertOne({
             _id: this._id,
             npcName: this.npcName.toString(),
+            npcRace: this.npcRace.toString(),
             npcType: this.npcType.toString(),
             npcAlignment: this.npcAlignment.toString(),
             npcDescription: this.npcDescription.toString(),
@@ -58,6 +60,7 @@ class NpcRecord {
             _id: this._id,
         }, {
             npcName: this.npcName.toString(),
+            npcRace: this.npcRace.toString(),
             npcType: this.npcType.toString(),
             npcAlignment: this.npcAlignment.toString(),
             npcDescription: this.npcDescription.toString(),
@@ -93,6 +96,15 @@ class NpcRecord {
         const result = await npcs.find();
         const npcsArray = await result.toArray();
         const ourArray = npcsArray.map(obj => new NpcRecord(obj));
+
+        return ourArray;
+    }
+
+    static async findAllByNpcType(npcType){
+        const result = await npcs.find();
+        const npcArray = await result.toArray();
+        const ourArray = npcArray.filter(obj => obj.npcType.toString() === npcType)
+            .map(obj => new NpcRecord(obj));
 
         return ourArray;
     }
