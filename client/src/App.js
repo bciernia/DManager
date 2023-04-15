@@ -10,6 +10,10 @@ import Summary from "./components/DMFacilities/Summary/Summary";
 import CreateNewCampaign from "./components/DMFacilities/Scenarios/CreateNewCampaign";
 import Session from "./components/Sessions/Session";
 import CreateNewScenario from "./components/DMFacilities/Scenarios/CreateNewScenario";
+import CreateNewNPC from "./components/DMFacilities/NPCs/CreateNewNPC";
+import NPCDetails from "./components/DMFacilities/NPCs/NPCDetails";
+import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
+import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails";
 
 const router = createBrowserRouter([
     {
@@ -21,7 +25,7 @@ const router = createBrowserRouter([
             {
                 path: "campaign", children: [
                     {
-                        path: ":campaignId/session/:sessionId", element: <Session />
+                        path: ":campaignId/session/:sessionId", element: <Session/>
                     },
                 ]
             },
@@ -35,7 +39,7 @@ const router = createBrowserRouter([
                         path: "newTeam", element: <AddTeam/>,
                     },
                     {
-                        path: ":teamId", element: <TeamDetails />,
+                        path: ":teamId", element: <TeamDetails/>,
                     }
                 ]
             },
@@ -43,20 +47,36 @@ const router = createBrowserRouter([
             {
                 path: "dm", children: [
                     {
-                        path: '', element: <Summary />
+                        path: '', element: <Summary/>
                     },
 
                     {
-                        path: 'newCampaign', element: <CreateNewCampaign />
+                        path: 'campaign/newCampaign', element: <CreateNewCampaign/>
                     },
 
                     {
-                        path: 'newScenario', element: <CreateNewScenario />
+                        path: 'campaign/:campaignId', element: <CampaignDetails />
+                    },
+
+                    {
+                        path: 'scenario/newScenario', element: <CreateNewScenario/>
+                    },
+
+                    {
+                        path: 'scenario/:scenarioId', element: <ScenarioDetails/>
                     },
 
                     {
                         path: "campaign/:campaignId/sessions/all", element: <SessionHistory/>
                     },
+
+                    {
+                        path: "npc/newNpc", element: <CreateNewNPC/>
+                    },
+
+                    {
+                        path: "npc/:npcId", element: <NPCDetails/>
+                    }
                 ]
             }
         ]
