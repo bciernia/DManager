@@ -6,6 +6,7 @@ class CharacterRecord {
     constructor(obj) {
         //CHARACTER INFO
         this._id = new ObjectId(obj._id);
+        this.characterType = obj.characterType;
         this.characterName = obj.characterName;
         this.characterClass = obj.characterClass;
         this.characterRace = obj.characterRace;
@@ -19,6 +20,7 @@ class CharacterRecord {
         this.characterTreasure = obj.characterTreasure;
         this.characterPhoto = obj.characterPhoto;
         this.playerName = obj.playerName;
+        this.characterLevel = obj.characterLevel,
         this.exp = obj.exp;
         this.hasInspiration = obj.hasInspiration;
         this.isAlive = obj.isAlive;
@@ -38,12 +40,18 @@ class CharacterRecord {
         this.characterInitiative = obj.characterInitiative;
 
         //SAVING THROWS
-        this.hasStrenghtSavingThrowProficiency = obj.hasStrenghtSavingThrowProficiency;
+        this.hasStrengthSavingThrowProficiency = obj.hasStrengthSavingThrowProficiency;
         this.hasDexteritySavingThrowProficiency = obj.hasDexteritySavingThrowProficiency;
         this.hasConstitutionSavingThrowProficiency = obj.hasConstitutionSavingThrowProficiency;
         this.hasIntelligenceSavingThrowProficiency = obj.hasIntelligenceSavingThrowProficiency;
         this.hasWisdomSavingThrowProficiency = obj.hasWisdomSavingThrowProficiency;
         this.hasCharismaSavingThrowProficiency = obj.hasCharismaSavingThrowProficiency;
+
+        //IMMUNITIES
+        this.damageResistances = obj.damageResistances;
+        this.damageImmunities = obj.damageImmunities;
+        this.conditionImmunities = obj.conditionImmunities;
+        this.senses = obj.senses;
 
         //SKILLS
         this.hasAcrobatics = obj.hasAcrobatics;
@@ -86,13 +94,64 @@ class CharacterRecord {
     async insert() {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
+            characterType: this.characterType.toString(),
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
             playerName: this.playerName.toString(),
-            exp: this.exp,
+            characterLevel: Number(this.characterLevel),
+            exp: Number(this.exp),
             isAlive: this.isAlive,
-            teamId: this.teamId,
+            teamId: this.teamId.toString(),
+
+            characterStrength: Number(this.characterStrength),
+            characterDexterity: Number(this.characterDexterity),
+            characterConstitution: Number(this.characterConstitution),
+            characterIntelligence: Number(this.characterIntelligence),
+            characterWisdom: Number(this.characterWisdom),
+            characterCharisma: Number(this.characterCharisma),
+            characterProficiencyBonus: Number(this.characterProficiencyBonus),
+            characterPassiveWisdom: Number(this.characterPassiveWisdom),
+
+            characterSpeed: Number(this.characterSpeed),
+            characterHP: Number(this.characterHP),
+            characterInitiative: Number(this.characterInitiative),
+            armorClass: Number(this.armorClass),
+
+            hasStrengthSavingThrowProficiency: this.hasStrengthSavingThrowProficiency,
+            hasDexteritySavingThrowProficiency: this.hasDexteritySavingThrowProficiency,
+            hasConstitutionSavingThrowProficiency: this.hasConstitutionSavingThrowProficiency,
+            hasIntelligenceSavingThrowProficiency: this.hasIntelligenceSavingThrowProficiency,
+            hasWisdomSavingThrowProficiency: this.hasWisdomSavingThrowProficiency,
+            hasCharismaSavingThrowProficiency: this.hasCharismaSavingThrowProficiency,
+
+            damageResistances: this.damageResistances.toString(),
+            damageImmunities: this.damageImmunities.toString(),
+            conditionImmunities: this.conditionImmunities.toString(),
+            senses: this.senses.toString(),
+
+            hasAcrobatics: this.hasAcrobatics,
+            hasAnimalHandling: this.hasAnimalHandling,
+            hasArcana: this.hasArcana,
+            hasAthletics: this.hasAthletics,
+            hasDeception: this.hasDeception,
+            hasHistory: this.hasHistory,
+            hasInsight: this.hasInsight,
+            hasIntimidation: this.hasIntimidation,
+            hasInvestigation: this.hasInvestigation,
+            hasMedicine: this.hasMedicine,
+            hasNature: this.hasNature,
+            hasPerception: this.hasPerception,
+            hasPerformance: this.hasPerformance,
+            hasPersuasion: this.hasPersuasion,
+            hasReligion: this.hasReligion,
+            hasSleightOfHands: this.hasSleightOfHands,
+            hasStealth: this.hasStealth,
+            hasSurvival: this.hasSurvival,
+
+            featuresAndTraits: this.featuresAndTraits.toString(),
+            otherProficienciesAndLanguages: this.otherProficienciesAndLanguages.toString(),
+
         });
         this._id = insertedId.toString();
 
@@ -103,8 +162,62 @@ class CharacterRecord {
         await characters.replaceOne({
             _id: this._id,
         }, {
-            name: this.characterName.toString(),
-            exp: this.exp,
+            characterName: this.characterName.toString(),
+            characterPhoto: this.characterPhoto,
+            characterClass: this.characterClass.toString(),
+            playerName: this.playerName.toString(),
+            characterLevel: Number(this.characterLevel),
+            exp: Number(this.exp),
+            isAlive: this.isAlive,
+            teamId: this.teamId.toString(),
+
+            characterStrength: Number(this.characterStrength),
+            characterDexterity: Number(this.characterDexterity),
+            characterConstitution: Number(this.characterConstitution),
+            characterIntelligence: Number(this.characterIntelligence),
+            characterWisdom: Number(this.characterWisdom),
+            characterCharisma: Number(this.characterCharisma),
+            characterProficiencyBonus: Number(this.characterProficiencyBonus),
+            characterPassiveWisdom: Number(this.characterPassiveWisdom),
+
+            characterSpeed: Number(this.characterSpeed),
+            characterHP: Number(this.characterHP),
+            characterInitiative: Number(this.characterInitiative),
+            armorClass: Number(this.armorClass),
+
+            hasStrengthSavingThrowProficiency: this.hasStrengthSavingThrowProficiency,
+            hasDexteritySavingThrowProficiency: this.hasDexteritySavingThrowProficiency,
+            hasConstitutionSavingThrowProficiency: this.hasConstitutionSavingThrowProficiency,
+            hasIntelligenceSavingThrowProficiency: this.hasIntelligenceSavingThrowProficiency,
+            hasWisdomSavingThrowProficiency: this.hasWisdomSavingThrowProficiency,
+            hasCharismaSavingThrowProficiency: this.hasCharismaSavingThrowProficiency,
+
+            damageResistances: this.damageResistances.toString(),
+            damageImmunities: this.damageImmunities.toString(),
+            conditionImmunities: this.conditionImmunities.toString(),
+            senses: this.senses.toString(),
+
+            hasAcrobatics: this.hasAcrobatics,
+            hasAnimalHandling: this.hasAnimalHandling,
+            hasArcana: this.hasArcana,
+            hasAthletics: this.hasAthletics,
+            hasDeception: this.hasDeception,
+            hasHistory: this.hasHistory,
+            hasInsight: this.hasInsight,
+            hasIntimidation: this.hasIntimidation,
+            hasInvestigation: this.hasInvestigation,
+            hasMedicine: this.hasMedicine,
+            hasNature: this.hasNature,
+            hasPerception: this.hasPerception,
+            hasPerformance: this.hasPerformance,
+            hasPersuasion: this.hasPersuasion,
+            hasReligion: this.hasReligion,
+            hasSleightOfHands: this.hasSleightOfHands,
+            hasStealth: this.hasStealth,
+            hasSurvival: this.hasSurvival,
+
+            featuresAndTraits: this.featuresAndTraits.toString(),
+            otherProficienciesAndLanguages: this.otherProficienciesAndLanguages.toString(),
         });
     }
 
@@ -127,7 +240,7 @@ class CharacterRecord {
         return ourArray;
     }
 
-    static async findAllByTeamId(teamId){
+    static async findAllByTeamId(teamId) {
         const result = await characters.find();
         const characterArray = await result.toArray();
         const ourArray = characterArray.filter(obj => obj.teamId.toString() === teamId)
