@@ -100,6 +100,7 @@ teamRouter
         (async () => {
             try {
                 const newCharacter = new CharacterRecord({
+                    ...character,
                     characterPhoto: character.characterPhoto,
                     characterName: character.characterName,
                     characterClass: character.characterClass,
@@ -127,7 +128,7 @@ teamRouter
         (async () => {
             try {
                 const characterToUpdate = await CharacterRecord.find(characterId);
-                characterToUpdate.name = newCharacter.name;
+                characterToUpdate.characterName = newCharacter.characterName;
                 characterToUpdate.exp = newCharacter.exp;
 
                 await characterToUpdate.update();
