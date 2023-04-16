@@ -7,13 +7,13 @@ import AllTeams from "./components/Teams/Team/AllTeams/AllTeams";
 import AddTeam from "./components/Teams/Team/AddTeam/AddTeam";
 import TeamDetails from "./components/Teams/Team/TeamDetails";
 import Summary from "./components/DMFacilities/Summary/Summary";
-import CreateNewCampaign from "./components/DMFacilities/Scenarios/CreateNewCampaign";
+import CreateNewCampaign from "./components/DMFacilities/Scenarios/NewCampaign/CreateNewCampaign";
 import Session from "./components/Sessions/Session";
 import CreateNewScenario from "./components/DMFacilities/Scenarios/CreateNewScenario";
-import CreateNewNPC from "./components/DMFacilities/NPCs/CreateNewNPC";
-import NPCDetails from "./components/DMFacilities/NPCs/NPCDetails";
+import CharacterDetails from "./components/DMFacilities/NPCs/CharacterDetails";
 import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
 import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails";
+import CreateNewCharacter from "./components/DMFacilities/Character/CreateNewCharacter";
 
 const router = createBrowserRouter([
     {
@@ -71,11 +71,11 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: "npc/newNpc", element: <CreateNewNPC/>
+                        path: "npc/newNpc", element: <CreateNewCharacter />
                     },
 
                     {
-                        path: "npc/:npcId", element: <NPCDetails/>
+                        path: "npc/:npcId", element: <CharacterDetails/>
                     }
                 ]
             }
