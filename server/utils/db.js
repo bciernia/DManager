@@ -8,6 +8,7 @@ const db = client.db('DManager');
 
 const characters = db.collection('characters');
 const teams = db.collection('teams');
+const campaigns = db.collection('campaigns');
 const sessions = db.collection('sessions');
 const npcs = db.collection('npcs');
 
