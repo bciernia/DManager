@@ -19,7 +19,7 @@ const Summary = () => {
     const navigate = useNavigate();
 
     const goToAddNewCampaignScreen = () => {
-        navigate(`scenario/newScenario`)
+        navigate(`campaign/newCampaign`)
     }
 
     const goToAddNewScenarioScreen = () => {
