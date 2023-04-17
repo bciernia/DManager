@@ -18,7 +18,8 @@ export const CharacterInitialValues = {
     characterLevel: 0,
     exp: 0,
     hasInspiration: false,
-    isAlive: false,
+    isAlive: true,
+    howCharacterDied: '',
     teamId: '',
 
     //SKILLS
