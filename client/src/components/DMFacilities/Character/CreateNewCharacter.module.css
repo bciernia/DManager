@@ -1,0 +1,20 @@
+.createNewCharacterRadioBtn {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+.createNewCharacterRadioBtn + img {
+    cursor: pointer;
+    width: 40vw;
+    height: 45vh;
+    opacity: 50%;
+}
+
+/* CHECKED STYLES */
+.createNewCharacterRadioBtn:checked + img {
+    opacity: 100%;
+    scale: 105%;
+}
