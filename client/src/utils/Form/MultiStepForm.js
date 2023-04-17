@@ -14,12 +14,12 @@ const MultiStepForm = ({children, initialValues, onSubmit}, props) => {
     const isLastStep = stepNumber === totalSteps - 1;
 
     const goToNextStep = values => {
-        setSnapshot(values)
+        setSnapshot(values);
         setStepNumber(stepNumber + 1);
     }
 
     const goToPreviousStep = values => {
-        setSnapshot(values)
+        setSnapshot(values);
         setStepNumber(stepNumber - 1);
     }
 
