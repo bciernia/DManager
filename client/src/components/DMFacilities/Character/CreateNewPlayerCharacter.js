@@ -1,25 +1,26 @@
+import {CharacterInitialValues} from "../../../utils/dndUtils/CharacterInitialValues";
+import {Box, Button, TextField, Typography} from "@mui/material";
+import TextInputField from "../../../utils/Form/InputTypes/TextInputField";
+import MultiStepForm, {FormStep} from "../../../utils/Form/MultiStepForm";
+import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../utils/Form/ValidationSchemas";
+import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
+import DropdownInputField from "../../../utils/Form/InputTypes/DropdownInputField";
 import {CharacterClasses} from "../../../utils/dndUtils/CharacterClasses";
 import {CharacterTypes} from "../../../utils/dndUtils/CharacterTypes";
 import {ConditionTypes} from "../../../utils/dndUtils/ConditionTypes";
 import {DamageTypes} from "../../../utils/dndUtils/DamageTypes";
-import {Box, Typography} from "@mui/material";
-import MultiStepForm, {FormStep} from "../../../utils/Form/MultiStepForm";
-import {CharacterInitialValues} from "../../../utils/dndUtils/CharacterInitialValues";
-import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../utils/Form/ValidationSchemas";
-import DropdownInputField from "../../../utils/Form/InputTypes/DropdownInputField";
-import TextInputField from "../../../utils/Form/InputTypes/TextInputField";
 import TextareaInputField from "../../../utils/Form/InputTypes/TextareaInputField";
 import CheckboxInputField from "../../../utils/Form/InputTypes/CheckboxInputField";
-import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
 import {useEffect} from "react";
 
-const CreateNewBeast = () => {
+const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
+    const characterTypesArray = Object.entries(CharacterTypes);
     const conditionTypesArray = Object.entries(ConditionTypes);
     const damageTypesArray = Object.entries(DamageTypes);
 
     useEffect(() => {
-        CharacterInitialValues.characterType = CharacterTypes.beast;
+        CharacterInitialValues.characterType = CharacterTypes.playerCharacter;
     },[]);
 
     return (
@@ -34,8 +35,8 @@ const CreateNewBeast = () => {
                     stepName="Character info"
                     onSubmit={() => console.log('Step1 submit')}
                     validationSchema={characterInfoValidationSchema}>
-                    <Typography>New beast</Typography>
-                    <TextInputField name="characterType" label="" value={CharacterTypes.beast}
+                    <Typography>New player character</Typography>
+                    <TextInputField name="characterType" label="" value={CharacterTypes.playerCharacter}
                                     sx={{margin: ".25rem 0"}} disabled/>
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
@@ -60,4 +61,4 @@ const CreateNewBeast = () => {
     )
 }
 
-export default CreateNewBeast;
+export default CreateNewPlayerCharacter;
