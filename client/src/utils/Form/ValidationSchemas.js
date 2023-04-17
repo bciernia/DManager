@@ -13,7 +13,6 @@ const damageTypesArray = Object.entries(DamageTypes).map(item => item[0]);
 export const characterInfoValidationSchema = yup.object({
     characterName: yup.string().required('Character name is required'),
     playerName: yup.string().required('Player name is required'),
-    characterType: yup.string().required('Character type is required'),
     characterClass: yup.string().required("Character class is required").oneOf(characterClassesArray),
     // characterRace: yup.string().required('Character race is required'),
     // characterBackground: yup.string().required('Character background is required'),

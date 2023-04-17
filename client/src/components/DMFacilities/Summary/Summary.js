@@ -27,7 +27,7 @@ const Summary = () => {
     }
 
     const goToAddNewNpcView = () => {
-        navigate('npc/newNpc');
+        navigate('character/newCharacter');
     }
 
     const isSwitchChecked = () => {
@@ -207,7 +207,7 @@ const Summary = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Card sx={{marginTop: '.5rem', width: '100%', height: '25rem', backgroundColor: '#ffff00'}}>
-                        <Button onClick={goToAddNewNpcView}>Add new NPC</Button>
+                        <Button onClick={goToAddNewNpcView}>Add new character</Button>
                         <Divider variant="fullWidth"/>
                         <Box sx={{
                             padding: ".5rem",

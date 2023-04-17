@@ -1,6 +1,5 @@
 import {useNavigate} from "react-router-dom";
 import Card from "../../UI/Card/Card";
-import classes from "./Team.module.css";
 
 const Team = props => {
 
