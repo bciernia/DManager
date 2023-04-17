@@ -14,6 +14,10 @@ import CharacterDetails from "./components/DMFacilities/NPCs/CharacterDetails";
 import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
 import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails";
 import CreateNewCharacter from "./components/DMFacilities/Character/CreateNewCharacter";
+import CreateNewNpc from "./components/DMFacilities/Character/CreateNewNpc";
+import CreateNewMonster from "./components/DMFacilities/Character/CreateNewMonster";
+import CreateNewBeast from "./components/DMFacilities/Character/CreateNewBeast";
+import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateNewPlayerCharacter";
 
 const router = createBrowserRouter([
     {
@@ -55,7 +59,7 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: 'campaign/:campaignId', element: <CampaignDetails />
+                        path: 'campaign/:campaignId', element: <CampaignDetails/>
                     },
 
                     {
@@ -71,7 +75,23 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: "npc/newNpc", element: <CreateNewCharacter />
+                        path: "character/newCharacter", element: <CreateNewCharacter/>,
+                    },
+
+                    {
+                        path: "character/newCharacter/playerCharacter", element: <CreateNewPlayerCharacter/>,
+                    },
+
+                    {
+                        path: "character/newCharacter/npc", element: <CreateNewNpc/>,
+                    },
+
+                    {
+                        path: "character/newCharacter/beast", element: <CreateNewBeast/>,
+                    },
+
+                    {
+                        path: "character/newCharacter/monster", element: <CreateNewMonster/>,
                     },
 
                     {
