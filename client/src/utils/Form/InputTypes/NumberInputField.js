@@ -1,20 +1,8 @@
 import {TextField} from "@mui/material";
 import {useField} from "formik";
-import {type} from "@testing-library/user-event/dist/type";
-import {getQueriesForElement} from "@testing-library/react";
 
-const InputField = ({label, ...props}) => {
+const NumberInputField = ({label, ...props}) => {
     const [field, meta] = useField(props);
-
-    const getFieldType = () => {
-        if(typeof field.value === "boolean"){
-            return "checkbox";
-        } else if (typeof field.value === "number"){
-            return "number"
-        }
-
-        return "text";
-    }
 
     return (
         <div>
@@ -24,8 +12,9 @@ const InputField = ({label, ...props}) => {
                                min: 0, max: 30
                            }
                        }}
+                       sx={{margin: ".25rem 0", minWidth: "10rem", maxWidth: "10rem"}}
                        label={label}
-                       type={getFieldType()}
+                       type="number"
                        {...field}
                        {...props}
                        error={meta.touched && Boolean(meta.error)}
@@ -34,4 +23,4 @@ const InputField = ({label, ...props}) => {
     )
 }
 
-export default InputField;
+export default NumberInputField;
