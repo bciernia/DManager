@@ -24,6 +24,7 @@ class CharacterRecord {
         this.exp = obj.exp;
         this.hasInspiration = obj.hasInspiration;
         this.isAlive = obj.isAlive;
+        this.howCharacterDied = obj.howCharacterDied;
         this.teamId = obj.teamId;
 
         //STATISTICS
@@ -102,6 +103,7 @@ class CharacterRecord {
             characterLevel: Number(this.characterLevel),
             exp: Number(this.exp),
             isAlive: this.isAlive,
+            howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(),
 
             characterStrength: Number(this.characterStrength),
@@ -169,6 +171,7 @@ class CharacterRecord {
             characterLevel: Number(this.characterLevel),
             exp: Number(this.exp),
             isAlive: this.isAlive,
+            howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(),
 
             characterStrength: Number(this.characterStrength),
