@@ -1,6 +1,10 @@
 export const CharacterTypes = {
-    pc: 'Player character',
+    playerCharacter: 'Player character',
     npc: 'Non-player character',
     monster: 'Monster',
-    animal: 'Animal',
+    beast: 'Beast',
+
+    //TODO new character types
+    // enemy: 'Enemy',
+    // undead: 'Undead',
 }
