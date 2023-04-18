@@ -2,7 +2,7 @@ import React from "react";
 import {useState} from "react";
 import {Form, Formik} from "formik";
 import FormNavigation from "./FormNavigation";
-import {Step, StepLabel, Stepper} from "@mui/material";
+import {Box, Step, StepLabel, Stepper} from "@mui/material";
 
 const MultiStepForm = ({children, initialValues, onSubmit}, props) => {
     const [stepNumber, setStepNumber] = useState(0)
@@ -41,16 +41,16 @@ const MultiStepForm = ({children, initialValues, onSubmit}, props) => {
             <Formik initialValues={snapshot} onSubmit={handleSubmit} validationSchema={step.props.validationSchema}>
                 {formik =>
                     <Form onSubmit={formik.handleSubmit}>
-                        {/*<Stepper activeStep={stepNumber}>*/}
-                        {/*    {steps.map(currentStep => (*/}
-                        {/*            <Step key={currentStep.props.stepName}>*/}
-                        {/*                <StepLabel>*/}
-                        {/*                    {currentStep.props.stepName}*/}
-                        {/*                </StepLabel>*/}
-                        {/*            </Step>*/}
-                        {/*        )*/}
-                        {/*    )};*/}
-                        {/*</Stepper>*/}
+                        <Stepper activeStep={stepNumber} orientation="vertical"
+                        sx={{position: "absolute", top: "1rem", right: "3rem"}}>
+                            {steps.map((currentStep) => (
+                                <Step key={currentStep.props.stepName}>
+                                    <StepLabel>
+                                        {currentStep.props.stepName}
+                                    </StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
 
                         {step}
 

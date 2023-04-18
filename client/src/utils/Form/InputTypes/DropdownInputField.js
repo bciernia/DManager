@@ -4,8 +4,10 @@ import {useField} from "formik";
 const DropdownInputField = ({label, ...props}) => {
     const [field, meta] = useField(props);
 
-    //TODO dropdown error and label/placeholder
+    const {helperText, arrayOfMenuItems, ...selectProps} = props;
 
+    //TODO dropdown error and label/placeholder
+    //TODO props
     return (
         <div>
             <InputLabel id={label}>{label}</InputLabel>
@@ -13,7 +15,7 @@ const DropdownInputField = ({label, ...props}) => {
                 labelId={label}
                 sx={{margin: ".35rem 0", minWidth: "15rem", maxWidth: "15rem"}}
                 {...field}
-                {...props}
+                {...selectProps}
                 error={meta.touched && Boolean(meta.error)}
                 helperText={meta.touched && meta.error}
             >

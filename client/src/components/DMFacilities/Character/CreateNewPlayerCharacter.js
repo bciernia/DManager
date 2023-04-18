@@ -20,7 +20,7 @@ const CreateNewPlayerCharacter = () => {
     const damageTypesArray = Object.entries(DamageTypes);
 
     useEffect(() => {
-        CharacterInitialValues.characterType = CharacterTypes.playerCharacter;
+    CharacterInitialValues.characterType = CharacterTypes.playerCharacter;
     },[]);
 
     return (
@@ -37,7 +37,7 @@ const CreateNewPlayerCharacter = () => {
                     validationSchema={characterInfoValidationSchema}>
                     <Typography>New player character</Typography>
                     <TextInputField name="characterType" label="" value={CharacterTypes.playerCharacter}
-                                    sx={{margin: ".25rem 0"}} disabled/>
+                                    sx={{margin: ".25rem 0"}} isDisabled={true}/>
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
                     <DropdownInputField name="characterClass" label="Character class"

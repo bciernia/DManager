@@ -66,11 +66,10 @@ const Summary = () => {
                                 <Button onClick={goToAddNewScenarioScreen} sx={{float: "right"}}>Add scenario</Button>
                             </Grid>
                             <Divider sx={{width: "100%"}}/>
-                            <Box sx={{width: "50%", maxWidth: 360, bgcolor: 'background.paper'}}>
+                            <Box sx={{width: "50%", maxWidth: 400, bgcolor: 'background.paper'}}>
                                 <nav aria-label="main mailbox folders">
                                     <List sx={{
                                         width: '100%',
-                                        maxWidth: 360,
                                         position: 'relative',
                                         overflow: 'auto',
                                         maxHeight: 340,
@@ -130,11 +129,10 @@ const Summary = () => {
                                     </List>
                                 </nav>
                             </Box>
-                            <Box sx={{width: "50%", maxWidth: 360, bgcolor: 'background.paper'}}>
+                            <Box sx={{width: "50%", maxWidth: 400, bgcolor: 'background.paper'}}>
                                 <nav aria-label="main mailbox folders">
                                     <List sx={{
                                         width: '100%',
-                                        maxWidth: 360,
                                         position: 'relative',
                                         overflow: 'auto',
                                         maxHeight: 340,

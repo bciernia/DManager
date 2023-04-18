@@ -9,8 +9,10 @@ const TextInputField = ({label, ...props}) => {
             <TextField fullWidth
                        label={label}
                        type="text"
+                       name={props.name}
+                       disabled={props.isDisabled}
+                       sx={props.sx}
                        {...field}
-                       {...props}
                        error={meta.touched && Boolean(meta.error)}
                        helperText={meta.touched && meta.error}/>
         </div>
