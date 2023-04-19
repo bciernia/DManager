@@ -36,8 +36,8 @@ const CreateNewMonster = () => {
                     validationSchema={characterInfoValidationSchema}>
                     <Typography>New monster</Typography>
 
-                    <TextInputField name="characterType" label="" value={CharacterTypes.monster}
-                                    sx={{margin: ".25rem 0"}} disabled/>
+                    <TextInputField name="characterType" label="" value={CharacterTypes.characterType}
+                                    sx={{margin: ".25rem 0"}} isDisabled={true}/>
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
                     <DropdownInputField name="characterClass" label="Character class"

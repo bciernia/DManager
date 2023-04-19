@@ -37,8 +37,8 @@ const CreateNewNpc = () => {
                     validationSchema={characterInfoValidationSchema}>
                     <Typography>New NPC</Typography>
 
-                    <TextInputField name="characterType" label="" value={CharacterTypes.npc}
-                                    sx={{margin: ".25rem 0"}} disabled/>
+                    <TextInputField name="characterType" label="" value={CharacterTypes.characterType}
+                                    sx={{margin: ".25rem 0"}} isDisabled="true"/>
 
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>

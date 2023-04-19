@@ -18,6 +18,7 @@ const CreateNewBeast = () => {
     const conditionTypesArray = Object.entries(ConditionTypes);
     const damageTypesArray = Object.entries(DamageTypes);
 
+
     useEffect(() => {
         CharacterInitialValues.characterType = CharacterTypes.beast;
     },[]);
@@ -30,13 +31,14 @@ const CreateNewBeast = () => {
                            }}
             >
                 {/*TODO finish adding character form*/}
+                {/*TODO delete character type from form*/}
                 <FormStep
                     stepName="Character info"
                     onSubmit={() => console.log('Step1 submit')}
                     validationSchema={characterInfoValidationSchema}>
                     <Typography>New beast</Typography>
                     <TextInputField name="characterType" label="" value={CharacterTypes.beast}
-                                    sx={{margin: ".25rem 0"}} disabled/>
+                                    sx={{margin: ".25rem 0"}} isDisabled="true" />
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
                     <DropdownInputField name="characterClass" label="Character class"
