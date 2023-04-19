@@ -40,32 +40,12 @@ export const CharacterInitialValues = {
     senses: '',
 
     //SAVING THROWS
-    hasStrengthSavingThrowProficiency: false,
-    hasDexteritySavingThrowProficiency: false,
-    hasConstitutionSavingThrowProficiency: false,
-    hasIntelligenceSavingThrowProficiency: false,
-    hasWisdomSavingThrowProficiency: false,
-    hasCharismaSavingThrowProficiency: false,
+    savingThrows: [],
 
-    //SKILLS
-    hasAcrobatics: false,
-    hasAnimalHandling: false,
-    hasArcana: false,
-    hasAthletics: false,
-    hasDeception: false,
-    hasHistory: false,
-    hasInsight: false,
-    hasIntimidation: false,
-    hasInvestigation: false,
-    hasMedicine: false,
-    hasNature: false,
-    hasPerception: false,
-    hasPerformance: false,
-    hasPersuasion: false,
-    hasReligion: false,
-    hasSleightOfHands: false,
-    hasStealth: false,
-    hasSurvival: false,
+    //SKILLS PROFICIENCY
+    skillsProficiency: [],
+    languageProficiency: [],
+    otherProficiency: [],
 
     //EQUIPMENT
     armorClass: 0,
