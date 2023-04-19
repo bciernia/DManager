@@ -10,7 +10,7 @@ const CheckboxInputField = ({label, ...props}) => {
         <div>
             <FormControlLabel control={
                 <Checkbox
-                    defaultChecked
+                    checked={field.value}
                     {...field}
                     {...props}
                     error={meta.touched && Boolean(meta.error)}
