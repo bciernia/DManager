@@ -1,22 +1,20 @@
-//  languageName: [languageName, alphabet, typicalSpeakers, ProficiencyLevel]
-
-import {ProficiencyLevel} from "./ProficiencyLevel";
+//  languageName: [languageName, alphabet, typicalSpeakers]
 
 export const LanguageProficiencies = {
-    common: ["Common", "Common", "Humans", ProficiencyLevel],
-    dwarvish: ["Dwarvish", "Dwarvish", "Dwarves", ProficiencyLevel],
-    elvish: ["Elvish", "Elvish", "Elves", ProficiencyLevel],
-    giant: ["Giant", "Dwarvish", "Ogres, Giants", ProficiencyLevel],
-    gnomish: ["Gnomish", "Dwarvish", "Gnomes", ProficiencyLevel],
-    goblin: ["Goblin", "Dwarvish", "Goblinoids", ProficiencyLevel],
-    halgling: ["Halfling", "Common", "Halflings", ProficiencyLevel],
-    orc: ["Orc", "Dwarvish", "Orcs", ProficiencyLevel],
-    abyssal: ["Abyssal", "Infernal", "Demons", ProficiencyLevel],
-    celestial: ["Celestial", "Celestial", "Celestials", ProficiencyLevel],
-    draconic: ["Draconic", "Draconic", "Dragons, dragonborn", ProficiencyLevel],
-    deepSpeech: ["Deep Speech", "-", "Aboleths, cloakers", ProficiencyLevel],
-    infernal: ["Infernal", "Infernal", "Devils", ProficiencyLevel],
-    primordial: ["Primordial", "Dwarvish", "Elementals", ProficiencyLevel],
-    sylvan: ["Sylvan", "Elvish", "Fey creatures", ProficiencyLevel],
-    undercommon: ["Undercommon", "Elvish", "Underworld traders", ProficiencyLevel],
+    common: ["Common", "Common", "Humans"],
+    dwarvish: ["Dwarvish", "Dwarvish", "Dwarves"],
+    elvish: ["Elvish", "Elvish", "Elves"],
+    giant: ["Giant", "Dwarvish", "Ogres, Giants"],
+    gnomish: ["Gnomish", "Dwarvish", "Gnomes"],
+    goblin: ["Goblin", "Dwarvish", "Goblinoids"],
+    halfling: ["Halfling", "Common", "Halflings"],
+    orc: ["Orc", "Dwarvish", "Orcs"],
+    abyssal: ["Abyssal", "Infernal", "Demons"],
+    celestial: ["Celestial", "Celestial", "Celestials"],
+    draconic: ["Draconic", "Draconic", "Dragons, dragonborn"],
+    deepSpeech: ["Deep Speech", "-", "Aboleths, cloakers"],
+    infernal: ["Infernal", "Infernal", "Devils"],
+    primordial: ["Primordial", "Dwarvish", "Elementals"],
+    sylvan: ["Sylvan", "Elvish", "Fey creatures"],
+    undercommon: ["Undercommon", "Elvish", "Underworld traders"],
 }
