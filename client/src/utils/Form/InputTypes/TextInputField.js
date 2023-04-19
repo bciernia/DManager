@@ -10,7 +10,6 @@ const TextInputField = ({label, ...props}) => {
                        label={label}
                        type="text"
                        name={props.name}
-                       disabled={props.isDisabled}
                        sx={props.sx}
                        {...field}
                        error={meta.touched && Boolean(meta.error)}
