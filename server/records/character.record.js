@@ -40,46 +40,29 @@ class CharacterRecord {
         this.characterHP = obj.characterHP;
         this.characterInitiative = obj.characterInitiative;
 
-        //SAVING THROWS
-        this.hasStrengthSavingThrowProficiency = obj.hasStrengthSavingThrowProficiency;
-        this.hasDexteritySavingThrowProficiency = obj.hasDexteritySavingThrowProficiency;
-        this.hasConstitutionSavingThrowProficiency = obj.hasConstitutionSavingThrowProficiency;
-        this.hasIntelligenceSavingThrowProficiency = obj.hasIntelligenceSavingThrowProficiency;
-        this.hasWisdomSavingThrowProficiency = obj.hasWisdomSavingThrowProficiency;
-        this.hasCharismaSavingThrowProficiency = obj.hasCharismaSavingThrowProficiency;
+        //SAVING THROWS ARRAY
+        this.savingThrows = obj.savingThrows;
 
-        //IMMUNITIES
+        //IMMUNITIES ARRAYS
         this.damageResistances = obj.damageResistances;
         this.damageImmunities = obj.damageImmunities;
         this.conditionImmunities = obj.conditionImmunities;
         this.senses = obj.senses;
 
-        //SKILLS
-        this.hasAcrobatics = obj.hasAcrobatics;
-        this.hasAnimalHandling = obj.hasAnimalHandling;
-        this.hasArcana = obj.hasArcana;
-        this.hasAthletics = obj.hasAthletics;
-        this.hasDeception = obj.hasDeception;
-        this.hasHistory = obj.hasHistory;
-        this.hasInsight = obj.hasInsight;
-        this.hasIntimidation = obj.hasIntimidation;
-        this.hasInvestigation = obj.hasInvestigation;
-        this.hasMedicine = obj.hasMedicine;
-        this.hasNature = obj.hasNature;
-        this.hasPerception = obj.hasPerception;
-        this.hasPerformance = obj.hasPerformance;
-        this.hasPersuasion = obj.hasPersuasion;
-        this.hasReligion = obj.hasReligion;
-        this.hasSleightOfHands = obj.hasSleightOfHands;
-        this.hasStealth = obj.hasStealth;
-        this.hasSurvival = obj.hasSurvival;
+        //SKILLS ARRAY
+        this.skillsProficiency = obj.skillsProficiency;
+
+        //LANGUAGES ARRAY
+        this.languageProficiency = obj.languageProficiency;
+
+        //OTHER PROFICIENCIES ARRAY
+        this.otherProficiencies = obj.otherProficiencies;
 
         //EQUIPMENT
         this.armorClass = obj.armorClass;
 
         //TALENTS
         this.featuresAndTraits = obj.featuresAndTraits;
-        this.otherProficienciesAndLanguages = obj.otherProficienciesAndLanguages;
     }
 
     _validate() {
@@ -95,64 +78,42 @@ class CharacterRecord {
     async insert() {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
-            characterType: this.characterType.toString(),
-            characterName: this.characterName.toString(),
+            characterType: this.characterType.toString(), //
+            characterName: this.characterName.toString(), //
             characterPhoto: this.characterPhoto,
-            characterClass: this.characterClass.toString(),
-            playerName: this.playerName.toString(),
-            characterLevel: Number(this.characterLevel),
-            exp: Number(this.exp),
-            isAlive: this.isAlive,
+            characterClass: this.characterClass.toString(), //
+            playerName: this.playerName.toString(), //
+            characterLevel: Number(this.characterLevel), //
+            exp: Number(this.exp), //
+            isAlive: this.isAlive, //
             howCharacterDied: this.howCharacterDied.toString(),
-            teamId: this.teamId.toString(),
+            teamId: this.teamId.toString(), //TODO dropdown with team id at last page
 
-            characterStrength: Number(this.characterStrength),
-            characterDexterity: Number(this.characterDexterity),
-            characterConstitution: Number(this.characterConstitution),
-            characterIntelligence: Number(this.characterIntelligence),
-            characterWisdom: Number(this.characterWisdom),
-            characterCharisma: Number(this.characterCharisma),
-            characterProficiencyBonus: Number(this.characterProficiencyBonus),
-            characterPassiveWisdom: Number(this.characterPassiveWisdom),
+            characterStrength: Number(this.characterStrength), //
+            characterDexterity: Number(this.characterDexterity), //
+            characterConstitution: Number(this.characterConstitution), //
+            characterIntelligence: Number(this.characterIntelligence), //
+            characterWisdom: Number(this.characterWisdom), //
+            characterCharisma: Number(this.characterCharisma), //
+            characterProficiencyBonus: Number(this.characterProficiencyBonus), //
+            characterPassiveWisdom: Number(this.characterPassiveWisdom), //
 
-            characterSpeed: Number(this.characterSpeed),
-            characterHP: Number(this.characterHP),
-            characterInitiative: Number(this.characterInitiative),
+            characterSpeed: Number(this.characterSpeed), //
+            characterHP: Number(this.characterHP), //
+            characterInitiative: Number(this.characterInitiative), //
             armorClass: Number(this.armorClass),
 
-            hasStrengthSavingThrowProficiency: this.hasStrengthSavingThrowProficiency,
-            hasDexteritySavingThrowProficiency: this.hasDexteritySavingThrowProficiency,
-            hasConstitutionSavingThrowProficiency: this.hasConstitutionSavingThrowProficiency,
-            hasIntelligenceSavingThrowProficiency: this.hasIntelligenceSavingThrowProficiency,
-            hasWisdomSavingThrowProficiency: this.hasWisdomSavingThrowProficiency,
-            hasCharismaSavingThrowProficiency: this.hasCharismaSavingThrowProficiency,
+            savingThrows: this.savingThrows,
+            skillsProficiency: this.skillsProficiency,
+            languageProficiency: this.languageProficiency,
+            otherProficiency: this.otherProficiencies,
 
             damageResistances: this.damageResistances.toString(),
             damageImmunities: this.damageImmunities.toString(),
             conditionImmunities: this.conditionImmunities.toString(),
             senses: this.senses.toString(),
 
-            hasAcrobatics: this.hasAcrobatics,
-            hasAnimalHandling: this.hasAnimalHandling,
-            hasArcana: this.hasArcana,
-            hasAthletics: this.hasAthletics,
-            hasDeception: this.hasDeception,
-            hasHistory: this.hasHistory,
-            hasInsight: this.hasInsight,
-            hasIntimidation: this.hasIntimidation,
-            hasInvestigation: this.hasInvestigation,
-            hasMedicine: this.hasMedicine,
-            hasNature: this.hasNature,
-            hasPerception: this.hasPerception,
-            hasPerformance: this.hasPerformance,
-            hasPersuasion: this.hasPersuasion,
-            hasReligion: this.hasReligion,
-            hasSleightOfHands: this.hasSleightOfHands,
-            hasStealth: this.hasStealth,
-            hasSurvival: this.hasSurvival,
-
             featuresAndTraits: this.featuresAndTraits.toString(),
-            otherProficienciesAndLanguages: this.otherProficienciesAndLanguages.toString(),
 
         });
         this._id = insertedId.toString();
@@ -188,39 +149,18 @@ class CharacterRecord {
             characterInitiative: Number(this.characterInitiative),
             armorClass: Number(this.armorClass),
 
-            hasStrengthSavingThrowProficiency: this.hasStrengthSavingThrowProficiency,
-            hasDexteritySavingThrowProficiency: this.hasDexteritySavingThrowProficiency,
-            hasConstitutionSavingThrowProficiency: this.hasConstitutionSavingThrowProficiency,
-            hasIntelligenceSavingThrowProficiency: this.hasIntelligenceSavingThrowProficiency,
-            hasWisdomSavingThrowProficiency: this.hasWisdomSavingThrowProficiency,
-            hasCharismaSavingThrowProficiency: this.hasCharismaSavingThrowProficiency,
+            savingThrows: this.savingThrows,
+            skillsProficiency: this.skillsProficiency,
+            languageProficiency: this.languageProficiency,
+            otherProficiency: this.otherProficiencies,
 
             damageResistances: this.damageResistances.toString(),
             damageImmunities: this.damageImmunities.toString(),
             conditionImmunities: this.conditionImmunities.toString(),
             senses: this.senses.toString(),
 
-            hasAcrobatics: this.hasAcrobatics,
-            hasAnimalHandling: this.hasAnimalHandling,
-            hasArcana: this.hasArcana,
-            hasAthletics: this.hasAthletics,
-            hasDeception: this.hasDeception,
-            hasHistory: this.hasHistory,
-            hasInsight: this.hasInsight,
-            hasIntimidation: this.hasIntimidation,
-            hasInvestigation: this.hasInvestigation,
-            hasMedicine: this.hasMedicine,
-            hasNature: this.hasNature,
-            hasPerception: this.hasPerception,
-            hasPerformance: this.hasPerformance,
-            hasPersuasion: this.hasPersuasion,
-            hasReligion: this.hasReligion,
-            hasSleightOfHands: this.hasSleightOfHands,
-            hasStealth: this.hasStealth,
-            hasSurvival: this.hasSurvival,
-
             featuresAndTraits: this.featuresAndTraits.toString(),
-            otherProficienciesAndLanguages: this.otherProficienciesAndLanguages.toString(),
+
         });
     }
 
