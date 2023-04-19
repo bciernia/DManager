@@ -4,7 +4,7 @@ import {useField} from "formik";
 const DropdownInputField = ({label, ...props}) => {
     const [field, meta] = useField(props);
 
-    const {helperText, arrayOfMenuItems, ...selectProps} = props;
+    const {arrayOfMenuItems, ...selectProps} = props;
 
     //TODO dropdown error and label/placeholder
     //TODO props

@@ -15,8 +15,8 @@ const NumberInputField = ({label, ...props}) => {
                        sx={{margin: ".25rem 0", minWidth: "10rem", maxWidth: "10rem"}}
                        label={label}
                        type="number"
+                       name={props.name}
                        {...field}
-                       {...props}
                        error={meta.touched && Boolean(meta.error)}
                        helperText={meta.touched && meta.error}/>
         </div>
