@@ -21,7 +21,7 @@ const DropdownInputField = ({label, ...props}) => {
             >
 
                 {props.arrayOfMenuItems.map(type => <MenuItem key={type[0]}
-                                                             value={type[0]}>{type[1]}</MenuItem>)}
+                                                             value={type[0]}>{type[0]}</MenuItem>)}
             </Select>
 
         </div>
