@@ -12,6 +12,7 @@ export const CharacterInitialValues = {
     characterPersonalityTraits: '',
     characterBonds: '',
     characterFlaws: '',
+    characterWeakness: '',
     characterTreasure: '',
     characterPhoto: '',
     playerName: '',
@@ -34,10 +35,6 @@ export const CharacterInitialValues = {
     characterSpeed: 0,
     characterHP: 0,
     characterInitiative: 0,
-    damageResistances: '',
-    damageImmunities: '',
-    conditionImmunities: '',
-    senses: '',
 
     //SAVING THROWS
     savingThrows: [],
@@ -46,11 +43,17 @@ export const CharacterInitialValues = {
     skillsProficiency: [],
     languageProficiency: [],
     otherProficiency: [],
+    senses: [],
+
+    //DAMAGES
+    damageResistances: [],
+    damageImmunities: [],
+    damageVulnerabilities: [],
+    conditionImmunities: [],
 
     //EQUIPMENT
     armorClass: 0,
 
     //TALENTS
-    featuresAndTraits: '',
-    otherProficienciesAndLanguages: '',
+    featuresAndTraits: [],
 }

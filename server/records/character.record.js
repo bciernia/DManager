@@ -17,6 +17,7 @@ class CharacterRecord {
         this.characterPersonalityTraits = obj.characterPersonalityTraits;
         this.characterBonds = obj.characterBonds;
         this.characterFlaws = obj.characterFlaws;
+        this.characterWeakness = obj.characterWeakness;
         this.characterTreasure = obj.characterTreasure;
         this.characterPhoto = obj.characterPhoto;
         this.playerName = obj.playerName;
@@ -46,6 +47,7 @@ class CharacterRecord {
         //IMMUNITIES ARRAYS
         this.damageResistances = obj.damageResistances;
         this.damageImmunities = obj.damageImmunities;
+        this.damageVulnerabilities = obj.damageVulnerabilities;
         this.conditionImmunities = obj.conditionImmunities;
         this.senses = obj.senses;
 
@@ -78,29 +80,31 @@ class CharacterRecord {
     async insert() {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
-            characterType: this.characterType.toString(), //
-            characterName: this.characterName.toString(), //
+            characterType: this.characterType.toString(),
+            characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
-            characterClass: this.characterClass.toString(), //
-            playerName: this.playerName.toString(), //
-            characterLevel: Number(this.characterLevel), //
-            exp: Number(this.exp), //
-            isAlive: this.isAlive, //
+            characterClass: this.characterClass.toString(),
+            characterBackstory: this.characterBackstory.toString(),
+            characterPersonalityTraits: this.characterPersonalityTraits.toString(),
+            playerName: this.playerName.toString(),
+            characterLevel: Number(this.characterLevel),
+            exp: Number(this.exp),
+            isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(), //TODO dropdown with team id at last page
 
-            characterStrength: Number(this.characterStrength), //
-            characterDexterity: Number(this.characterDexterity), //
-            characterConstitution: Number(this.characterConstitution), //
-            characterIntelligence: Number(this.characterIntelligence), //
-            characterWisdom: Number(this.characterWisdom), //
-            characterCharisma: Number(this.characterCharisma), //
-            characterProficiencyBonus: Number(this.characterProficiencyBonus), //
-            characterPassiveWisdom: Number(this.characterPassiveWisdom), //
+            characterStrength: Number(this.characterStrength),
+            characterDexterity: Number(this.characterDexterity),
+            characterConstitution: Number(this.characterConstitution),
+            characterIntelligence: Number(this.characterIntelligence),
+            characterWisdom: Number(this.characterWisdom),
+            characterCharisma: Number(this.characterCharisma),
+            characterProficiencyBonus: Number(this.characterProficiencyBonus),
+            characterPassiveWisdom: Number(this.characterPassiveWisdom),
 
-            characterSpeed: Number(this.characterSpeed), //
-            characterHP: Number(this.characterHP), //
-            characterInitiative: Number(this.characterInitiative), //
+            characterSpeed: Number(this.characterSpeed),
+            characterHP: Number(this.characterHP),
+            characterInitiative: Number(this.characterInitiative),
             armorClass: Number(this.armorClass),
 
             savingThrows: this.savingThrows,
@@ -108,12 +112,14 @@ class CharacterRecord {
             languageProficiency: this.languageProficiency,
             otherProficiency: this.otherProficiencies,
 
-            damageResistances: this.damageResistances.toString(),
-            damageImmunities: this.damageImmunities.toString(),
-            conditionImmunities: this.conditionImmunities.toString(),
-            senses: this.senses.toString(),
+            //ARRAYS
+            damageResistances: this.damageResistances,
+            damageImmunities: this.damageImmunities,
+            damageVulnerabilities: this.damageVulnerabilities,
+            conditionImmunities: this.conditionImmunities,
+            senses: this.senses,
 
-            featuresAndTraits: this.featuresAndTraits.toString(),
+            featuresAndTraits: this.featuresAndTraits,
 
         });
         this._id = insertedId.toString();
@@ -154,13 +160,13 @@ class CharacterRecord {
             languageProficiency: this.languageProficiency,
             otherProficiency: this.otherProficiencies,
 
-            damageResistances: this.damageResistances.toString(),
-            damageImmunities: this.damageImmunities.toString(),
-            conditionImmunities: this.conditionImmunities.toString(),
-            senses: this.senses.toString(),
+            damageResistances: this.damageResistances,
+            damageImmunities: this.damageImmunities,
+            damageVulnerabilities: this.damageVulnerabilities,
+            conditionImmunities: this.conditionImmunities,
+            senses: this.senses,
 
-            featuresAndTraits: this.featuresAndTraits.toString(),
-
+            featuresAndTraits: this.featuresAndTraits,
         });
     }
 
