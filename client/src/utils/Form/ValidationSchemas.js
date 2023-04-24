@@ -41,6 +41,9 @@ export const characterStatsValidationSchema = yup.object({
     characterInitiative: yup.number().min(1, "Stat has to be higher than 1").max(30, "Stat has to be lower than 30").required("Charisma is required"),
 });
 
+export const characterSavingThrowsValidationSchema = yup.object({
+});
+
 export const characterProficienciesValidationSchema = yup.object({
 
 })
