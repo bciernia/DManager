@@ -7,10 +7,10 @@ const TextareaInputField = ({label, ...props}) => {
     return (
         <div>
             <TextField fullWidth
-                       sx={{width: "15rem"}}
+                       sx={{width: "40rem"}}
                        multiline
-                       maxRows={10}
-                       minRows={3}
+                       maxRows={15}
+                       minRows={8}
                        label={label}
                        {...field}
                        {...props}
