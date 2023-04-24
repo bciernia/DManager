@@ -41,7 +41,8 @@ const MultiStepForm = ({children, initialValues, onSubmit}, props) => {
             <Formik initialValues={snapshot} onSubmit={handleSubmit} validationSchema={step.props.validationSchema}>
                 {formik =>
                     <Form onSubmit={formik.handleSubmit}>
-                        <Stepper activeStep={stepNumber} orientation="vertical"
+                        <Stepper activeStep={stepNumber}
+                                 orientation="vertical"
                         sx={{position: "absolute", top: "1rem", right: "3rem"}}>
                             {steps.map((currentStep) => (
                                 <Step key={currentStep.props.stepName}>
