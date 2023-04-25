@@ -29,6 +29,10 @@ const Summary = () => {
         navigate(`scenario/newScenario`)
     }
 
+    const goToAddNewTeamView = () => {
+        navigate(`teams/newTeam`);
+    }
+
     const goToAddNewNpcView = () => {
         navigate('character/newCharacter');
     }
@@ -203,22 +207,26 @@ const Summary = () => {
                         marginTop: '.5rem',
                         width: '100%',
                         height: '25rem',
-                        backgroundColor: '#ffff00'
-                    }}>TEST</Card>
+                        backgroundColor: '#ffff00',
+                        overflow: 'auto',
+                    }}>
+                        <div className={classes["section-headline"]}><Button sx={{position: "fixed"}} onClick={goToAddNewTeamView}>Add new team</Button></div>
+                        <Divider sx={{height: "2rem"}} variant="fullWidth"/>
+                        <AllTeams/>
+                    </Card>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card sx={{marginTop: '.5rem', width: '100%', height: '25rem', backgroundColor: '#ffff00'}}>
-                        <Button onClick={goToAddNewNpcView}>Add new character</Button>
-                        <Divider variant="fullWidth"/>
+                    <Card sx={{maxWidth: "85vw", marginTop: '.5rem', width: '100%', height: '25rem', backgroundColor: '#ffff00', overflowX: "auto" }}>
+                        <div className={classes["section-headline"]}> <Button onClick={goToAddNewNpcView}>Add new character</Button></div>
+                        <Divider sx={{height: "1.25rem"}} variant="fullWidth"/>
                         <Box sx={{
                             padding: ".5rem",
                             display: 'flex',
-                            gap: ".5rem"
+                            flexWrap: 'nowrap',
+                            alignContent: 'center',
+                            gap: ".5rem",
                         }}>
-                            <Card sx={{height: "20rem", width: "15rem"}}>NPC</Card>
-                            <Card sx={{height: "20rem", width: "15rem"}}>NPC</Card>
-                            <Card sx={{height: "20rem", width: "15rem"}}>NPC</Card>
-                            <Card sx={{height: "20rem", width: "15rem"}}>NPC</Card>
+                            <AllCharacters />
                         </Box>
                     </Card>
                 </Grid>

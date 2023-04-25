@@ -15,12 +15,11 @@ const Character = (props) => {
         }).then(res => res.json())
             .then(data => console.log(data));
     }
-
     return (
         <Card>
-            <Box sx={{position: 'relative', minWidth: '17.5rem', minHeight: '22.5rem'}}>
+            <Box sx={{position: 'relative', width: "15rem", minHeight: '18.75rem'}}>
                 <Avatar src={props.character.characterPhoto}
-                        sx={{position: 'relative', top: 0, left: '12.5rem', width: '5rem', height: '5rem'}}/>
+                        sx={{position: 'relative', top: 0, left: '10rem', width: '5rem', height: '5rem'}}/>
                 <p>Name: {props.character.characterName}</p>
                 <p>Character class: {props.character.characterClass}</p>
                 <p>Player: {props.character.playerName}</p>
