@@ -8,7 +8,7 @@ const Team = props => {
     const navigate = useNavigate();
 
     const showTeamDetails = () => {
-        navigate(`${props.team._id}`)
+        navigate(`teams/${props.team._id}`)
     }
 
     const deleteTeam = (event) => {
