@@ -32,6 +32,7 @@ import CheckboxInputField from "../../../utils/Form/InputTypes/CheckboxInputFiel
 import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
 import {SkillProficiencies} from "../../../utils/dndUtils/SkillProficiencies";
 import TextareaInputField from "../../../utils/Form/InputTypes/TextareaInputField";
+import {useNavigate} from "react-router-dom";
 
 const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
@@ -50,6 +51,8 @@ const CreateNewPlayerCharacter = () => {
     const initialSkills = skillProficiencies.map(item => {
         return {proficiency: item[1][0], level: '0'};
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [characterPhoto, setCharacterPhoto] = useState(null);
 
@@ -74,6 +77,8 @@ const CreateNewPlayerCharacter = () => {
     const [chosenSkillAndLevel, setChosenSkillAndLevel] = useState(initialSkills);
 
     const [chosenSavingThrowsAndLevel, setChosenSavingThrowsAndLevel] = useState(initialSavingThrows);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         CharacterInitialValues.characterType = CharacterTypes.playerCharacter;
@@ -202,11 +207,31 @@ const CreateNewPlayerCharacter = () => {
         setStateFunction(event.target.value);
     }
 
+
+    const addNewCharacterHandler = (character) => {
+        setIsLoading(true);
+
+        fetch(`http://127.0.0.1:3000/character/newCharacter`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(character)
+        }).then(res => res.json())
+            .catch(() => {
+                alert("Something gone wrong!");
+            })
+            .finally(() => {
+                setIsLoading(false);
+                navigate(`/dm`);
+            });
+    }
+
     return (
         // TODO form width
         <Box sx={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
             <MultiStepForm initialValues={CharacterInitialValues}
-                           onSubmit={values => {
+                           onSubmit={(values) => {
                                values.languageProficiency = chosenLanguageAndLevel;
                                values.savingThrows = chosenSavingThrowsAndLevel;
                                values.skillsProficiency = chosenSkillAndLevel;
@@ -214,7 +239,10 @@ const CreateNewPlayerCharacter = () => {
                                values.damageImmunities = characterImmunities;
                                values.damageResistances = characterResistances;
                                values.conditionImmunities = characterConditionImmunities;
+                               values.characterPhoto = characterPhoto;
                                console.log(values)
+
+                               addNewCharacterHandler(values);
                            }}
             >
                 {/*TODO finish adding character form*/}
@@ -245,60 +273,72 @@ const CreateNewPlayerCharacter = () => {
                     <CheckboxInputField name="isAlive" label="Is alive?"/>
                 </FormStep>
                 <FormStep
-                    stepName="Character backstory">
-                    <Typography>Tell me your story, adventurer...</Typography>
+                    stepName="Character statistics"
+                    onSubmit={() => console.log('Step2 submit')}
+                    validationSchema={characterStatsValidationSchema}>
+                    <Typography sx={{width: "100%", textAlign: "center"}}>Character statistics</Typography>
 
-                    <TextareaInputField
-                    name="characterBackstory"
-                    />
+                    <Grid container spacing={2}>
+                        <Grid item md={6}>
+                            <NumberInputField name="characterStrength" label="Character strength"/>
+                            <NumberInputField name="characterDexterity" label="Character dexterity"/>
+                            <NumberInputField name="characterConstitution" label="Character constitution"/>
+                            <NumberInputField name="characterIntelligence" label="Character intelligence"/>
+                            <NumberInputField name="characterWisdom" label="Character wisdom"/>
+                            <NumberInputField name="characterCharisma" label="Character charisma"/>
+                        </Grid>
+                        <Grid item md={6}>
+                            <NumberInputField name="characterLevel" label="Character level"/>
+                            <NumberInputField name="exp" label="Character experience"/>
+                            <NumberInputField name="characterHP" label="Character health points"/>
+                            <NumberInputField name="characterSpeed" label="Character speed"/>
+                            <NumberInputField name="characterInitiative" label="Character initiative"/>
+                            <NumberInputField name="armorClass" label="Armor class"/>
+                        </Grid>
+                    </Grid>
                 </FormStep>
                 <FormStep
-                    stepName="Character personality traits">
-                    <Typography>Describe yourself...</Typography>
+                    stepName="Character saving throws"
+                    onSubmit={() => {
+                        console.log("Step3 submit");
+                    }}
+                    validationSchema={characterSavingThrowsValidationSchema}
+                >
 
-                    <TextareaInputField
-                        name="characterPersonalityTraits"
-                    />
-                </FormStep>
-                <FormStep
-                    stepName="Character ideals">
-                    <Typography>What are your ideals, hero?</Typography>
+                    <Typography>Character saving throws</Typography>
 
-                    <TextareaInputField
-                        name="characterIdeals"
-                    />
-                </FormStep>
-                <FormStep
-                    stepName="Character bonds">
-                    <Typography>With whom has fate bound you with the thread of life?</Typography>
-
-                    <TextareaInputField
-                        name="characterBonds"
-                    />
-                </FormStep>
-                <FormStep
-                    stepName="Character flaws">
-                    <Typography>Tell me something about your weaknesses...</Typography>
-
-                    <TextareaInputField
-                        name="characterWeakness"
-                    />
-                </FormStep>
-                <FormStep
-                    stepName="Character ideals">
-                    <Typography>What are your ideals, hero?</Typography>
-
-                    <TextareaInputField
-                        name="characterIdeals"
-                    />
-                </FormStep>
-                <FormStep
-                    stepName="Character allies">
-                    <Typography>Do you have allies? Or do you belong to an allied organization?</Typography>
-
-                    <TextareaInputField
-                        name="characterIdeals"
-                    />
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 400}} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Saving throw</TableCell>
+                                    <TableCell align="right">Proficiency level</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {savingThrows.map((row, index) => (
+                                    <TableRow
+                                        key={row.name}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {row[1]}
+                                        </TableCell>
+                                        <RadioGroup
+                                            defaultValue="0"
+                                            onChange={(e) => handleChosenSavingThrows(e.target.value, index)}
+                                        >
+                                            {proficiencyLevel.map(profLevel => {
+                                                return <FormControlLabel value={profLevel[0]}
+                                                                         control={<Radio size="small"/>}
+                                                                         label={profLevel[1]}/>
+                                            })}
+                                        </RadioGroup>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                 </FormStep>
                 <FormStep
                     stepName="Character skills"
@@ -370,7 +410,8 @@ const CreateNewPlayerCharacter = () => {
                         <Grid item md={3}>
                             <Typography sx={{width: "100%", textAlign: "center"}}>Condition immunities</Typography>
 
-                            <DataTableHandler arrayToRender={characterConditionImmunities} tableHeaders={["Immunities"]}/>
+                            <DataTableHandler arrayToRender={characterConditionImmunities}
+                                              tableHeaders={["Immunities"]}/>
 
                             <Select
                                 sx={{margin: ".35rem 0", minWidth: "10rem", maxWidth: "10rem"}}
@@ -417,74 +458,6 @@ const CreateNewPlayerCharacter = () => {
                         </Grid>
                     </Grid>
 
-                </FormStep>
-                <FormStep
-                    stepName="Character statistics"
-                    onSubmit={() => console.log('Step2 submit')}
-                    validationSchema={characterStatsValidationSchema}>
-                    <Typography sx={{width: "100%", textAlign: "center"}}>Character statistics</Typography>
-
-                    <Grid container spacing={2}>
-                        <Grid item md={6}>
-                            <NumberInputField name="characterStrength" label="Character strength"/>
-                            <NumberInputField name="characterDexterity" label="Character dexterity"/>
-                            <NumberInputField name="characterConstitution" label="Character constitution"/>
-                            <NumberInputField name="characterIntelligence" label="Character intelligence"/>
-                            <NumberInputField name="characterWisdom" label="Character wisdom"/>
-                            <NumberInputField name="characterCharisma" label="Character charisma"/>
-                        </Grid>
-                        <Grid item md={6}>
-                            <NumberInputField name="characterLevel" label="Character level"/>
-                            <NumberInputField name="exp" label="Character experience"/>
-                            <NumberInputField name="characterHP" label="Character health points"/>
-                            <NumberInputField name="characterSpeed" label="Character speed"/>
-                            <NumberInputField name="characterInitiative" label="Character initiative"/>
-                            <NumberInputField name="armorClass" label="Armor class"/>
-                        </Grid>
-                    </Grid>
-                </FormStep>
-                 <FormStep
-                    stepName="Character saving throws"
-                    onSubmit={() => {
-                        console.log("Step3 submit");
-                    }}
-                    validationSchema={characterSavingThrowsValidationSchema}
-                >
-
-                    <Typography>Character saving throws</Typography>
-
-                    <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 400}} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Saving throw</TableCell>
-                                    <TableCell align="right">Proficiency level</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {savingThrows.map((row, index) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row[1]}
-                                        </TableCell>
-                                        <RadioGroup
-                                            defaultValue="0"
-                                            onChange={(e) => handleChosenSavingThrows(e.target.value, index)}
-                                        >
-                                            {proficiencyLevel.map(profLevel => {
-                                                return <FormControlLabel value={profLevel[0]}
-                                                                         control={<Radio size="small"/>}
-                                                                         label={profLevel[1]}/>
-                                            })}
-                                        </RadioGroup>
-                                    </TableRow>
-                                 ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
                 </FormStep>
                 <FormStep
                     stepName="Character language proficiencies"

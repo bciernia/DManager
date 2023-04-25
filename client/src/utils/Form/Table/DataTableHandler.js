@@ -17,8 +17,6 @@ const DataTableHandler = ({label, ...props}) => {
     const tableHeadersLength = tableHeaders.length;
     // const [field, meta] = useField(props);
 
-    console.log(arrayToRender);
-
     return (
         <div>
             <TableContainer component={Paper}>
