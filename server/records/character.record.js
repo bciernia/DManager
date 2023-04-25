@@ -21,7 +21,7 @@ class CharacterRecord {
         this.characterTreasure = obj.characterTreasure;
         this.characterPhoto = obj.characterPhoto;
         this.playerName = obj.playerName;
-        this.characterLevel = obj.characterLevel,
+        this.characterLevel = obj.characterLevel;
         this.exp = obj.exp;
         this.hasInspiration = obj.hasInspiration;
         this.isAlive = obj.isAlive;
@@ -84,14 +84,23 @@ class CharacterRecord {
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
+            characterRace: this.characterRace.toString(),
             characterBackstory: this.characterBackstory.toString(),
+            characterBackground: this.characterBackground.toString(),
+            characterAllies: this.characterAllies.toString(),
+            characterIdeals: this.characterIdeals.toString(),
+            characterBonds: this.characterBonds.toString(),
+            characterFlaws: this.characterFlaws.toString(),
+            characterWeakness: this.characterWeakness.toString(),
             characterPersonalityTraits: this.characterPersonalityTraits.toString(),
+            characterTreasure: this.characterTreasure.toString(),
             playerName: this.playerName.toString(),
             characterLevel: Number(this.characterLevel),
             exp: Number(this.exp),
             isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(), //TODO dropdown with team id at last page
+            hasInspiration: this.hasInspiration,
 
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),
@@ -120,7 +129,6 @@ class CharacterRecord {
             senses: this.senses,
 
             featuresAndTraits: this.featuresAndTraits,
-
         });
         this._id = insertedId.toString();
 
