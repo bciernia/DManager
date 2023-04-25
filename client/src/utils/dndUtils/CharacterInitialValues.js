@@ -1,6 +1,5 @@
 export const CharacterInitialValues = {
     //CHARACTER INFO
-    _id: '',
     characterType: '',
     characterName: '',
     characterClass: '',
@@ -50,6 +49,7 @@ export const CharacterInitialValues = {
     damageImmunities: [],
     damageVulnerabilities: [],
     conditionImmunities: [],
+
 
     //EQUIPMENT
     armorClass: 0,
