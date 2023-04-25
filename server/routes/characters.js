@@ -37,6 +37,27 @@ characterRouter
         })();
     })
 
+    //ADD CHARACTER TO TEAM
+    .post('/newCharacter', (req, res) => {
+        const character = req.body;
+
+        (async () => {
+            try {
+                console.log(character);
+                const newCharacter = new CharacterRecord({
+                    ...character
+                })
+
+                const newCharacterId = await newCharacter.insert();
+
+                res.status(201).send(newCharacterId);
+
+            } catch (e) {
+                throw new Error(e);
+            }
+        })();
+    })
+
 module.exports = {
     characterRouter,
 }
