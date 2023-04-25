@@ -54,6 +54,14 @@ const router = createBrowserRouter([
                     },
 
                     {
+                        path: 'teams/:teamId', element: <TeamDetails/>,
+                    },
+
+                    {
+                        path: 'teams/newTeam', element: <AddTeam/>,
+                    },
+
+                    {
                         path: 'campaign/newCampaign', element: <CreateNewCampaign/>
                     },
 
@@ -93,9 +101,6 @@ const router = createBrowserRouter([
                         path: "character/newCharacter/monster", element: <CreateNewMonster/>,
                     },
 
-                    {
-                        path: "npc/:npcId", element: <CharacterDetails/>
-                    }
                 ]
             }
         ]
