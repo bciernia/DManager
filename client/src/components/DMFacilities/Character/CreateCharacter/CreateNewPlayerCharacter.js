@@ -1,4 +1,4 @@
-import {CharacterInitialValues} from "../../../utils/dndUtils/CharacterInitialValues";
+import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
 import {
     Box, Button, FormControl, FormControlLabel,
     Grid, InputLabel,
@@ -11,27 +11,27 @@ import {
     TableRow, TextareaAutosize,
     Typography
 } from "@mui/material";
-import MultiStepForm, {FormStep} from "../../../utils/Form/MultiStepForm";
-import {CharacterClasses} from "../../../utils/dndUtils/CharacterClasses";
-import {CharacterTypes} from "../../../utils/dndUtils/CharacterTypes";
-import {ConditionTypes} from "../../../utils/dndUtils/ConditionTypes";
-import {DamageTypes} from "../../../utils/dndUtils/DamageTypes";
+import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
+import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
+import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
+import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
+import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
 import {useEffect, useState} from "react";
-import {LanguageProficiencies} from "../../../utils/dndUtils/LanguageProficiencies";
-import {ProficiencyLevel} from "../../../utils/dndUtils/ProficiencyLevel";
-import DataTableHandler from "../../../utils/Form/Table/DataTableHandler";
+import {LanguageProficiencies} from "../../../../utils/dndUtils/LanguageProficiencies";
+import {ProficiencyLevel} from "../../../../utils/dndUtils/ProficiencyLevel";
+import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {
     characterInfoValidationSchema,
     characterProficienciesValidationSchema, characterSavingThrowsValidationSchema, characterSkillsValidationSchema,
     characterStatsValidationSchema
-} from "../../../utils/Form/ValidationSchemas";
-import {SavingThrows} from "../../../utils/dndUtils/SavingThrows";
-import TextInputField from "../../../utils/Form/InputTypes/TextInputField";
-import DropdownInputField from "../../../utils/Form/InputTypes/DropdownInputField";
-import CheckboxInputField from "../../../utils/Form/InputTypes/CheckboxInputField";
-import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
-import {SkillProficiencies} from "../../../utils/dndUtils/SkillProficiencies";
-import TextareaInputField from "../../../utils/Form/InputTypes/TextareaInputField";
+} from "../../../../utils/Form/ValidationSchemas";
+import {SavingThrows} from "../../../../utils/dndUtils/SavingThrows";
+import TextInputField from "../../../../utils/Form/InputTypes/TextInputField";
+import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputField";
+import CheckboxInputField from "../../../../utils/Form/InputTypes/CheckboxInputField";
+import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
+import {SkillProficiencies} from "../../../../utils/dndUtils/SkillProficiencies";
+import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
 import {useNavigate} from "react-router-dom";
 
 const CreateNewPlayerCharacter = () => {

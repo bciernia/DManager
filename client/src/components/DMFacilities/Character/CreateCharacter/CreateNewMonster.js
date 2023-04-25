@@ -1,26 +1,25 @@
-import {CharacterClasses} from "../../../utils/dndUtils/CharacterClasses";
-import {CharacterTypes} from "../../../utils/dndUtils/CharacterTypes";
-import {ConditionTypes} from "../../../utils/dndUtils/ConditionTypes";
-import {DamageTypes} from "../../../utils/dndUtils/DamageTypes";
+import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
+import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
+import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
+import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
 import {Box, Typography} from "@mui/material";
-import MultiStepForm, {FormStep} from "../../../utils/Form/MultiStepForm";
-import {CharacterInitialValues} from "../../../utils/dndUtils/CharacterInitialValues";
-import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../utils/Form/ValidationSchemas";
-import DropdownInputField from "../../../utils/Form/InputTypes/DropdownInputField";
-import TextInputField from "../../../utils/Form/InputTypes/TextInputField";
-import TextareaInputField from "../../../utils/Form/InputTypes/TextareaInputField";
-import CheckboxInputField from "../../../utils/Form/InputTypes/CheckboxInputField";
-import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
+import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
+import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
+import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../../utils/Form/ValidationSchemas";
+import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputField";
+import TextInputField from "../../../../utils/Form/InputTypes/TextInputField";
+import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
+import CheckboxInputField from "../../../../utils/Form/InputTypes/CheckboxInputField";
+import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
 import {useEffect} from "react";
 
-const CreateNewNpc = () => {
+const CreateNewMonster = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
-    const characterTypesArray = Object.entries(CharacterTypes);
     const conditionTypesArray = Object.entries(ConditionTypes);
     const damageTypesArray = Object.entries(DamageTypes);
 
     useEffect(() => {
-        CharacterInitialValues.characterType = CharacterTypes.npc;
+        CharacterInitialValues.characterType = CharacterTypes.monster;
     },[]);
 
     return (
@@ -35,11 +34,10 @@ const CreateNewNpc = () => {
                     stepName="Character info"
                     onSubmit={() => console.log('Step1 submit')}
                     validationSchema={characterInfoValidationSchema}>
-                    <Typography>New NPC</Typography>
+                    <Typography>New monster</Typography>
 
                     <TextInputField name="characterType" label="" value={CharacterTypes.characterType}
-                                    sx={{margin: ".25rem 0"}} isDisabled="true"/>
-
+                                    sx={{margin: ".25rem 0"}} isDisabled={true}/>
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
                     <DropdownInputField name="characterClass" label="Character class"
@@ -63,4 +61,4 @@ const CreateNewNpc = () => {
     )
 }
 
-export default CreateNewNpc;
+export default CreateNewMonster;

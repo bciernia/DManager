@@ -1,8 +1,5 @@
 import {useEffect, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
-import Card from "../../../UI/Card/Card";
-import AddCharacter from "../../Character/AddCharacter/AddCharacter";
-import Character from "../../Character/Character";
 import Team from "../Team";
 
 const AllTeams = () => {

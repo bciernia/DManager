@@ -1,5 +1,5 @@
 import classes from "./Main.module.css";
-import Team from "../../Teams/Team/Team";
+import Team from "../../DMFacilities/Teams/Team";
 
 const Main = () => {
     return (

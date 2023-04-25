@@ -3,21 +3,20 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./components/Layout/Home/Home";
 import StartNewSession from "./components/Sessions/StartNewSession/StartNewSession";
 import SessionHistory from "./components/DMFacilities/SessionHistory/SessionHistory";
-import AllTeams from "./components/Teams/Team/AllTeams/AllTeams";
-import AddTeam from "./components/Teams/Team/AddTeam/AddTeam";
-import TeamDetails from "./components/Teams/Team/TeamDetails";
+import AllTeams from "./components/DMFacilities/Teams/AllTeams/AllTeams";
+import AddTeam from "./components/DMFacilities/Teams/AddTeam/AddTeam";
+import TeamDetails from "./components/DMFacilities/Teams/TeamDetails";
 import Summary from "./components/DMFacilities/Summary/Summary";
 import CreateNewCampaign from "./components/DMFacilities/Scenarios/NewCampaign/CreateNewCampaign";
 import Session from "./components/Sessions/Session";
 import CreateNewScenario from "./components/DMFacilities/Scenarios/CreateNewScenario";
-import CharacterDetails from "./components/DMFacilities/NPCs/CharacterDetails";
 import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
 import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails";
-import CreateNewCharacter from "./components/DMFacilities/Character/CreateNewCharacter";
-import CreateNewNpc from "./components/DMFacilities/Character/CreateNewNpc";
-import CreateNewMonster from "./components/DMFacilities/Character/CreateNewMonster";
-import CreateNewBeast from "./components/DMFacilities/Character/CreateNewBeast";
-import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateNewPlayerCharacter";
+import CreateNewCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewCharacter";
+import CreateNewNpc from "./components/DMFacilities/Character/CreateCharacter/CreateNewNpc";
+import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacter/CreateNewMonster";
+import CreateNewBeast from "./components/DMFacilities/Character/CreateCharacter/CreateNewBeast";
+import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewPlayerCharacter";
 
 const router = createBrowserRouter([
     {

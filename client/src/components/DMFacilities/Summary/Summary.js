@@ -7,11 +7,14 @@ import {
     List,
     ListItem,
     ListItemButton,
-    ListItemIcon,
-    ListItemText, Switch, TextField
+    ListItemText, Switch
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import AllTeams from "../Teams/AllTeams/AllTeams";
+import classes from "./Summary.module.css";
+import Character from "../../Teams/Character/Character";
+import AllCharacters from "../Character/AllCharacters";
 
 const Summary = () => {
     const [isChecked, setIsChecked] = useState(false);

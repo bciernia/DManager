@@ -1,16 +1,16 @@
-import {CharacterClasses} from "../../../utils/dndUtils/CharacterClasses";
-import {CharacterTypes} from "../../../utils/dndUtils/CharacterTypes";
-import {ConditionTypes} from "../../../utils/dndUtils/ConditionTypes";
-import {DamageTypes} from "../../../utils/dndUtils/DamageTypes";
+import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
+import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
+import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
+import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
 import {Box, Typography} from "@mui/material";
-import MultiStepForm, {FormStep} from "../../../utils/Form/MultiStepForm";
-import {CharacterInitialValues} from "../../../utils/dndUtils/CharacterInitialValues";
-import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../utils/Form/ValidationSchemas";
-import DropdownInputField from "../../../utils/Form/InputTypes/DropdownInputField";
-import TextInputField from "../../../utils/Form/InputTypes/TextInputField";
-import TextareaInputField from "../../../utils/Form/InputTypes/TextareaInputField";
-import CheckboxInputField from "../../../utils/Form/InputTypes/CheckboxInputField";
-import NumberInputField from "../../../utils/Form/InputTypes/NumberInputField";
+import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
+import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
+import {characterInfoValidationSchema, characterStatsValidationSchema} from "../../../../utils/Form/ValidationSchemas";
+import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputField";
+import TextInputField from "../../../../utils/Form/InputTypes/TextInputField";
+import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
+import CheckboxInputField from "../../../../utils/Form/InputTypes/CheckboxInputField";
+import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
 import {useEffect} from "react";
 
 const CreateNewBeast = () => {

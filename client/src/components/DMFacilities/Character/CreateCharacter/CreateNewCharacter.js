@@ -1,8 +1,8 @@
 import {Box, Button, Grid, TextField, Typography} from "@mui/material";
-import beastImg from '../../../assets/newCharacterTypePhotos/beast.jpg'
-import monsterImg from '../../../assets/newCharacterTypePhotos/monster.jpg'
-import playerCharacterImg from '../../../assets/newCharacterTypePhotos/playerCharacter.jpg'
-import npcImg from '../../../assets/newCharacterTypePhotos/npc.jpg'
+import beastImg from '../../../../assets/newCharacterTypePhotos/beast.jpg'
+import monsterImg from '../../../../assets/newCharacterTypePhotos/monster.jpg'
+import playerCharacterImg from '../../../../assets/newCharacterTypePhotos/playerCharacter.jpg'
+import npcImg from '../../../../assets/newCharacterTypePhotos/npc.jpg'
 import classes from './CreateNewCharacter.module.css'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";

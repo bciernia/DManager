@@ -1,10 +1,9 @@
-import Character from "../Character/Character";
+import Character from "../../Teams/Character/Character";
 import {useEffect, useState} from "react";
 import Spinner from "../../UI/Spinner/Spinner";
-import AddCharacter from "../Character/AddCharacter/AddCharacter";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Wrapper from "../../../utils/Wrapper";
-import {Box, Typography} from "@mui/material";
+import {Box, Button, Typography} from "@mui/material";
 
 const TeamDetails = props => {
     const params = useParams();
