@@ -9,7 +9,7 @@ const NumberInputField = ({label, ...props}) => {
             <TextField fullWidth
                        InputProps={{
                            inputProps: {
-                               min: 0, max: 30
+                               min: (props.min || 0), max: (props.max || 30)
                            }
                        }}
                        sx={{margin: ".25rem 0", minWidth: "10rem", maxWidth: "10rem"}}

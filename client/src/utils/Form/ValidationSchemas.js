@@ -37,7 +37,7 @@ export const characterStatsValidationSchema = yup.object({
     characterCharisma: yup.number().min(1, "Stat has to be higher than 1").max(30, "Stat has to be lower than 30").required("Charisma is required"),
     exp: yup.number().min(0, "Character experience can not be lower than 0").max(400000, "Character experience has to be lower than 400000").required("Character experience is required"),
     characterSpeed: yup.number().min(1, "Speed has to be higher than 1ft").max(500, "Speed has to be lower than 500ft").required("Speed is required"),
-    characterHP: yup.number().min(1, "Stat has to be higher than 1").max(1000, "Stat has to be lower than 30").required("Charisma is required"),
+    characterHP: yup.number().min(1, "Stat has to be higher than 1").max(1000, "Stat has to be lower than 1000").required("Charisma is required"),
     characterInitiative: yup.number().min(1, "Stat has to be higher than 1").max(30, "Stat has to be lower than 30").required("Charisma is required"),
 });
 

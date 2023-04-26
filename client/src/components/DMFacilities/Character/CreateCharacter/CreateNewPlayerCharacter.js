@@ -289,9 +289,9 @@ const CreateNewPlayerCharacter = () => {
                         </Grid>
                         <Grid item md={6}>
                             <NumberInputField name="characterLevel" label="Character level"/>
-                            <NumberInputField name="exp" label="Character experience"/>
-                            <NumberInputField name="characterHP" label="Character health points"/>
-                            <NumberInputField name="characterSpeed" label="Character speed"/>
+                            <NumberInputField name="exp" label="Character experience" max={400000}/>
+                            <NumberInputField name="characterHP" label="Character health points" max={1000}/>
+                            <NumberInputField name="characterSpeed" label="Character speed" max={500}/>
                             <NumberInputField name="characterInitiative" label="Character initiative"/>
                             <NumberInputField name="armorClass" label="Armor class"/>
                         </Grid>
