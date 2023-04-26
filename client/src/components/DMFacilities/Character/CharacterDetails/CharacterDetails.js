@@ -1,6 +1,7 @@
 import {Box, Button, Typography} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import Spinner from "../../../UI/Spinner/Spinner";
 
 const CharacterDetails = props => {
     const params = useParams();
@@ -25,6 +26,7 @@ const CharacterDetails = props => {
         <div>
             Character details
     <Box>
+        {isLoading && <Spinner/>}
         <Typography>{character.characterName}</Typography>
     </Box>
             <Button> <Link sx={{textDecoration: "none"}} to="../../" relative="path">Go back to summary</Link></Button>
