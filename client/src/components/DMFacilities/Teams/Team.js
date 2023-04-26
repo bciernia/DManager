@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import Card from "../../UI/Card/Card";
+import {Button} from "@mui/material";
 
 const Team = props => {
 
@@ -25,10 +26,11 @@ const Team = props => {
 
     return (
         //TODO clicking delete, showing team details
-        <Card onClick={showTeamDetails}>
+        <Card>
             <p> Team name: {props.team.name}</p>
             <p> Game system: {props.team.gameSystem}</p>
-            <button onClick={deleteTeam}>Delete</button>
+            <Button variant="contained" color="error" onClick={deleteTeam}>Delete</Button>
+            <Button sx={{marginLeft: "1rem"}} variant="contained" color="info" onClick={showTeamDetails}>Details</Button>
         </Card>
     )
 }
