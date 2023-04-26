@@ -22,6 +22,8 @@ const CharacterDetails = props => {
             });
     },[]);
 
+    //TODO finish character details page
+
     return (
         <div>
             Character details
