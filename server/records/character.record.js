@@ -4,8 +4,11 @@ const {ObjectId} = require("mongodb");
 
 class CharacterRecord {
     constructor(obj) {
-        //CHARACTER INFO
         this._id = new ObjectId(obj._id);
+        this.insertDate = new Date();
+        this.updateDate = new Date();
+
+        //CHARACTER INFO
         this.characterType = obj.characterType;
         this.characterName = obj.characterName;
         this.characterClass = obj.characterClass;
@@ -80,6 +83,9 @@ class CharacterRecord {
     async insert() {
         const {insertedId} = await characters.insertOne({
             _id: this._id,
+            insertDate: this.insertDate,
+            updateDate: this.updateDate,
+
             characterType: this.characterType.toString(),
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
@@ -139,6 +145,7 @@ class CharacterRecord {
         await characters.replaceOne({
             _id: this._id,
         }, {
+            updateDate: this.updateDate,
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
