@@ -1,9 +1,16 @@
 import Card from "../../UI/Card/Card";
 import {Avatar, Box, Button} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const Character = (props) => {
     const characterId = props.character._id + '';
     const teamId = props.teamId;
+
+    const navigate = useNavigate();
+
+    const showCharacterDetails = () => {
+        navigate(`character/${props.character._id}`)
+    }
 
     //TODO refresh list after delete
     const deleteCharacter = () => {
@@ -23,8 +30,10 @@ const Character = (props) => {
                 <p>Name: {props.character.characterName}</p>
                 <p>Character class: {props.character.characterClass}</p>
                 <p>Player: {props.character.playerName}</p>
-                <Button variant="outlined" color="error" onClick={deleteCharacter}
-                        sx={{position: 'absolute', bottom: 0}}>Delete character</Button>
+                <Button variant="contained" color="info" onClick={showCharacterDetails}
+                        sx={{position: 'absolute', bottom: "2.5rem"}}>Details</Button>
+                <Button variant="contained" color="error" onClick={deleteCharacter}
+                        sx={{position: 'absolute', bottom: 0}}>Delete</Button>
             </Box>
         </Card>
     )
