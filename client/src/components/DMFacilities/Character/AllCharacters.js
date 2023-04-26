@@ -11,7 +11,6 @@ const TeamDetails = props => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [charactersArray, setCharactersArray] = useState([]);
-    //TODO get team by id from parameter
 
     const getAllCharacters = (teamId) => {
         setIsLoading(true);
@@ -25,12 +24,8 @@ const TeamDetails = props => {
     }
 
     useEffect(() => {
-        //TODO find all characters who has been set to team with id from parameter
-
         getAllCharacters(teamId);
     }, [teamId]);
-
-
 
     return (
         <Wrapper>
