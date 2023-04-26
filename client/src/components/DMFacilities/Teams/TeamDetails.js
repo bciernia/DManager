@@ -1,4 +1,4 @@
-import Character from "../../Teams/Character/Character";
+import Character from "../Character/Character";
 import {useEffect, useState} from "react";
 import Spinner from "../../UI/Spinner/Spinner";
 import {Link, useParams} from "react-router-dom";

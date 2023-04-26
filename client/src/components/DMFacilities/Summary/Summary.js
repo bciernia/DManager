@@ -13,7 +13,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import AllTeams from "../Teams/AllTeams/AllTeams";
 import classes from "./Summary.module.css";
-import Character from "../../Teams/Character/Character";
+import Character from "../Character/Character";
 import AllCharacters from "../Character/AllCharacters";
 
 const Summary = () => {
