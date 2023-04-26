@@ -17,6 +17,7 @@ import CreateNewNpc from "./components/DMFacilities/Character/CreateCharacter/Cr
 import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacter/CreateNewMonster";
 import CreateNewBeast from "./components/DMFacilities/Character/CreateCharacter/CreateNewBeast";
 import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewPlayerCharacter";
+import CharacterDetails from "./components/DMFacilities/Character/CharacterDetails/CharacterDetails";
 
 const router = createBrowserRouter([
     {
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
 
                     {
                         path: "character/newCharacter/monster", element: <CreateNewMonster/>,
+                    },
+
+                    {
+                        path: "character/:characterId", element: <CharacterDetails/>,
                     },
 
                 ]
