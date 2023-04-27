@@ -4,6 +4,7 @@ export const CharacterInitialValues = {
     characterName: '',
     characterClass: '',
     characterRace: '',
+    characterAlignment: '',
     characterBackground: '',
     characterBackstory: '',
     characterAllies: '',

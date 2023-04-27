@@ -13,6 +13,7 @@ class CharacterRecord {
         this.characterName = obj.characterName;
         this.characterClass = obj.characterClass;
         this.characterRace = obj.characterRace;
+        this.characterAlignment = obj.characterAlignment;
         this.characterBackground = obj.characterBackground;
         this.characterBackstory = obj.characterBackstory;
         this.characterAllies = obj.characterAllies;
@@ -91,6 +92,7 @@ class CharacterRecord {
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
             characterRace: this.characterRace.toString(),
+            characterAlignment: this.characterAlignment.toString(),
             characterBackstory: this.characterBackstory.toString(),
             characterBackground: this.characterBackground.toString(),
             characterAllies: this.characterAllies.toString(),
@@ -149,6 +151,7 @@ class CharacterRecord {
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
+            characterAlignment: this.characterAlignment.toString(),
             playerName: this.playerName.toString(),
             characterLevel: Number(this.characterLevel),
             exp: Number(this.exp),

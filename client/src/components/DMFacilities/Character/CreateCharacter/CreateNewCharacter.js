@@ -1,4 +1,4 @@
-import {Box, Button, Grid, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid, Typography} from "@mui/material";
 import beastImg from '../../../../assets/newCharacterTypePhotos/beast.jpg'
 import monsterImg from '../../../../assets/newCharacterTypePhotos/monster.jpg'
 import playerCharacterImg from '../../../../assets/newCharacterTypePhotos/playerCharacter.jpg'

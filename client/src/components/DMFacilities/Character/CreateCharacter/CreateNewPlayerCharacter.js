@@ -33,6 +33,8 @@ import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField
 import {SkillProficiencies} from "../../../../utils/dndUtils/SkillProficiencies";
 import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
 import {useNavigate} from "react-router-dom";
+import {CharacterRaces} from "../../../../utils/dndUtils/CharacterRaces";
+import {CharacterAlignments} from "../../../../utils/dndUtils/CharacterAlignments";
 
 const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
@@ -43,6 +45,8 @@ const CreateNewPlayerCharacter = () => {
     const proficiencyLevel = Object.entries(ProficiencyLevel);
     const savingThrows = Object.entries(SavingThrows);
     const skillProficiencies = Object.entries(SkillProficiencies);
+    const characterRaceArray = Object.entries(CharacterRaces);
+    const characterAlignmentArray = Object.entries(CharacterAlignments);
 
     const initialSavingThrows = savingThrows.map(item => {
         return {proficiency: item[1][0], level: '0'};
@@ -91,6 +95,8 @@ const CreateNewPlayerCharacter = () => {
         CharacterInitialValues.damageVulnerabilities = characterVulnerabilities;
         CharacterInitialValues.damageImmunities = characterImmunities;
         CharacterInitialValues.damageResistances = characterResistances;
+        CharacterInitialValues.characterRace = characterRaceArray;
+        CharacterInitialValues.characterAlignment = characterAlignmentArray;
 
     }, [chosenLanguageAndLevel, chosenSavingThrowsAndLevel, chosenSkillAndLevel]);
 
@@ -270,6 +276,10 @@ const CreateNewPlayerCharacter = () => {
 
                     <DropdownInputField name="characterClass" label="Character class"
                                         arrayOfMenuItems={characterClassesArray}/>
+                    <DropdownInputField name="characterRace" label="Character race"
+                                        arrayOfMenuItems={characterRaceArray}/>
+                    <DropdownInputField name="characterAlignment" label="Character alignment"
+                                        arrayOfMenuItems={characterAlignmentArray}/>
                     <CheckboxInputField name="isAlive" label="Is alive?"/>
                 </FormStep>
                 <FormStep
