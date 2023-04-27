@@ -58,6 +58,24 @@ characterRouter
         })();
     })
 
+    //DELETE CHARACTER
+    .delete('/:characterId', (req, res) => {
+        const {characterId} = req.params;
+
+        (async () => {
+            try {
+                const characterToDelete = await CharacterRecord.find(characterId);
+
+                await characterToDelete.delete();
+
+                res.status(204);
+            } catch (e) {
+                throw new Error(e);
+            }
+        })();
+    })
+
+
 module.exports = {
     characterRouter,
 }
