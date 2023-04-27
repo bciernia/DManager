@@ -34,8 +34,8 @@ const CharacterDetails = props => {
                         <Typography variant="h4">{character.characterName}</Typography>
                         <Typography variant="h4">{character.characterType}</Typography>
                         <Typography variant="h4">{character.characterClass}</Typography>
-                        <Typography variant="h4">{character.characterRace || "No race"}</Typography>
-
+                        <Typography variant="h4">{character.characterRace}</Typography>
+                        <Typography variant="h4">{character.characterAlignment}</Typography>
                     </Grid>
                     <Grid item md={3} sx={{minHeight: "20rem"}}>
                         <Grid container spacing={2} sx={{
@@ -81,10 +81,6 @@ const CharacterDetails = props => {
                         </Grid>
                     </Grid>
                     <Grid item md={3} sx={{minHeight: "20rem"}}>
-                        <Typography variant="h4">{character.characterName}</Typography>
-                        <Typography variant="h4">{character.characterType}</Typography>
-                        <Typography variant="h4">{character.characterClass}</Typography>
-                        <Typography variant="h4">{character.characterRace || "No race"}</Typography>
 
                     </Grid>
                     <Grid item md={3} sx={{minHeight: "20rem", position: "relative"}}>
