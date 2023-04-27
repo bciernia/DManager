@@ -12,7 +12,7 @@ const TeamDetails = props => {
     const [isLoading, setIsLoading] = useState(false);
     const [charactersArray, setCharactersArray] = useState([]);
 
-    const getAllCharacters = (teamId) => {
+    const getAllCharacters = () => {
         setIsLoading(true);
 
         fetch(`http://127.0.0.1:3000/character/all`)
@@ -24,8 +24,8 @@ const TeamDetails = props => {
     }
 
     useEffect(() => {
-        getAllCharacters(teamId);
-    }, [teamId]);
+        getAllCharacters();
+    }, []);
 
     return (
         <Wrapper>
@@ -33,7 +33,7 @@ const TeamDetails = props => {
             <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>
                 {charactersArray.length === 0 && <p>No characters</p>}
                 {charactersArray.map(character => <Character key={character._id} teamId={teamId}
-                                                             character={character}/>)}
+                                                             character={character} rerenderCharacters={getAllCharacters}/>)}
             </Box>
         </Wrapper>
     )
