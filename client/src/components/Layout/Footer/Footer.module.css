@@ -1,23 +1,22 @@
 .container{
     position: fixed;
     width: 100%;
-    background: red;
+    min-height: 3.5rem;
+    background:  #f79a6b;
     bottom: 0;
 }
 
-.footer__btn--changeVisibility{
-    position: absolute;
-    top: -2.75rem;
-    right: 5rem;
-    background-color: red;
-    border: none;
-    border-radius: 5px;
-    height: 3rem;
-    width: 3rem;
-    cursor: pointer;
-    transition: all 2s;
+.contact-us__link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    width: 6rem;
+    margin: .75rem auto;
+    padding: .5rem;
+    border-radius: 10px;;
 }
 
-.footer__hidden{
-    bottom: -11.1rem;
+.contact-us__link:hover{
+    background: #e16d32;
 }
