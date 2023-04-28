@@ -1,7 +1,0 @@
-.container{
-    height: 100vh;
-    box-shadow: 5px 0px 10px #afafaf;
-    min-width: 12.5rem;
-    display: flex;
-    flex-direction: column;
-}
