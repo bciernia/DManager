@@ -5,7 +5,7 @@ const MenuOption = (props) => {
     return (
         <li className={classes["menu-option"]}>
             <NavLink to={`${props.linkTo}`}
-                     className={({isActive}) => isActive ? classes.active : undefined}
+                     className={(({isActive}) => isActive ? (classes.link, classes.active) : (classes.link))}
                      end>{props.optionName}</NavLink>
         </li>
     )
