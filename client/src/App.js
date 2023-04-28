@@ -18,6 +18,7 @@ import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacte
 import CreateNewBeast from "./components/DMFacilities/Character/CreateCharacter/CreateNewBeast";
 import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewPlayerCharacter";
 import CharacterDetails from "./components/DMFacilities/Character/CharacterDetails/CharacterDetails";
+import ContactForm from "./components/ContactForm/ContactForm";
 
 const router = createBrowserRouter([
     {
@@ -107,7 +108,12 @@ const router = createBrowserRouter([
                     },
 
                 ]
+            },
+
+            {
+                path: "contact", element: <ContactForm />,
             }
+
         ]
     }
 ])
