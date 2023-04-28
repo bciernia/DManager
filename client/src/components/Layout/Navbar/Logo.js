@@ -1,5 +1,5 @@
 import classes from './Logo.module.css'
-import logoImg from '../../../assets/logo/logo.png'
+import logoImg from '../../../assets/images/logo.png'
 import {NavLink} from "react-router-dom";
 
 const Logo = props => {
