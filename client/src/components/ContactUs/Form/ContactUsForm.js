@@ -35,17 +35,21 @@ const ContactUsForm = props => {
                            helperText={(touched && isNameValid(fullName)) ? "Name must have more than 2 characters and less than 20" : ""}
                            inputProps={{maxLength: 30}}
                            onBlur={() => setTouched(true)}
+                           required
                            onChange={(event) => setFullName(event.target.value)}/>
                 <TextField sx={{width: "80%"}} type="email" label="E-mail address"
                            inputProps={{maxLength: 50}}
+                           required
                            onChange={(event) => setEmailAddress(event.target.value)}/>
                 <TextField sx={{width: "80%"}} type="text" label="E-mail subject"
                            error={isMailSubjectValid(emailSubject)}
                            helperText={isMailSubjectValid(emailSubject) ? "E-mail subject can not be longer than 50 characters" : ""}
+                           required
                            inputProps={{maxLength: 50}}
                            onChange={(event) => setEmailSubject(event.target.value)}/>
                 <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline minRows={5}
                            maxRows={5} label="E-mail content"
+                           required
                            onChange={(event) => setEmailContent(event.target.value)}/>
                 <div className={classes["characters-counter"]}><p>{emailContent.length}/1000</p></div>
                 <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
