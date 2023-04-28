@@ -5,11 +5,11 @@ import {Outlet} from "react-router-dom";
 
 const Home = props => {
     return (
-        <section>
+        <section className={classes["main-section"]}>
             <div>
                 <Navbar />
             </div>
-            <div>
+            <div className={classes["content-wrap"]}>
                 <Outlet />
             </div>
             <div>

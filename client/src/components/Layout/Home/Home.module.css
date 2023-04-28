@@ -1,20 +1,8 @@
-.layout{
-    display: grid;
-    grid-template-columns: 2fr 10fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "sidebar main"
-    "footer footer"
+.main-section {
+    position: relative;
+    min-height: 100vh;
 }
 
-.layout-sidebar{
-    grid-area: sidebar;
-}
-
-.layout-main{
-    grid-area: main;
-}
-
-.layout-footer{
-    grid-area: footer;
+.content-wrap {
+    padding-bottom: 5rem;
 }

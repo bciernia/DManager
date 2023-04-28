@@ -32,3 +32,7 @@ export const characterProficienciesValidationSchema = yup.object({
 export const characterSkillsValidationSchema = yup.object({
 
 });
+
+export const mailValidationSchema = yup.object({
+
+});

@@ -1,7 +1,6 @@
 .container{
     position: fixed;
     width: 100%;
-    min-height: 3.5rem;
     background:  #f79a6b;
     bottom: 0;
 }
