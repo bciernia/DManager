@@ -1,7 +1,7 @@
 import {Button, Divider, TextField, Typography} from "@mui/material";
 import React, {useState} from "react";
 import classes from './ContactUsForm.module.css';
-import Card from "../../UI/Card/Card";
+import Card from "../../../UI/Card/Card";
 import {useField} from "formik";
 import {useNavigate} from "react-router-dom";
 
@@ -22,7 +22,7 @@ const ContactUsForm = props => {
     const isNameValid = name => name.length < 2 || name.length > 50;
     const isMailValid = mail => mail.length < 2 || mail.length > 50;
     const isMailSubjectValid = mail => mail.length < 2 || mail.length > 50;
-    const isMailContentValid = content => content.length < 2 || content.length > 50;
+    const isMailContentValid = content => content.length < 1 || content.length > 1000;
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -38,9 +38,6 @@ const ContactUsForm = props => {
             emailContent,
         }
         props.sendMail(userMessage);
-
-        //TODO thank you for your feedback site
-        // navigate("");
     }
 
     return (
@@ -49,7 +46,7 @@ const ContactUsForm = props => {
             <form className={classes.form} onSubmit={(event) => handleSubmit(event)}>
                 <TextField sx={{width: "80%"}} type="text" label="Full name"
                            error={nameTouched && isNameValid(fullName)}
-                           helperText={(nameTouched && isNameValid(fullName)) ? "Name must have more than 2 characters and less than 20" : ""}
+                           helperText={(nameTouched && isNameValid(fullName)) ? "Name must have more than 2 characters and less than 50" : ""}
                            inputProps={{maxLength: 30}}
                            onBlur={() => setNameTouched(true)}
                            required
@@ -68,8 +65,8 @@ const ContactUsForm = props => {
                            required
                            inputProps={{maxLength: 50}}
                            onChange={(event) => setEmailSubject(event.target.value)}/>
-                <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline minRows={5}
-                           maxRows={5} label="E-mail content"
+                <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
+                           rows={5} label="E-mail content"
                            error={contentTouched && isMailContentValid(emailContent)}
                            helperText={(contentTouched && isMailContentValid(emailContent)) ? "E-mail content is required and can not be longer than 1000 characters " : ""}
                            onBlur={() => setContentTouched(true)}
