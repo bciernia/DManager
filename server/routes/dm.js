@@ -131,7 +131,6 @@ dmRouter
     .post('/campaign/newCampaign', (req, res) => {
         const campaign = req.body;
 
-
         (async () => {
             try {
                 const newCampaign = new CampaignRecord({
@@ -148,6 +147,19 @@ dmRouter
                 throw new Error(e);
             }
 
+        })();
+    })
+
+    .get('/campaign/all', (req, res) => {
+        (async () => {
+            try {
+                const campaigns = await CampaignRecord.findAll();
+
+                res.status(200).send(campaigns);
+
+            } catch (e) {
+                throw new Error(e);
+            }
         })();
     })
 
