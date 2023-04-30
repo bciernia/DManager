@@ -1,4 +1,4 @@
-# DM's Assistant
+# DManager
 
 The application allows the user to store all the items needed to run an rpg campaign in one place. Have you lost many times the file with NPCs that players are just asking for? This app is for you!
 
