@@ -11,7 +11,7 @@ import CreateNewCampaign from "./components/DMFacilities/Scenarios/NewCampaign/C
 import Session from "./components/Sessions/Session";
 import CreateNewScenario from "./components/DMFacilities/Scenarios/CreateNewScenario";
 import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
-import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails";
+import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails/CampaignDetails";
 import CreateNewCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewCharacter";
 import CreateNewNpc from "./components/DMFacilities/Character/CreateCharacter/CreateNewNpc";
 import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacter/CreateNewMonster";

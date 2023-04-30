@@ -3,7 +3,7 @@ import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typogra
 import {useEffect, useState} from "react";
 import Character from "../../Character/Character";
 import {useNavigate} from "react-router-dom";
-import CampaignDetails from "../CampaignDetails";
+import CampaignDetails from "../CampaignDetails/CampaignDetails";
 
 const CampaignsSummary = () => {
 
