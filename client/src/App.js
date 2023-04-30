@@ -9,7 +9,7 @@ import TeamDetails from "./components/DMFacilities/Teams/TeamDetails";
 import Summary from "./components/DMFacilities/Summary/Summary";
 import CreateNewCampaign from "./components/DMFacilities/Scenarios/NewCampaign/CreateNewCampaign";
 import Session from "./components/Sessions/Session";
-import CreateNewScenario from "./components/DMFacilities/Scenarios/CreateNewScenario";
+import CreateNewScenario from "./components/DMFacilities/Scenarios/NewScenario/CreateNewScenario";
 import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
 import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails/CampaignDetails";
 import CreateNewCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewCharacter";
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: 'scenario/newScenario', element: <CreateNewScenario/>
+                        path: 'campaign/:campaignId/scenario/newScenario', element: <CreateNewScenario/>
                     },
 
                     {
