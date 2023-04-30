@@ -51,7 +51,11 @@ const CampaignsSummary = () => {
                 <Box sx={{width: "100%", margin: "0.5rem 0"}}>
                     <nav>
                         <Typography variant="h4" textAlign="center">Campaign list</Typography>
-                        <List>
+                        <List sx={{
+                            height: "35rem",
+                            overflow: "auto",
+                            border: "solid 2px",
+                        }}>
                             {campaignArray.length === 0 && <Typography variant="h6" textAlign="center">No campaigns</Typography>}
                             {campaignArray.map(campaign =>
                                 <ListItem disablePadding>
