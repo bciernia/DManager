@@ -14,7 +14,7 @@ import {useState} from "react";
 import AllTeams from "../Teams/AllTeams/AllTeams";
 import classes from "./Summary.module.css";
 import Character from "../Character/Character";
-import AllCharacters from "../Character/AllCharacters";
+import AllCharacters from "../Character/AllCharacters/AllCharacters";
 
 
 const Summary = () => {
@@ -25,7 +25,7 @@ const Summary = () => {
     }
 
     const goToCharactersMenu = () => {
-        navigate('character');
+        navigate('characters');
     }
 
     const goToSessionHistoryMenu = () => {

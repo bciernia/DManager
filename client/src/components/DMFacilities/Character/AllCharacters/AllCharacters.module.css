@@ -1,0 +1,6 @@
+.container{
+    height: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    padding: .5rem;
+}
