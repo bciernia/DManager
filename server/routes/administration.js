@@ -1,6 +1,6 @@
 const express = require('express');
-const nodemailer = require("nodemailer");
-const {MailCredentials} = require('../secrets/MailCredentials');
+const {transporter} = require("../utils/mail");
+const {MailCredentials} = require("../secrets/MailCredentials");
 
 const administrationRouter = express.Router();
 
@@ -8,15 +8,6 @@ administrationRouter
 
     .post('/', (req, res) => {
         const mail = req.body;
-
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.ethereal.email',
-            port: 587,
-            auth: {
-                user: MailCredentials.login,
-                pass: MailCredentials.password,
-            }
-        });
 
         const mailOptions = {
             from: `${mail.fullName} <${mail.emailAddress}>`,
