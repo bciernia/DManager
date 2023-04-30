@@ -1,15 +1,20 @@
 import Character from "../Character";
 import {useEffect, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import Wrapper from "../../../../utils/Wrapper";
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import classes from './AllCharacters.module.css';
 import CampaignDetails from "../../Scenarios/CampaignDetails/CampaignDetails";
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
+import CreateNewPlayerCharacter from "../CreateCharacter/CreateNewPlayerCharacter";
+import CreateNewNpc from "../CreateCharacter/CreateNewNpc";
+import CreateNewBeast from "../CreateCharacter/CreateNewBeast";
+import CreateNewMonster from "../CreateCharacter/CreateNewMonster";
 
 const TeamDetails = props => {
     const params = useParams();
+    const navigate = useNavigate();
     const teamId = params.teamId;
 
     const [isLoading, setIsLoading] = useState(false);
@@ -42,17 +47,26 @@ const TeamDetails = props => {
         getAllCharacters();
     }, []);
 
-    const test = () => {
-        alert(charactersArray);
+    const createPlayerCharacter = () => {
+        navigate('newCharacter/playerCharacter')
+    }
+    const createNpc = () => {
+        navigate('newCharacter/npc')
+    }
+    const createMonster = () => {
+        navigate('newCharacter/monster')
+    }
+    const createBeast = () => {
+        navigate('newCharacter/beast')
     }
 
     return (
         <Wrapper>
             <div className={classes.container}>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={test}>Create player character</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit">Create npc</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit">Create monster</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit">Create animal</Button>
+                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createPlayerCharacter}>Create player character</Button>
+                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createNpc}>Create npc</Button>
+                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createMonster}>Create monster</Button>
+                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createBeast}>Create beast</Button>
             </div>
             <Grid container>
                 <Grid item md={2} sx={{display: "flex", flexDirection: "column", margin: "0.5rem"}}>
