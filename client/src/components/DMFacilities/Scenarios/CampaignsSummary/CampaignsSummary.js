@@ -45,39 +45,47 @@ const CampaignsSummary = () => {
     }, []);
 
     return (
-        <Grid container>
-            <Grid item md={2} sx={{display: "flex", flexDirection: "column", margin: "0.5rem"}}>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={goToAddNewCampaignForm}>Add new campaign</Button>
-                <Box sx={{width: "100%", margin: "0.5rem 0"}}>
-                    <nav>
-                        <Typography variant="h4" textAlign="center">Campaign list</Typography>
-                        <List sx={{
-                            height: "35rem",
-                            overflow: "auto",
-                            border: "solid 2px",
-                        }}>
-                            {campaignArray.length === 0 && <Typography variant="h6" textAlign="center">No campaigns</Typography>}
-                            {campaignArray.map(campaign =>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{textAlign: "center"}} onClick={() => showCampaignDetails(campaign._id)}>
-                                        <ListItemText primary={campaign.campaignName}
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
+        <div className={classes.container}>
+            <Grid container>
+                <Grid item md={2} sx={{display: "flex", flexDirection: "column", marginTop: "0.5rem"}}>
+                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
+                            onClick={goToAddNewCampaignForm}>Add new campaign</Button>
+                    <Box sx={{width: "100%", margin: "0.5rem 0"}}>
+                        <nav>
+                            <Typography variant="h4" textAlign="center">Campaign list</Typography>
+                            <List sx={{
+                                height: "35rem",
+                                overflow: "auto",
+                                border: "solid 2px",
+                            }}>
+                                {campaignArray.length === 0 &&
+                                    <Typography variant="h6" textAlign="center">No campaigns</Typography>}
+                                {campaignArray.map(campaign =>
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{textAlign: "center"}}
+                                                        onClick={() => showCampaignDetails(campaign._id)}>
+                                            <ListItemText primary={campaign.campaignName}
+                                            />
+                                        </ListItemButton>
+                                    </ListItem>
+                                )}
+                            </List>
+                        </nav>
+                    </Box>
+                </Grid>
+                <Grid item md={10}>
+                    <Box sx={{height: "50rem", width: "100%"}}>
+                        {!chosenCampaign ? (
+                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
+                                    yours campaigns</Typography>) :
+                            (
+                                <CampaignDetails campaign={chosenCampaign}/>
                             )}
-                        </List>
-                    </nav>
-                </Box>
+                    </Box>
+                </Grid>
             </Grid>
-            <Grid item md={9}>
-                <Box sx={{height: "50rem", width: "100%"}}>
-                    {!chosenCampaign ? (<Typography sx={{display:"flex", justifyContent:"center"}} variant="h2">Choose one of yours campaigns</Typography>) :
-                        (
-                            <CampaignDetails campaign={chosenCampaign} />
-                        )}
-                </Box>
-            </Grid>
-        </Grid>
+        </div>
+
     )
 }
 

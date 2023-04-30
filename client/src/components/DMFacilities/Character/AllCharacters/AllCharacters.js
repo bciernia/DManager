@@ -67,7 +67,7 @@ const TeamDetails = props => {
                     beast</Button>
             </div>
             <Grid container>
-                <Grid item md={2} sx={{display: "flex", flexDirection: "column", margin: "0.5rem"}}>
+                <Grid item md={2} sx={{display: "flex", flexDirection: "column"}}>
                     <Box sx={{width: "100%", margin: "0.5rem 0"}}>
                         <nav>
                             <Typography variant="h4" textAlign="center">Character list</Typography>
@@ -92,7 +92,7 @@ const TeamDetails = props => {
                         </nav>
                     </Box>
                 </Grid>
-                <Grid item md={9}>
+                <Grid item md={10}>
                     <Box sx={{height: "50rem", width: "100%"}}>
                         {!chosenCharacter ? (
                                 <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
