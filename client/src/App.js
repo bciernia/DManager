@@ -20,6 +20,7 @@ import CreateNewPlayerCharacter from "./components/DMFacilities/Character/Create
 import CharacterDetails from "./components/DMFacilities/Character/CharacterDetails/CharacterDetails";
 import ContactUs from "./components/Administration/ContactUs/ContactUs";
 import MailSended from "./components/Administration/ContactUs/MailSended/MailSended";
+import CampaignsSummary from "./components/DMFacilities/Scenarios/CampaignsSummary/CampaignsSummary";
 
 const router = createBrowserRouter([
     {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
 
                     {
                         path: 'teams/newTeam', element: <AddTeam/>,
+                    },
+
+                    {
+                      path: 'campaign', element: <CampaignsSummary />,
                     },
 
                     {
