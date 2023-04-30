@@ -20,12 +20,6 @@ app.use('/character', characterRouter);
 app.use('/teams', teamRouter);
 app.use('/dm', dmRouter);
 
-// app.get('/api', (req, res) => {
-//     res.json({
-//         "users": ['userOne', 'userTwo', 'userThree'],
-//     });
-// });
-
 app.listen(5000, '127.0.0.1', () => {
     console.log('Server started on port 5000');
 });

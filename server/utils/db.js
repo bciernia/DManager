@@ -16,4 +16,6 @@ module.exports = {
     characters,
     teams,
     client,
+    campaigns,
+    sessions,
 };

@@ -1,6 +1,7 @@
 const express = require('express');
 const {ObjectId} = require("mongodb");
 const {NpcRecord} = require("../records/npc.record");
+const {CampaignRecord} = require("../records/campaign.record");
 
 const dmRouter = express.Router();
 
@@ -123,6 +124,30 @@ dmRouter
             }catch (e) {
                 throw new Error(e);
             }
+        })();
+    })
+
+    //ADD NEW CAMPAIGN
+    .post('/campaign/newCampaign', (req, res) => {
+        const campaign = req.body;
+
+
+        (async () => {
+            try {
+                const newCampaign = new CampaignRecord({
+                    campaignName: campaign.campaignName.toString(),
+                    campaignSetting: campaign.campaignSetting.toString(),
+                    campaignDescription: campaign.campaignDescription.toString(),
+                });
+
+                const newCampaignId = await newCampaign.insert();
+
+                res.status(201).send(newCampaignId);
+
+            } catch (e) {
+                throw new Error(e);
+            }
+
         })();
     })
 

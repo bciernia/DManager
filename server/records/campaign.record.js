@@ -5,29 +5,19 @@ const {ObjectId} = require("mongodb");
 class CampaignRecord {
     constructor(obj) {
         this._id = new ObjectId(obj._id);
-        this.sessionName = obj.sessionName;
-        this.gameSystem = obj.gameSystem;
-        this.campaignId = obj.campaignId;
-        this.sessionTimeId = obj.sessionTimeId;
-    }
-
-    _validate() {
-        //TODO campaign validate
-        if (this.sessionName.trim().length < 2) {
-            throw new Error("Team name should be at least 3 characters.");
-        }
-
-        if (this.sessionName.length > 30) {
-            throw new Error("Team name can not be longer than 150 characters.");
-        }
+        this.campaignName = obj.campaignName;
+        this.campaignSetting = obj.campaignSetting;
+        this.campaignDescription = obj.campaignDescription;
+        this.campaignScenarios = [];
     }
 
     async insert() {
         const {insertedId} = await campaigns.insertOne({
             _id: this._id,
-            name: this.sessionName.toString(),
-            gameSystem: this.gameSystem.toString(),
-
+            campaignName: this.campaignName.toString(),
+            campaignSetting: this.campaignSetting.toString(),
+            campaignDescription: this.campaignDescription.toString(),
+            campaignScenarios: this.campaignScenarios,
         });
         this._id = insertedId.toString();
 
@@ -38,8 +28,9 @@ class CampaignRecord {
         await campaigns.replaceOne({
             _id: this._id,
         }, {
-            name: this.sessionName.toString(),
-            gameSystem: this.gameSystem.toString(),
+            campaignName: this.campaignName.toString(),
+            campaignSetting: this.campaignSetting.toString(),
+            campaignDescription: this.campaignDescription.toString(),
         });
     }
 
