@@ -29,7 +29,7 @@ const NewCampaignForm = () => {
             body: JSON.stringify(campaign)
         })
             .then(res => res.json())
-            .then(campaignId => navigate(`/dm/campaign/${campaignId}`));
+            .then(campaignId => navigate(`/dm/campaign`));
     }
 
     return (
