@@ -24,7 +24,6 @@ administrationRouter
                 res.status(200).send(info);
             }
         })
-
     })
 
 module.exports = {

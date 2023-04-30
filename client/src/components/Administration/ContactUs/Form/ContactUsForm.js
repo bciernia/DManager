@@ -1,9 +1,9 @@
-import {Button, Divider, TextField, Typography} from "@mui/material";
+import {Button, TextField, Typography} from "@mui/material";
 import React, {useState} from "react";
 import classes from './ContactUsForm.module.css';
 import Card from "../../../UI/Card/Card";
-import {useField} from "formik";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../../../UI/Spinner/Spinner";
 
 const ContactUsForm = props => {
 
@@ -73,8 +73,9 @@ const ContactUsForm = props => {
                            required
                            onChange={(event) => setEmailContent(event.target.value)}/>
                 <div className={classes["characters-counter"]}><p>{emailContent.length}/1000</p></div>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
-                        type="submit">Send</Button>
+                {props.isLoading ? (<Spinner/>) : (
+                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
+                            type="submit">Send</Button>)}
             </form>
         </Card>
     )

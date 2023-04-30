@@ -7,7 +7,7 @@ import Spinner from "../../UI/Spinner/Spinner";
 import {useNavigate} from "react-router-dom";
 
 const ContactUs = () => {
-    const [isLoading, setIsLoading]=  useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -28,7 +28,9 @@ const ContactUs = () => {
 
     return (
         <div className={classes.container}>
-            <Grid container sx={{height: "100%"}}>
+            <Grid container sx={{
+                height: "100%",
+            }}>
                 <Grid item xs sx={{
                     display: "flex",
                     height: "100%",
@@ -38,10 +40,10 @@ const ContactUs = () => {
                 }}>
                     <img src={contactUsLogo} className={classes.logo}/>
                 </Grid>
+
                 <Divider orientation="vertical" flexItem/>
                 <Grid item xs sx={{display: "flex", height: "100%", justifyContent: "center", alignItems: "center"}}>
-                    {isLoading && <Spinner />}
-                    <ContactUsForm sendMail={sendMail}/>
+                    <ContactUsForm isLoading={isLoading} sendMail={sendMail}/>
                 </Grid>
             </Grid>
         </div>
