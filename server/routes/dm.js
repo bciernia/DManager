@@ -150,6 +150,7 @@ dmRouter
         })();
     })
 
+    //GET ALL CAMPAIGNS
     .get('/campaign/all', (req, res) => {
         (async () => {
             try {
@@ -158,6 +159,21 @@ dmRouter
                 res.status(200).send(campaigns);
 
             } catch (e) {
+                throw new Error(e);
+            }
+        })();
+    })
+
+    //GET CHOSEN CAMPAIGN
+    .get(`/campaign/:campaignId`, (req, res) => {
+        const {campaignId} = req.params;
+
+        (async () => {
+            try{
+                const campaign = await CampaignRecord.find(campaignId);
+
+                res.status(200).send(campaign);
+            } catch (e){
                 throw new Error(e);
             }
         })();

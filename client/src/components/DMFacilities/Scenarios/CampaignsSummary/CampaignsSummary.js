@@ -3,15 +3,17 @@ import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typogra
 import {useEffect, useState} from "react";
 import Character from "../../Character/Character";
 import {useNavigate} from "react-router-dom";
+import CampaignDetails from "../CampaignDetails";
 
 const CampaignsSummary = () => {
 
     const [isLoading, setIsLoading] = useState([]);
     const [campaignArray, setCampaignArray] = useState([]);
+    const [chosenCampaign, setChosenCampaign] = useState();
 
     const navigate = useNavigate();
 
-    const getAllCharacters = () => {
+    const getAllCampaigns = () => {
         setIsLoading(true);
 
         fetch(`http://127.0.0.1:3000/dm/campaign/all`)
@@ -22,45 +24,57 @@ const CampaignsSummary = () => {
             });
     }
 
+    const showCampaignDetails = (campaignId) => {
+        setIsLoading(true);
+
+        fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}`)
+            .then(res => res.json())
+            .then(data => setChosenCampaign(data))
+            .finally(() => {
+                setIsLoading(false);
+            })
+    }
+
+
     const goToAddNewCampaignForm = () => {
         navigate('newCampaign');
     }
 
     useEffect(() => {
-        getAllCharacters();
+        getAllCampaigns();
     }, []);
 
     return (
-        <Grid container spacing={2}>
-            <Grid item md={4}>
-                <Box sx={{width: "100%", maxWidth: 400, margin: "0.5rem 1rem"}}>
-                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={goToAddNewCampaignForm}>Add new campaign</Button>
-                    <nav aria-label="main mailbox folders">
-                        <Typography variant="h4" textAlign="center">Campaigns list</Typography>
+        <Grid container>
+            <Grid item md={2} sx={{display: "flex", flexDirection: "column", margin: "0.5rem"}}>
+                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={goToAddNewCampaignForm}>Add new campaign</Button>
+                <Box sx={{width: "100%", margin: "0.5rem 0"}}>
+                    <nav>
+                        <Typography variant="h4" textAlign="center">Campaign list</Typography>
                         <List sx={{
-                            width: '100%',
-                            position: 'relative',
-                            overflow: 'auto',
-                            maxHeight: 340,
+
                         }}>
                             {campaignArray.length === 0 && <Typography variant="h6" textAlign="center">No campaigns</Typography>}
                             {campaignArray.map(campaign =>
                                 <ListItem disablePadding>
-                                    <ListItemButton sx={{textAlign: "center"}}>
+                                    <ListItemButton sx={{textAlign: "center"}} onClick={() => showCampaignDetails(campaign._id)}>
                                         <ListItemText primary={campaign.campaignName}
                                         />
                                     </ListItemButton>
                                 </ListItem>
                             )}
-
                         </List>
                     </nav>
                 </Box>
             </Grid>
-            <Grid item md={8}>
-                TES
+            <Grid item md={9}>
+                <Box sx={{height: "50rem", width: "100%"}}>
+                    {!chosenCampaign ? (<Typography sx={{display:"flex", justifyContent:"center"}} variant="h2">Choose one of yours campaigns</Typography>) :
+                        (
+                            <CampaignDetails campaign={chosenCampaign} />
+                        )}
+                </Box>
             </Grid>
-
         </Grid>
     )
 }
