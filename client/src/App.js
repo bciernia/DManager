@@ -21,6 +21,7 @@ import CharacterDetails from "./components/DMFacilities/Character/CharacterDetai
 import ContactUs from "./components/Administration/ContactUs/ContactUs";
 import MailSended from "./components/Administration/ContactUs/MailSended/MailSended";
 import CampaignsSummary from "./components/DMFacilities/Scenarios/CampaignsSummary/CampaignsSummary";
+import AllCharacters from "./components/DMFacilities/Character/AllCharacters/AllCharacters";
 
 const router = createBrowserRouter([
     {
@@ -90,27 +91,31 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: "character/newCharacter", element: <CreateNewCharacter/>,
+                      path: "characters", element: <AllCharacters />
                     },
 
                     {
-                        path: "character/newCharacter/playerCharacter", element: <CreateNewPlayerCharacter/>,
+                        path: "characters/newCharacter", element: <CreateNewCharacter/>,
                     },
 
                     {
-                        path: "character/newCharacter/npc", element: <CreateNewNpc/>,
+                        path: "characters/newCharacter/playerCharacter", element: <CreateNewPlayerCharacter/>,
                     },
 
                     {
-                        path: "character/newCharacter/beast", element: <CreateNewBeast/>,
+                        path: "characters/newCharacter/npc", element: <CreateNewNpc/>,
                     },
 
                     {
-                        path: "character/newCharacter/monster", element: <CreateNewMonster/>,
+                        path: "characters/newCharacter/beast", element: <CreateNewBeast/>,
                     },
 
                     {
-                        path: "character/:characterId", element: <CharacterDetails/>,
+                        path: "characters/newCharacter/monster", element: <CreateNewMonster/>,
+                    },
+
+                    {
+                        path: "characters/:characterId", element: <CharacterDetails/>,
                     },
 
                 ]

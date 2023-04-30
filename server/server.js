@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 
 app.use('/', gameRouter);
 app.use('/administration', administrationRouter);
-app.use('/character', characterRouter);
+app.use('/characters', characterRouter);
 app.use('/teams', teamRouter);
 app.use('/dm', dmRouter);
 
