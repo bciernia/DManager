@@ -9,6 +9,7 @@ class CampaignRecord {
         this.campaignSetting = obj.campaignSetting;
         this.campaignDescription = obj.campaignDescription;
         this.campaignScenarios = [];
+        this.campaignSessions = [];
     }
 
     async insert() {
@@ -18,6 +19,7 @@ class CampaignRecord {
             campaignSetting: this.campaignSetting.toString(),
             campaignDescription: this.campaignDescription.toString(),
             campaignScenarios: this.campaignScenarios,
+            campaignSessions: this.campaignSessions,
         });
         this._id = insertedId.toString();
 
@@ -31,6 +33,8 @@ class CampaignRecord {
             campaignName: this.campaignName.toString(),
             campaignSetting: this.campaignSetting.toString(),
             campaignDescription: this.campaignDescription.toString(),
+            campaignScenarios: this.campaignScenarios,
+            campaignSessions: this.campaignSessions,
         });
     }
 

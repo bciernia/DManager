@@ -6,9 +6,8 @@ class SessionRecord {
     constructor(obj) {
         this._id = new ObjectId(obj._id);
         this.sessionName = obj.sessionName;
-        this.gameSystem = obj.gameSystem;
         this.campaignId = obj.campaignId;
-        this.sessionTimeId = obj.sessionTimeId;
+        this.sessionTime = obj.sessionTime;
     }
 
     _validate() {
@@ -25,8 +24,9 @@ class SessionRecord {
     async insert() {
         const {insertedId} = await sessions.insertOne({
             _id: this._id,
-            name: this.sessionName.toString(),
-            gameSystem: this.gameSystem.toString(),
+            sessionName: this.sessionName.toString(),
+            campaignId: this.campaignId.toString(),
+            sessionTime: this.sessionTime,
 
         });
         this._id = insertedId.toString();
@@ -38,8 +38,9 @@ class SessionRecord {
         await sessions.replaceOne({
             _id: this._id,
         }, {
-            name: this.sessionName.toString(),
-            gameSystem: this.gameSystem.toString(),
+            sessionName: this.sessionName.toString(),
+            campaignId: this.campaignId.toString(),
+            sessionTime: this.sessionTime,
         });
     }
 
