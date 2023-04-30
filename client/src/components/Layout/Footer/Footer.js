@@ -16,7 +16,7 @@ const Footer = () => {
 
                 </Grid>
                 <Grid item md={2}>
-                    <NavLink to={'/contact'}
+                    <NavLink to={'administration/contact'}
                              className={(isActive) =>
                                  isActive ? classes["contact-us__link"] : undefined}>
                         Contact us!
