@@ -55,15 +55,15 @@ const TeamDetails = props => {
     }
 
     return (
-        <Wrapper>
-            <div className={classes.container}>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
+        <div className={classes.container}>
+            <div>
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
                         onClick={createPlayerCharacter}>Create player character</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createNpc}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createNpc}>Create
                     npc</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createMonster}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createMonster}>Create
                     monster</Button>
-                <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit" onClick={createBeast}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createBeast}>Create
                     beast</Button>
             </div>
             <Grid container>
@@ -103,12 +103,7 @@ const TeamDetails = props => {
                     </Box>
                 </Grid>
             </Grid>
-            {/*<Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'row'}}>*/}
-            {/*    {charactersArray.length === 0 && <p>No characters</p>}*/}
-            {/*    {charactersArray.map(character => <Character key={character._id} teamId={teamId}*/}
-            {/*                                                 character={character} rerenderCharacters={getAllCharacters}/>)}*/}
-            {/*</Box>*/}
-        </Wrapper>
+        </div>
     )
 }
 
