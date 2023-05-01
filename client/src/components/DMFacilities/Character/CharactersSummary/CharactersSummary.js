@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
-import classes from './AllCharacters.module.css';
+import classes from './CharactersSummary.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
 import Spinner from "../../../UI/Spinner/Spinner";
 
@@ -110,4 +110,4 @@ const CharactersSummary = props => {
     )
 }
 
-export default TeamDetails;
+export default CharactersSummary;

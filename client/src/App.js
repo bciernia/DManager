@@ -21,7 +21,7 @@ import CharacterDetails from "./components/DMFacilities/Character/CharacterDetai
 import ContactUs from "./components/Administration/ContactUs/ContactUs";
 import MailSended from "./components/Administration/ContactUs/MailSended/MailSended";
 import CampaignsSummary from "./components/DMFacilities/Scenarios/CampaignsSummary/CampaignsSummary";
-import AllCharacters from "./components/DMFacilities/Character/AllCharacters/AllCharacters";
+import CharactersSummary from "./components/DMFacilities/Character/CharactersSummary/CharactersSummary";
 
 const router = createBrowserRouter([
     {
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
                     },
 
                     {
-                      path: "characters", element: <AllCharacters />
+                      path: "characters", element: <CharactersSummary />
                     },
 
                     {
