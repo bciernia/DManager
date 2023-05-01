@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import Character from "../../Character/Character";
 import {useNavigate} from "react-router-dom";
 import CampaignDetails from "../CampaignDetails/CampaignDetails";
+import Spinner from "../../../UI/Spinner/Spinner";
 
 const CampaignsSummary = () => {
 
@@ -58,6 +59,7 @@ const CampaignsSummary = () => {
                                 overflow: "auto",
                                 border: "solid 2px",
                             }}>
+                                {isLoading && <Spinner />}
                                 {campaignArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No campaigns</Typography>}
                                 {campaignArray.map(campaign =>

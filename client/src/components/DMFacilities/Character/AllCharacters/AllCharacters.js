@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import Wrapper from "../../../../utils/Wrapper";
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import classes from './AllCharacters.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
 import Card from "../../../UI/Card/Card";
+import Spinner from "../../../UI/Spinner/Spinner";
 
 const TeamDetails = props => {
     const params = useParams();
@@ -24,7 +25,7 @@ const TeamDetails = props => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }
+    };
 
     const showCharacterDetails = (characterId) => {
         setIsLoading(true);
@@ -35,7 +36,7 @@ const TeamDetails = props => {
             .finally(() => {
                 setIsLoading(false);
             })
-    }
+    };
 
     useEffect(() => {
         getAllCharacters();
@@ -59,11 +60,14 @@ const TeamDetails = props => {
             <div>
                 <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
                         onClick={createPlayerCharacter}>Create player character</Button>
-                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createNpc}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
+                        onClick={createNpc}>Create
                     npc</Button>
-                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createMonster}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
+                        onClick={createMonster}>Create
                     monster</Button>
-                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit" onClick={createBeast}>Create
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
+                        onClick={createBeast}>Create
                     beast</Button>
             </div>
             <Grid container>
@@ -76,6 +80,7 @@ const TeamDetails = props => {
                                 overflow: "auto",
                                 border: "solid 2px",
                             }}>
+                                {isLoading && <Spinner/>}
                                 {charactersArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No characters</Typography>}
                                 {charactersArray.map(character =>
