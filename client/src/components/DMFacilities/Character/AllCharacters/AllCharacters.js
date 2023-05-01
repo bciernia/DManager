@@ -5,7 +5,7 @@ import classes from './AllCharacters.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
 import Spinner from "../../../UI/Spinner/Spinner";
 
-const TeamDetails = props => {
+const CharactersSummary = props => {
     const params = useParams();
     const navigate = useNavigate();
     const teamId = params.teamId;
