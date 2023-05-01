@@ -28,6 +28,7 @@ const CampaignsSummary = () => {
     const showCampaignDetails = (campaignId) => {
         setIsLoading(true);
 
+
         fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}`)
             .then(res => res.json())
             .then(data => setChosenCampaign(data))
@@ -63,7 +64,7 @@ const CampaignsSummary = () => {
                                 {campaignArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No campaigns</Typography>}
                                 {campaignArray.map(campaign =>
-                                    <ListItem disablePadding>
+                                    <ListItem key={campaign._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
                                                         onClick={() => showCampaignDetails(campaign._id)}>
                                             <ListItemText primary={campaign.campaignName}

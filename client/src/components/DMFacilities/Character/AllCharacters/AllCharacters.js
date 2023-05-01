@@ -1,10 +1,8 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import Wrapper from "../../../../utils/Wrapper";
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import classes from './AllCharacters.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
-import Card from "../../../UI/Card/Card";
 import Spinner from "../../../UI/Spinner/Spinner";
 
 const TeamDetails = props => {
@@ -84,7 +82,7 @@ const TeamDetails = props => {
                                 {charactersArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No characters</Typography>}
                                 {charactersArray.map(character =>
-                                    <ListItem disablePadding>
+                                    <ListItem key={character._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
                                                         onClick={() => showCharacterDetails(character._id)}>
                                             <ListItemText primary={character.characterName}
