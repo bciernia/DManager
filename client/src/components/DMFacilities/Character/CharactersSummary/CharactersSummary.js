@@ -36,6 +36,17 @@ const CharactersSummary = props => {
             })
     };
 
+    const deleteCharacter = (characterId) => {
+        fetch(`http://127.0.0.1:3000/characters/${characterId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json",
+            },
+        }).then(res => res.json())
+            .then(data => console.log(data));
+    };
+
+
     useEffect(() => {
         getAllCharacters();
     }, []);
@@ -89,6 +100,8 @@ const CharactersSummary = props => {
                                                           secondary={character.characterType}
                                             />
                                         </ListItemButton>
+
+                                        <Button variant="contained" onClick={() => deleteCharacter(character._id)}>Delete</Button>
                                     </ListItem>
                                 )}
                             </List>

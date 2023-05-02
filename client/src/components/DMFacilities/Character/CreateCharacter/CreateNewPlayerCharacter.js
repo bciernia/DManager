@@ -214,11 +214,10 @@ const CreateNewPlayerCharacter = () => {
         setStateFunction(event.target.value);
     }
 
-
     const addNewCharacterHandler = (character) => {
         setIsLoading(true);
 
-        fetch(`http://127.0.0.1:3000/character/newCharacter`, {
+        fetch(`http://127.0.0.1:3000/characters/newCharacter`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -230,7 +229,7 @@ const CreateNewPlayerCharacter = () => {
             })
             .finally(() => {
                 setIsLoading(false);
-                navigate(`/dm`);
+                navigate(`/dm/`);
             });
     }
 
@@ -249,7 +248,7 @@ const CreateNewPlayerCharacter = () => {
                                values.characterPhoto = characterPhoto;
                                console.log(values)
 
-                               // addNewCharacterHandler(values);
+                               addNewCharacterHandler(values);
                            }}
             >
                 {/*TODO finish adding character form*/}
