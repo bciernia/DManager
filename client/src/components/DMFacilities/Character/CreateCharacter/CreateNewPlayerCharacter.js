@@ -318,13 +318,10 @@ const CreateNewPlayerCharacter = () => {
 
                     <Typography>Character saving throws</Typography>
 
-                    <TableContainer component={Paper}>
-
-                        <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
-                                           handleChosenRadio={handleChosenSavingThrows}
-                                           radioButtonGroup={savingThrows}
-                                           radioButtonOptions={proficiencyLevel}/>
-                    </TableContainer>
+                    <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
+                                       handleChosenRadio={handleChosenSavingThrows}
+                                       radioButtonGroup={savingThrows}
+                                       radioButtonOptions={proficiencyLevel}/>
                 </FormStep>
                 <FormStep
                     stepName="Character skills"
@@ -336,12 +333,10 @@ const CreateNewPlayerCharacter = () => {
 
                     <Typography>Character skills</Typography>
 
-                    <TableContainer component={Paper}>
-                        <RadioButtonsGroup columnName={["Skill throw", "Proficiency Level"]}
-                                           handleChosenRadio={handleChosenSkills}
-                                           radioButtonGroup={skillProficiencies}
-                                           radioButtonOptions={proficiencyLevel}/>
-                    </TableContainer>
+                    <RadioButtonsGroup columnName={["Skill throw", "Proficiency Level"]}
+                                       handleChosenRadio={handleChosenSkills}
+                                       radioButtonGroup={skillProficiencies}
+                                       radioButtonOptions={proficiencyLevel}/>
                 </FormStep>
                 <FormStep
                     stepName="Vulnerabilities, immunities and resistances"
