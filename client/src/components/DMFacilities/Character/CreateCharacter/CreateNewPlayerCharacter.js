@@ -254,6 +254,7 @@ const CreateNewPlayerCharacter = () => {
             >
                 {/*TODO finish adding character form*/}
                 <FormStep
+
                     stepName="Character info"
                     onSubmit={() => console.log('Step1 submit')}
                     validationSchema={characterInfoValidationSchema}>
@@ -344,8 +345,8 @@ const CreateNewPlayerCharacter = () => {
                     <Typography sx={{width: "100%", textAlign: "center"}}>Vulnerabilities, immunities and
                         resistances</Typography>
                     <Grid container direction="row" justifyContent="center"
-                          alignItems="center" spacing={1}>
-                        <Grid item md={3}>
+                          spacing={1}>
+                        <Grid item md={2}>
                             <Typography sx={{width: "100%", textAlign: "center"}}>Vulnerabilities</Typography>
 
                             <DataTableHandler arrayToRender={characterVulnerabilities}
@@ -362,7 +363,7 @@ const CreateNewPlayerCharacter = () => {
                             </Select>
                             <Button onClick={handleChosenVulnerability}>Add vulnerability</Button>
                         </Grid>
-                        <Grid item md={3}>
+                        <Grid item md={2}>
                             <Typography sx={{width: "100%", textAlign: "center"}}>Condition immunities</Typography>
 
                             <DataTableHandler arrayToRender={characterConditionImmunities}
@@ -379,7 +380,7 @@ const CreateNewPlayerCharacter = () => {
                             </Select>
                             <Button onClick={handleChosenConditionImmunity}>Add immunity</Button>
                         </Grid>
-                        <Grid item md={3}>
+                        <Grid item md={2}>
                             <Typography sx={{width: "100%", textAlign: "center"}}>Immunities</Typography>
 
                             <DataTableHandler arrayToRender={characterImmunities} tableHeaders={["Immunity"]}/>
@@ -395,7 +396,7 @@ const CreateNewPlayerCharacter = () => {
                             </Select>
                             <Button onClick={handleChosenImmunity}>Add immunity</Button>
                         </Grid>
-                        <Grid item md={3}>
+                        <Grid item md={2}>
                             <Typography sx={{width: "100%", textAlign: "center"}}>Resistances</Typography>
 
                             <DataTableHandler arrayToRender={characterResistances} tableHeaders={["Resistance"]}/>

@@ -20,7 +20,7 @@ const DataTableHandler = ({label, ...props}) => {
     return (
         <div>
             <TableContainer component={Paper}>
-                <Table sx={{minWidth: 400}} aria-label="simple table">
+                <Table sx={{minWidth: 150, position: "relative"}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {tableHeaders.map(item => <TableCell>{item}</TableCell>)}
