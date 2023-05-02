@@ -258,7 +258,8 @@ const CreateNewPlayerCharacter = () => {
                     stepName="Character info"
                     onSubmit={() => console.log('Step1 submit')}
                     validationSchema={characterInfoValidationSchema}>
-                    <Typography>New player character</Typography>
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>New player
+                        character</Typography>
                     {/*<TextInputField name="characterType" label="" value={CharacterTypes.characterType}*/}
                     {/*                sx={{margin: ".25rem 0"}} isDisabled="true"/>*/}
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
@@ -288,7 +289,8 @@ const CreateNewPlayerCharacter = () => {
                     stepName="Character statistics"
                     onSubmit={() => console.log('Step2 submit')}
                     validationSchema={characterStatsValidationSchema}>
-                    <Typography sx={{width: "100%", textAlign: "center"}}>Character statistics</Typography>
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
+                        statistics</Typography>
 
                     <Grid container spacing={2}>
                         <Grid item md={6}>
@@ -317,7 +319,8 @@ const CreateNewPlayerCharacter = () => {
                     validationSchema={characterSavingThrowsValidationSchema}
                 >
 
-                    <Typography>Character saving throws</Typography>
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
+                        saving throws</Typography>
 
                     <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
                                        handleChosenRadio={handleChosenSavingThrows}
@@ -332,7 +335,8 @@ const CreateNewPlayerCharacter = () => {
                     validationSchema={characterSavingThrowsValidationSchema}
                 >
 
-                    <Typography>Character skills</Typography>
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
+                        skills</Typography>
 
                     <RadioButtonsGroup columnName={["Skill throw", "Proficiency Level"]}
                                        handleChosenRadio={handleChosenSkills}
@@ -342,7 +346,8 @@ const CreateNewPlayerCharacter = () => {
                 <FormStep
                     stepName="Vulnerabilities, immunities and resistances"
                 >
-                    <Typography sx={{width: "100%", textAlign: "center"}}>Vulnerabilities, immunities and
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Vulnerabilities,
+                        immunities and
                         resistances</Typography>
                     <Grid container direction="row" justifyContent="center"
                           spacing={1}>
@@ -418,7 +423,8 @@ const CreateNewPlayerCharacter = () => {
                 <FormStep
                     stepName="Character language proficiencies"
                 >
-                    <Typography sx={{width: "100%", textAlign: "center"}}>Character languages</Typography>
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
+                        languages</Typography>
 
                     <DataTableHandler arrayToRender={chosenLanguageAndLevel} tableHeaders={["Language", "Level"]}/>
 
