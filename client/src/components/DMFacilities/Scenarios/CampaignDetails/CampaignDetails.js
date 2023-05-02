@@ -14,7 +14,7 @@ const CampaignDetails = props => {
 
     return (
         <div className={classes.container}>
-            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: "-7rem", marginTop: "0.5rem"}}
+            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: 0, marginTop: "0.5rem"}}
                     variant="contained" color="inherit"
                     onClick={addScenarioToChosenCampaign}
             >Add scenario to campaign</Button>

@@ -28,7 +28,6 @@ const CampaignsSummary = () => {
     const showCampaignDetails = (campaignId) => {
         setIsLoading(true);
 
-
         fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}`)
             .then(res => res.json())
             .then(data => setChosenCampaign(data))
