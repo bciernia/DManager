@@ -35,6 +35,7 @@ import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputF
 import {useNavigate} from "react-router-dom";
 import {CharacterRaces} from "../../../../utils/dndUtils/CharacterRaces";
 import {CharacterAlignments} from "../../../../utils/dndUtils/CharacterAlignments";
+import RadioButtonsGroup from "../../../../utils/Form/InputTypes/RadioButtons/RadioButtonsGroup";
 
 const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
@@ -248,7 +249,7 @@ const CreateNewPlayerCharacter = () => {
                                values.characterPhoto = characterPhoto;
                                console.log(values)
 
-                               addNewCharacterHandler(values);
+                               // addNewCharacterHandler(values);
                            }}
             >
                 {/*TODO finish adding character form*/}
@@ -318,36 +319,11 @@ const CreateNewPlayerCharacter = () => {
                     <Typography>Character saving throws</Typography>
 
                     <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 400}} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Saving throw</TableCell>
-                                    <TableCell align="right">Proficiency level</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {savingThrows.map((row, index) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row[1]}
-                                        </TableCell>
-                                        <RadioGroup
-                                            defaultValue="0"
-                                            onChange={(e) => handleChosenSavingThrows(e.target.value, index)}
-                                        >
-                                            {proficiencyLevel.map(profLevel => {
-                                                return <FormControlLabel value={profLevel[0]}
-                                                                         control={<Radio size="small"/>}
-                                                                         label={profLevel[1]}/>
-                                            })}
-                                        </RadioGroup>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+
+                        <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
+                                           handleChosenRadio={handleChosenSavingThrows}
+                                           radioButtonGroup={savingThrows}
+                                           radioButtonOptions={proficiencyLevel}/>
                     </TableContainer>
                 </FormStep>
                 <FormStep
@@ -361,36 +337,10 @@ const CreateNewPlayerCharacter = () => {
                     <Typography>Character skills</Typography>
 
                     <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 400}} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Skills throw</TableCell>
-                                    <TableCell align="right">Proficiency level</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {skillProficiencies.map((row, index) => (
-                                    <TableRow
-                                        key={row.name}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {row[1][0]}
-                                        </TableCell>
-                                        <RadioGroup
-                                            defaultValue="0"
-                                            onChange={(e) => handleChosenSkills(e.target.value, index)}
-                                        >
-                                            {proficiencyLevel.map(profLevel => {
-                                                return <FormControlLabel value={profLevel[0]}
-                                                                         control={<Radio size="small"/>}
-                                                                         label={profLevel[1]}/>
-                                            })}
-                                        </RadioGroup>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                        <RadioButtonsGroup columnName={["Skill throw", "Proficiency Level"]}
+                                           handleChosenRadio={handleChosenSkills}
+                                           radioButtonGroup={skillProficiencies}
+                                           radioButtonOptions={proficiencyLevel}/>
                     </TableContainer>
                 </FormStep>
                 <FormStep
