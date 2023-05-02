@@ -4,52 +4,69 @@ import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typogra
 import classes from './CharactersSummary.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
 import Spinner from "../../../UI/Spinner/Spinner";
+import {LoadingButton} from "@mui/lab";
+
+const getAllCharacters = () =>
+    fetch(`http://127.0.0.1:3000/characters/all`)
+        .then(res => res.json())
 
 const CharactersSummary = props => {
     const params = useParams();
     const navigate = useNavigate();
     const teamId = params.teamId;
 
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [charactersArray, setCharactersArray] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState();
+    const [deletedCharactersIds, setDeletedCharactersIds] = useState([]);
 
-    const getAllCharacters = () => {
-        setIsLoading(true);
-
-        fetch(`http://127.0.0.1:3000/characters/all`)
-            .then(res => res.json())
-            .then(data => setCharactersArray(data))
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
+    // const getAllCharacters = () => {
+    //     setIsLoading(true);
+    //
+    //    fetch(`http://127.0.0.1:3000/characters/all`)
+    //         .then(res => res.json())
+    //         .then(data => setCharactersArray(data))
+    //         .finally(() => {
+    //             setIsLoading(false);
+    //         });
+    // };
 
     const showCharacterDetails = (characterId) => {
-        setIsLoading(true);
-
-        fetch(`http://127.0.0.1:3000/characters/${characterId}`)
-            .then(res => res.json())
-            .then(data => setChosenCharacter(data))
-            .finally(() => {
-                setIsLoading(false);
-            })
+        setChosenCharacter(charactersArray.find(character => character._id === characterId));
     };
 
     const deleteCharacter = (characterId) => {
+        setDeletedCharactersIds((deletedCharactersIds) => [...deletedCharactersIds, characterId]);
+
         fetch(`http://127.0.0.1:3000/characters/${characterId}`, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",
             },
-        }).then(res => res.json())
-            .then(data => console.log(data));
+        }).then(res => {
+            console.log(res);
+            setCharactersArray((characters) => characters.filter(item => item._id !== characterId))
+        }).catch(() => {
+            alert("Nie udało sie usuwanie");
+        }).finally(() => {
+            setDeletedCharactersIds((deletedCharactersIds) => deletedCharactersIds.filter(item => item._id !== characterId))
+        });
     };
 
+    useEffect(() => {
+        getAllCharacters()
+            .then((characters) => {
+                setCharactersArray(characters);
+                setChosenCharacter(characters[0]);
+                setIsLoading(false);
+            })
+    }, []);
 
     useEffect(() => {
-        getAllCharacters();
-    }, []);
+        if (chosenCharacter) return;
+
+        setChosenCharacter(charactersArray[0]);
+    }, [charactersArray]);
 
     const createPlayerCharacter = () => {
         navigate('newCharacter/playerCharacter')
@@ -101,7 +118,9 @@ const CharactersSummary = props => {
                                             />
                                         </ListItemButton>
 
-                                        <Button variant="contained" onClick={() => deleteCharacter(character._id)}>Delete</Button>
+                                        <LoadingButton loading={deletedCharactersIds.includes(character._id)}
+                                                       variant="contained"
+                                                       onClick={() => deleteCharacter(character._id)}>Delete</LoadingButton>
                                     </ListItem>
                                 )}
                             </List>
@@ -110,6 +129,7 @@ const CharactersSummary = props => {
                 </Grid>
                 <Grid item md={10}>
                     <Box sx={{height: "50rem", width: "100%"}}>
+                        {isLoading && <Spinner/>}
                         {!chosenCharacter ? (
                                 <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
                                     yours characters to display</Typography>) :

@@ -1,6 +1,6 @@
 const express = require('express');
 const {CharacterRecord} = require("../records/character.record");
-const {client} = require("../utils/db");
+const {client, characters} = require("../utils/db");
 const {ObjectId} = require("mongodb");
 
 const characterRouter = express.Router();
@@ -37,7 +37,7 @@ characterRouter
         })();
     })
 
-    //ADD CHARACTER TO TEAM
+    //ADD CHARACTER
     .post('/newCharacter', (req, res) => {
         const character = req.body;
 
@@ -68,7 +68,10 @@ characterRouter
 
                 await characterToDelete.delete();
 
-                res.status(204);
+                setTimeout(() => {
+                    res.status(204).send();
+                }, 5000);
+
             } catch (e) {
                 throw new Error(e);
             }

@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from './CampaignsSummary.module.css';
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
