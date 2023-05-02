@@ -43,7 +43,7 @@ const MultiStepForm = ({children, initialValues, onSubmit}, props) => {
                     <Form onSubmit={formik.handleSubmit}>
                         <Stepper activeStep={stepNumber}
                                  orientation="vertical"
-                        sx={{position: "absolute", top: "1rem", right: "3rem"}}>
+                        sx={{position: "absolute", top: "7.5rem", right: "3rem"}}>
                             {steps.map((currentStep) => (
                                 <Step key={currentStep.props.stepName}>
                                     <StepLabel>
