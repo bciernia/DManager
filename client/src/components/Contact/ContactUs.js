@@ -40,7 +40,7 @@ const ContactUs = () => {
                     <img src={contactUsLogo} className={classes.logo}/>
                 </Grid>
 
-                <Divider orientation="vertical" flexItem/>
+                <Divider sx={{height: "90vh", position: "relative", top:".5rem"}} orientation="vertical" flexItem/>
                 <Grid item xs sx={{display: "flex", height: "100%", justifyContent: "center", alignItems: "center"}}>
                     <ContactUsForm isLoading={isLoading} sendMail={sendMail}/>
                 </Grid>
