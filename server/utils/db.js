@@ -10,12 +10,14 @@ const characters = db.collection('characters');
 const teams = db.collection('teams');
 const campaigns = db.collection('campaigns');
 const sessions = db.collection('sessions');
+const scenarios = db.collection('scenarios');
 
 module.exports = {
     db,
     characters,
     teams,
     client,
+    scenarios,
     campaigns,
     sessions,
 };

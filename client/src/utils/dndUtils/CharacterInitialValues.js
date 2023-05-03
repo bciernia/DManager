@@ -1,7 +1,3 @@
-const randomizeStatistics = (min, max) => {
-    return (Math.random() * (max-min) + min).toFixed();
-}
-
 export const CharacterInitialValues = {
     //CHARACTER INFO
     characterType: '',
@@ -56,7 +52,7 @@ export const CharacterInitialValues = {
     conditionImmunities: [],
 
     //EQUIPMENT
-    armorClass: (Math.random() * (30-1) + 1).toFixed(),
+    armorClass: 0,
 
     //TALENTS
     featuresAndTraits: [],
