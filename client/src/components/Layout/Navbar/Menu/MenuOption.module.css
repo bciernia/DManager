@@ -14,6 +14,8 @@
     width: 7rem;
     padding: .5rem;
     color: black;
+    background-color: #debaac;
+    border-radius: 10px;
 }
 
 .link:hover{
@@ -25,10 +27,12 @@
 .active {
     color: black;
     background-color: #e79872;
+    width: 7rem;
     padding: .5rem;
     font-weight: bolder;
     border-radius: 10px;
     text-decoration: none;
+    text-align: center;
 }
 
 
