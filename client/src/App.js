@@ -18,8 +18,8 @@ import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacte
 import CreateNewBeast from "./components/DMFacilities/Character/CreateCharacter/CreateNewBeast";
 import CreateNewPlayerCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewPlayerCharacter";
 import CharacterDetails from "./components/DMFacilities/Character/CharacterDetails/CharacterDetails";
-import ContactUs from "./components/Administration/ContactUs/ContactUs";
-import MailSended from "./components/Administration/ContactUs/MailSended/MailSended";
+import ContactUs from "./components/Contact/ContactUs";
+import MailSended from "./components/Contact/MailSended/MailSended";
 import CampaignsSummary from "./components/DMFacilities/Scenarios/CampaignsSummary/CampaignsSummary";
 import CharactersSummary from "./components/DMFacilities/Character/CharactersSummary/CharactersSummary";
 

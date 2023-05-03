@@ -1,6 +1,6 @@
 import {Divider, Grid} from "@mui/material";
 import classes from './ContactUs.module.css';
-import contactUsLogo from '../../../assets/images/contact_us_logo.png';
+import contactUsLogo from '../../assets/images/contact_us_logo.png';
 import ContactUsForm from "./Form/ContactUsForm";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";

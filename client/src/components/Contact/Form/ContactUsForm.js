@@ -1,9 +1,9 @@
 import {Button, TextField, Typography} from "@mui/material";
 import React, {useState} from "react";
 import classes from './ContactUsForm.module.css';
-import Card from "../../../UI/Card/Card";
+import Card from "../../UI/Card/Card";
 import {useNavigate} from "react-router-dom";
-import Spinner from "../../../UI/Spinner/Spinner";
+import Spinner from "../../UI/Spinner/Spinner";
 
 const ContactUsForm = props => {
 
