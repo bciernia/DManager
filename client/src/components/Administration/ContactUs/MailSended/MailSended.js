@@ -5,7 +5,7 @@ const MailSended = () => {
     return (
         <div className={classes.container}>
             Thanks for contacting us, we will reply soon!
-            <Link to="/administration/contact" >Send one more</Link>
+            <Link to="/contact" >Send one more</Link>
             <Link to="/" >Go back</Link>
         </div>
     )

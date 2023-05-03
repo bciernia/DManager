@@ -3,7 +3,6 @@ import classes from './ContactUs.module.css';
 import contactUsLogo from '../../../assets/images/contact_us_logo.png';
 import ContactUsForm from "./Form/ContactUsForm";
 import {useState} from "react";
-import Spinner from "../../UI/Spinner/Spinner";
 import {useNavigate} from "react-router-dom";
 
 const ContactUs = () => {
@@ -13,7 +12,7 @@ const ContactUs = () => {
 
     const sendMail = (message) => {
         setIsLoading(true);
-        fetch('http://127.0.0.1:3000/administration/', {
+        fetch('http://127.0.0.1:3000/send-mail', {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
