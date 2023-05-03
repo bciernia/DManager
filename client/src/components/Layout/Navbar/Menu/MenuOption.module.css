@@ -5,30 +5,35 @@
     list-style: none;
     text-decoration: none;
     width: 20%;
+    font-size: 1.2rem;
 }
 
 .link {
     display: flex;
     justify-content: center;
     text-decoration: none;
-    width: 7rem;
+    width: 10rem;
     padding: .5rem;
-    color: black;
-    background-color: #debaac;
+    margin: .5rem;
+    color: #000000;
     border-radius: 10px;
+    background-color: #ffffff;
+    transition: 0.3s;
 }
 
 .link:hover{
-    background-color: #e79872;
+    opacity: 1;
+    background-color: #ffc5a9;
     border-radius: 10px;
     text-decoration: none;
 }
 
 .active {
     color: black;
-    background-color: #e79872;
-    width: 7rem;
+    background-color: #ffcdb8;
+    width: 10rem;
     padding: .5rem;
+    margin: .5rem;
     font-weight: bolder;
     border-radius: 10px;
     text-decoration: none;
