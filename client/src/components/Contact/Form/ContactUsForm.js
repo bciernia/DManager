@@ -4,6 +4,7 @@ import classes from './ContactUsForm.module.css';
 import Card from "../../UI/Card/Card";
 import {useNavigate} from "react-router-dom";
 import Spinner from "../../UI/Spinner/Spinner";
+import {LoadingButton} from "@mui/lab";
 
 const ContactUsForm = props => {
 
@@ -73,9 +74,12 @@ const ContactUsForm = props => {
                            required
                            onChange={(event) => setEmailContent(event.target.value)}/>
                 <div className={classes["characters-counter"]}><p>{emailContent.length}/1000</p></div>
-                {props.isLoading ? (<Spinner/>) : (
-                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
-                            type="submit">Send</Button>)}
+
+                <LoadingButton sx={{backgroundColor: "#F5793B"}}
+                               loading={props.isLoading}
+                               variant="contained"
+                               color="inherit"
+                               type="submit">Send</LoadingButton>
             </form>
         </Card>
     )
