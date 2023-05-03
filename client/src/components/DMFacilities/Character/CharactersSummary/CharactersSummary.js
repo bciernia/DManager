@@ -20,17 +20,6 @@ const CharactersSummary = props => {
     const [chosenCharacter, setChosenCharacter] = useState();
     const [deletedCharactersIds, setDeletedCharactersIds] = useState([]);
 
-    // const getAllCharacters = () => {
-    //     setIsLoading(true);
-    //
-    //    fetch(`http://127.0.0.1:3000/characters/all`)
-    //         .then(res => res.json())
-    //         .then(data => setCharactersArray(data))
-    //         .finally(() => {
-    //             setIsLoading(false);
-    //         });
-    // };
-
     const showCharacterDetails = (characterId) => {
         setChosenCharacter(charactersArray.find(character => character._id === characterId));
     };

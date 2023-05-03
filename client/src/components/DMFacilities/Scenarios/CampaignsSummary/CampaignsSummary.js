@@ -7,44 +7,39 @@ import {useNavigate} from "react-router-dom";
 import CampaignDetails from "../CampaignDetails/CampaignDetails";
 import Spinner from "../../../UI/Spinner/Spinner";
 
+const getAllCampaigns = () =>
+    fetch(`http://127.0.0.1:3000/dm/campaign/all`)
+        .then(res => res.json());
+
 const CampaignsSummary = () => {
 
-    const [isLoading, setIsLoading] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [campaignArray, setCampaignArray] = useState([]);
     const [chosenCampaign, setChosenCampaign] = useState();
 
     const navigate = useNavigate();
 
-    const getAllCampaigns = () => {
-        setIsLoading(true);
-
-        fetch(`http://127.0.0.1:3000/dm/campaign/all`)
-            .then(res => res.json())
-            .then(data => setCampaignArray(data))
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }
-
     const showCampaignDetails = (campaignId) => {
-        setIsLoading(true);
-
-        fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}`)
-            .then(res => res.json())
-            .then(data => setChosenCampaign(data))
-            .finally(() => {
-                setIsLoading(false);
-            })
+        setChosenCampaign(campaignArray.find(campaign => campaign._id === campaignId));
     }
-
 
     const goToAddNewCampaignForm = () => {
         navigate('newCampaign');
     }
 
     useEffect(() => {
-        getAllCampaigns();
+        getAllCampaigns()
+            .then(data => {
+                setCampaignArray(data)
+                setIsLoading(false);
+            })
     }, []);
+
+    useEffect(() => {
+        if (chosenCampaign) return;
+
+        setChosenCampaign(campaignArray[0]);
+    }, [campaignArray]);
 
     return (
         <div className={classes.container}>
@@ -60,7 +55,7 @@ const CampaignsSummary = () => {
                                 overflow: "auto",
                                 border: "solid 2px",
                             }}>
-                                {isLoading && <Spinner />}
+                                {isLoading && <Spinner/>}
                                 {campaignArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No campaigns</Typography>}
                                 {campaignArray.map(campaign =>
