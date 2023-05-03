@@ -9,7 +9,7 @@ const Logo = props => {
     //          end>{props.optionName}</NavLink>
     return (
         <NavLink to={"/"}>
-            <img className={classes.logo} src={logoImg} alt="Logo"/>
+                <img className={classes.logo} src={logoImg} alt="Logo"/>
         </NavLink>
     )
 }
