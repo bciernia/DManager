@@ -122,15 +122,11 @@ const router = createBrowserRouter([
             },
 
             {
-                path: "administration", children: [
-                    {
-                       path: "contact", element: <ContactUs />,
-                    },
+                path: "contact", element: <ContactUs />,
+            },
 
-                    {
-                      path: "contact/success", element: <MailSended />,
-                    },
-                ]
+            {
+                path: "contact/success", element: <MailSended />,
             },
 
             {
