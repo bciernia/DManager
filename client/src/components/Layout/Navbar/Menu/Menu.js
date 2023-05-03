@@ -8,6 +8,7 @@ const Menu = () => {
             <ul className={classes.menu}>
                 <MenuOption optionName="Start session" linkTo="newSession"/>
                 <MenuOption optionName="DM Facilities" linkTo="dm/"/>
+                <MenuOption optionName="Contact us" linkTo="contact/"/>
             </ul>
         </nav>
     )

@@ -16,7 +16,6 @@ const Navbar = (props) => {
                 </Grid>
                 <Grid item md={8}>
                     <Menu/>
-
                 </Grid>
                 <Grid item md={2}>
                 </Grid>

@@ -1,6 +1,5 @@
 import classes from './Home.module.css'
 import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 import {Outlet} from "react-router-dom";
 
 const Home = props => {
@@ -11,9 +10,6 @@ const Home = props => {
             </div>
             <div className={classes["content-wrap"]}>
                 <Outlet />
-            </div>
-            <div>
-                <Footer />
             </div>
         </section>
     )
