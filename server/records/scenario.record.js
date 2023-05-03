@@ -10,6 +10,7 @@ class ScenarioRecord {
         this.scenarioSchedule = obj.scenarioSchedule;
         this.scenarioCharacters = obj.scenarioCharacters;
         this.scenarioLocations = obj.scenarioLocations;
+        this.scenarioHandouts = obj.scenarioHandouts;
         this.campaignId = obj.campaignId;
     }
 
@@ -21,6 +22,7 @@ class ScenarioRecord {
             scenarioSchedule: this.scenarioSchedule,
             scenarioCharacters: this.scenarioCharacters,
             scenarioLocations: this.scenarioLocations,
+            scenarioHandouts: this.scenarioHandouts,
             campaignId: this.campaignId,
         });
         this._id = insertedId.toString();
@@ -37,6 +39,7 @@ class ScenarioRecord {
             scenarioSchedule: this.scenarioSchedule,
             scenarioCharacters: this.scenarioCharacters,
             scenarioLocations: this.scenarioLocations,
+            scenarioHandouts: this.scenarioHandouts,
             campaignId: this.campaignId,
         });
     }
@@ -50,6 +53,14 @@ class ScenarioRecord {
     static async find(id) {
         const team = await scenarios.findOne({_id: new ObjectId(String(id))});
         return new ScenarioRecord(team) ?? null;
+    }
+
+    static async findAllByCampaignId(campaignId) {
+        const result = await scenarios.find();
+        const scenariosArray = await result.toArray();
+        const scenariosFromChosenCampaign = scenariosArray.filter(scenario => scenario.campaignId === campaignId);
+
+        return scenariosFromChosenCampaign;
     }
 
     static async findAll() {

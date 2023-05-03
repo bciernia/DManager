@@ -96,15 +96,30 @@ dmRouter
         res.status(200).send(scenario);
     })
 
+    //GET SCENARIOS FROM CHOSEN CAMPAIGN
+    .get('/campaign/:campaignId/scenario/all', async(req, res) => {
+        const {campaignId} = req.params;
+
+        const scenariosFromChosenCampaign = await ScenarioRecord.findAllByCampaignId(campaignId);
+
+        res.status(200).send(scenariosFromChosenCampaign);
+    })
+
     //ADD NEW SCENARIO
-    .post('/scenario/newScenario', async (req, res) => {
+    .post('/:campaignId/scenario/newScenario', async (req, res) => {
+        const {campaignId} = req.params;
         const scenario = req.body;
 
-        const newScenario = new CampaignRecord({
+        const newScenario = new ScenarioRecord({
             ...scenario
         });
-
         const newScenarioId = await newScenario.insert();
+
+        const campaignToUpdate = await CampaignRecord.find(campaignId);
+
+        campaignToUpdate.campaignScenarios.push(newScenarioId);
+
+        await campaignToUpdate.update();
 
         res.status(201).send(newScenarioId);
     })
