@@ -11,6 +11,8 @@ const TextInputField = ({label, ...props}) => {
                        type="text"
                        name={props.name}
                        sx={props.sx}
+                       rows={props.rows}
+                       multiline={props.multiline}
                        {...field}
                        error={meta.touched && Boolean(meta.error)}
                        helperText={meta.touched && meta.error}/>
