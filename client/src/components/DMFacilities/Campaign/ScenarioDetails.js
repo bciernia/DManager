@@ -1,4 +1,4 @@
-const ScenarioDetails = props => {
+const ScenarioDetails = () => {
     return (
         <div>
             Scenario details

@@ -1,4 +1,4 @@
-import {Button, FormControl, TextField, Typography} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import Card from "../../../../UI/Card/Card";
 import React, {useState} from "react";
 import classes from './NewCampaignForm.module.css';
@@ -29,7 +29,7 @@ const NewCampaignForm = () => {
             body: JSON.stringify(campaign)
         })
             .then(res => res.json())
-            .then(campaignId => navigate(`/dm/campaign`));
+            .then(() => navigate(`/dm/campaign`));
     }
 
     return (

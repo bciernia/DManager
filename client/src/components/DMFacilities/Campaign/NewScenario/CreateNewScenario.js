@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Button, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import NewScenarioFrom from "./Form/NewScenarioFrom";
 
 const CreateNewScenario = () => {
@@ -13,15 +13,9 @@ const CreateNewScenario = () => {
             .then(data => setChosenCampaign(data));
     }, [])
 
-    const test = () => {
-        alert(chosenCampaign.campaignName);
-    }
-
     return (
         <div>
-            <Typography variant="h5">Campaign: {chosenCampaign.campaignName}</Typography>
-            <Typography variant="h4">Create new scenario</Typography>
-
+            <Typography variant="h5" sx={{margin: "1rem 0 0 1rem"}}>Campaign: {chosenCampaign.campaignName}</Typography>
             <NewScenarioFrom />
         </div>
     )
