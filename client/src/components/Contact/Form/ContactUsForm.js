@@ -44,21 +44,21 @@ const ContactUsForm = props => {
         <Card>
             <Typography variant="h2" textAlign="center" marginBottom="1rem">Contact us!</Typography>
             <form className={classes.form} onSubmit={(event) => handleSubmit(event)}>
-                <TextField sx={{width: "80%"}} type="text" label="Full name"
+                <TextField sx={{width: "80%"}} type="text" label="Name"
                            error={nameTouched && isNameValid(fullName)}
                            helperText={(nameTouched && isNameValid(fullName)) ? "Name must have more than 2 characters and less than 50" : ""}
                            inputProps={{maxLength: 30}}
                            onBlur={() => setNameTouched(true)}
                            required
                            onChange={(event) => setFullName(event.target.value)}/>
-                <TextField sx={{width: "80%"}} type="email" label="E-mail address"
+                <TextField sx={{width: "80%"}} type="email" label="E-mail"
                            inputProps={{maxLength: 50}}
                            error={mailTouched && isMailValid(emailAddress)}
                            helperText={(mailTouched && isMailValid(emailAddress)) ? "E-mail address is required" : ""}
                            onBlur={() => setMailTouched(true)}
                            required
                            onChange={(event) => setEmailAddress(event.target.value)}/>
-                <TextField sx={{width: "80%"}} type="text" label="E-mail subject"
+                <TextField sx={{width: "80%"}} type="text" label="Subject"
                            error={subjectTouched && isMailSubjectValid(emailSubject)}
                            helperText={(subjectTouched && isMailSubjectValid(emailSubject)) ? "E-mail subject is required and can not be longer than 50 characters" : ""}
                            onBlur={() => setSubjectTouched(true)}
@@ -66,7 +66,7 @@ const ContactUsForm = props => {
                            inputProps={{maxLength: 50}}
                            onChange={(event) => setEmailSubject(event.target.value)}/>
                 <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
-                           rows={5} label="E-mail content"
+                           rows={5} label="Message"
                            error={contentTouched && isMailContentValid(emailContent)}
                            helperText={(contentTouched && isMailContentValid(emailContent)) ? "E-mail content is required and can not be longer than 1000 characters " : ""}
                            onBlur={() => setContentTouched(true)}
