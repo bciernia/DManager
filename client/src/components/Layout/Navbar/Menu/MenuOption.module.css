@@ -19,7 +19,7 @@
     color: #000000;
     border-radius: 10px;
     background-color: #ffffff;
-    transition: 0.3s;
+    transition: background-color 0.3s;
 }
 
 .link:hover{
