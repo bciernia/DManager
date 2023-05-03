@@ -1,5 +1,5 @@
-import {useCallback, useEffect, useMemo, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import classes from './CharactersSummary.module.css';
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
@@ -10,10 +10,8 @@ const getAllCharacters = () =>
     fetch(`http://127.0.0.1:3000/characters/all`)
         .then(res => res.json())
 
-const CharactersSummary = props => {
-    const params = useParams();
+const CharactersSummary = () => {
     const navigate = useNavigate();
-    const teamId = params.teamId;
 
     const [isLoading, setIsLoading] = useState(true);
     const [charactersArray, setCharactersArray] = useState([]);

@@ -1,8 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './CampaignsSummary.module.css';
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
-import Character from "../../Character/Character";
 import {useNavigate} from "react-router-dom";
 import CampaignDetails from "../CampaignDetails/CampaignDetails";
 import Spinner from "../../../UI/Spinner/Spinner";
