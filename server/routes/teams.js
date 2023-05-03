@@ -8,154 +8,99 @@ const teamRouter = express.Router();
 teamRouter
 
     //Get all teams
-    .get('/', (req, res) => {
-        (async () => {
-            try {
-                const teams = await TeamRecord.findAll();
+    .get('/', async (req, res) => {
+        const teams = await TeamRecord.findAll();
 
-                res.status(200).send(teams);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(teams);
     })
 
     //Add new team
-    .post('/newTeam', (req, res) => {
+    .post('/newTeam', async (req, res) => {
         const team = req.body;
 
-        (async () => {
-            try {
-                const newTeam = new TeamRecord({
-                    name: team.name,
-                    gameSystem: team.gameSystem,
-                })
+        const newTeam = new TeamRecord({
+            name: team.name,
+            gameSystem: team.gameSystem,
+        })
 
-                const newTeamId = await newTeam.insert();
+        const newTeamId = await newTeam.insert();
 
-                res.status(201).send(newTeamId);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(201).send(newTeamId);
     })
 
     //DELETE TEAM
-    .delete('/:teamId', (req, res) => {
+    .delete('/:teamId', async (req, res) => {
         const {teamId} = req.params;
+        const teamToDelete = await TeamRecord.find(teamId);
 
-        (async () => {
-            try {
-                const teamToDelete = await TeamRecord.find(teamId);
+        await teamToDelete.delete();
 
-                await teamToDelete.delete();
-
-                res.status(204);
-            }catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(204);
     })
 
     //CHARACTERS
 
     //GET ALL CHARACTERS FROM CURRENT TEAM
-    .get('/:teamId/characters', (req, res) => {
+    .get('/:teamId/characters', async (req, res) => {
         const {teamId} = req.params;
 
-        (async () => {
-            try {
-                const character = await CharacterRecord.findAllByTeamId(teamId);
+        const character = await CharacterRecord.findAllByTeamId(teamId);
 
-                res.status(200).send(character);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(character);
     })
 
     //GET CHARACTER FROM CURRENT TEAM
-    .get('/:teamId/characters/:characterId', (req, res) => {
+    .get('/:teamId/characters/:characterId', async (req, res) => {
         const {characterId} = req.params;
 
-        (async () => {
-            try {
-                const character = await CharacterRecord.find(characterId);
+        const character = await CharacterRecord.find(characterId);
 
-                res.status(200).send(character);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(character);
     })
 
     //ADD CHARACTER TO TEAM
-    .post('/:teamId/characters/newCharacter', (req, res) => {
+    .post('/:teamId/characters/newCharacter', async (req, res) => {
         const character = req.body;
 
-        (async () => {
-            try {
-                const newCharacter = new CharacterRecord({
-                    ...character,
-                    characterPhoto: character.characterPhoto,
-                    characterName: character.characterName,
-                    characterClass: character.characterClass,
-                    playerName: character.playerName,
-                    exp: 0,
-                    isAlive: true,
-                    teamId: new ObjectId(character.teamId),
-                })
+        const newCharacter = new CharacterRecord({
+            ...character,
+            characterPhoto: character.characterPhoto,
+            characterName: character.characterName,
+            characterClass: character.characterClass,
+            playerName: character.playerName,
+            exp: 0,
+            isAlive: true,
+            teamId: new ObjectId(character.teamId),
+        })
 
-                const newCharacterId = await newCharacter.insert();
+        const newCharacterId = await newCharacter.insert();
 
-                res.status(201).send(newCharacterId);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(201).send(newCharacterId);
     })
 
     //UPDATE CHARACTER
-    .put('/:teamId/characters/:characterId', (req, res) => {
+    .put('/:teamId/characters/:characterId', async (req, res) => {
         const {characterId} = req.params;
         const newCharacter = req.body;
 
-        (async () => {
-            try {
-                const characterToUpdate = await CharacterRecord.find(characterId);
-                characterToUpdate.characterName = newCharacter.characterName;
-                characterToUpdate.exp = newCharacter.exp;
+        const characterToUpdate = await CharacterRecord.find(characterId);
+        characterToUpdate.characterName = newCharacter.characterName;
+        characterToUpdate.exp = newCharacter.exp;
 
-                await characterToUpdate.update();
+        await characterToUpdate.update();
 
-                res.status(200).send(characterToUpdate);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(characterToUpdate);
     })
 
     //DELETE CHARACTER
-    .delete('/:teamId/characters/:characterId', (req, res) => {
+    .delete('/:teamId/characters/:characterId', async (req, res) => {
         const {characterId} = req.params;
 
-        (async () => {
-            try {
-                const characterToDelete = await CharacterRecord.find(characterId);
+        const characterToDelete = await CharacterRecord.find(characterId);
 
-                await characterToDelete.delete();
+        await characterToDelete.delete();
 
-                res.status(204);
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(204);
     })
 
 module.exports = {

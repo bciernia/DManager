@@ -8,74 +8,43 @@ const characterRouter = express.Router();
 characterRouter
 
     //GET ALL CHARACTERS
-    .get('/all', (req, res) => {
-        (async () => {
-            try {
-                const characters = await CharacterRecord.findAll();
+    .get('/all', async (req, res) => {
+        const characters = await CharacterRecord.findAll();
 
-                res.status(200).send(characters);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(characters);
     })
 
     //GET CHARACTER BY ID
-    .get('/:characterId', (req, res) => {
+    .get('/:characterId', async (req, res) => {
         const {characterId} = req.params;
 
-        (async () => {
-            try {
-                const character = await CharacterRecord.find(characterId);
+        const character = await CharacterRecord.find(characterId);
 
-                res.status(200).send(character);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(200).send(character);
     })
 
     //ADD CHARACTER
-    .post('/newCharacter', (req, res) => {
+    .post('/newCharacter', async (req, res) => {
         const character = req.body;
 
-        (async () => {
-            try {
-                console.log(character);
-                const newCharacter = new CharacterRecord({
-                    ...character
-                })
+        const newCharacter = new CharacterRecord({
+            ...character
+        })
 
-                const newCharacterId = await newCharacter.insert();
+        const newCharacterId = await newCharacter.insert();
 
-                res.status(201).send(newCharacterId);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(201).send(newCharacterId);
     })
 
     //DELETE CHARACTER
-    .delete('/:characterId', (req, res) => {
+    .delete('/:characterId', async (req, res) => {
         const {characterId} = req.params;
 
-        (async () => {
-            try {
-                const characterToDelete = await CharacterRecord.find(characterId);
+        const characterToDelete = await CharacterRecord.find(characterId);
 
-                await characterToDelete.delete();
+        await characterToDelete.delete();
 
-                setTimeout(() => {
-                    res.status(204).send();
-                }, 5000);
-
-            } catch (e) {
-                throw new Error(e);
-            }
-        })();
+        res.status(204).send();
     })
 
 

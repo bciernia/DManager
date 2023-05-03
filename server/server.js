@@ -6,6 +6,7 @@ const {teamRouter} = require("./routes/teams");
 const bodyParser = require('body-parser');
 const {dmRouter} = require("./routes/dm");
 const {administrationRouter} = require("./routes/administration");
+const {systemRouter} = require("./routes/system");
 
 const app = express();
 
@@ -14,7 +15,8 @@ app.use(static('public'));
 app.use(bodyParser.json({limit: '5mb'}));
 app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 
-app.use('/', gameRouter);
+app.use('/', systemRouter);
+app.use('/game', gameRouter);
 app.use('/administration', administrationRouter);
 app.use('/characters', characterRouter);
 app.use('/teams', teamRouter);

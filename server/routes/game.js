@@ -4,7 +4,8 @@ const gameRouter = express.Router();
 
 gameRouter
 
-    .get('/test', (req, res) => {
+    //GET ALL SESSIONS
+    .get('/', (req, res) => {
         res.send('TEST');
     })
 

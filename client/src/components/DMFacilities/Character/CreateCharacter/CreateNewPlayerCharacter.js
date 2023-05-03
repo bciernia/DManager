@@ -206,8 +206,6 @@ const CreateNewPlayerCharacter = () => {
         reader.onload = () => {
             setCharacterPhoto(reader.result);
         }
-
-        console.log(reader.result);
     }
 
     const inputChangeHandler = (event, setStateFunction) => {
