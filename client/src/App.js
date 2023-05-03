@@ -7,11 +7,10 @@ import AllTeams from "./components/DMFacilities/Teams/AllTeams/AllTeams";
 import AddTeam from "./components/DMFacilities/Teams/AddTeam/AddTeam";
 import TeamDetails from "./components/DMFacilities/Teams/TeamDetails";
 import Summary from "./components/DMFacilities/Summary/Summary";
-import CreateNewCampaign from "./components/DMFacilities/Scenarios/NewCampaign/CreateNewCampaign";
+import CreateNewCampaign from "./components/DMFacilities/Campaign/NewCampaign/CreateNewCampaign";
 import Session from "./components/Sessions/Session";
-import CreateNewScenario from "./components/DMFacilities/Scenarios/NewScenario/CreateNewScenario";
-import ScenarioDetails from "./components/DMFacilities/Scenarios/ScenarioDetails";
-import CampaignDetails from "./components/DMFacilities/Scenarios/CampaignDetails/CampaignDetails";
+import CreateNewScenario from "./components/DMFacilities/Campaign/NewScenario/CreateNewScenario";
+import ScenarioDetails from "./components/DMFacilities/Campaign/ScenarioDetails";
 import CreateNewCharacter from "./components/DMFacilities/Character/CreateCharacter/CreateNewCharacter";
 import CreateNewNpc from "./components/DMFacilities/Character/CreateCharacter/CreateNewNpc";
 import CreateNewMonster from "./components/DMFacilities/Character/CreateCharacter/CreateNewMonster";
@@ -20,8 +19,9 @@ import CreateNewPlayerCharacter from "./components/DMFacilities/Character/Create
 import CharacterDetails from "./components/DMFacilities/Character/CharacterDetails/CharacterDetails";
 import ContactUs from "./components/Contact/ContactUs";
 import MailSended from "./components/Contact/MailSended/MailSended";
-import CampaignsSummary from "./components/DMFacilities/Scenarios/CampaignsSummary/CampaignsSummary";
+import CampaignsSummary from "./components/DMFacilities/Campaign/CampaignsSummary/CampaignsSummary";
 import CharactersSummary from "./components/DMFacilities/Character/CharactersSummary/CharactersSummary";
+import CampaignDetails from "./components/DMFacilities/Campaign/CampaignDetails/CampaignDetails";
 
 const router = createBrowserRouter([
     {
