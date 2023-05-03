@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import classes from './CampaignsSummary.module.css';
 import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
 import {useNavigate} from "react-router-dom";
-import CampaignDetails from "../CampaignDetails/CampaignDetails";
+import CampaignDetailsPartialView from "./CampaignDetailsPartialView/CampaignDetailsPartialView";
 import Spinner from "../../../UI/Spinner/Spinner";
 
 const getAllCampaigns = () =>
@@ -75,7 +75,7 @@ const CampaignsSummary = () => {
                                 <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
                                     yours campaigns</Typography>) :
                             (
-                                <CampaignDetails campaign={chosenCampaign}/>
+                                <CampaignDetailsPartialView campaign={chosenCampaign}/>
                             )}
                     </Box>
                 </Grid>
