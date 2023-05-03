@@ -16,25 +16,25 @@ export const CharacterInitialValues = {
     characterTreasure: '',
     characterPhoto: '',
     playerName: '',
-    characterLevel: 0,
-    exp: 0,
+    characterLevel: (Math.random() * (20-1) + 1).toFixed(),
+    exp: (Math.random() * (400000-1) + 1).toFixed(),
     hasInspiration: false,
     isAlive: true,
     howCharacterDied: '',
     teamId: '',
 
     //SKILLS
-    characterStrength: 0,
-    characterDexterity: 0,
-    characterConstitution: 0,
-    characterIntelligence: 0,
-    characterWisdom: 0,
-    characterCharisma: 0,
-    characterProficiencyBonus: 0,
-    characterPassiveWisdom: 0,
-    characterSpeed: 0,
-    characterHP: 0,
-    characterInitiative: 0,
+    characterStrength: (Math.random() * (30-1) + 1).toFixed(),
+    characterDexterity: (Math.random() * (30-1) + 1).toFixed(),
+    characterConstitution: (Math.random() * (30-1) + 1).toFixed(),
+    characterIntelligence: (Math.random() * (30-1) + 1).toFixed(),
+    characterWisdom: (Math.random() * (30-1) + 1).toFixed(),
+    characterCharisma: (Math.random() * (30-1) + 1).toFixed(),
+    characterProficiencyBonus: (Math.random() * (30-1) + 1).toFixed(),
+    characterPassiveWisdom: (Math.random() * (30-1) + 1).toFixed(),
+    characterSpeed: (Math.random() * (500-1) + 1).toFixed(),
+    characterHP: (Math.random() * (1000-1) + 1).toFixed(),
+    characterInitiative: (Math.random() * (30-1) + 1).toFixed(),
 
     //SAVING THROWS
     savingThrows: [],
@@ -51,9 +51,8 @@ export const CharacterInitialValues = {
     damageVulnerabilities: [],
     conditionImmunities: [],
 
-
     //EQUIPMENT
-    armorClass: 0,
+    armorClass: (Math.random() * (30-1) + 1).toFixed(),
 
     //TALENTS
     featuresAndTraits: [],

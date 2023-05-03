@@ -257,8 +257,6 @@ const CreateNewPlayerCharacter = () => {
                     validationSchema={characterInfoValidationSchema}>
                     <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>New player
                         character</Typography>
-                    {/*<TextInputField name="characterType" label="" value={CharacterTypes.characterType}*/}
-                    {/*                sx={{margin: ".25rem 0"}} isDisabled="true"/>*/}
                     <TextInputField name="characterName" label="Character name" sx={{margin: ".25rem 0"}}/>
                     <TextInputField name="playerName" label="Player name" sx={{margin: ".25rem 0"}}/>
 
