@@ -1,4 +1,4 @@
-const {handouts} = require("../utils/db");
+const {handouts, scenarios} = require("../utils/db");
 const {v4: uuid} = require('uuid');
 const {ObjectId} = require("mongodb");
 
@@ -48,6 +48,14 @@ class HandoutRecord {
         const ourArray = handoutArray.map(obj => new HandoutRecord(obj));
 
         return ourArray;
+    }
+
+    static async findAllByScenarioId(scenarioId) {
+        const result = await handouts.find();
+        const handoutsArray = await result.toArray();
+        const handoutsFromChosenScenario = handoutsArray.filter(scenario => scenario.campaignId === scenarioId);
+
+        return handoutsFromChosenScenario;
     }
 
     static async findAllWithCursor() {
