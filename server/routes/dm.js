@@ -4,6 +4,7 @@ const {NpcRecord} = require("../records/npc.record");
 const {CampaignRecord} = require("../records/campaign.record");
 const {ScenarioRecord} = require("../records/scenario.record");
 const {CharacterRecord} = require("../records/character.record");
+const {HandoutRecord} = require("../records/handout.record");
 
 const dmRouter = express.Router();
 
@@ -79,7 +80,6 @@ dmRouter
         res.status(204).send();
     })
 
-
     //GET ALL SCENARIOS
     .get('/scenario/all', async(req, res) => {
         const scenarios = await ScenarioRecord.findAll();
@@ -131,6 +131,55 @@ dmRouter
         const scenarioToDelete = await ScenarioRecord.find(scenarioId);
 
         await scenarioToDelete.delete();
+
+        res.status(204).send();
+    })
+
+    .post('/scenario/:scenarioId/newHandout', async(req, res) => {
+        const {scenarioId} = req.params;
+
+        const handout = req.body;
+
+        const newHandout = new HandoutRecord({
+            ...handout
+        });
+
+        const newHandoutId = await newHandout.insert();
+
+        const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
+
+        scenarioToUpdate.scenarioHandouts.push(newHandoutId);
+
+        await scenarioToUpdate.update();
+
+        res.status(201).send(newHandoutId);
+
+    })
+
+    //GET CHOSEN HANDOUT
+    .get('/handout/:handoutId', async(req, res) => {
+        const {handoutId} = req.params;
+
+        const handout = await HandoutRecord.find(handoutId);
+
+        res.status(200).send(handout);
+    })
+
+    //GET HANDOUTS FROM CHOSEN SCENARIO
+    .get('/scenario/:scenarioId/handout/all', async(req, res) => {
+        const {scenarioId} = req.params;
+
+        const handoutsFromChosenScenario = await HandoutRecord.findAllByScenarioId(scenarioId);
+
+        res.status(200).send(handoutsFromChosenScenario);
+    })
+
+    .delete('/scenario/:scenarioId/handout/:handoutId', async(req, res) => {
+        const {handoutId} = req.params;
+
+        const handoutToDelete = await HandoutRecord.find(handoutId);
+
+        await handoutToDelete.delete();
 
         res.status(204).send();
     })
