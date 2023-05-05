@@ -60,7 +60,7 @@ const CampaignDetails = () => {
                             }}>
                                 {isLoading && <Spinner/>}
                                 {scenariosArray.length === 0 &&
-                                    <Typography variant="h6" textAlign="center">No campaigns</Typography>}
+                                    <Typography variant="h6" textAlign="center">No scenarios</Typography>}
                                 {scenariosArray.map(scenario =>
                                 <ListItem key={scenario._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
