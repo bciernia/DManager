@@ -9,6 +9,10 @@ const NewScenarioFrom = () => {
 
     const [scenarioName, setScenarioName] = useState('');
     const [scenarioDescription, setScenarioDescription] = useState('');
+    const scenarioSchedule = [];
+    const scenarioCharacters = [];
+    const scenarioLocations = [];
+    const scenarioHandouts = [];
 
     const navigate = useNavigate();
 
@@ -18,6 +22,10 @@ const NewScenarioFrom = () => {
         const scenario = {
             scenarioName,
             scenarioDescription,
+            scenarioSchedule,
+            scenarioCharacters,
+            scenarioLocations,
+            scenarioHandouts,
             campaignId,
         }
 

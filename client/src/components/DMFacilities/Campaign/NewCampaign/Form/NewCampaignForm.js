@@ -9,6 +9,8 @@ const NewCampaignForm = () => {
     const [campaignName, setCampaignName] = useState('');
     const [campaignSetting, setCampaignSetting] = useState('');
     const [campaignDescription, setCampaignDescription] = useState('');
+    const campaignScenarios = [];
+    const campaignSessions= [];
 
     const navigate = useNavigate();
 
@@ -19,6 +21,8 @@ const NewCampaignForm = () => {
             campaignName,
             campaignSetting,
             campaignDescription,
+            campaignScenarios,
+            campaignSessions,
         }
 
         fetch('http://127.0.0.1:3000/dm/campaign/newCampaign', {
