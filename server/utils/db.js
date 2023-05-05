@@ -11,6 +11,8 @@ const teams = db.collection('teams');
 const campaigns = db.collection('campaigns');
 const sessions = db.collection('sessions');
 const scenarios = db.collection('scenarios');
+const handouts = db.collection('handouts');
+const locations = db.collection('locations');
 
 module.exports = {
     db,
@@ -20,4 +22,6 @@ module.exports = {
     scenarios,
     campaigns,
     sessions,
+    handouts,
+    locations,
 };
