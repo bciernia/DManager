@@ -1,16 +1,5 @@
 import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
-import {
-    Box, Button, FormControl, FormControlLabel,
-    Grid, InputLabel,
-    List,
-    ListItem, ListItemText, MenuItem,
-    Paper, Radio, RadioGroup, Select, Table,
-    TableBody,
-    TableCell,
-    TableContainer, TableHead,
-    TableRow, TextareaAutosize,
-    Typography
-} from "@mui/material";
+import {Box, Button, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
 import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
 import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
@@ -22,7 +11,7 @@ import {ProficiencyLevel} from "../../../../utils/dndUtils/ProficiencyLevel";
 import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {
     characterInfoValidationSchema,
-    characterProficienciesValidationSchema, characterSavingThrowsValidationSchema, characterSkillsValidationSchema,
+    characterSavingThrowsValidationSchema,
     characterStatsValidationSchema
 } from "../../../../utils/Form/ValidationSchemas";
 import {SavingThrows} from "../../../../utils/dndUtils/SavingThrows";
@@ -31,7 +20,6 @@ import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputF
 import CheckboxInputField from "../../../../utils/Form/InputTypes/CheckboxInputField";
 import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
 import {SkillProficiencies} from "../../../../utils/dndUtils/SkillProficiencies";
-import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
 import {useNavigate} from "react-router-dom";
 import {CharacterRaces} from "../../../../utils/dndUtils/CharacterRaces";
 import {CharacterAlignments} from "../../../../utils/dndUtils/CharacterAlignments";

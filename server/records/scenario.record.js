@@ -7,10 +7,10 @@ class ScenarioRecord {
         this._id = new ObjectId(obj._id);
         this.scenarioName = obj.scenarioName;
         this.scenarioDescription = obj.scenarioDescription;
-        this.scenarioSchedule = obj.scenarioSchedule;
-        this.scenarioCharacters = obj.scenarioCharacters;
-        this.scenarioLocations = obj.scenarioLocations;
-        this.scenarioHandouts = obj.scenarioHandouts;
+        this.scenarioSchedule = obj.scenarioSchedule ?? [];
+        this.scenarioCharacters = obj.scenarioCharacters ?? [];
+        this.scenarioLocations = obj.scenarioLocations ?? [];
+        this.scenarioHandouts = obj.scenarioHandouts ?? [];
         this.campaignId = obj.campaignId;
     }
 
