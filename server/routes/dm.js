@@ -5,6 +5,7 @@ const {CampaignRecord} = require("../records/campaign.record");
 const {ScenarioRecord} = require("../records/scenario.record");
 const {CharacterRecord} = require("../records/character.record");
 const {HandoutRecord} = require("../records/handout.record");
+const {LocationRecord} = require("../records/location.record");
 
 const dmRouter = express.Router();
 
@@ -70,7 +71,7 @@ dmRouter
     })
 
     //DELETE CAMPAIGN
-    .delete('/campaign/:campaignId', async(req, res) => {
+    .delete('/campaign/:campaignId', async (req, res) => {
         const {campaignId} = req.params;
 
         const campaignToDelete = await CampaignRecord.find(campaignId);
@@ -81,14 +82,14 @@ dmRouter
     })
 
     //GET ALL SCENARIOS
-    .get('/scenario/all', async(req, res) => {
+    .get('/scenario/all', async (req, res) => {
         const scenarios = await ScenarioRecord.findAll();
 
         res.status(200).send(scenarios);
     })
 
     //GET CHOSEN SCENARIO
-    .get('/scenario/:scenarioId', async(req, res) => {
+    .get('/scenario/:scenarioId', async (req, res) => {
         const {scenarioId} = req.params;
 
         const scenario = await ScenarioRecord.find(scenarioId);
@@ -97,7 +98,7 @@ dmRouter
     })
 
     //GET SCENARIOS FROM CHOSEN CAMPAIGN
-    .get('/campaign/:campaignId/scenario/all', async(req, res) => {
+    .get('/campaign/:campaignId/scenario/all', async (req, res) => {
         const {campaignId} = req.params;
 
         const scenariosFromChosenCampaign = await ScenarioRecord.findAllByCampaignId(campaignId);
@@ -124,8 +125,26 @@ dmRouter
         res.status(201).send(newScenarioId);
     })
 
+    .put('/scenario/:scenarioId', async (req, res) => {
+        const {scenarioId} = req.params;
+        const updatedScenario = req.body;
+
+        const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
+        scenarioToUpdate.scenarioName = updatedScenario.scenarioName.toString();
+        scenarioToUpdate.scenarioDescription = updatedScenario.scenarioDescription.toString();
+        scenarioToUpdate.scenarioNotes = updatedScenario.scenarioNotes.toString();
+        scenarioToUpdate.scenarioSchedule = updatedScenario.scenarioSchedule;
+        scenarioToUpdate.scenarioCharacters = updatedScenario.scenarioCharacters;
+        scenarioToUpdate.cenarioLocations = updatedScenario.scenarioLocations;
+        scenarioToUpdate.scenarioHandouts = updatedScenario.scenarioHandouts;
+
+        await scenarioToUpdate.update();
+
+        res.status(200).send(scenarioToUpdate);
+    })
+
     //DELETE SCENARIO
-    .delete('/scenario/:scenarioId', async(req, res) => {
+    .delete('/scenario/:scenarioId', async (req, res) => {
         const {scenarioId} = req.params;
 
         const scenarioToDelete = await ScenarioRecord.find(scenarioId);
@@ -135,7 +154,29 @@ dmRouter
         res.status(204).send();
     })
 
-    .post('/scenario/:scenarioId/newHandout', async(req, res) => {
+    //ADD NEW LOCATION TO SCENARIO
+    .post('/scenario/:scenarioId/newLocation', async(req, res) => {
+        const {scenarioId} = req.params;
+
+        const location = req.body;
+
+        const newLocation = new LocationRecord({
+            ...location
+        })
+
+        const newLocationId = await newLocation.insert();
+
+        const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
+
+        scenarioToUpdate.scenarioLocations.push(newLocationId);
+
+        await scenarioToUpdate.update();
+
+        res.status(201).send(newLocationId);
+    })
+
+    //ADD NEW HANDOUT TO SCENARIO
+    .post('/scenario/:scenarioId/newHandout', async (req, res) => {
         const {scenarioId} = req.params;
 
         const handout = req.body;
@@ -157,7 +198,7 @@ dmRouter
     })
 
     //GET CHOSEN HANDOUT
-    .get('/handout/:handoutId', async(req, res) => {
+    .get('/handout/:handoutId', async (req, res) => {
         const {handoutId} = req.params;
 
         const handout = await HandoutRecord.find(handoutId);
@@ -166,7 +207,7 @@ dmRouter
     })
 
     //GET HANDOUTS FROM CHOSEN SCENARIO
-    .get('/scenario/:scenarioId/handout/all', async(req, res) => {
+    .get('/scenario/:scenarioId/handout/all', async (req, res) => {
         const {scenarioId} = req.params;
 
         const handoutsFromChosenScenario = await HandoutRecord.findAllByScenarioId(scenarioId);
@@ -174,7 +215,7 @@ dmRouter
         res.status(200).send(handoutsFromChosenScenario);
     })
 
-    .delete('/scenario/:scenarioId/handout/:handoutId', async(req, res) => {
+    .delete('/scenario/:scenarioId/handout/:handoutId', async (req, res) => {
         const {handoutId} = req.params;
 
         const handoutToDelete = await HandoutRecord.find(handoutId);
