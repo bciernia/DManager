@@ -22,6 +22,10 @@ import MailSended from "./components/Contact/MailSended/MailSended";
 import CampaignsSummary from "./components/DMFacilities/Campaign/CampaignsSummary/CampaignsSummary";
 import CharactersSummary from "./components/DMFacilities/Character/CharactersSummary/CharactersSummary";
 import CampaignDetails from "./components/DMFacilities/Campaign/CampaignDetails/CampaignDetails";
+import EditScenario
+    from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditScenario";
+import AddLocation
+    from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddLocation/AddLocation";
 
 const router = createBrowserRouter([
     {
@@ -71,27 +75,35 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: 'campaign/newCampaign', element: <CreateNewCampaign/>
+                        path: 'campaign/newCampaign', element: <CreateNewCampaign/>,
                     },
 
                     {
-                        path: 'campaign/:campaignId', element: <CampaignDetails/>
+                        path: 'campaign/:campaignId', element: <CampaignDetails/>,
                     },
 
                     {
-                        path: 'campaign/:campaignId/scenario/newScenario', element: <CreateNewScenario/>
+                        path: 'campaign/:campaignId/scenario/newScenario', element: <CreateNewScenario/>,
                     },
 
                     {
-                        path: 'scenario/:scenarioId', element: <ScenarioDetails/>
+                        path: 'scenario/:scenarioId', element: <ScenarioDetails/>,
                     },
 
                     {
-                        path: "campaign/:campaignId/sessions/all", element: <SessionHistory/>
+                        path: 'campaign/:campaignId/scenario/:scenarioId/edit', element: <EditScenario/>,
                     },
 
                     {
-                        path: "characters", element: <CharactersSummary/>
+                        path: 'campaign/:campaignId/scenario/:scenarioId/edit/newLocation', element: <AddLocation/>,
+                    },
+
+                    {
+                        path: "campaign/:campaignId/sessions/all", element: <SessionHistory/>,
+                    },
+
+                    {
+                        path: "characters", element: <CharactersSummary/>,
                     },
 
                     {
