@@ -3,6 +3,8 @@ import {Box, Button, Grid, List, ListItem, ListItemButton, ListItemText, Typogra
 import {useNavigate, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import Spinner from "../../../UI/Spinner/Spinner";
+import CampaignDetailsPartialView from "../CampaignsSummary/CampaignDetailsPartialView/CampaignDetailsPartialView";
+import ScenarioDetailsPartialView from "./ScenarioDetailsPartialView/ScenarioDetailsPartialView";
 
 const getCampaignById = (campaignId) =>
     fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}`)
@@ -19,9 +21,18 @@ const CampaignDetails = () => {
     const [campaign, setCampaign] = useState({});
     const [scenariosArray, setScenariosArray] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [chosenScenario, setChosenScenario] = useState();
 
     const addScenarioToChosenCampaign = () => {
         navigate(`scenario/newScenario`);
+    }
+
+    const editChosenScenario = () => {
+        navigate(`scenario/${chosenScenario._id}/edit`)
+    }
+
+    const showScenarioDetails = (scenarioId) => {
+        setChosenScenario(scenariosArray.find(scenario => scenario._id === scenarioId));
     }
 
     useEffect(() => {
@@ -38,18 +49,27 @@ const CampaignDetails = () => {
 
     }, [campaignId]);
 
+    useEffect(() => {
+        if (chosenScenario) return;
+
+        setChosenScenario(scenariosArray[0]);
+    }, [scenariosArray]);
+
     return (
         <div className={classes.container}>
             {isLoading && <Spinner/>}
             <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: ".5rem", marginTop: "0.5rem"}}
                     variant="contained" color="inherit"
                     onClick={addScenarioToChosenCampaign}
-            >Add scenario to campaign</Button>
+            >Add scenario</Button>
+            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: ".5rem", marginTop: "3.5rem"}}
+                    variant="contained" color="inherit"
+                    onClick={editChosenScenario}
+            >Edit scenario</Button>
             <Typography variant="h2">{campaign.campaignName}</Typography>
-            <Grid container spacing={1}>
+            <Grid container>
                 <Grid item md={2} >
-                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
-                            onClick={() => alert("TESt")}>Add new campaign</Button>
+
                     <Box sx={{width: "100%", margin: "0.5rem 0"}}>
                         <nav>
                             <Typography variant="h4" textAlign="center">Scenarios list</Typography>
@@ -64,7 +84,7 @@ const CampaignDetails = () => {
                                 {scenariosArray.map(scenario =>
                                 <ListItem key={scenario._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
-                                                        onClick={() => alert(scenario.scenarioName)}>
+                                                        onClick={() => showScenarioDetails(scenario._id)}>
                                             <ListItemText primary={scenario.scenarioName}
                                             />
                                         </ListItemButton>
@@ -75,8 +95,15 @@ const CampaignDetails = () => {
                     </Box>
                 </Grid>
 
-                <Grid item md={9} sx={{backgroundColor: "green"}}>
-                    test2
+                <Grid item md={10}>
+                    <Box sx={{height: "40rem", width: "100%"}}>
+                        {!chosenScenario ? (
+                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
+                                    yours scenarios</Typography>) :
+                            (
+                                <ScenarioDetailsPartialView scenario={chosenScenario}/>
+                            )}
+                    </Box>
                 </Grid>
             </Grid>
         </div>
