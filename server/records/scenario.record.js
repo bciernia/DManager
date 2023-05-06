@@ -7,6 +7,7 @@ class ScenarioRecord {
         this._id = new ObjectId(obj._id);
         this.scenarioName = obj.scenarioName;
         this.scenarioDescription = obj.scenarioDescription;
+        this.scenarioNotes = obj.scenarioNotes ?? [];
         this.scenarioSchedule = obj.scenarioSchedule ?? [];
         this.scenarioCharacters = obj.scenarioCharacters ?? [];
         this.scenarioLocations = obj.scenarioLocations ?? [];
@@ -20,9 +21,10 @@ class ScenarioRecord {
             scenarioName: this.scenarioName.toString(),
             scenarioDescription: this.scenarioDescription.toString(),
             scenarioSchedule: this.scenarioSchedule,
-            scenarioCharacters: this.scenarioCharacters,
-            scenarioLocations: this.scenarioLocations,
-            scenarioHandouts: this.scenarioHandouts,
+            scenarioNotes: this.scenarioNotes ?? [],
+            scenarioCharacters: this.scenarioCharacters ?? [],
+            scenarioLocations: this.scenarioLocations ?? [],
+            scenarioHandouts: this.scenarioHandouts ?? [],
             campaignId: this.campaignId,
         });
         this._id = insertedId.toString();
@@ -37,6 +39,7 @@ class ScenarioRecord {
             scenarioName: this.scenarioName.toString(),
             scenarioDescription: this.scenarioDescription.toString(),
             scenarioSchedule: this.scenarioSchedule,
+            scenarioNotes: this.scenarioNotes,
             scenarioCharacters: this.scenarioCharacters,
             scenarioLocations: this.scenarioLocations,
             scenarioHandouts: this.scenarioHandouts,

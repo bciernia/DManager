@@ -8,8 +8,8 @@ class CampaignRecord {
         this.campaignName = obj.campaignName;
         this.campaignSetting = obj.campaignSetting;
         this.campaignDescription = obj.campaignDescription;
-        this.campaignScenarios = obj.campaignScenarios;
-        this.campaignSessions = obj.campaignSessions;
+        this.campaignScenarios = obj.campaignScenarios ?? [];
+        this.campaignSessions = obj.campaignSessions ?? [];
     }
 
     async insert() {

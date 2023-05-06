@@ -8,7 +8,7 @@ class LocationRecord {
         this.locationName = obj.locationName;
         this.locationDescription = obj.locationDescription;
         this.locationMap = obj.locationMap;
-        this.locationRooms = obj.locationRooms;
+        this.locationRooms = obj.locationRooms ?? [];
     }
     async insert() {
         const {insertedId} = await locations.insertOne({
@@ -16,7 +16,7 @@ class LocationRecord {
             locationName: this.locationName,
             locationDescription: this.locationDescription,
             locationMap: this.locationMap,
-            locationRooms: this.locationRooms,
+            locationRooms: this.locationRooms ?? [],
         });
         this._id = insertedId.toString();
 
