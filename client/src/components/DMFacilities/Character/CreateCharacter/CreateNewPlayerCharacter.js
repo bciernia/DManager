@@ -87,6 +87,20 @@ const CreateNewPlayerCharacter = () => {
 
     useEffect(() => {
         CharacterInitialValues.characterType = CharacterTypes.playerCharacter;
+
+        CharacterInitialValues.characterStrength = randomNumber(1, 30);
+        CharacterInitialValues.characterDexterity = randomNumber(1, 30);
+        CharacterInitialValues.characterConstitution = randomNumber(1, 30);
+        CharacterInitialValues.characterIntelligence = randomNumber(1, 30);
+        CharacterInitialValues.characterWisdom = randomNumber(1, 30);
+        CharacterInitialValues.characterCharisma = randomNumber(1, 30);
+        CharacterInitialValues.characterProficiencyBonus = randomNumber(1, 30);
+        CharacterInitialValues.characterInitiative = randomNumber(1, 30);
+        CharacterInitialValues.characterLevel = randomNumber(1, 20);
+        CharacterInitialValues.exp = randomNumber(1, 400000);
+        CharacterInitialValues.armorClass = randomNumber(1, 30);
+        CharacterInitialValues.characterSpeed = randomNumber(1, 500);
+        CharacterInitialValues.characterHP = randomNumber(1, 1000);
     }, []);
 
     useEffect(() => {
@@ -213,21 +227,6 @@ const CreateNewPlayerCharacter = () => {
         return ((Math.random() * (max-min) + min).toFixed());
     }
 
-    const randomizeStatistics = () => {
-        CharacterInitialValues.characterStrength = randomNumber(1, 30);
-        CharacterInitialValues.characterDexterity = randomNumber(1, 30);
-        CharacterInitialValues.characterConstitution = randomNumber(1, 30);
-        CharacterInitialValues.characterIntelligence = randomNumber(1, 30);
-        CharacterInitialValues.characterWisdom = randomNumber(1, 30);
-        CharacterInitialValues.characterCharisma = randomNumber(1, 30);
-        CharacterInitialValues.characterProficiencyBonus = randomNumber(1, 30);
-        CharacterInitialValues.characterLevel = randomNumber(1, 20);
-        CharacterInitialValues.exp = randomNumber(1, 400000);
-        CharacterInitialValues.armorClass = randomNumber(1, 30);
-        CharacterInitialValues.characterSpeed = randomNumber(1, 500);
-        CharacterInitialValues.characterHP = randomNumber(1, 1000);
-    }
-
     const addNewCharacterHandler = (character) => {
         setIsLoading(true);
 
@@ -271,7 +270,6 @@ const CreateNewPlayerCharacter = () => {
                     stepName="Character info"
                     onSubmit={() => {
                         console.log('Step1 submit')
-                        randomizeStatistics();
                     }}
                     validationSchema={characterInfoValidationSchema}>
                     <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>New player
