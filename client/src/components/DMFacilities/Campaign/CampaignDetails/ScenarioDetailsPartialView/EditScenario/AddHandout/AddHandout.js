@@ -94,8 +94,6 @@ const AddHandout = () => {
             <Dialog onClose={handleClose} open={dialogOpen} maxWidth="lg">
                 <img src={handoutPhoto} alt="Image preview dialog" className={classes.imgDialogPreview}/>
             </Dialog>
-            <Button onClick={() => console.log(scenarioLocations)}>click</Button>
-
             <div className={classes["container--form__display"]}>
                 <Typography variant="h5" sx={{margin: ".5rem", textAlign: "center"}}>New handout</Typography>
                 <form id="addLocationForm" className={classes['container--form']}
