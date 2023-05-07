@@ -165,6 +165,10 @@ dmRouter
             ...location
         })
 
+        newLocation.locationRooms.forEach(room => {
+            room.roomId = new ObjectId();
+        });
+
         const newLocationId = await newLocation.insert();
 
         const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
