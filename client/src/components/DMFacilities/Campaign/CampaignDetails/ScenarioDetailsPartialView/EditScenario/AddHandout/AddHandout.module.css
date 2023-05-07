@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container--form {
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    width: 40rem;
+}
+
+.img__preview {
+    cursor: pointer;
+    position: absolute;
+    width: 20rem;
+    margin-top: 2.5rem;
+    left: 7.5rem;
+}
