@@ -4,20 +4,19 @@
 }
 
 .container--form {
+    margin-bottom: 2.5rem;
     position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: .5rem;
     width: 40rem;
-    height: 20rem;
 }
 
-.container--form__display {
-
-}
-
-.img--preview {
+.img__preview {
+    cursor: pointer;
+    position: absolute;
     width: 20rem;
     margin-top: 2.5rem;
+    left: 7.5rem;
 }
