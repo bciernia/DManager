@@ -2,6 +2,7 @@ export const CharacterRaces = {
     dragonborn: "Dragonborn",
     dwarf: "Dwarf",
     elf: "Elf",
+    goblin: "Goblin",
     gnome: "Gnome",
     halfElf: "Half-elf",
     halfling: "Halfling",

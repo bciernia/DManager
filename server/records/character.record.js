@@ -43,6 +43,7 @@ class CharacterRecord {
         this.characterPassiveWisdom = obj.characterPassiveWisdom;
         this.characterSpeed = obj.characterSpeed;
         this.characterHP = obj.characterHP;
+        this.characterHPDice = obj.characterHPDice;
         this.characterInitiative = obj.characterInitiative;
 
         //SAVING THROWS ARRAY
@@ -90,7 +91,7 @@ class CharacterRecord {
             characterType: this.characterType.toString(),
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
-            characterClass: this.characterClass.toString(),
+            characterClass: this.characterClass,
             characterRace: this.characterRace.toString(),
             characterAlignment: this.characterAlignment.toString(),
             characterBackstory: this.characterBackstory.toString(),
@@ -121,6 +122,7 @@ class CharacterRecord {
 
             characterSpeed: Number(this.characterSpeed),
             characterHP: Number(this.characterHP),
+            characterHPDice: this.characterHPDice.toString(),
             characterInitiative: Number(this.characterInitiative),
             armorClass: Number(this.armorClass),
 
@@ -170,6 +172,7 @@ class CharacterRecord {
 
             characterSpeed: Number(this.characterSpeed),
             characterHP: Number(this.characterHP),
+            characterHPDice: this.characterHPDice.toString(),
             characterInitiative: Number(this.characterInitiative),
             armorClass: Number(this.armorClass),
 

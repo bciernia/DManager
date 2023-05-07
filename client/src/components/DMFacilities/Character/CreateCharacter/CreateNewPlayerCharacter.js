@@ -1,4 +1,3 @@
-import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
 import {Box, Button, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
 import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
@@ -24,6 +23,7 @@ import {useNavigate} from "react-router-dom";
 import {CharacterRaces} from "../../../../utils/dndUtils/CharacterRaces";
 import {CharacterAlignments} from "../../../../utils/dndUtils/CharacterAlignments";
 import RadioButtonsGroup from "../../../../utils/Form/InputTypes/RadioButtons/RadioButtonsGroup";
+import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
 
 const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
