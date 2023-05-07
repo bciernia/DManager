@@ -9,6 +9,7 @@ class LocationRecord {
         this.locationDescription = obj.locationDescription;
         this.locationMap = obj.locationMap;
         this.locationRooms = obj.locationRooms ?? [];
+        this.scenarioId = obj.scenarioId;
     }
     async insert() {
         const {insertedId} = await locations.insertOne({
@@ -17,6 +18,7 @@ class LocationRecord {
             locationDescription: this.locationDescription,
             locationMap: this.locationMap,
             locationRooms: this.locationRooms ?? [],
+            scenarioId: this.scenarioId,
         });
         this._id = insertedId.toString();
 
@@ -31,6 +33,7 @@ class LocationRecord {
             locationDescription: this.locationDescription,
             locationMap: this.locationMap,
             locationRooms: this.locationRooms,
+            scenarioId: this.scenarioId,
         });
     }
 
@@ -51,6 +54,14 @@ class LocationRecord {
         const ourArray = locationArray.map(obj => new LocationRecord(obj));
 
         return ourArray;
+    }
+
+    static async findAllByScenarioId(scenarioId) {
+        const result = await locations.find();
+        const locationsArray = await result.toArray();
+        const locationsFromChosenScenario = locationsArray.filter(location => location.scenarioId === scenarioId);
+
+        return locationsFromChosenScenario;
     }
 
     static async findAllWithCursor() {
