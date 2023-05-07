@@ -1,0 +1,18 @@
+.img__preview {
+    cursor: pointer;
+    width: 100%;
+}
+
+.rooms__preview {
+background-color: #5fb45f;
+}
+
+.buttons--container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    gap: .5rem;
+    right: .5rem;
+    top: 6.75rem;
+}
