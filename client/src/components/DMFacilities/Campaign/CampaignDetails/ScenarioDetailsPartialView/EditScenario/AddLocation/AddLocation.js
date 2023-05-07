@@ -53,6 +53,7 @@ const AddLocation = () => {
         event.preventDefault();
 
         const newRoom = {
+            roomId: '',
             roomName,
             roomDescription,
         }
@@ -61,8 +62,6 @@ const AddLocation = () => {
 
         setRoomName('');
         setRoomDescription('');
-
-
     }
 
     const handleFileChange = event => {
@@ -78,7 +77,7 @@ const AddLocation = () => {
     return (
         <div className={classes.container}>
             <Dialog onClose={handleClose} open={dialogOpen} maxWidth="lg">
-                <img src={locationMap} alt="Image preview dialog" className={classes.imgDialogPreview}/>
+                <img src={locationMap} alt="Image preview dialog"/>
             </Dialog>
 
             <div className={classes["container--form__display"]}>
