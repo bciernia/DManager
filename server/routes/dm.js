@@ -125,6 +125,7 @@ dmRouter
         res.status(201).send(newScenarioId);
     })
 
+    //UPDATE SCENARIO
     .put('/scenario/:scenarioId', async (req, res) => {
         const {scenarioId} = req.params;
         const updatedScenario = req.body;
@@ -155,7 +156,7 @@ dmRouter
     })
 
     //ADD NEW LOCATION TO SCENARIO
-    .post('/scenario/:scenarioId/newLocation', async(req, res) => {
+    .post('/scenario/:scenarioId/newLocation', async (req, res) => {
         const {scenarioId} = req.params;
 
         const location = req.body;
@@ -173,6 +174,14 @@ dmRouter
         await scenarioToUpdate.update();
 
         res.status(201).send(newLocationId);
+    })
+
+    //GET ALL LOCATIONS FROM CHOSEN SCENARIO
+    .get('/scenario/:scenarioId/location/all', async (req, res) => {
+        const {scenarioId} = req.params;
+        const locationsFromChosenScenario = await LocationRecord.findAllByScenarioId(scenarioId);
+
+        res.status(200).send(locationsFromChosenScenario);
     })
 
     //ADD NEW HANDOUT TO SCENARIO
@@ -194,7 +203,6 @@ dmRouter
         await scenarioToUpdate.update();
 
         res.status(201).send(newHandoutId);
-
     })
 
     //GET CHOSEN HANDOUT
