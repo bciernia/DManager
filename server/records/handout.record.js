@@ -8,6 +8,8 @@ class HandoutRecord {
         this.handoutName = obj.handoutName;
         this.handoutDescription = obj.handoutDescription;
         this.handoutPhoto = obj.handoutPhoto;
+        this.handoutLocation = obj.handoutLocation;
+        this.scenarioId = obj.scenarioId;
     }
     async insert() {
         const {insertedId} = await handouts.insertOne({
@@ -15,6 +17,8 @@ class HandoutRecord {
             handoutName: this.handoutName,
             handoutDescription: this.handoutDescription,
             handoutPhoto: this.handoutPhoto,
+            handoutLocation: this.handoutLocation,
+            scenarioId: this.scenarioId,
         });
         this._id = insertedId.toString();
 
@@ -28,6 +32,8 @@ class HandoutRecord {
             handoutName: this.handoutName,
             handoutDescription: this.handoutDescription,
             handoutPhoto: this.handoutPhoto,
+            handoutLocation: this.handoutLocation,
+            scenarioId: this.scenarioId,
         });
     }
 
