@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import classes from './EditScenario.module.css';
+import noMap from '../../../../../../assets/images/no_map.png'
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -112,7 +113,8 @@ const EditScenario = () => {
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit" onClick={addHandout}>Add handout</Button></>}</div>
             <Grid container sx={{padding: "1rem"}}>
-                <Grid item md={3} sx={{height: "14.5rem"}}>
+                <Grid item md={3}
+                      sx={{height: "14.5rem", display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Typography variant="h6">
                         Scenario name
                     </Typography>
@@ -128,7 +130,7 @@ const EditScenario = () => {
                     <Typography variant="h6">
                         Scenario description
                     </Typography>
-                    {!isEditModeOn ? <Typography>{scenario.scenarioDescription}</Typography>
+                    {!isEditModeOn ? <Typography sx={{overflow: "hidden"}}>{scenario.scenarioDescription}</Typography>
                         :
                         <TextField
                             sx={{width: "80%"}} type="text" label="Description"
@@ -140,7 +142,7 @@ const EditScenario = () => {
                             onChange={(event) => setNewScenarioDescription(event.target.value)}/>
                     }
                 </Grid>
-                <Grid item md={3}>
+                <Grid item md={3} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Typography variant="h4" textAlign="center" sx={{marginBottom: ".5rem"}}>Locations</Typography>
                     <FormControl sx={{minWidth: 250}}>
                         <InputLabel id="select-location-label">Choose location</InputLabel>
@@ -158,8 +160,7 @@ const EditScenario = () => {
                     </FormControl>
 
                 </Grid>
-                <Grid item md={3}>
-
+                <Grid item md={3} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Typography variant="h4" textAlign="center" sx={{marginBottom: ".5rem"}}>Notes</Typography>
                     Lista notatek
                 </Grid>
@@ -167,7 +168,9 @@ const EditScenario = () => {
                     <Box sx={{width: "100%", height: "100%"}}>
                         <Grid container>
                             <Grid item md={3} sx={{marginRight: "1rem"}}>
-                                {/*TODO NO PHOTO, DISPLAY TEXT*/}
+                                {chosenLocation.locationMap === null &&
+                                    <img src={noMap} alt="No uploaded map"
+                                         className={classes["img__preview"]}/>}
                                 {chosenLocation.locationMap &&
                                     <img src={chosenLocation.locationMap} alt="Uploaded image preview"
                                          className={classes["img__preview"]}
@@ -177,7 +180,7 @@ const EditScenario = () => {
                                 <Typography variant="h5">
                                     {chosenLocation.locationName}
                                 </Typography>
-                                <Typography variant="h6">
+                                <Typography>
                                     {chosenLocation.locationDescription}
                                 </Typography>
                             </Grid>
@@ -191,10 +194,8 @@ const EditScenario = () => {
                     </Box>
                 </Grid>
                 <Grid item md={3}>
-                    TEST
                 </Grid>
                 <Grid item md={3}>
-                    TEST
                 </Grid>
             </Grid>
 
