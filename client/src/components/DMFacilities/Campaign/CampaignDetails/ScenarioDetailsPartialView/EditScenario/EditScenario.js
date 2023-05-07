@@ -7,6 +7,9 @@ const getScenarioById = (scenarioId) =>
         .then(res => res.json());
 
 //TODO get all locations from current scenario
+const getLocationsForScenario = (scenarioId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/location/all`)
+        .then(res => res.json());
 
 const EditScenario = () => {
     const {scenarioId} = useParams();
@@ -20,13 +23,16 @@ const EditScenario = () => {
     const [newScenarioLocations, setNewScenarioLocations] = useState([]);
 
     useEffect(() => {
-        getScenarioById(scenarioId)
-            .then(data => {
-                setScenario(data);
-                setNewScenarioName(data.scenarioName);
-                setNewScenarioDescription(data.scenarioDescription);
-                setNewScenarioNotes(data.scenarioNotes);
-                setNewScenarioLocations(data.scenarioLocations);
+        Promise.all([
+            getScenarioById(scenarioId),
+            getLocationsForScenario(scenarioId),
+        ]).then(([scenarioData, locationsData]) => {
+            console.log(locationsData);
+                setScenario(scenarioData);
+                setNewScenarioName(scenarioData.scenarioName);
+                setNewScenarioDescription(scenarioData.scenarioDescription);
+                setNewScenarioNotes(scenarioData.scenarioNotes);
+                setNewScenarioLocations(locationsData);
             });
     }, []);
 
@@ -113,8 +119,8 @@ const EditScenario = () => {
                         {newScenarioLocations.map(location =>
                             <ListItem key={location._id} disablePadding>
                                 <ListItemButton sx={{textAlign: "center"}}
-                                                onClick={() => showLocationDetails(scenario._id)}>
-                                    <ListItemText primary={location._id} />
+                                                onClick={() => showLocationDetails()}>
+                                    <ListItemText primary={location.locationName} />
                                 </ListItemButton>
                             </ListItem>)}
 
