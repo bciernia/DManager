@@ -1,0 +1,16 @@
+export const MonsterType = {
+    aberration: "Aberration",
+    beast: "Beast",
+    celestial: "Celestial",
+    construct: "Construct",
+    dragon: "Dragon",
+    elemental: "Elemental",
+    fey: "Fey",
+    fiend: "Fiend",
+    giant: "Giant",
+    humanoid: "Humanoid",
+    monstrosities: "Monstrosities",
+    ooze: "Ooze",
+    plant: "Plant",
+    undead: "Undead",
+}
