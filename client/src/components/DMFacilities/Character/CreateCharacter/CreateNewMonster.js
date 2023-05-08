@@ -22,7 +22,6 @@ import RadioButtonsGroup from "../../../../utils/Form/InputTypes/RadioButtons/Ra
 import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {MonsterInitialValues} from "../../../../utils/dndUtils/MonsterInitialValues";
 import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
-import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
 import {MonsterType} from "../../../../utils/dndUtils/MonsterType";
 
 const CreateNewMonster = () => {

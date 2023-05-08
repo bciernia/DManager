@@ -1,8 +1,4 @@
-import {Avatar, Box, Button, Grid, Typography} from "@mui/material";
-import {Link, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import Spinner from "../../../UI/Spinner/Spinner";
-import classes from "./CharacterDetails.module.css";
+import {Avatar, Box, Grid, Typography} from "@mui/material";
 
 const CharacterDetails = props => {
     const character = props.character;
