@@ -72,9 +72,7 @@ const CharacterDetails = props => {
                     </Grid>
                     <Grid item md={12} sx={{backgroundColor: "blue", minHeight: "20rem"}}></Grid>
                 </Grid>
-
             </Box>
-            <Button> <Link sx={{textDecoration: "none"}} to="../../" relative="path">Go back to summary</Link></Button>
         </div>
     )
 }

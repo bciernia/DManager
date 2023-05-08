@@ -81,7 +81,7 @@ const CharactersSummary = () => {
                         <nav>
                             <Typography variant="h4" textAlign="center">Character list</Typography>
                             <List sx={{
-                                height: "35rem",
+                                height: "27.5rem",
                                 overflow: "auto",
                                 border: "solid 2px",
                             }}>
@@ -104,6 +104,9 @@ const CharactersSummary = () => {
                                 )}
                             </List>
                         </nav>
+                        <div className={classes["character--filters"]}>
+                            <Typography>FILTER PANEL</Typography>
+                        </div>
                     </Box>
                 </Grid>
                 <Grid item md={10}>
