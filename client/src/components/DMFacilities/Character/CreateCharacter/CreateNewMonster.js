@@ -87,7 +87,7 @@ const CreateNewMonster = () => {
         MonsterInitialValues.characterInitiative = randomNumber(1, 30);
         MonsterInitialValues.exp = randomNumber(1, 400000);
         MonsterInitialValues.armorClass = randomNumber(1, 30);
-        MonsterInitialValues.characterSpeed = randomNumber(1, 500);
+        MonsterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         MonsterInitialValues.characterHP = randomNumber(1, 1000);
     }, []);
 
@@ -301,7 +301,7 @@ const CreateNewMonster = () => {
                             <TextInputField name="characterHPDice" label="HP dice" sx={{width: "10rem",margin: ".25rem 0"}}/>
                             <NumberInputField name="characterHP" label="Character health points" max={1000}/>
                             <NumberInputField name="exp" label="Character experience" max={400000}/>
-                            <NumberInputField name="characterSpeed" label="Character speed" max={500}/>
+                            <NumberInputField name="characterMovementSpeed" label="Character speed" max={500}/>
                             <NumberInputField name="characterInitiative" label="Character initiative"/>
                             <NumberInputField name="armorClass" label="Armor class"/>
                         </Grid>

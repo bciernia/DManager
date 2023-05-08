@@ -32,7 +32,7 @@ export const CharacterInitialValues = {
     characterCharisma: 0,
     characterProficiencyBonus: 0,
     characterPassiveWisdom: 0,
-    characterSpeed: 0,
+    characterMovementSpeed: 0,
     characterHP: 0,
     characterInitiative: 0,
 

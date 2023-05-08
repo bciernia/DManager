@@ -87,7 +87,7 @@ const CreateNewPlayerCharacter = () => {
         CharacterInitialValues.characterLevel = randomNumber(1, 20);
         CharacterInitialValues.exp = randomNumber(1, 400000);
         CharacterInitialValues.armorClass = randomNumber(1, 30);
-        CharacterInitialValues.characterSpeed = randomNumber(1, 500);
+        CharacterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         CharacterInitialValues.characterHP = randomNumber(1, 1000);
     }, []);
 
@@ -305,7 +305,7 @@ const CreateNewPlayerCharacter = () => {
                             <NumberInputField name="characterLevel" label="Character level"/>
                             <NumberInputField name="exp" label="Character experience" max={400000}/>
                             <NumberInputField name="characterHP" label="Character health points" max={1000}/>
-                            <NumberInputField name="characterSpeed" label="Character speed" max={500}/>
+                            <NumberInputField name="characterMovementSpeed" label="Character speed" max={500}/>
                             <NumberInputField name="characterInitiative" label="Character initiative"/>
                             <NumberInputField name="armorClass" label="Armor class"/>
                         </Grid>

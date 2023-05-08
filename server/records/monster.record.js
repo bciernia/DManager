@@ -36,7 +36,7 @@ class MonsterRecord {
         this.characterCharisma = obj.characterCharisma;
         this.characterProficiencyBonus = obj.characterProficiencyBonus;
         this.characterPassiveWisdom = obj.characterPassiveWisdom;
-        this.characterSpeed = obj.characterSpeed;
+        this.characterMovementSpeed = obj.characterMovementSpeed;
         this.characterHP = obj.characterHP;
         this.characterHPDice = obj.characterHPDice;
         this.characterInitiative = obj.characterInitiative;
@@ -100,7 +100,7 @@ class MonsterRecord {
             characterProficiencyBonus: Number(this.characterProficiencyBonus),
             characterPassiveWisdom: Number(this.characterPassiveWisdom),
 
-            characterSpeed: Number(this.characterSpeed),
+            characterMovementSpeed: Number(this.characterMovementSpeed),
             characterHP: Number(this.characterHP),
             characterHPDice: this.characterHPDice.toString(),
             characterInitiative: Number(this.characterInitiative),
@@ -158,7 +158,7 @@ class MonsterRecord {
             characterProficiencyBonus: Number(this.characterProficiencyBonus),
             characterPassiveWisdom: Number(this.characterPassiveWisdom),
 
-            characterSpeed: Number(this.characterSpeed),
+            characterMovementSpeed: Number(this.characterMovementSpeed),
             characterHP: Number(this.characterHP),
             characterHPDice: this.characterHPDice.toString(),
             characterInitiative: Number(this.characterInitiative),
