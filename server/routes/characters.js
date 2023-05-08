@@ -3,6 +3,7 @@ const {CharacterRecord} = require("../records/character.record");
 const {client, characters} = require("../utils/db");
 const {ObjectId} = require("mongodb");
 const {MonsterRecord} = require("../records/monster.record");
+const {NpcRecord} = require("../records/npc.record");
 
 const characterRouter = express.Router();
 
@@ -48,6 +49,19 @@ characterRouter
         const newMonsterId = await newMonster.insert();
 
         res.status(201).send(newMonsterId);
+    })
+
+    //ADD NPC
+    .post('/newNpc', async (req, res) => {
+        const npc = req.body;
+
+        const newNpc = new NpcRecord({
+            ...npc
+        })
+
+        const newNpcId = await newNpc.insert();
+
+        res.status(201).send(newNpcId);
     })
 
     //DELETE CHARACTER

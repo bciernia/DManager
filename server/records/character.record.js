@@ -219,6 +219,14 @@ class CharacterRecord {
         return ourArray;
     }
 
+    static async findAllPlayerCharacters() {
+        const result = await characters.find();
+        const characterArray = await result.toArray();
+        const ourArray = characterArray.map(obj => obj.characterType.toString() === "Player character");
+
+        return ourArray;
+    }
+
     static async findAllWithCursor() {
         return characters.find();
     }

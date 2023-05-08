@@ -1,10 +1,10 @@
-export const CharacterInitialValues = {
+export const NpcInitialValues = {
     //CHARACTER INFO
     characterType: '',
     characterName: '',
     characterClass: '',
-    characterRace: '',
     characterSize: '',
+    characterRace: '',
     characterAlignment: '',
     characterBackground: '',
     characterBackstory: '',
@@ -16,13 +16,10 @@ export const CharacterInitialValues = {
     characterWeakness: '',
     characterTreasure: '',
     characterPhoto: '',
-    playerName: '',
     characterLevel: 0,
     exp: 0,
-    hasInspiration: false,
     isAlive: true,
     howCharacterDied: '',
-    teamId: '',
 
     //SKILLS
     characterStrength: 0,
@@ -35,7 +32,6 @@ export const CharacterInitialValues = {
     characterPassiveWisdom: 0,
     characterMovementSpeed: 0,
     characterHP: 0,
-    characterHPDice: '',
     characterInitiative: 0,
 
     //SAVING THROWS

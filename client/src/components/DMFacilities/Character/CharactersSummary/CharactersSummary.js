@@ -33,8 +33,6 @@ const CharactersSummary = () => {
         }).then(res => {
             console.log(res);
             setCharactersArray((characters) => characters.filter(item => item._id !== characterId))
-        }).catch(() => {
-            alert("Nie udało sie usuwanie");
         }).finally(() => {
             setDeletedCharactersIds((deletedCharactersIds) => deletedCharactersIds.filter(item => item._id !== characterId))
         });
@@ -64,9 +62,6 @@ const CharactersSummary = () => {
     const createMonster = () => {
         navigate('newCharacter/monster')
     }
-    const createBeast = () => {
-        navigate('newCharacter/beast')
-    }
 
     return (
         <div className={classes.container}>
@@ -79,9 +74,6 @@ const CharactersSummary = () => {
                 <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
                         onClick={createMonster}>Create
                     monster</Button>
-                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
-                        onClick={createBeast}>Create
-                    beast</Button>
             </div>
             <Grid container>
                 <Grid item md={2} sx={{display: "flex", flexDirection: "column"}}>
