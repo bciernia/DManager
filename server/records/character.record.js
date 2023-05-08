@@ -55,7 +55,6 @@ class CharacterRecord {
         this.damageImmunities = obj.damageImmunities;
         this.damageVulnerabilities = obj.damageVulnerabilities;
         this.conditionImmunities = obj.conditionImmunities;
-        this.senses = obj.senses;
 
         //SKILLS ARRAY
         this.skillsProficiency = obj.skillsProficiency;
@@ -138,7 +137,6 @@ class CharacterRecord {
             damageImmunities: this.damageImmunities,
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
-            senses: this.senses,
 
             featuresAndTraits: this.featuresAndTraits,
         });
@@ -188,7 +186,6 @@ class CharacterRecord {
             damageImmunities: this.damageImmunities,
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
-            senses: this.senses,
 
             featuresAndTraits: this.featuresAndTraits,
         });

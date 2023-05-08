@@ -44,7 +44,6 @@ export const CharacterInitialValues = {
     skillsProficiency: [],
     languageProficiency: [],
     otherProficiency: [],
-    senses: [],
 
     //DAMAGES
     damageResistances: [],

@@ -42,6 +42,18 @@ class MonsterRecord {
         this.characterHPDice = obj.characterHPDice;
         this.characterInitiative = obj.characterInitiative;
 
+        //SENSES
+        this.monsterBlindsightSense = obj.monsterBlindsightSense;
+        this.monsterDarkvisionSense = obj.monsterDarkvisionSense;
+        this.monsterTremorsenseSense = obj.monsterTremorsenseSense;
+        this.monsterTruesightSense = obj.monsterTruesightSense;
+
+        //MOVEMENT SKILLS
+        this.monsterMovementBurrowSpeed = obj.monsterMovementBurrowSpeed;
+        this.monsterMovementClimbSpeed = obj.monsterMovementClimbSpeed;
+        this.monsterMovementFlySpeed = obj.monsterMovementFlySpeed;
+        this.monsterMovementSwimSpeed = obj.monsterMovementSwimSpeed;
+
         //SAVING THROWS ARRAY
         this.savingThrows = obj.savingThrows;
 
@@ -50,11 +62,10 @@ class MonsterRecord {
         this.damageImmunities = obj.damageImmunities;
         this.damageVulnerabilities = obj.damageVulnerabilities;
         this.conditionImmunities = obj.conditionImmunities;
-        this.senses = obj.senses;
 
         //SKILLS ARRAY
         this.skillsProficiency = obj.skillsProficiency;
-        this.monsterMovement = obj.monsterMovement;
+        this.monsterMovementSkill = obj.monsterMovementSkill;
 
         //LANGUAGES ARRAY
         this.languageProficiency = obj.languageProficiency;
@@ -103,6 +114,18 @@ class MonsterRecord {
             characterProficiencyBonus: Number(this.characterProficiencyBonus),
             characterPassiveWisdom: Number(this.characterPassiveWisdom),
 
+            //MONSTER SENSES
+            monsterBlindsightSense: Number(this.monsterBlindsightSense),
+            monsterDarkvisionSense: Number(this.monsterDarkvisionSense),
+            monsterTremorsenseSense: Number(this.monsterTremorsenseSense),
+            monsterTruesightSense: Number(this.monsterTruesightSense),
+
+            //MOVEMENT SKILLS
+            monsterMovementBurrowSpeed: Number(this.monsterMovementBurrowSpeed),
+            monsterMovementClimbSpeed: Number(this.monsterMovementClimbSpeed),
+            monsterMovementFlySpeed: Number(this.monsterMovementFlySpeed),
+            monsterMovementSwimSpeed: Number(this.monsterMovementSwimSpeed),
+
             characterMovementSpeed: Number(this.characterMovementSpeed),
             characterHP: Number(this.characterHP),
             characterHPDice: this.characterHPDice.toString(),
@@ -119,8 +142,7 @@ class MonsterRecord {
             damageImmunities: this.damageImmunities,
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
-            senses: this.senses,
-            monsterMovement: this.monsterMovement,
+            monsterMovementSkill: this.monsterMovementSkill,
 
             featuresAndTraits: this.featuresAndTraits,
         });
@@ -153,7 +175,7 @@ class MonsterRecord {
             isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
             characterSize: this.characterSize.toString(),
-            
+
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),
             characterConstitution: Number(this.characterConstitution),
@@ -162,6 +184,18 @@ class MonsterRecord {
             characterCharisma: Number(this.characterCharisma),
             characterProficiencyBonus: Number(this.characterProficiencyBonus),
             characterPassiveWisdom: Number(this.characterPassiveWisdom),
+
+            //MONSTER SENSES
+            monsterBlindsightSense: Number(this.monsterBlindsightSense),
+            monsterDarkvisionSense: Number(this.monsterDarkvisionSense),
+            monsterTremorsenseSense: Number(this.monsterTremorsenseSense),
+            monsterTruesightSense: Number(this.monsterTruesightSense),
+
+            //MOVEMENT SKILLS
+            monsterMovementBurrowSpeed: Number(this.monsterMovementBurrowSpeed),
+            monsterMovementClimbSpeed: Number(this.monsterMovementClimbSpeed),
+            monsterMovementFlySpeed: Number(this.monsterMovementFlySpeed),
+            monsterMovementSwimSpeed: Number(this.monsterMovementSwimSpeed),
 
             characterMovementSpeed: Number(this.characterMovementSpeed),
             characterHP: Number(this.characterHP),
@@ -179,8 +213,7 @@ class MonsterRecord {
             damageImmunities: this.damageImmunities,
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
-            senses: this.senses,
-            monsterMovement: this.monsterMovement,
+            monsterMovementSkill: this.monsterMovementSkill,
 
             featuresAndTraits: this.featuresAndTraits,
         });

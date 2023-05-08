@@ -39,7 +39,18 @@ export const MonsterInitialValues = {
     skillsProficiency: [],
     languageProficiency: [],
     otherProficiency: [],
-    senses: [],
+
+    //MONSTER SENSES
+    monsterBlindsightSense: 0,
+    monsterDarkvisionSense: 0,
+    monsterTremorsenseSense: 0,
+    monsterTruesightSense: 0,
+
+    //MONSTER MOVEMENT SKILLS
+    monsterMovementBurrowSpeed: 0,
+    monsterMovementClimbSpeed: 0,
+    monsterMovementFlySpeed: 0,
+    monsterMovementSwimSpeed: 0,
 
     //DAMAGES
     damageResistances: [],

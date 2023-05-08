@@ -1,18 +1,14 @@
-import {CharacterClasses} from "../../../../utils/dndUtils/CharacterClasses";
 import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
 import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
 import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
-import {Box, Button, Grid, InputLabel, MenuItem, Select, TextField, Typography} from "@mui/material";
+import {Box, Button, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
 import {
-    characterInfoValidationSchema,
     characterSavingThrowsValidationSchema,
-    characterStatsValidationSchema, monsterStatsValidationSchema, monsterValidationSchema
+    monsterStatsValidationSchema
 } from "../../../../utils/Form/ValidationSchemas";
 import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputField";
 import TextInputField from "../../../../utils/Form/InputTypes/TextInputField";
-import TextareaInputField from "../../../../utils/Form/InputTypes/TextareaInputField";
-import CheckboxInputField from "../../../../utils/Form/InputTypes/CheckboxInputField";
 import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
 import {useEffect, useState} from "react";
 import {LanguageProficiencies} from "../../../../utils/dndUtils/LanguageProficiencies";
@@ -25,10 +21,13 @@ import {useNavigate} from "react-router-dom";
 import RadioButtonsGroup from "../../../../utils/Form/InputTypes/RadioButtons/RadioButtonsGroup";
 import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {MonsterInitialValues} from "../../../../utils/dndUtils/MonsterInitialValues";
+import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
+import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
+import {MonsterType} from "../../../../utils/dndUtils/MonsterType";
 
 const CreateNewMonster = () => {
-    const characterClassesArray = Object.entries(CharacterClasses);
-    const characterTypes = Object.entries(CharacterTypes);
+    const monsterTypeArray = Object.entries(MonsterType)
+    const characterSizeArray = Object.entries(CharacterSize);
     const conditionTypes = Object.entries(ConditionTypes);
     const damageTypes = Object.entries(DamageTypes);
     const languageProficiences = Object.entries(LanguageProficiencies);
@@ -54,7 +53,6 @@ const CreateNewMonster = () => {
 
     const [chosenLanguageAndLevel, setChosenLanguageAndLevel] = useState([]);
     const [chosenLanguageProf, setChosenLanguageProf] = useState('')
-
 
     const [characterVulnerabilities, setCharacterVulnerabilities] = useState([]);
     const [chosenVulnerability, setChosenVulnerability] = useState('');
@@ -89,6 +87,7 @@ const CreateNewMonster = () => {
         MonsterInitialValues.armorClass = randomNumber(1, 30);
         MonsterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         MonsterInitialValues.characterHP = randomNumber(1, 1000);
+        MonsterInitialValues.characterHPDice = "1d6";
     }, []);
 
     useEffect(() => {
@@ -211,8 +210,8 @@ const CreateNewMonster = () => {
         }
     }
 
-    const randomNumber = (min ,max) => {
-        return ((Math.random() * (max-min) + min).toFixed());
+    const randomNumber = (min, max) => {
+        return ((Math.random() * (max - min) + min).toFixed());
     }
 
     const addNewCharacterHandler = (monster) => {
@@ -253,15 +252,16 @@ const CreateNewMonster = () => {
                            }}
             >
                 {/*TODO finish adding character form*/}
+
                 <FormStep
 
                     stepName="Monster info"
                     onSubmit={() => {
                         console.log('Step1 submit')
                     }}
-                    >
+                >
                     <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>New monster
-                        </Typography>
+                    </Typography>
                     <TextInputField name="characterName" label="Monster name" sx={{margin: ".25rem 0"}}/>
 
                     {/*TODO photo preview*/}
@@ -275,9 +275,10 @@ const CreateNewMonster = () => {
                         name="photo"
                         multiple
                     />
-
-                    <DropdownInputField name="characterRace" label="Monster race"
-                                        arrayOfMenuItems={characterRaceArray}/>
+                    <DropdownInputField name="characterSize" label="Character size"
+                                        arrayOfMenuItems={characterSizeArray}/>
+                    <DropdownInputField name="characterRace" label="Monster type"
+                                        arrayOfMenuItems={monsterTypeArray}/>
                     <DropdownInputField name="characterAlignment" label="Monster alignment"
                                         arrayOfMenuItems={characterAlignmentArray}/>
                 </FormStep>
@@ -298,7 +299,8 @@ const CreateNewMonster = () => {
                             <NumberInputField name="characterCharisma" label="Character charisma"/>
                         </Grid>
                         <Grid item md={6}>
-                            <TextInputField name="characterHPDice" label="HP dice" sx={{width: "10rem",margin: ".25rem 0"}}/>
+                            <TextInputField name="characterHPDice" label="HP dice"
+                                            sx={{width: "10rem", margin: ".25rem 0"}}/>
                             <NumberInputField name="characterHP" label="Character health points" max={1000}/>
                             <NumberInputField name="exp" label="Character experience" max={400000}/>
                             <NumberInputField name="characterMovementSpeed" label="Character speed" max={500}/>
@@ -337,6 +339,18 @@ const CreateNewMonster = () => {
                                        handleChosenRadio={handleChosenSkills}
                                        radioButtonGroup={skillProficiencies}
                                        radioButtonOptions={proficiencyLevel}/>
+                </FormStep>
+                <FormStep
+                    stepName="Movement skills"
+                >
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Movement
+                        skills</Typography>
+
+                    <NumberInputField name="monsterMovementBurrowSpeed" label="Burrow speed"/>
+                    <NumberInputField name="monsterMovementClimbSpeed" label="Climb speed"/>
+                    <NumberInputField name="monsterMovementFlySpeed" label="Fly speed"/>
+                    <NumberInputField name="monsterMovementSwimSpeed" label="Swim speed"/>
+
                 </FormStep>
                 <FormStep
                     stepName="Vulnerabilities, immunities and resistances"
@@ -416,10 +430,21 @@ const CreateNewMonster = () => {
 
                 </FormStep>
                 <FormStep
+                    stepName="Senses"
+                >
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Senses</Typography>
+
+                    <NumberInputField name="monsterBlindsightSense" label="Blindsight range"/>
+                    <NumberInputField name="monsterDarkvisionSense" label="Darkvision range"/>
+                    <NumberInputField name="monsterTremorsenseSense" label="Tremorsense range"/>
+                    <NumberInputField name="monsterTruesightSense" label="Truesight range"/>
+
+                </FormStep>
+                <FormStep
                     stepName="Character language proficiencies"
                 >
-                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
-                        languages</Typography>
+                    <Typography variant="h4"
+                                sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Languages</Typography>
 
                     <DataTableHandler arrayToRender={chosenLanguageAndLevel} tableHeaders={["Language", "Level"]}/>
 
