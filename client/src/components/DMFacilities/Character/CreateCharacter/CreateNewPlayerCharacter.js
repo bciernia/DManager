@@ -24,10 +24,11 @@ import {CharacterRaces} from "../../../../utils/dndUtils/CharacterRaces";
 import {CharacterAlignments} from "../../../../utils/dndUtils/CharacterAlignments";
 import RadioButtonsGroup from "../../../../utils/Form/InputTypes/RadioButtons/RadioButtonsGroup";
 import {CharacterInitialValues} from "../../../../utils/dndUtils/CharacterInitialValues";
+import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
 
 const CreateNewPlayerCharacter = () => {
     const characterClassesArray = Object.entries(CharacterClasses);
-    const characterTypes = Object.entries(CharacterTypes);
+    const characterSizeArray = Object.entries(CharacterSize);
     const conditionTypes = Object.entries(ConditionTypes);
     const damageTypes = Object.entries(DamageTypes);
     const languageProficiences = Object.entries(LanguageProficiencies);
@@ -89,6 +90,7 @@ const CreateNewPlayerCharacter = () => {
         CharacterInitialValues.armorClass = randomNumber(1, 30);
         CharacterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         CharacterInitialValues.characterHP = randomNumber(1, 1000);
+        CharacterInitialValues.characterHPDice = "1d6";
     }, []);
 
     useEffect(() => {
@@ -281,6 +283,8 @@ const CreateNewPlayerCharacter = () => {
                                         arrayOfMenuItems={characterClassesArray}/>
                     <DropdownInputField name="characterRace" label="Character race"
                                         arrayOfMenuItems={characterRaceArray}/>
+                    <DropdownInputField name="characterSize" label="Character size"
+                                        arrayOfMenuItems={characterSizeArray}/>
                     <DropdownInputField name="characterAlignment" label="Character alignment"
                                         arrayOfMenuItems={characterAlignmentArray}/>
                     <CheckboxInputField name="isAlive" label="Is alive?"/>
@@ -304,6 +308,7 @@ const CreateNewPlayerCharacter = () => {
                         <Grid item md={6}>
                             <NumberInputField name="characterLevel" label="Character level"/>
                             <NumberInputField name="exp" label="Character experience" max={400000}/>
+                            <TextInputField name="characterHPDice" label="HP dice" sx={{width: "10rem",margin: ".25rem 0"}}/>
                             <NumberInputField name="characterHP" label="Character health points" max={1000}/>
                             <NumberInputField name="characterMovementSpeed" label="Character speed" max={500}/>
                             <NumberInputField name="characterInitiative" label="Character initiative"/>

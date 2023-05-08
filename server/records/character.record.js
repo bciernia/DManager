@@ -31,6 +31,7 @@ class CharacterRecord {
         this.isAlive = obj.isAlive;
         this.howCharacterDied = obj.howCharacterDied;
         this.teamId = obj.teamId;
+        this.characterSize = obj.characterSize;
 
         //STATISTICS
         this.characterStrength = obj.characterStrength;
@@ -110,6 +111,7 @@ class CharacterRecord {
             howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(), //TODO dropdown with team id at last page
             hasInspiration: this.hasInspiration,
+            characterSize: this.characterSize,
 
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),
@@ -160,6 +162,7 @@ class CharacterRecord {
             isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
             teamId: this.teamId.toString(),
+            characterSize: this.characterSize,
 
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),

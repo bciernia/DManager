@@ -23,6 +23,7 @@ class MonsterRecord {
         this.characterWeakness = obj.characterWeakness;
         this.characterTreasure = obj.characterTreasure;
         this.characterPhoto = obj.characterPhoto;
+        this.characterSize = obj.characterSize;
         this.exp = obj.exp;
         this.isAlive = obj.isAlive;
         this.howCharacterDied = obj.howCharacterDied;
@@ -53,6 +54,7 @@ class MonsterRecord {
 
         //SKILLS ARRAY
         this.skillsProficiency = obj.skillsProficiency;
+        this.monsterMovement = obj.monsterMovement;
 
         //LANGUAGES ARRAY
         this.languageProficiency = obj.languageProficiency;
@@ -90,6 +92,7 @@ class MonsterRecord {
             exp: Number(this.exp),
             isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
+            characterSize: this.characterSize.toString(),
 
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),
@@ -117,6 +120,7 @@ class MonsterRecord {
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
             senses: this.senses,
+            monsterMovement: this.monsterMovement,
 
             featuresAndTraits: this.featuresAndTraits,
         });
@@ -148,7 +152,8 @@ class MonsterRecord {
             exp: Number(this.exp),
             isAlive: this.isAlive,
             howCharacterDied: this.howCharacterDied.toString(),
-
+            characterSize: this.characterSize.toString(),
+            
             characterStrength: Number(this.characterStrength),
             characterDexterity: Number(this.characterDexterity),
             characterConstitution: Number(this.characterConstitution),
@@ -175,6 +180,7 @@ class MonsterRecord {
             damageVulnerabilities: this.damageVulnerabilities,
             conditionImmunities: this.conditionImmunities,
             senses: this.senses,
+            monsterMovement: this.monsterMovement,
 
             featuresAndTraits: this.featuresAndTraits,
         });

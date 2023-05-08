@@ -34,6 +34,7 @@ export const CharacterInitialValues = {
     characterPassiveWisdom: 0,
     characterMovementSpeed: 0,
     characterHP: 0,
+    characterHPDice: '',
     characterInitiative: 0,
 
     //SAVING THROWS
