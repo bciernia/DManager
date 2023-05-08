@@ -2,8 +2,7 @@ export const MonsterInitialValues = {
     //CHARACTER INFO
     characterType: '',
     characterName: '',
-    characterRace: '',
-    characterClass: '',
+    characterMonsterType: '',
     characterAlignment: '',
     characterBackground: '',
     characterBackstory: '',
@@ -16,14 +15,10 @@ export const MonsterInitialValues = {
     characterTreasure: '',
     characterPhoto: '',
     exp: 0,
-    playerName: '',
-    hasInspiration: false,
     isAlive: true,
     howCharacterDied: '',
-    teamId: '',
 
     //SKILLS
-    characterLevel: 0,
     characterStrength: 0,
     characterDexterity: 0,
     characterConstitution: 0,

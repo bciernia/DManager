@@ -215,15 +215,15 @@ const CreateNewMonster = () => {
         return ((Math.random() * (max-min) + min).toFixed());
     }
 
-    const addNewCharacterHandler = (character) => {
+    const addNewCharacterHandler = (monster) => {
         setIsLoading(true);
 
-        fetch(`http://127.0.0.1:3000/characters/newCharacter`, {
+        fetch(`http://127.0.0.1:3000/characters/newMonster`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
             },
-            body: JSON.stringify(character)
+            body: JSON.stringify(monster)
         }).then(res => res.json())
             .catch(() => {
                 alert("Something gone wrong!");
