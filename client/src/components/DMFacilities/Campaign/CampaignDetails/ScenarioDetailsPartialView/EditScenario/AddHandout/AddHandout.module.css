@@ -22,3 +22,7 @@
     margin-top: 2.5rem;
     left: 7.5rem;
 }
+
+.select--header {
+    font-weight: bold;
+}

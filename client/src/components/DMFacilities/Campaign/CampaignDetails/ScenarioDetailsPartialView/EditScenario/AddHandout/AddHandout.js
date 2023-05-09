@@ -73,6 +73,28 @@ const AddHandout = () => {
             .then(() => navigate(`/dm/campaign/${campaignId}/scenario/${scenarioId}/edit`));
     }
 
+    const convertLocationsToSelectWithHeaders = (locations) => {
+        const locationArray = [];
+
+        for (let i = 0; i < locations.length; i++) {
+            locationArray.push({
+                id: locations[i]._id,
+                name: locations[i].locationName,
+                isHeader: true,
+            })
+            for (let j = 0; j < locations[i].locationRooms.length; j++) {
+                locationArray.push({
+                    id: locations[i].locationRooms[j].roomId,
+                    name: locations[i].locationRooms[j].roomName,
+                })
+            }
+        }
+
+        return locationArray;
+    }
+
+    const convertedScenarioLocationData = convertLocationsToSelectWithHeaders(scenarioLocations);
+
     const handleFileChange = event => {
         const photo = event.target.files[0];
         const reader = new FileReader();
@@ -85,9 +107,9 @@ const AddHandout = () => {
 
     const handleChange = (event) => {
         setHandoutLocation(event.target.value);
-
-        console.log(handoutLocation);
     }
+
+    const [selectedRoom, setSelectedRoom] = useState('');
 
     return (
         <div className={classes.container}>
@@ -140,11 +162,15 @@ const AddHandout = () => {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        {scenarioLocations.map((location) =>
-                            <MenuItem value={location._id}>{location.locationName}</MenuItem>
+
+                        {convertedScenarioLocationData.map(data =>
+                            <MenuItem value={data.id}><p className={data.isHeader && classes["select--header"]}
+                            >{data.name}</p>
+                            </MenuItem>
                         )}
                     </Select>
                 </FormControl>
+                <Button onClick={() => console.log(handoutLocation)}>CLICK</Button>
             </div>
         </div>
     )

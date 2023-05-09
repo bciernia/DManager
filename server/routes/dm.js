@@ -161,6 +161,8 @@ dmRouter
 
         const location = req.body;
 
+        location.locationRooms.forEach(room => room.roomId = new ObjectId())
+
         const newLocation = new LocationRecord({
             ...location
         })
