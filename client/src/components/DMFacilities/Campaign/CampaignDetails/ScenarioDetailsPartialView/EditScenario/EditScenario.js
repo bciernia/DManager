@@ -5,15 +5,16 @@ import {
     Dialog,
     FormControl,
     Grid,
-    InputLabel,
+    InputLabel, List, ListItem, ListItemButton, ListItemText,
     MenuItem,
     Select,
     TextField,
-    Typography
+    Typography,
+    Card
 } from "@mui/material";
 import React, {useEffect, useState} from "react";
 import classes from './EditScenario.module.css';
-import noMap from '../../../../../../assets/images/no_map.png'
+import noMap from '../../../../../../assets/images/no_map.png';
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -32,8 +33,10 @@ const EditScenario = () => {
     const [scenario, setScenario] = useState({});
     const [newScenarioName, setNewScenarioName] = useState();
     const [newScenarioDescription, setNewScenarioDescription] = useState();
-    const [newScenarioNotes, setNewScenarioNotes] = useState();
+    const [newScenarioNotes, setNewScenarioNotes] = useState([]);
     const [newScenarioLocations, setNewScenarioLocations] = useState([]);
+
+    const [note, setNote] = useState('');
 
     const [chosenLocation, setChosenLocation] = useState({});
 
@@ -60,6 +63,19 @@ const EditScenario = () => {
     const saveForm = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
         setScenario({...scenario, scenarioName: newScenarioName, scenarioDescription: newScenarioDescription})
+    }
+
+    const addNote = event => {
+        event.preventDefault();
+
+        const newNote = {
+            note,
+            scenarioId,
+        }
+
+        scenario.scenarioNotes.push(newNote);
+
+        setNote('');
     }
 
     const saveNewScenario = () => {
@@ -106,8 +122,6 @@ const EditScenario = () => {
                 {!isEditModeOn && <><Button onClick={saveNewScenario} variant="contained">Submit changes</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit" onClick={addLocation}>Add location</Button>
-                    <Button sx={{backgroundColor: "#F5793B"}}
-                            variant="contained" color="inherit">Add note</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit">Add character</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
@@ -160,10 +174,46 @@ const EditScenario = () => {
                     </FormControl>
 
                 </Grid>
-                <Grid item md={3} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    <Typography variant="h4" textAlign="center" sx={{marginBottom: ".5rem"}}>Notes</Typography>
-                    Lista notatek
+                <Grid item md={5} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                    <form id="addNoteForm" className={classes['container--form']}
+                          onSubmit={(event) => addNote(event)}>
+                        <Button form="addNoteForm"
+                                sx={{backgroundColor: "#F5793B"}}
+                                variant="contained"
+                                color="inherit"
+                                type="submit">Add note</Button>
+                        <TextField sx={{width: "20rem"}} type="text" label="Note"
+                                   inputProps={{maxLength: 200}}
+                                   rows={3}
+                                   multiline
+                                   value={note}
+                                   required
+                                   onChange={(event) => setNote(event.target.value)}/>
+
+                    </form>
+                    <List sx={{
+                        position: "absolute",
+                        top: "17.5rem",
+                        width: "20rem",
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                        alignContent: "center",
+                    }}>
+                        {newScenarioNotes.length === 0 &&
+                            <Typography variant="h6" textAlign="center">No notes</Typography>}
+                        {newScenarioNotes.map(note =>
+                            <ListItem sx={{margin: ".25rem"}} key={note.note} disablePadding>
+                                <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
+                                    <ListItemButton sx={{textAlign: "center"}}>
+                                        <ListItemText primary={<Typography variant="body2">{note.note}</Typography>}/>
+                                    </ListItemButton>
+                                </Card>
+                            </ListItem>
+                        )}
+                    </List>
                 </Grid>
+
                 <Grid item md={6}>
                     <Box sx={{width: "100%", height: "100%"}}>
                         <Grid container>
@@ -198,8 +248,6 @@ const EditScenario = () => {
                 <Grid item md={3}>
                 </Grid>
             </Grid>
-
-
         </div>
     )
 }

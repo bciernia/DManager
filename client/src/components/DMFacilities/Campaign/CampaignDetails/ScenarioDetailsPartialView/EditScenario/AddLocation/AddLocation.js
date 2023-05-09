@@ -118,7 +118,6 @@ const AddLocation = () => {
 
                                onChange={(event) => setRoomDescription(event.target.value)}/>
 
-                    {/*TODO SELECT WITH HANDOUTS FROM THIS LOCATION, CONNECT THEM WITH ROOMS*/}
                     <Button form="addRoomForm"
                             sx={{backgroundColor: "#F5793B"}}
                             variant="contained"

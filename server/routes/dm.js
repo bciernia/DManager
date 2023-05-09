@@ -133,7 +133,7 @@ dmRouter
         const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
         scenarioToUpdate.scenarioName = updatedScenario.scenarioName.toString();
         scenarioToUpdate.scenarioDescription = updatedScenario.scenarioDescription.toString();
-        scenarioToUpdate.scenarioNotes = updatedScenario.scenarioNotes.toString();
+        scenarioToUpdate.scenarioNotes = updatedScenario.scenarioNotes;
         scenarioToUpdate.scenarioSchedule = updatedScenario.scenarioSchedule;
         scenarioToUpdate.scenarioCharacters = updatedScenario.scenarioCharacters;
         scenarioToUpdate.cenarioLocations = updatedScenario.scenarioLocations;
