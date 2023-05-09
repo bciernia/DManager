@@ -158,19 +158,19 @@ const AddHandout = () => {
                         onChange={(event) => handleChange(event)}
                         id="grouped-select"
                         label="Handout location"
+                        MenuProps={{PaperProps: {sx: {maxHeight: 300}}}}
                     >
-                        <MenuItem value="">
+                        <MenuItem sx={{height: "2.25rem"}} value="">
                             <em>None</em>
                         </MenuItem>
 
                         {convertedScenarioLocationData.map(data =>
-                            <MenuItem value={data.id}><p className={data.isHeader && classes["select--header"]}
+                            <MenuItem sx={{height: "2.25rem"}} value={data.id}><p className={data.isHeader && classes["select--header"]}
                             >{data.name}</p>
                             </MenuItem>
                         )}
                     </Select>
                 </FormControl>
-                <Button onClick={() => console.log(handoutLocation)}>CLICK</Button>
             </div>
         </div>
     )
