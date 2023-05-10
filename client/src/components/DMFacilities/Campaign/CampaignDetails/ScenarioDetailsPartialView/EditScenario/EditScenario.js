@@ -174,6 +174,7 @@ const EditScenario = () => {
                             labelId="select-location-label"
                             label="Choose location"
                         >
+
                             {newScenarioLocations.length === 0 && <MenuItem disabled>No locations</MenuItem>}
                             {newScenarioLocations.map(location =>
                                 <MenuItem value={location._id}>{location.locationName}</MenuItem>
@@ -182,7 +183,8 @@ const EditScenario = () => {
                     </FormControl>
 
                 </Grid>
-                <Grid item md={5} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                <Grid item md={6}
+                      sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flexEnd"}}>
                     <form id="addNoteForm" className={classes['container--form']}
                           onSubmit={(event) => addNote(event)}>
                         <Button form="addNoteForm"
@@ -223,33 +225,40 @@ const EditScenario = () => {
                 </Grid>
 
                 <Grid item md={6}>
-                    <Box sx={{width: "100%", height: "100%"}}>
-                        <Grid container>
-                            <Grid item md={3} sx={{marginRight: "1rem"}}>
-                                {chosenLocation.locationMap === null &&
-                                    <img src={noMap} alt="No uploaded map"
-                                         className={classes["img__preview"]}/>}
-                                {chosenLocation.locationMap &&
-                                    <img src={chosenLocation.locationMap} alt="Uploaded image preview"
-                                         className={classes["img__preview"]}
-                                         onClick={previewImg}/>}
+                    {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem"}}>
+                        <Box sx={{width: "100%", height: "100%"}}>
+                            <Grid container>
+                                <Grid item md={3} sx={{marginRight: "1rem"}}>
+                                    {chosenLocation.locationMap === null &&
+                                        <img src={noMap} alt="No uploaded map"
+                                             className={classes["img__preview"]}/>}
+                                    {chosenLocation.locationMap &&
+                                        <img src={chosenLocation.locationMap} alt="Uploaded image preview"
+                                             className={classes["img__preview"]}
+                                             onClick={previewImg}/>}
+                                </Grid>
+                                <Grid item md={8}>
+                                    <Typography variant="h5">
+                                        {chosenLocation.locationName}
+                                    </Typography>
+                                    <Typography>
+                                        {chosenLocation.locationDescription}
+                                    </Typography>
+                                    <div>
+                                        {handouts.map(
+                                            handout => (handout.handoutLocation === chosenLocation._id.toString()) ?
+                                                <PreviewHandout handout={handout}/>
+                                        : <Typography></Typography>)}
+                                    </div>
+                                    <Button onClick={() => console.log(handouts)}>sss</Button>
+                                </Grid>
                             </Grid>
-                            <Grid item md={8}>
-                                <Typography variant="h5">
-                                    {chosenLocation.locationName}
-                                </Typography>
-                                <Typography>
-                                    {chosenLocation.locationDescription}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        {chosenLocation.locationRooms && <Typography variant="h6">
-                            Rooms count: {chosenLocation.locationRooms.length}
-                        </Typography>}
-                        {chosenLocation.locationRooms &&
-                            <Button sx={{backgroundColor: "#F5793B", position: "absolute", left: "1.5rem",}}
-                                    variant="contained" color="inherit">Check location details</Button>}
-                    </Box>
+                            <Typography variant="h5">Rooms</Typography>
+                            {chosenLocation.locationRooms && chosenLocation.locationRooms.map(room =>
+                                <PreviewLocationRoom room={room} handouts={handouts}/>
+                            )}
+                        </Box>
+                    </Card>}
                 </Grid>
                 <Grid item md={3}>
                 </Grid>

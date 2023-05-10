@@ -59,7 +59,7 @@ class HandoutRecord {
     static async findAllByScenarioId(scenarioId) {
         const result = await handouts.find();
         const handoutsArray = await result.toArray();
-        const handoutsFromChosenScenario = handoutsArray.filter(scenario => scenario.campaignId === scenarioId);
+        const handoutsFromChosenScenario = handoutsArray.filter(handout => handout.scenarioId === scenarioId);
 
         return handoutsFromChosenScenario;
     }
