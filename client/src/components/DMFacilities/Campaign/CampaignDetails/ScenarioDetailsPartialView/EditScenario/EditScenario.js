@@ -210,6 +210,7 @@ const EditScenario = () => {
                         flexDirection: "column",
                         alignContent: "center",
                     }}>
+                        {/*TODO save note to db after adding them*/}
                         {newScenarioNotes.length === 0 &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
                         {newScenarioNotes.map(note =>
@@ -250,7 +251,6 @@ const EditScenario = () => {
                                                 <PreviewHandout handout={handout}/>
                                         : <Typography></Typography>)}
                                     </div>
-                                    <Button onClick={() => console.log(handouts)}>sss</Button>
                                 </Grid>
                             </Grid>
                             <Typography variant="h5">Rooms</Typography>
