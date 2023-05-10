@@ -15,6 +15,8 @@ import {
 import React, {useEffect, useState} from "react";
 import classes from './EditScenario.module.css';
 import noMap from '../../../../../../assets/images/no_map.png';
+import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
+import PreviewHandout from "./AddLocation/PreviewHandout/PreviewHandout";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
