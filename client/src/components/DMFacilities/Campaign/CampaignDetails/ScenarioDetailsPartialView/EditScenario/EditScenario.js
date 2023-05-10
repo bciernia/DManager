@@ -20,9 +20,12 @@ const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
         .then(res => res.json());
 
-//TODO get all locations from current scenario
 const getLocationsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/location/all`)
+        .then(res => res.json());
+
+const getHandoutsForScenario = (scenarioId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/handout/all`)
         .then(res => res.json());
 
 const EditScenario = () => {
@@ -31,6 +34,7 @@ const EditScenario = () => {
 
     const [isEditModeOn, setIsEditModeOn] = useState(false);
     const [scenario, setScenario] = useState({});
+    const [handouts, setHandouts] = useState([]);
     const [newScenarioName, setNewScenarioName] = useState();
     const [newScenarioDescription, setNewScenarioDescription] = useState();
     const [newScenarioNotes, setNewScenarioNotes] = useState([]);
@@ -46,9 +50,11 @@ const EditScenario = () => {
         Promise.all([
             getScenarioById(scenarioId),
             getLocationsForScenario(scenarioId),
-        ]).then(([scenarioData, locationsData]) => {
+            getHandoutsForScenario(scenarioId),
+        ]).then(([scenarioData, locationsData, handoutsData]) => {
             console.log(locationsData);
             setScenario(scenarioData);
+            setHandouts(handoutsData);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
             setNewScenarioNotes(scenarioData.scenarioNotes);
