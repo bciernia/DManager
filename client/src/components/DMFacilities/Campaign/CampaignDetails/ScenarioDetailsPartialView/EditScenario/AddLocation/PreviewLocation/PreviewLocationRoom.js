@@ -9,7 +9,7 @@ const PreviewLocationRoom = (props) => {
 
     useEffect(() => {
         setRoomHandouts(handouts.filter(handout => handout.handoutLocation === room.roomId));
-    })
+    }, [])
 
     return (
         <Card sx={{backgroundColor: "#f0f0f0", margin: ".5rem 0", padding: ".5rem"}}>

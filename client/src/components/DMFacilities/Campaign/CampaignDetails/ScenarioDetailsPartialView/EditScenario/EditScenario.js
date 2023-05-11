@@ -119,6 +119,20 @@ const EditScenario = () => {
         setDialogOpen(false);
     };
 
+    const deleteLocation = (locationId) => {
+        setChosenLocation({});
+
+        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/${locationId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json",
+            },
+        }).then(res => {
+            console.log(res);
+            setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
+        });
+    }
+
     return (
         <div>
             <Dialog onClose={handleClose} open={dialogOpen} maxWidth="md">
@@ -227,37 +241,51 @@ const EditScenario = () => {
 
                 <Grid item md={6}>
                     {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem"}}>
-                        <Box sx={{width: "100%", height: "100%"}}>
-                            <Grid container>
-                                <Grid item md={3} sx={{marginRight: "1rem"}}>
-                                    {chosenLocation.locationMap === null &&
-                                        <img src={noMap} alt="No uploaded map"
-                                             className={classes["img__preview"]}/>}
-                                    {chosenLocation.locationMap &&
-                                        <img src={chosenLocation.locationMap} alt="Uploaded image preview"
-                                             className={classes["img__preview"]}
-                                             onClick={previewImg}/>}
+                        {/*<Button sx={{}} variant="contained">Delete location</Button>*/}
+                        <div>
+                            <Box sx={{width: "100%", height: "100%"}}>
+                                <Grid container>
+                                    <Grid item md={3} sx={{marginRight: "1rem"}}>
+                                        {chosenLocation.locationMap === null &&
+                                            <img src={noMap} alt="No uploaded map"
+                                                 className={classes["img__preview"]}/>}
+                                        {chosenLocation.locationMap &&
+                                            <img src={chosenLocation.locationMap} alt="Uploaded image preview"
+                                                 className={classes["img__preview"]}
+                                                 onClick={previewImg}/>}
+                                        <Box sx={{width: "100%", display: "flex", height: "rem"}}>
+
+                                            <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
+                                                    variant="contained" color="primary">Edit
+                                            </Button>
+                                            <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
+                                                    variant="contained"
+                                                    color="error"
+                                                    onClick={() => deleteLocation(chosenLocation._id)}>Delete </Button>
+                                        </Box>
+                                    </Grid>
+                                    <Grid item md={8}>
+                                        <Typography variant="h5">
+                                            {chosenLocation.locationName}
+                                        </Typography>
+                                        <Typography>
+                                            {chosenLocation.locationDescription}
+                                        </Typography>
+                                        <div>
+                                            {handouts.map(
+                                                handout => (handout.handoutLocation === chosenLocation._id.toString()) ?
+                                                    <PreviewHandout handout={handout}/>
+                                                    : <Typography></Typography>)}
+                                        </div>
+                                    </Grid>
                                 </Grid>
-                                <Grid item md={8}>
-                                    <Typography variant="h5">
-                                        {chosenLocation.locationName}
-                                    </Typography>
-                                    <Typography>
-                                        {chosenLocation.locationDescription}
-                                    </Typography>
-                                    <div>
-                                        {handouts.map(
-                                            handout => (handout.handoutLocation === chosenLocation._id.toString()) ?
-                                                <PreviewHandout handout={handout}/>
-                                        : <Typography></Typography>)}
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <Typography variant="h5">Rooms</Typography>
-                            {chosenLocation.locationRooms && chosenLocation.locationRooms.map(room =>
-                                <PreviewLocationRoom room={room} handouts={handouts}/>
-                            )}
-                        </Box>
+                                <Typography variant="h5">Rooms</Typography>
+                                {chosenLocation.locationRooms && chosenLocation.locationRooms.map(room =>
+                                    <PreviewLocationRoom room={room} handouts={handouts}/>
+                                )}
+                            </Box>
+                        </div>
+
                     </Card>}
                 </Grid>
                 <Grid item md={3}>
