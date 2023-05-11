@@ -182,6 +182,29 @@ dmRouter
         res.status(201).send(newLocationId);
     })
 
+    //DELETE LOCATION
+    .delete('/scenario/:scenarioId/:locationId', async (req, res) => {
+        const {scenarioId, locationId} = req.params;
+
+        const locationIdAsObjectId = new ObjectId();
+        const locationToDelete = await LocationRecord.find(locationId);
+        const handouts = await HandoutRecord.findAll();
+        const scenarioWhereIsDeletedLocation = await ScenarioRecord.find(scenarioId);
+
+        scenarioWhereIsDeletedLocation.scenarioLocations = scenarioWhereIsDeletedLocation.scenarioLocations
+            .filter(location => location._id !== locationIdAsObjectId)
+
+        handouts.forEach(handout => {
+            if(handout.handoutLocation === locationId) {
+                handout.handoutLocation = "";
+            }
+        })
+
+        await locationToDelete.delete();
+
+        res.status(204).send();
+    })
+
     //GET ALL LOCATIONS FROM CHOSEN SCENARIO
     .get('/scenario/:scenarioId/location/all', async (req, res) => {
         const {scenarioId} = req.params;
@@ -229,6 +252,7 @@ dmRouter
         res.status(200).send(handoutsFromChosenScenario);
     })
 
+    //DELETE HANDOUT BY HANDOUT ID
     .delete('/scenario/:scenarioId/handout/:handoutId', async (req, res) => {
         const {handoutId} = req.params;
 
