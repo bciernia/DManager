@@ -1,5 +1,6 @@
 import {Card, Dialog, Typography} from "@mui/material";
 import React, {useState} from "react";
+import classes from "./PreviewHandout.module.css";
 
 const PreviewHandout = props => {
     const handout = props.handout;
@@ -17,7 +18,7 @@ const PreviewHandout = props => {
     //TODO finish handout preview
 
     return (
-        <div>
+        <>
             <Dialog onClose={handleClose} open={dialogOpen} maxWidth="md">
                 <Card sx={{height: "20rem", width: "12.5rem"}}>
                     {handout.handoutPhoto}
@@ -26,11 +27,10 @@ const PreviewHandout = props => {
                     <Typography>{handout.handoutLocation}</Typography>
                 </Card>
             </Dialog>
-            <Card onClick={previewHandout} sx={{height: "1.5rem", margin: ".5rem 0", textAlign: "center"}}>
+            <span onClick={previewHandout} className={classes["handout--display"]}>
                 {handout.handoutName}
-            </Card>
-        </div>
-
+            </span>
+        </>
     )
 }
 

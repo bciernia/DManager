@@ -1,0 +1,13 @@
+.handout--display{
+    border-radius: 5px;
+    padding: .125rem;
+    margin: .125rem;
+    background-color: navajowhite;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-size: .875rem;
+}
+
+.handout--display:hover{
+    background-color: #ffcd80;
+}
