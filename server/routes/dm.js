@@ -227,8 +227,6 @@ dmRouter
         const {locationId} = req.params;
         const location = await LocationRecord.find(locationId);
 
-        console.log(location)
-
         res.status(200).send(location);
     })
 

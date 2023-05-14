@@ -44,7 +44,6 @@ const EditLocation = () => {
                 setLocationDescription(data.locationDescription);
                 setLocationMap(data.locationMap);
                 setLocationRooms(data.locationRooms);
-                console.log(locationName);
             })
     },[]);
 

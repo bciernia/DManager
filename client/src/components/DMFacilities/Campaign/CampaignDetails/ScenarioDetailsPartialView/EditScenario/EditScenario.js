@@ -54,7 +54,6 @@ const EditScenario = () => {
             getLocationsForScenario(scenarioId),
             getHandoutsForScenario(scenarioId),
         ]).then(([scenarioData, locationsData, handoutsData]) => {
-            console.log(locationsData);
             setScenario(scenarioData);
             setHandouts(handoutsData);
             setNewScenarioName(scenarioData.scenarioName);
