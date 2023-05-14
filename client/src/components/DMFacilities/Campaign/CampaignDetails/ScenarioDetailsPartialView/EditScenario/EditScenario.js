@@ -71,6 +71,7 @@ const EditScenario = () => {
     const saveForm = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
         setScenario({...scenario, scenarioName: newScenarioName, scenarioDescription: newScenarioDescription})
+        saveNewScenario();
     }
 
     const addNote = event => {
@@ -84,6 +85,8 @@ const EditScenario = () => {
         scenario.scenarioNotes.push(newNote);
 
         setNote('');
+
+        saveNewScenario();
     }
 
     const saveNewScenario = () => {
@@ -93,10 +96,7 @@ const EditScenario = () => {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(scenario)
-        })
-            .then(() => {
-                alert("Scenario updated!");
-            });
+        });
     }
 
     const showLocationDetails = (locationId) => {
@@ -145,7 +145,7 @@ const EditScenario = () => {
             <div className={classes["buttons--container"]}>
                 {!isEditModeOn ? <Button variant="contained" onClick={changeScenarioName}>Edit</Button> :
                     <Button onClick={saveForm} variant="contained">Save changes</Button>}
-                {!isEditModeOn && <><Button onClick={saveNewScenario} variant="contained">Submit changes</Button>
+                {!isEditModeOn && <>
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit" onClick={addLocation}>Add location</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
