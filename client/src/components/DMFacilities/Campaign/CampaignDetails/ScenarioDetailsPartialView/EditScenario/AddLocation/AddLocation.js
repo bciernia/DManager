@@ -1,6 +1,16 @@
 import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Button, Dialog, List, ListItem, ListItemButton, ListItemText, TextField, Typography} from "@mui/material";
+import {
+    Button,
+    Dialog,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    TextField,
+    Typography,
+    Divider
+} from "@mui/material";
 import classes from './AddLocation.module.css';
 import Spinner from "../../../../../../UI/Spinner/Spinner";
 
@@ -16,6 +26,10 @@ const AddLocation = () => {
 
     const [roomName, setRoomName] = useState('');
     const [roomDescription, setRoomDescription] = useState('');
+
+    const [roomToEdit, setRoomToEdit] = useState('');
+    const [editedRoomName, setEditedRoomName] = useState('');
+    const [editedRoomDescription, setEditedRoomDescription] = useState('');
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -62,6 +76,18 @@ const AddLocation = () => {
 
         setRoomName('');
         setRoomDescription('');
+    }
+
+    const editRoom = event => {
+        event.preventDefault();
+
+        const room = locationRooms.map(room => room.roomName).indexOf(roomToEdit);
+
+        locationRooms[room].roomName = editedRoomName;
+        locationRooms[room].roomDescription = editedRoomDescription;
+
+        setEditedRoomName('');
+        setEditedRoomDescription('');
     }
 
     const handleFileChange = event => {
@@ -130,23 +156,54 @@ const AddLocation = () => {
                         color="inherit"
                         type="submit">Save location</Button>
             </div>
+
             <List sx={{
+                overflow: "auto",
                 position: "absolute",
                 width: "17.5rem",
-                top: "12.5rem",
-                right: "2rem",
+                top: "11rem",
+                height: "20rem",
+                right: "8.65rem",
                 border: "solid 2px",
             }}>
+                <Typography variant="h6" textAlign="center">Rooms</Typography>
+                <Divider/>
                 {locationRooms.length === 0 &&
                     <Typography variant="h6" textAlign="center">No rooms</Typography>}
                 {locationRooms.map(room =>
                     <ListItem key={room.roomName} disablePadding>
-                        <ListItemButton sx={{textAlign: "center"}}>
+                        <ListItemButton sx={{textAlign: "center"}} onClick={() => {
+                            setRoomToEdit(room.roomName);
+                            setEditedRoomName(room.roomName);
+                            setEditedRoomDescription(room.roomDescription);
+                        }}>
                             <ListItemText primary={room.roomName}/>
                         </ListItemButton>
                     </ListItem>
                 )}
             </List>
+            <div>
+                <form id="checkRoomForm" className={classes['check--room--form']}
+                      onSubmit={(event) => editRoom(event)}>
+                    <TextField sx={{width: "80%"}} type="text" label="Name"
+                               inputProps={{maxLength: 50}}
+                               value={editedRoomName}
+                               required
+                               onChange={(event) => setEditedRoomName(event.target.value)}/>
+                    <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
+                               rows={5} label="Description"
+                               value={editedRoomDescription}
+                               required
+
+                               onChange={(event) => setEditedRoomDescription(event.target.value)}/>
+
+                    <Button form="checkRoomForm"
+                            sx={{backgroundColor: "#F5793B"}}
+                            variant="contained"
+                            color="inherit"
+                            type="submit">Edit room</Button>
+                </form>
+            </div>
             <div>
                 {locationMap && <img src={locationMap} alt="Uploaded image preview" className={classes["img__preview"]}
                                      onClick={previewImg}/>}

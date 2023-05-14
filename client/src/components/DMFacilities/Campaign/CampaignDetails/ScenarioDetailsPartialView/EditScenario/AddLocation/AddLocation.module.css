@@ -13,6 +13,18 @@
     width: 40rem;
 }
 
+.check--room--form {
+    margin-bottom: 2.5rem;
+    position: absolute;
+    display: flex;
+    right: 5rem;
+    top: 35rem;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    width: 25rem;
+}
+
 .img__preview {
     cursor: pointer;
     position: absolute;

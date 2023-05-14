@@ -1,6 +1,6 @@
 import {Box, Card, Typography, Button, Divider} from "@mui/material";
 import React, {useEffect, useState} from "react";
-import PreviewHandout from "../PreviewHandout/PreviewHandout";
+import PreviewHandout from "../../AddHandout/PreviewHandout/PreviewHandout";
 
 const PreviewLocationRoom = (props) => {
     const room = props.room;

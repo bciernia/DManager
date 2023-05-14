@@ -16,7 +16,7 @@ import React, {useEffect, useState} from "react";
 import classes from './EditScenario.module.css';
 import noMap from '../../../../../../assets/images/no_map.png';
 import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
-import PreviewHandout from "./AddLocation/PreviewHandout/PreviewHandout";
+import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -131,6 +131,10 @@ const EditScenario = () => {
             console.log(res);
             setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
         });
+    }
+
+    const editLocation = (locationId) => {
+        // navigate(`location/${locationId}`);
     }
 
     return (
@@ -256,7 +260,9 @@ const EditScenario = () => {
                                         <Box sx={{width: "100%", display: "flex", height: "rem"}}>
 
                                             <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
-                                                    variant="contained" color="primary">Edit
+                                                    variant="contained" color="primary"
+                                                    onClick={() => (editLocation(chosenLocation._id))}
+                                            >Edit
                                             </Button>
                                             <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
                                                     variant="contained"
