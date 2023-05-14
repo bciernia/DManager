@@ -186,20 +186,13 @@ dmRouter
     .delete('/scenario/:scenarioId/:locationId', async (req, res) => {
         const {scenarioId, locationId} = req.params;
 
-        const locationIdAsObjectId = new ObjectId();
         const locationToDelete = await LocationRecord.find(locationId);
-        const handouts = await HandoutRecord.findAll();
         const scenarioWhereIsDeletedLocation = await ScenarioRecord.find(scenarioId);
 
         scenarioWhereIsDeletedLocation.scenarioLocations = scenarioWhereIsDeletedLocation.scenarioLocations
-            .filter(location => location._id !== locationIdAsObjectId)
+            .filter(location => location.toString() !== locationId)
 
-        handouts.forEach(handout => {
-            if(handout.handoutLocation === locationId) {
-                handout.handoutLocation = "";
-            }
-        })
-
+        await scenarioWhereIsDeletedLocation.update();
         await locationToDelete.delete();
 
         res.status(204).send();
