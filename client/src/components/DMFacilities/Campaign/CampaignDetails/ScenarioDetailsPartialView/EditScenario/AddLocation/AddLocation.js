@@ -30,6 +30,7 @@ const AddLocation = () => {
     const [roomToEdit, setRoomToEdit] = useState('');
     const [editedRoomName, setEditedRoomName] = useState('');
     const [editedRoomDescription, setEditedRoomDescription] = useState('');
+    const [isRoomEdited, setIsRoomEdited] = useState(false);
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -88,6 +89,7 @@ const AddLocation = () => {
 
         setEditedRoomName('');
         setEditedRoomDescription('');
+        setIsRoomEdited(false);
     }
 
     const handleFileChange = event => {
@@ -176,6 +178,7 @@ const AddLocation = () => {
                             setRoomToEdit(room.roomName);
                             setEditedRoomName(room.roomName);
                             setEditedRoomDescription(room.roomDescription);
+                            setIsRoomEdited(true);
                         }}>
                             <ListItemText primary={room.roomName}/>
                         </ListItemButton>
@@ -183,8 +186,10 @@ const AddLocation = () => {
                 )}
             </List>
             <div>
-                <form id="checkRoomForm" className={classes['check--room--form']}
+
+                {isRoomEdited && <form id="checkRoomForm" className={classes['check--room--form']}
                       onSubmit={(event) => editRoom(event)}>
+                    <Typography variant="body">Edit chosen room</Typography>
                     <TextField sx={{width: "80%"}} type="text" label="Name"
                                inputProps={{maxLength: 50}}
                                value={editedRoomName}
@@ -194,7 +199,6 @@ const AddLocation = () => {
                                rows={5} label="Description"
                                value={editedRoomDescription}
                                required
-
                                onChange={(event) => setEditedRoomDescription(event.target.value)}/>
 
                     <Button form="checkRoomForm"
@@ -202,7 +206,7 @@ const AddLocation = () => {
                             variant="contained"
                             color="inherit"
                             type="submit">Edit room</Button>
-                </form>
+                </form>}
             </div>
             <div>
                 {locationMap && <img src={locationMap} alt="Uploaded image preview" className={classes["img__preview"]}
