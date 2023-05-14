@@ -11,10 +11,14 @@ import {
     Typography,
     Divider
 } from "@mui/material";
-import classes from './AddLocation.module.css';
+import classes from './EditLocation.module.css';
 
-const AddLocation = () => {
-    const {campaignId, scenarioId} = useParams();
+const getLocation = (scenarioId, locationId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/location/${locationId}`)
+        .then(res => res.json());
+
+const EditLocation = () => {
+    const {campaignId, scenarioId, locationId} = useParams();
 
     const navigate = useNavigate();
 
@@ -33,6 +37,17 @@ const AddLocation = () => {
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
+    useEffect(() => {
+        getLocation(scenarioId, locationId)
+            .then(data => {
+                setLocationName(data.locationName);
+                setLocationDescription(data.locationDescription);
+                setLocationMap(data.locationMap);
+                setLocationRooms(data.locationRooms);
+                console.log(locationName);
+            })
+    },[]);
+
     const previewImg = () => {
         setDialogOpen(true);
     }
@@ -41,7 +56,7 @@ const AddLocation = () => {
         setDialogOpen(false);
     };
 
-    const addLocation = event => {
+    const updateLocation = event => {
         event.preventDefault();
 
         const location = {
@@ -52,14 +67,13 @@ const AddLocation = () => {
             scenarioId,
         }
 
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newLocation`, {
-            method: "POST",
+        fetch(`http://127.0.0.1:3000/dm/location/${locationId}`, {
+            method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(location)
         })
-            .then(res => res.json())
             .then(() => navigate(`/dm/campaign/${campaignId}/scenario/${scenarioId}/edit`));
     }
 
@@ -110,13 +124,15 @@ const AddLocation = () => {
             <div className={classes["container--form__display"]}>
                 <Typography variant="h5" sx={{margin: ".5rem", textAlign: "center"}}>New location</Typography>
                 <form id="addLocationForm" className={classes['container--form']}
-                      onSubmit={(event) => addLocation(event)}>
+                      onSubmit={(event) => updateLocation(event)}>
                     <TextField sx={{width: "80%"}} type="text" label="Title"
                                inputProps={{maxLength: 50}}
+                               value={locationName}
                                required
                                onChange={(event) => setLocationName(event.target.value)}/>
                     <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
                                rows={5} label="Description"
+                               value={locationDescription}
                                required
                                onChange={(event) => setLocationDescription(event.target.value)}/>
                     <input
@@ -155,7 +171,7 @@ const AddLocation = () => {
                         sx={{backgroundColor: "#F5793B", position: "absolute", top: "7.5rem", right: "2rem"}}
                         variant="contained"
                         color="inherit"
-                        type="submit">Save location</Button>
+                        type="submit">Update location</Button>
             </div>
 
             <List sx={{
@@ -215,4 +231,4 @@ const AddLocation = () => {
     )
 }
 
-export default AddLocation;
+export default EditLocation;

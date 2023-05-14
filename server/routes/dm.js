@@ -182,6 +182,22 @@ dmRouter
         res.status(201).send(newLocationId);
     })
 
+    //UPDATE LOCATION
+    .put('/location/:locationId', async (req, res) => {
+        const {locationId} = req.params;
+        const updatedLocation = req.body;
+
+        const locationToUpdate = await LocationRecord.find(locationId);
+        locationToUpdate.locationName = updatedLocation.locationName;
+        locationToUpdate.locationDescription = updatedLocation.locationDescription;
+        locationToUpdate.locationMap = updatedLocation.locationMap;
+        locationToUpdate.locationRooms = updatedLocation.locationRooms;
+
+        await locationToUpdate.update();
+
+        res.status(200).send(locationToUpdate);
+    })
+
     //DELETE LOCATION
     .delete('/scenario/:scenarioId/:locationId', async (req, res) => {
         const {scenarioId, locationId} = req.params;
@@ -204,6 +220,16 @@ dmRouter
         const locationsFromChosenScenario = await LocationRecord.findAllByScenarioId(scenarioId);
 
         res.status(200).send(locationsFromChosenScenario);
+    })
+
+    //GET LOCATION BY ID
+    .get('/scenario/:scenarioId/location/:locationId', async (req, res) => {
+        const {locationId} = req.params;
+        const location = await LocationRecord.find(locationId);
+
+        console.log(location)
+
+        res.status(200).send(location);
     })
 
     //ADD NEW HANDOUT TO SCENARIO

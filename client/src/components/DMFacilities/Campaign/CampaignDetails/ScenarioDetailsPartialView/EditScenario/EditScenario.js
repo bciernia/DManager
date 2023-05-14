@@ -134,7 +134,7 @@ const EditScenario = () => {
     }
 
     const editLocation = (locationId) => {
-        // navigate(`location/${locationId}`);
+        navigate(`location/${locationId}`);
     }
 
     return (
