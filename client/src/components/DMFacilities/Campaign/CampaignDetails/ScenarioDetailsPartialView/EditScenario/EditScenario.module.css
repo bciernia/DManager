@@ -26,3 +26,13 @@
     gap: .5rem;
     width: 35rem;
 }
+
+.note-dialog {
+    margin: 2.5rem 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    width: 35rem;
+}

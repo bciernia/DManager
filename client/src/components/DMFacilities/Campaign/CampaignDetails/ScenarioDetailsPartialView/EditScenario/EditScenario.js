@@ -180,12 +180,8 @@ const EditScenario = (effect, deps) => {
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
             </Dialog>
             <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
-                <form id="editNoteForm" className={classes['container--form']} onSubmit={(event) => editNote(event, chosenNoteIndex)}>
-                    <Button form="editNoteForm"
-                            variant="contained"
-                            color="primary"
-                            type="submit">Update note</Button>
-                    <Button color="error" variant="contained" onClick={(chosenNoteIndex) => deleteNote(chosenNoteIndex)}>Delete</Button>
+                <form id="editNoteForm" className={classes['note-dialog']}
+                      onSubmit={(event) => editNote(event, chosenNoteIndex)}>
                     <TextField sx={{width: "20rem"}} type="text" label="Note"
                                inputProps={{maxLength: 200}}
                                rows={3}
@@ -193,6 +189,14 @@ const EditScenario = (effect, deps) => {
                                defaultValue={editedNote}
                                required
                                onChange={(event) => setEditedNote(event.target.value)}/>
+                    <div>
+                        <Button form="editNoteForm"
+                                variant="contained"
+                                color="primary"
+                                type="submit" sx={{marginRight: "1rem"}}>Update</Button>
+                        <Button color="error" variant="contained"
+                                onClick={() => deleteNote(chosenNoteIndex)}>Delete</Button>
+                    </div>
                 </form>
             </Dialog>
             <div className={classes["buttons--container"]}>
