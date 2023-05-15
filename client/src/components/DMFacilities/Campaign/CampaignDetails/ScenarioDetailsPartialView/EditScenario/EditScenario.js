@@ -107,6 +107,15 @@ const EditScenario = (effect, deps) => {
         saveNewScenario();
     }
 
+    const deleteNote = (noteIndex) => {
+        const newScenarioNotes = scenario.scenarioNotes.splice(noteIndex, 1);
+
+        scenarioHandouts.scenarioNotes = newScenarioNotes;
+
+        handleNoteDialogClose();
+        saveNewScenario();
+    }
+
     const saveNewScenario = () => {
         fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
             method: "PUT",
@@ -176,7 +185,7 @@ const EditScenario = (effect, deps) => {
                             variant="contained"
                             color="primary"
                             type="submit">Update note</Button>
-                    <Button color="error" variant="contained">Delete</Button>
+                    <Button color="error" variant="contained" onClick={(chosenNoteIndex) => deleteNote(chosenNoteIndex)}>Delete</Button>
                     <TextField sx={{width: "20rem"}} type="text" label="Note"
                                inputProps={{maxLength: 200}}
                                rows={3}
