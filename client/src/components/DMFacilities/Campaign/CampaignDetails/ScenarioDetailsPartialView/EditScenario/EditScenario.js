@@ -42,12 +42,14 @@ const EditScenario = (effect, deps) => {
     const [newScenarioNotes, setNewScenarioNotes] = useState([]);
     const [newScenarioLocations, setNewScenarioLocations] = useState([]);
     const [scenarioHandouts, setScenarioHandouts] = useState([]);
-
+    const [editedNote, setEditedNote] = useState('');
+    const [chosenNoteIndex, setChosenNoteIndex] = useState(0);
     const [note, setNote] = useState('');
 
     const [chosenLocation, setChosenLocation] = useState({});
 
-    const [dialogOpen, setDialogOpen] = useState(false);
+    const [imageDialogOpen, setImageImageDialogOpen] = useState(false);
+    const [noteDialogOpen, setNoteDialogOpen] = useState(false);
 
     useEffect(() => {
         Promise.all([
@@ -93,6 +95,16 @@ const EditScenario = (effect, deps) => {
         saveNewScenario();
     }
 
+    const editNote = (event, noteIndex) => {
+        event.preventDefault();
+
+        scenario.scenarioNotes[noteIndex].note = editedNote;
+
+        handleNoteDialogClose();
+
+        saveNewScenario();
+    }
+
     const saveNewScenario = () => {
         fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
             method: "PUT",
@@ -116,12 +128,22 @@ const EditScenario = (effect, deps) => {
     }
 
     const previewImg = () => {
-        setDialogOpen(true);
+        setImageImageDialogOpen(true);
     }
 
-    const handleClose = () => {
-        setDialogOpen(false);
+    const handleImageDialogClose = () => {
+        setImageImageDialogOpen(false);
     };
+
+    const previewNote = (note, index) => {
+        setEditedNote(note.note);
+        setChosenNoteIndex(index);
+        setNoteDialogOpen(true);
+    }
+
+    const handleNoteDialogClose = () => {
+        setNoteDialogOpen(false);
+    }
 
     const deleteLocation = (locationId) => {
         setChosenLocation({});
@@ -143,8 +165,24 @@ const EditScenario = (effect, deps) => {
 
     return (
         <div>
-            <Dialog onClose={handleClose} open={dialogOpen} maxWidth="md">
+            <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
+            </Dialog>
+            <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
+                <form id="editNoteForm" className={classes['container--form']} onSubmit={(event) => editNote(event, chosenNoteIndex)}>
+                    <Button form="editNoteForm"
+                            variant="contained"
+                            color="primary"
+                            type="submit">Update note</Button>
+                    <Button color="error" variant="contained">Delete</Button>
+                    <TextField sx={{width: "20rem"}} type="text" label="Note"
+                               inputProps={{maxLength: 200}}
+                               rows={3}
+                               multiline
+                               defaultValue={editedNote}
+                               required
+                               onChange={(event) => setEditedNote(event.target.value)}/>
+                </form>
             </Dialog>
             <div className={classes["buttons--container"]}>
                 {!isEditModeOn ? <Button variant="contained" onClick={changeScenarioName}>Edit</Button> :
@@ -203,6 +241,7 @@ const EditScenario = (effect, deps) => {
                             inputProps={{'aria-label': 'Without label'}}
                             labelId="select-location-label"
                             label="Choose location"
+                            defaultValue=""
                         >
 
                             {newScenarioLocations.length === 0 && <MenuItem disabled>No locations</MenuItem>}
@@ -243,10 +282,10 @@ const EditScenario = (effect, deps) => {
                         {/*TODO save note to db after adding them*/}
                         {newScenarioNotes.length === 0 &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
-                        {newScenarioNotes.map(note =>
+                        {newScenarioNotes.map((note, index) =>
                             <ListItem sx={{margin: ".25rem"}} key={note.note} disablePadding>
                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
-                                    <ListItemButton sx={{textAlign: "center"}}>
+                                    <ListItemButton onClick={() => previewNote(note, index)} sx={{textAlign: "center"}}>
                                         <ListItemText primary={<Typography variant="body2">{note.note}</Typography>}/>
                                     </ListItemButton>
                                 </Card>
