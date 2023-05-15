@@ -30,7 +30,7 @@ const getHandoutsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/handout/all`)
         .then(res => res.json());
 
-const EditScenario = () => {
+const EditScenario = (effect, deps) => {
     const {scenarioId} = useParams();
     const navigate = useNavigate();
 
@@ -41,6 +41,7 @@ const EditScenario = () => {
     const [newScenarioDescription, setNewScenarioDescription] = useState();
     const [newScenarioNotes, setNewScenarioNotes] = useState([]);
     const [newScenarioLocations, setNewScenarioLocations] = useState([]);
+    const [scenarioHandouts, setScenarioHandouts] = useState([]);
 
     const [note, setNote] = useState('');
 
@@ -62,6 +63,10 @@ const EditScenario = () => {
             setNewScenarioLocations(locationsData);
         })
     }, []);
+
+    useEffect(() => {
+        setScenarioHandouts(handouts.filter(handout => handout.handoutLocation === scenarioId));
+    }, [scenarioHandouts]);
 
     const changeScenarioName = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
@@ -155,7 +160,7 @@ const EditScenario = () => {
                 <Grid item md={3}
                       sx={{height: "14.5rem", display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Typography variant="h6">
-                        Scenario name
+                        Name
                     </Typography>
                     {!isEditModeOn ? <Typography>{scenario.scenarioName}</Typography>
                         :
@@ -167,7 +172,7 @@ const EditScenario = () => {
                             onChange={(event) => setNewScenarioName(event.target.value)}/>
                     }
                     <Typography variant="h6">
-                        Scenario description
+                        Description
                     </Typography>
                     {!isEditModeOn ? <Typography sx={{overflow: "hidden"}}>{scenario.scenarioDescription}</Typography>
                         :
@@ -180,6 +185,14 @@ const EditScenario = () => {
                             defaultValue={newScenarioDescription}
                             onChange={(event) => setNewScenarioDescription(event.target.value)}/>
                     }
+                    {!isEditModeOn &&
+                        <>
+                            <Typography variant="h6">Handouts</Typography>
+                            <div>
+                                {(scenarioHandouts.length === 0) ? (<Typography>No handouts in scenario</Typography>)
+                                    : (scenarioHandouts.map(handout => <PreviewHandout handout={handout}/>))}
+                            </div>
+                        </>}
                 </Grid>
                 <Grid item md={3} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <Typography variant="h4" textAlign="center" sx={{marginBottom: ".5rem"}}>Locations</Typography>

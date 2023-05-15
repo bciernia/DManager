@@ -160,8 +160,8 @@ const AddHandout = () => {
                         label="Handout location"
                         MenuProps={{PaperProps: {sx: {maxHeight: 300}}}}
                     >
-                        <MenuItem sx={{height: "2.25rem"}} value="">
-                            <em>None</em>
+                        <MenuItem sx={{height: "2.25rem"}} value={scenarioId}>
+                            <p>Scenario</p>
                         </MenuItem>
 
                         {convertedScenarioLocationData.map(data =>
