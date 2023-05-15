@@ -76,7 +76,9 @@ const EditScenario = (effect, deps) => {
 
     const saveForm = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
-        setScenario({...scenario, scenarioName: newScenarioName, scenarioDescription: newScenarioDescription})
+        scenario.scenarioName = newScenarioName;
+        scenario.scenarioDescription = newScenarioDescription;
+
         saveNewScenario();
     }
 
