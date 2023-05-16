@@ -15,7 +15,10 @@ const PreviewHandout = props => {
         setDialogOpen(false);
     };
 
-    //TODO finish handout preview
+    //TODO img scale
+
+    console.log("DZIECKO");
+
 
     return (
         <>
@@ -35,4 +38,4 @@ const PreviewHandout = props => {
     )
 }
 
-export default PreviewHandout;
+export default React.memo(PreviewHandout);

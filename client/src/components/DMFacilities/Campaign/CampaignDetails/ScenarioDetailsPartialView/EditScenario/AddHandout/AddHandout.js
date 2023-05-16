@@ -17,6 +17,36 @@ const getLocationsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/location/all`)
         .then(res => res.json());
 
+const addHandoutToDb = (scenarioId, handout) => fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newHandout`, {
+    method: "POST",
+    headers: {
+        "Content-type": "application/json",
+    },
+    body: JSON.stringify(handout)
+})
+    .then(res => res.json());
+
+
+const convertLocationsToSelectWithHeaders = (locations) => {
+    const locationArray = [];
+
+    for (let i = 0; i < locations.length; i++) {
+        locationArray.push({
+            id: locations[i]._id,
+            name: locations[i].locationName,
+            isHeader: true,
+        })
+        for (let j = 0; j < locations[i].locationRooms.length; j++) {
+            locationArray.push({
+                id: locations[i].locationRooms[j].roomId,
+                name: locations[i].locationRooms[j].roomName,
+            })
+        }
+    }
+
+    return locationArray;
+}
+
 const AddHandout = () => {
     const {campaignId, scenarioId} = useParams();
 
@@ -51,7 +81,7 @@ const AddHandout = () => {
         setDialogOpen(false);
     };
 
-    const addLocation = event => {
+    const addHandout = event => {
         event.preventDefault();
 
         const handout = {
@@ -62,35 +92,8 @@ const AddHandout = () => {
             scenarioId,
         }
 
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newHandout`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(handout)
-        })
-            .then(res => res.json())
+        addHandoutToDb(scenarioId, handout)
             .then(() => navigate(`/dm/campaign/${campaignId}/scenario/${scenarioId}/edit`));
-    }
-
-    const convertLocationsToSelectWithHeaders = (locations) => {
-        const locationArray = [];
-
-        for (let i = 0; i < locations.length; i++) {
-            locationArray.push({
-                id: locations[i]._id,
-                name: locations[i].locationName,
-                isHeader: true,
-            })
-            for (let j = 0; j < locations[i].locationRooms.length; j++) {
-                locationArray.push({
-                    id: locations[i].locationRooms[j].roomId,
-                    name: locations[i].locationRooms[j].roomName,
-                })
-            }
-        }
-
-        return locationArray;
     }
 
     const convertedScenarioLocationData = convertLocationsToSelectWithHeaders(scenarioLocations);
@@ -119,7 +122,7 @@ const AddHandout = () => {
             <div className={classes["container--form__display"]}>
                 <Typography variant="h5" sx={{margin: ".5rem", textAlign: "center"}}>New handout</Typography>
                 <form id="addLocationForm" className={classes['container--form']}
-                      onSubmit={(event) => addLocation(event)}>
+                      onSubmit={(event) => addHandout(event)}>
                     <TextField sx={{width: "80%"}} type="text" label="Title"
                                inputProps={{maxLength: 50}}
                                required
@@ -165,7 +168,8 @@ const AddHandout = () => {
                         </MenuItem>
 
                         {convertedScenarioLocationData.map(data =>
-                            <MenuItem sx={{height: "2.25rem"}} value={data.id}><p className={data.isHeader && classes["select--header"]}
+                            <MenuItem sx={{height: "2.25rem"}} value={data.id}><p
+                                className={data.isHeader && classes["select--header"]}
                             >{data.name}</p>
                             </MenuItem>
                         )}

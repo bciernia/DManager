@@ -12,11 +12,12 @@ import {
     Typography,
     Card
 } from "@mui/material";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classes from './EditScenario.module.css';
 import noMap from '../../../../../../assets/images/no_map.png';
 import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
 import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
+import Spinner from "../../../../../UI/Spinner/Spinner";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -29,6 +30,19 @@ const getLocationsForScenario = (scenarioId) =>
 const getHandoutsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/handout/all`)
         .then(res => res.json());
+
+const saveNewScenario = (scenarioId, scenario) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify(scenario)
+    }).then(res => res.json());
+
+const removeNoteFromPendingNotes = (scenarioNotes, pendingNotes) => {
+    return pendingNotes.filter(pendingNote => !scenarioNotes.find(scenarioNote => scenarioNote.note === pendingNote.note));
+}
 
 const EditScenario = (effect, deps) => {
     const {scenarioId} = useParams();
@@ -45,6 +59,12 @@ const EditScenario = (effect, deps) => {
     const [editedNote, setEditedNote] = useState('');
     const [chosenNoteIndex, setChosenNoteIndex] = useState(0);
     const [note, setNote] = useState('');
+
+    const newNoteTextFieldRef = useRef();
+    const editNoteTextFieldRef = useRef();
+
+    const [pendingNotes, setPendingNotes] = useState([]);
+
 
     const [chosenLocation, setChosenLocation] = useState({});
 
@@ -63,12 +83,16 @@ const EditScenario = (effect, deps) => {
             setNewScenarioDescription(scenarioData.scenarioDescription);
             setNewScenarioNotes(scenarioData.scenarioNotes);
             setNewScenarioLocations(locationsData);
+            setScenarioHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
         })
     }, []);
 
     useEffect(() => {
-        setScenarioHandouts(handouts.filter(handout => handout.handoutLocation === scenarioId));
-    }, [scenarioHandouts]);
+        if (scenario.scenarioName) {
+            saveNewScenario(scenarioId, scenario)
+                .then(scenario => setPendingNotes(removeNoteFromPendingNotes(scenario.scenarioNotes, pendingNotes)));
+        }
+    }, [scenarioId, scenario])
 
     const changeScenarioName = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
@@ -78,52 +102,55 @@ const EditScenario = (effect, deps) => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
         scenario.scenarioName = newScenarioName;
         scenario.scenarioDescription = newScenarioDescription;
-
-        saveNewScenario();
     }
 
     const addNote = event => {
         event.preventDefault();
 
         const newNote = {
-            note,
+            note: newNoteTextFieldRef.current.value,
             scenarioId,
         }
 
-        scenario.scenarioNotes.push(newNote);
-
         setNote('');
+        newNoteTextFieldRef.current.value = '';
 
-        saveNewScenario();
+        setPendingNotes(notes => [...notes, newNote]);
+
+        setScenario(scenario => ({
+            ...scenario,
+            scenarioNotes: [...scenario.scenarioNotes, newNote],
+        }));
     }
 
     const editNote = (event, noteIndex) => {
         event.preventDefault();
+        const newScenarioNotes = scenario.scenarioNotes.splice(noteIndex, 1);
+
+        const updatedNote ={
+            note: editNoteTextFieldRef.current.value,
+            scenarioId,
+        }
+
+        setScenario(scenario => ({
+            ...scenario,
+            scenarioNotes: [(scenario.scenarioNotes.filter(notes => note !== newScenarioNotes)), updatedNote]
+        }));
 
         scenario.scenarioNotes[noteIndex].note = editedNote;
 
         handleNoteDialogClose();
-
-        saveNewScenario();
     }
 
     const deleteNote = (noteIndex) => {
         const newScenarioNotes = scenario.scenarioNotes.splice(noteIndex, 1);
 
-        scenarioHandouts.scenarioNotes = newScenarioNotes;
+        setScenario(scenario => ({
+            ...scenario,
+            scenarioNotes: scenario.scenarioNotes.filter(notes => note !== newScenarioNotes),
+        }));
 
         handleNoteDialogClose();
-        saveNewScenario();
-    }
-
-    const saveNewScenario = () => {
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
-            method: "PUT",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(scenario)
-        });
     }
 
     const showLocationDetails = (locationId) => {
@@ -174,6 +201,10 @@ const EditScenario = (effect, deps) => {
         navigate(`location/${locationId}`);
     }
 
+    console.log("RODZIC");
+
+    console.log(scenario);
+
     return (
         <div>
             <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
@@ -181,14 +212,15 @@ const EditScenario = (effect, deps) => {
             </Dialog>
             <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
                 <form id="editNoteForm" className={classes['note-dialog']}
-                      onSubmit={(event) => editNote(event, chosenNoteIndex)}>
+                      onSubmit={() => editNote(editNoteTextFieldRef, chosenNoteIndex)}>
                     <TextField sx={{width: "20rem"}} type="text" label="Note"
                                inputProps={{maxLength: 200}}
                                rows={3}
                                multiline
                                defaultValue={editedNote}
-                               required
-                               onChange={(event) => setEditedNote(event.target.value)}/>
+                               inputRef={editNoteTextFieldRef}
+                               required />
+                               {/*// onChange={(event) => setEditedNote(event.target.value)}/>*/}
                     <div>
                         <Button form="editNoteForm"
                                 variant="contained"
@@ -280,9 +312,11 @@ const EditScenario = (effect, deps) => {
                                    inputProps={{maxLength: 200}}
                                    rows={3}
                                    multiline
-                                   value={note}
-                                   required
-                                   onChange={(event) => setNote(event.target.value)}/>
+                            // value={note}
+                                   inputRef={newNoteTextFieldRef}
+                                   required/>
+
+                        {/*onChange={(event) => setNote(event.target.value)}/>*/}
 
                     </form>
                     <List sx={{
@@ -295,11 +329,12 @@ const EditScenario = (effect, deps) => {
                         alignContent: "center",
                     }}>
                         {/*TODO save note to db after adding them*/}
-                        {newScenarioNotes.length === 0 &&
+                        {scenario.scenarioNotes?.length &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
-                        {newScenarioNotes.map((note, index) =>
+                        {scenario.scenarioNotes?.map((note, index) =>
                             <ListItem sx={{margin: ".25rem"}} key={note.note} disablePadding>
                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
+                                    {pendingNotes.find(pendingNote => pendingNote.note === note.note) && <Spinner/>}
                                     <ListItemButton onClick={() => previewNote(note, index)} sx={{textAlign: "center"}}>
                                         <ListItemText primary={<Typography variant="body2">{note.note}</Typography>}/>
                                     </ListItemButton>

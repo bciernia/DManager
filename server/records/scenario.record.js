@@ -33,7 +33,7 @@ class ScenarioRecord {
     }
 
     async update() {
-        await scenarios.replaceOne({
+        const updatedScenario = await scenarios.replaceOne({
             _id: this._id,
         }, {
             scenarioName: this.scenarioName.toString(),
@@ -45,6 +45,8 @@ class ScenarioRecord {
             scenarioHandouts: this.scenarioHandouts,
             campaignId: this.campaignId,
         });
+
+        return updatedScenario;
     }
 
     async delete() {

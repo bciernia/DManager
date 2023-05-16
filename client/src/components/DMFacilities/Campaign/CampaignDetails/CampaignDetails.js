@@ -58,18 +58,29 @@ const CampaignDetails = () => {
     return (
         <div className={classes.container}>
             {isLoading && <Spinner/>}
-            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: ".5rem", marginTop: "0.5rem"}}
-                    variant="contained" color="inherit"
-                    onClick={addScenarioToChosenCampaign}
-            >Add scenario</Button>
-            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: ".5rem", marginTop: "3.5rem"}}
-                    variant="contained" color="inherit"
-                    onClick={editChosenScenario}
-            >Edit scenario</Button>
-            <Typography variant="h2">{campaign.campaignName}</Typography>
             <Grid container>
-                <Grid item md={2} >
-
+                <Grid item md={10}>
+                    <Box sx={{height: "40rem", width: "100%"}}>
+                        <Typography variant="h2">{campaign.campaignName}</Typography>
+                        {!chosenScenario ? (
+                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
+                                    yours scenarios</Typography>) :
+                            (
+                                <ScenarioDetailsPartialView scenario={chosenScenario}/>
+                            )}
+                    </Box>
+                </Grid>
+                <Grid item md={2}>
+                    <div>
+                        <Button sx={{backgroundColor: "#F5793B",width:"100%", position: "relative", right: 0, marginTop: ".5rem"}}
+                                variant="contained" color="inherit"
+                                onClick={addScenarioToChosenCampaign}
+                        >Add scenario</Button>
+                        <Button sx={{backgroundColor: "#F5793B",width:"100%", position: "relative", right: 0, marginTop: ".5rem"}}
+                                variant="contained" color="inherit"
+                                onClick={editChosenScenario}
+                        >Edit scenario</Button>
+                    </div>
                     <Box sx={{width: "100%", margin: "0.5rem 0"}}>
                         <nav>
                             <Typography variant="h4" textAlign="center">Scenarios list</Typography>
@@ -82,7 +93,7 @@ const CampaignDetails = () => {
                                 {scenariosArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No scenarios</Typography>}
                                 {scenariosArray.map(scenario =>
-                                <ListItem key={scenario._id} disablePadding>
+                                    <ListItem key={scenario._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
                                                         onClick={() => showScenarioDetails(scenario._id)}>
                                             <ListItemText primary={scenario.scenarioName}
@@ -95,16 +106,7 @@ const CampaignDetails = () => {
                     </Box>
                 </Grid>
 
-                <Grid item md={10}>
-                    <Box sx={{height: "40rem", width: "100%"}}>
-                        {!chosenScenario ? (
-                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
-                                    yours scenarios</Typography>) :
-                            (
-                                <ScenarioDetailsPartialView scenario={chosenScenario}/>
-                            )}
-                    </Box>
-                </Grid>
+
             </Grid>
         </div>
     )

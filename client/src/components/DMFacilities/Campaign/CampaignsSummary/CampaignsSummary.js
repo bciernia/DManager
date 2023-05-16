@@ -39,12 +39,35 @@ const CampaignsSummary = () => {
         setChosenCampaign(campaignArray[0]);
     }, [campaignArray]);
 
+    const goToCampaignDetailsView = () => {
+        navigate(`${chosenCampaign._id}`);
+    }
+
+    console.log("Rodzic");
+
     return (
         <div className={classes.container}>
             <Grid container>
-                <Grid item md={2} sx={{display: "flex", flexDirection: "column", marginTop: "0.5rem"}}>
-                    <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
-                            onClick={goToAddNewCampaignForm}>Add new campaign</Button>
+                <Grid item md={10}>
+                    <Box sx={{height: "40rem", width: "100%"}}>
+                        {!chosenCampaign ? (
+                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
+                                    yours campaigns</Typography>) :
+                            (
+                                <CampaignDetailsPartialView campaign={chosenCampaign}/>
+                            )}
+                    </Box>
+                </Grid>
+                <Grid item md={2}>
+                    <div>
+                        <Button sx={{backgroundColor: "#F5793B",width:"100%", position: "relative", right: 0, marginTop: ".5rem"}}
+                                variant="contained" color="inherit"
+                                onClick={goToAddNewCampaignForm}>Add new campaign</Button>
+                        <Button sx={{backgroundColor: "#F5793B", width:"100%", position: "relative", right: 0, marginTop: ".5rem"}}
+                                variant="contained" color="inherit"
+                                onClick={goToCampaignDetailsView}
+                            >Check campaign details</Button>
+                    </div>
                     <Box sx={{width: "100%", margin: "0.5rem 0"}}>
                         <nav>
                             <Typography variant="h4" textAlign="center">Campaign list</Typography>
@@ -69,16 +92,7 @@ const CampaignsSummary = () => {
                         </nav>
                     </Box>
                 </Grid>
-                <Grid item md={10}>
-                    <Box sx={{height: "50rem", width: "100%"}}>
-                        {!chosenCampaign ? (
-                                <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
-                                    yours campaigns</Typography>) :
-                            (
-                                <CampaignDetailsPartialView campaign={chosenCampaign}/>
-                            )}
-                    </Box>
-                </Grid>
+
             </Grid>
         </div>
 

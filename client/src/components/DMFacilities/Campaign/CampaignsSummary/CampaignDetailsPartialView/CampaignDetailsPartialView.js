@@ -8,16 +8,10 @@ const CampaignDetailsPartialView = props => {
 
     const navigate = useNavigate();
 
-    const addScenarioToChosenCampaign = () => {
-        navigate(`${campaignId}`);
-    }
+    console.log("Dziecko");
 
     return (
         <div className={classes.container}>
-            <Button sx={{backgroundColor: "#F5793B", position: "absolute", right: 0, marginTop: "0.5rem"}}
-                    variant="contained" color="inherit"
-                    onClick={addScenarioToChosenCampaign}
-            >Check chosen campaign details</Button>
             <Typography variant="h2">{campaign.campaignName}</Typography>
             <Typography variant="h4">{campaign.campaignSetting}</Typography>
             <Typography variant="h4">{campaign.campaignDescription}</Typography>
