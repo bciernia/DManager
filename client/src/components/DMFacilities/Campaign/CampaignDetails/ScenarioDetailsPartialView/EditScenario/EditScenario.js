@@ -201,10 +201,6 @@ const EditScenario = (effect, deps) => {
         navigate(`location/${locationId}`);
     }
 
-    console.log("RODZIC");
-
-    console.log(scenario);
-
     return (
         <div>
             <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">

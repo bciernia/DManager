@@ -43,8 +43,6 @@ const CampaignsSummary = () => {
         navigate(`${chosenCampaign._id}`);
     }
 
-    console.log("Rodzic");
-
     return (
         <div className={classes.container}>
             <Grid container>
