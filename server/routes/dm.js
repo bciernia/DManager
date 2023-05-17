@@ -6,6 +6,7 @@ const {ScenarioRecord} = require("../records/scenario.record");
 const {CharacterRecord} = require("../records/character.record");
 const {HandoutRecord} = require("../records/handout.record");
 const {LocationRecord} = require("../records/location.record");
+const {NoteRecord} = require("../records/note.record");
 
 const dmRouter = express.Router();
 
@@ -276,6 +277,64 @@ dmRouter
         const handoutToDelete = await HandoutRecord.find(handoutId);
 
         await handoutToDelete.delete();
+
+        res.status(204).send();
+    })
+
+
+    //ADD NEW NOTE TO SCENARIO
+    .post('/scenario/:scenarioId/newNote', async (req, res) => {
+        const {scenarioId} = req.params;
+
+        const note = req.body;
+
+        const newNote = new NoteRecord({
+            ...note
+        });
+
+        const newNoteId = await newNote.insert();
+
+        const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
+
+        scenarioToUpdate.scenarioNotes.push(newNoteId);
+
+        await scenarioToUpdate.update();
+
+        res.status(201).send(newNoteId);
+    })
+
+    //GET CHOSEN NOTe
+    .get('/handout/:noteId', async (req, res) => {
+        const {noteId} = req.params;
+
+        const note = await NoteRecord.find(noteId);
+
+        res.status(200).send(note);
+    })
+
+    //GET NOTES FROM CHOSEN SCENARIO
+    .get('/scenario/:scenarioId/notes/all', async (req, res) => {
+        const {scenarioId} = req.params;
+
+        const notesFromChosenScenario = await NoteRecord.findAllByScenarioId(scenarioId);
+
+        res.status(200).send(notesFromChosenScenario);
+    })
+
+    //DELETE NOTE BY NOTE ID
+    .delete('/scenario/:scenarioId/notes/:noteId', async (req, res) => {
+        const {scenarioId ,noteId} = req.params;
+
+        const noteToDelete = await NoteRecord.find(noteId);
+
+        await noteToDelete.delete();
+
+        //TODO deleting note from scenario
+        const scenario = await ScenarioRecord.find(scenarioId);
+        const newScenarioNotes = scenario.scenarioNotes.filter(note => note._id !== noteId);
+        scenario.scenarioNotes = newScenarioNotes;
+
+        await scenario.update();
 
         res.status(204).send();
     })
