@@ -63,8 +63,7 @@ const EditScenario = (effect, deps) => {
     const [editedNote, setEditedNote] = useState('');
     const [chosenNoteId, setChosenNoteId] = useState(0);
 
-    const newNoteTextFieldRef = useRef();
-    const editNoteTextFieldRef = useRef();
+    const [scenarioNotes, setScenarioNotes] = useState([]);
 
     const [pendingNotes, setPendingNotes] = useState([]);
 
@@ -72,6 +71,9 @@ const EditScenario = (effect, deps) => {
 
     const [imageDialogOpen, setImageImageDialogOpen] = useState(false);
     const [noteDialogOpen, setNoteDialogOpen] = useState(false);
+
+    const newNoteTextFieldRef = useRef();
+    const editNoteTextFieldRef = useRef();
 
     useEffect(() => {
         Promise.all([
@@ -91,7 +93,9 @@ const EditScenario = (effect, deps) => {
     }, []);
 
     useEffect(() => {
-    }, [scenarioId, scenario])
+        getNotesForScenario(scenarioId)
+            .then(notesData => setNotes(notesData));
+    }, [scenarioNotes])
 
     const changeScenarioName = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
@@ -122,7 +126,9 @@ const EditScenario = (effect, deps) => {
         })
             .then(res => res.json())
 
+        setScenarioNotes(notes => [...notes, newNote]);
     }
+
 
     const editNote = (event) => {
         event.preventDefault();
@@ -140,7 +146,12 @@ const EditScenario = (effect, deps) => {
             body: JSON.stringify(updatedNote)
         }).then(res => res.json());
 
-        console.log(editNoteTextFieldRef.current.value);
+        setScenarioNotes(notes => notes.forEach(note => {
+            if(note._id === chosenNoteId){
+                note.note = updatedNote.note;
+            }
+        }));
+
         editNoteTextFieldRef.current.value = '';
 
         handleNoteDialogClose();
@@ -156,6 +167,8 @@ const EditScenario = (effect, deps) => {
             },
         }).then(res => res.json())
             .then(data => console.log(data));
+
+        setScenarioNotes(notes => notes.filter(note => note._id !== chosenNoteId));
 
         handleNoteDialogClose();
     }
@@ -207,6 +220,8 @@ const EditScenario = (effect, deps) => {
     const editLocation = (locationId) => {
         navigate(`location/${locationId}`);
     }
+
+    console.log("ASDFxD");
 
     return (
         <div>
