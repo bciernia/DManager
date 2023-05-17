@@ -212,7 +212,6 @@ const EditScenario = (effect, deps) => {
                 "Content-type": "application/json",
             },
         }).then(res => {
-            console.log(res);
             setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
         });
     }
@@ -220,8 +219,6 @@ const EditScenario = (effect, deps) => {
     const editLocation = (locationId) => {
         navigate(`location/${locationId}`);
     }
-
-    console.log("ASDFxD");
 
     return (
         <div>
@@ -349,8 +346,8 @@ const EditScenario = (effect, deps) => {
                         {/*TODO save note to db after adding them*/}
                         {notes?.length === 0 &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
-                        {notes?.map((note, index) =>
-                            <ListItem sx={{margin: ".25rem"}} key={note.note} disablePadding>
+                        {notes?.map((note) =>
+                            <ListItem key={note._id} sx={{margin: ".25rem"}} disablePadding>
                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
                                     <ListItemButton onClick={() => previewNote(note)} sx={{textAlign: "center"}}>
                                         <ListItemText primary={<Typography variant="body2">{note.note}</Typography>}/>
