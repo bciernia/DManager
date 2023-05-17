@@ -341,9 +341,8 @@ dmRouter
 
         await noteToDelete.delete();
 
-        //TODO deleting note from scenario
         const scenario = await ScenarioRecord.find(scenarioId);
-        const newScenarioNotes = scenario.scenarioNotes.filter(note => note._id !== noteId);
+        const newScenarioNotes = scenario.scenarioNotes.filter(note => note.toString() !== noteId);
         scenario.scenarioNotes = newScenarioNotes;
 
         await scenario.update();
