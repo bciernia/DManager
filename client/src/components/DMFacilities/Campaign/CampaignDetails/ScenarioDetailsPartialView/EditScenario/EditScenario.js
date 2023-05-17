@@ -354,7 +354,7 @@ const EditScenario = (effect, deps) => {
                 </Grid>
 
                 <Grid item md={6}>
-                    {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem", marginTop: ".5rem"}}>
+                    {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem"}}>
                         {/*<Button sx={{}} variant="contained">Delete location</Button>*/}
                         <div>
                             <Box sx={{width: "100%", height: "100%"}}>
