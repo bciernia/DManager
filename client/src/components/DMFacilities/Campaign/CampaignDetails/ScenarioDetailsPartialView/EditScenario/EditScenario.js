@@ -258,11 +258,8 @@ const EditScenario = (effect, deps) => {
                             variant="contained" color="inherit" onClick={addHandout}>Add handout</Button></>}</div>
             <Grid container sx={{padding: "1rem"}}>
                 <Grid item md={3}
-                      sx={{height: "14.5rem", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    <Typography variant="h6">
-                        Name
-                    </Typography>
-                    {!isEditModeOn ? <Typography>{scenario.scenarioName}</Typography>
+                      sx={{height: "14.5rem", display: "flex", flexDirection: "column"}}>
+                    {!isEditModeOn ? <Typography variant="h5">{scenario.scenarioName}</Typography>
                         :
                         <TextField
                             sx={{width: "80%"}} type="text" label="Title"
@@ -271,10 +268,8 @@ const EditScenario = (effect, deps) => {
                             defaultValue={newScenarioName}
                             onChange={(event) => setNewScenarioName(event.target.value)}/>
                     }
-                    <Typography variant="h6">
-                        Description
-                    </Typography>
-                    {!isEditModeOn ? <Typography sx={{overflow: "hidden"}}>{scenario.scenarioDescription}</Typography>
+
+                    {!isEditModeOn ? <Typography variant="body2" sx={{overflow: "hidden", fontStyle: "italic"}}>{scenario.scenarioDescription}</Typography>
                         :
                         <TextField
                             sx={{width: "80%"}} type="text" label="Description"
@@ -287,7 +282,7 @@ const EditScenario = (effect, deps) => {
                     }
                     {!isEditModeOn &&
                         <>
-                            <Typography variant="h6">Handouts</Typography>
+                            <Typography variant="h6">Scenario handouts</Typography>
                             <div>
                                 {(scenarioHandouts.length === 0) ? (<Typography>No handouts in scenario</Typography>)
                                     : (scenarioHandouts.map(handout => <PreviewHandout handout={handout}/>))}
@@ -359,7 +354,7 @@ const EditScenario = (effect, deps) => {
                 </Grid>
 
                 <Grid item md={6}>
-                    {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem"}}>
+                    {chosenLocation._id !== undefined && <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem", marginTop: ".5rem"}}>
                         {/*<Button sx={{}} variant="contained">Delete location</Button>*/}
                         <div>
                             <Box sx={{width: "100%", height: "100%"}}>
