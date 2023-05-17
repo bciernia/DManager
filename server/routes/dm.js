@@ -281,7 +281,6 @@ dmRouter
         res.status(204).send();
     })
 
-
     //ADD NEW NOTE TO SCENARIO
     .post('/scenario/:scenarioId/newNote', async (req, res) => {
         const {scenarioId} = req.params;
@@ -303,7 +302,20 @@ dmRouter
         res.status(201).send(newNoteId);
     })
 
-    //GET CHOSEN NOTe
+    //UPDATE NOTE
+    .put('/notes/:noteId', async (req, res) => {
+        const {noteId} = req.params;
+        const updatedNote = req.body;
+
+        const noteToUpdate = await NoteRecord.find(noteId);
+        noteToUpdate.note = updatedNote.note;
+
+        await noteToUpdate.update();
+
+        res.status(200).send(noteToUpdate);
+    })
+
+    //GET CHOSEN NOTE
     .get('/handout/:noteId', async (req, res) => {
         const {noteId} = req.params;
 

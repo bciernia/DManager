@@ -5,7 +5,7 @@ const {ObjectId} = require("mongodb");
 class NoteRecord {
     constructor(obj) {
         this._id = new ObjectId(obj._id);
-        this.note = obj.handoutName;
+        this.note = obj.note;
         this.scenarioId = obj.scenarioId;
     }
     async insert() {

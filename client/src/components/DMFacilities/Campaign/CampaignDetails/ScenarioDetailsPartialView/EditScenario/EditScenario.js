@@ -31,6 +31,10 @@ const getHandoutsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/handout/all`)
         .then(res => res.json());
 
+const getNotesForScenario = (scenarioId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/all`)
+        .then(res => res.json());
+
 const saveNewScenario = (scenarioId, scenario) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
         method: "PUT",
@@ -51,20 +55,18 @@ const EditScenario = (effect, deps) => {
     const [isEditModeOn, setIsEditModeOn] = useState(false);
     const [scenario, setScenario] = useState({});
     const [handouts, setHandouts] = useState([]);
+    const [notes, setNotes] = useState([]);
     const [newScenarioName, setNewScenarioName] = useState();
     const [newScenarioDescription, setNewScenarioDescription] = useState();
-    const [newScenarioNotes, setNewScenarioNotes] = useState([]);
     const [newScenarioLocations, setNewScenarioLocations] = useState([]);
     const [scenarioHandouts, setScenarioHandouts] = useState([]);
     const [editedNote, setEditedNote] = useState('');
-    const [chosenNoteIndex, setChosenNoteIndex] = useState(0);
-    const [note, setNote] = useState('');
+    const [chosenNoteId, setChosenNoteId] = useState(0);
 
     const newNoteTextFieldRef = useRef();
     const editNoteTextFieldRef = useRef();
 
     const [pendingNotes, setPendingNotes] = useState([]);
-
 
     const [chosenLocation, setChosenLocation] = useState({});
 
@@ -76,22 +78,19 @@ const EditScenario = (effect, deps) => {
             getScenarioById(scenarioId),
             getLocationsForScenario(scenarioId),
             getHandoutsForScenario(scenarioId),
-        ]).then(([scenarioData, locationsData, handoutsData]) => {
+            getNotesForScenario(scenarioId),
+        ]).then(([scenarioData, locationsData, handoutsData, notesData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData);
+            setNotes(notesData);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
-            setNewScenarioNotes(scenarioData.scenarioNotes);
             setNewScenarioLocations(locationsData);
             setScenarioHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
         })
     }, []);
 
     useEffect(() => {
-        if (scenario.scenarioName) {
-            saveNewScenario(scenarioId, scenario)
-                .then(scenario => setPendingNotes(removeNoteFromPendingNotes(scenario.scenarioNotes, pendingNotes)));
-        }
     }, [scenarioId, scenario])
 
     const changeScenarioName = () => {
@@ -112,43 +111,51 @@ const EditScenario = (effect, deps) => {
             scenarioId,
         }
 
-        setNote('');
         newNoteTextFieldRef.current.value = '';
 
-        setPendingNotes(notes => [...notes, newNote]);
+        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newNote`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(newNote)
+        })
+            .then(res => res.json())
 
-        setScenario(scenario => ({
-            ...scenario,
-            scenarioNotes: [...scenario.scenarioNotes, newNote],
-        }));
     }
 
-    const editNote = (event, noteIndex) => {
+    const editNote = (event) => {
         event.preventDefault();
-        const newScenarioNotes = scenario.scenarioNotes.splice(noteIndex, 1);
 
-        const updatedNote ={
+        const updatedNote = {
             note: editNoteTextFieldRef.current.value,
             scenarioId,
         }
 
-        setScenario(scenario => ({
-            ...scenario,
-            scenarioNotes: [(scenario.scenarioNotes.filter(notes => note !== newScenarioNotes)), updatedNote]
-        }));
+        fetch(`http://127.0.0.1:3000/dm/notes/${chosenNoteId}`, {
+            method: "PUT",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(updatedNote)
+        }).then(res => res.json());
 
-        scenario.scenarioNotes[noteIndex].note = editedNote;
+        console.log(editNoteTextFieldRef.current.value);
+        editNoteTextFieldRef.current.value = '';
 
         handleNoteDialogClose();
     }
 
-    const deleteNote = (noteIndex) => {
-        const newScenarioNotes = scenario.scenarioNotes.splice(noteIndex, 1);
+    const deleteNote = (event) => {
+        event.preventDefault();
 
-        setScenario(scenario => ({
-            ...scenario,
-            scenarioNotes: scenario.scenarioNotes.filter(notes => note !== newScenarioNotes),
-        }));
+        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json",
+            },
+        }).then(res => res.json())
+            .then(data => console.log(data));
 
         handleNoteDialogClose();
     }
@@ -173,9 +180,9 @@ const EditScenario = (effect, deps) => {
         setImageImageDialogOpen(false);
     };
 
-    const previewNote = (note, index) => {
+    const previewNote = (note) => {
         setEditedNote(note.note);
-        setChosenNoteIndex(index);
+        setChosenNoteId(note._id);
         setNoteDialogOpen(true);
     }
 
@@ -208,22 +215,22 @@ const EditScenario = (effect, deps) => {
             </Dialog>
             <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
                 <form id="editNoteForm" className={classes['note-dialog']}
-                      onSubmit={() => editNote(editNoteTextFieldRef, chosenNoteIndex)}>
+                      onSubmit={(event) => editNote(event)}>
                     <TextField sx={{width: "20rem"}} type="text" label="Note"
                                inputProps={{maxLength: 200}}
                                rows={3}
                                multiline
                                defaultValue={editedNote}
                                inputRef={editNoteTextFieldRef}
-                               required />
-                               {/*// onChange={(event) => setEditedNote(event.target.value)}/>*/}
+                               required/>
+                    {/*// onChange={(event) => setEditedNote(event.target.value)}/>*/}
                     <div>
                         <Button form="editNoteForm"
                                 variant="contained"
                                 color="primary"
                                 type="submit" sx={{marginRight: "1rem"}}>Update</Button>
                         <Button color="error" variant="contained"
-                                onClick={() => deleteNote(chosenNoteIndex)}>Delete</Button>
+                                onClick={(event) => deleteNote(event, chosenNoteId)}>Delete</Button>
                     </div>
                 </form>
             </Dialog>
@@ -325,13 +332,12 @@ const EditScenario = (effect, deps) => {
                         alignContent: "center",
                     }}>
                         {/*TODO save note to db after adding them*/}
-                        {scenario.scenarioNotes?.length &&
+                        {notes?.length === 0 &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
-                        {scenario.scenarioNotes?.map((note, index) =>
+                        {notes?.map((note, index) =>
                             <ListItem sx={{margin: ".25rem"}} key={note.note} disablePadding>
                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
-                                    {pendingNotes.find(pendingNote => pendingNote.note === note.note) && <Spinner/>}
-                                    <ListItemButton onClick={() => previewNote(note, index)} sx={{textAlign: "center"}}>
+                                    <ListItemButton onClick={() => previewNote(note)} sx={{textAlign: "center"}}>
                                         <ListItemText primary={<Typography variant="body2">{note.note}</Typography>}/>
                                     </ListItemButton>
                                 </Card>
