@@ -130,8 +130,6 @@ dmRouter
         const {scenarioId} = req.params;
         const updatedScenario = req.body;
 
-        console.log(updatedScenario);
-
         const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
         scenarioToUpdate.scenarioName = updatedScenario.scenarioName.toString();
         scenarioToUpdate.scenarioDescription = updatedScenario.scenarioDescription.toString();
