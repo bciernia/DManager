@@ -138,19 +138,15 @@ const EditScenario = (effect, deps) => {
             scenarioId,
         }
 
-        fetch(`http://127.0.0.1:3000/dm/notes/${chosenNoteId}`, {
+        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(updatedNote)
-        }).then(res => res.json());
-
-        setScenarioNotes(notes => notes.forEach(note => {
-            if(note._id === chosenNoteId){
-                note.note = updatedNote.note;
-            }
-        }));
+        })
+            .then(res => res.json())
+            .then(data => setScenarioNotes(data));
 
         editNoteTextFieldRef.current.value = '';
 
@@ -269,7 +265,10 @@ const EditScenario = (effect, deps) => {
                             onChange={(event) => setNewScenarioName(event.target.value)}/>
                     }
 
-                    {!isEditModeOn ? <Typography variant="body2" sx={{overflow: "hidden", fontStyle: "italic"}}>{scenario.scenarioDescription}</Typography>
+                    {!isEditModeOn ? <Typography variant="body2" sx={{
+                            overflow: "hidden",
+                            fontStyle: "italic"
+                        }}>{scenario.scenarioDescription}</Typography>
                         :
                         <TextField
                             sx={{width: "80%"}} type="text" label="Description"

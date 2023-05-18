@@ -302,9 +302,9 @@ dmRouter
         res.status(201).send(newNoteId);
     })
 
-    //UPDATE NOTE
-    .put('/notes/:noteId', async (req, res) => {
-        const {noteId} = req.params;
+    //UPDATE NOTE AND RETURN ALL FOR SCENARIO
+    .put('/scenario/:scenarioId/notes/:noteId', async (req, res) => {
+        const {scenarioId, noteId} = req.params;
         const updatedNote = req.body;
 
         const noteToUpdate = await NoteRecord.find(noteId);
@@ -312,7 +312,9 @@ dmRouter
 
         await noteToUpdate.update();
 
-        res.status(200).send(noteToUpdate);
+        const notesFromChosenScenario = await NoteRecord.findAllByScenarioId(scenarioId);
+
+        res.status(200).send(notesFromChosenScenario);
     })
 
     //GET CHOSEN NOTE
