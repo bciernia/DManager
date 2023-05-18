@@ -1,7 +1,19 @@
 import {CharacterTypes} from "../../../../utils/dndUtils/CharacterTypes";
 import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
 import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
-import {Box, Button, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Divider,
+    Grid,
+    InputLabel,
+    List,
+    ListItem, ListItemButton, ListItemText,
+    MenuItem,
+    Select,
+    TextField,
+    Typography
+} from "@mui/material";
 import MultiStepForm, {FormStep} from "../../../../utils/Form/MultiStepForm";
 import {
     characterSavingThrowsValidationSchema,
@@ -10,7 +22,7 @@ import {
 import DropdownInputField from "../../../../utils/Form/InputTypes/DropdownInputField";
 import TextInputField from "../../../../utils/Form/InputTypes/TextInputField";
 import NumberInputField from "../../../../utils/Form/InputTypes/NumberInputField";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {LanguageProficiencies} from "../../../../utils/dndUtils/LanguageProficiencies";
 import {ProficiencyLevel} from "../../../../utils/dndUtils/ProficiencyLevel";
 import {SavingThrows} from "../../../../utils/dndUtils/SavingThrows";
@@ -23,6 +35,8 @@ import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {MonsterInitialValues} from "../../../../utils/dndUtils/MonsterInitialValues";
 import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
 import {MonsterType} from "../../../../utils/dndUtils/MonsterType";
+import classes
+    from "../../Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddLocation/AddLocation.module.css";
 
 const CreateNewMonster = () => {
     const monsterTypeArray = Object.entries(MonsterType)
@@ -69,6 +83,16 @@ const CreateNewMonster = () => {
 
     const [chosenSavingThrowsAndLevel, setChosenSavingThrowsAndLevel] = useState(initialSavingThrows);
 
+    const [characterFeaturesAndTraits, setCharacterFeaturesAndTraits] = useState([]);
+
+    const [featureName, setFeatureName] = useState('');
+    const [featureDescription, setFeatureDescription] = useState('');
+
+    const [featureToEdit, setFeatureToEdit] = useState('');
+    const [editedFeature, setEditedFeature] = useState('');
+    const [editedFeatureDescription, setEditedFeatureDescription] = useState('');
+    const [isFeatureEdited, setIsFeatureEdited] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -99,6 +123,7 @@ const CreateNewMonster = () => {
         MonsterInitialValues.damageResistances = characterResistances;
         MonsterInitialValues.characterRace = characterRaceArray;
         MonsterInitialValues.characterAlignment = characterAlignmentArray;
+        MonsterInitialValues.featuresAndTraits = characterFeaturesAndTraits;
 
     }, [chosenLanguageAndLevel, chosenSavingThrowsAndLevel, chosenSkillAndLevel]);
 
@@ -232,6 +257,18 @@ const CreateNewMonster = () => {
             });
     }
 
+    const addFeature = () => {
+        const newFeature = {
+            featureName,
+            featureDescription,
+        }
+
+        characterFeaturesAndTraits.push(newFeature);
+
+        setFeatureName('');
+        setFeatureDescription('');
+    }
+
     return (
         // TODO form width
         <Box sx={{height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
@@ -245,6 +282,7 @@ const CreateNewMonster = () => {
                                values.damageResistances = characterResistances;
                                values.conditionImmunities = characterConditionImmunities;
                                values.characterPhoto = characterPhoto;
+                               values.featuresAndTraits = characterFeaturesAndTraits;
                                console.log(values)
 
                                addNewCharacterHandler(values);
@@ -252,6 +290,50 @@ const CreateNewMonster = () => {
             >
                 {/*TODO finish adding character form*/}
 
+                <FormStep
+                    stepName="Features and traits"
+                >
+                    <List sx={{
+                        overflow: "auto",
+                        position: "absolute",
+                        width: "17.5rem",
+                        top: "11rem",
+                        height: "20rem",
+                        left: "8.65rem",
+                        border: "solid 2px",
+                    }}>
+                        <Typography variant="h6" textAlign="center">Features and traits</Typography>
+                        <Divider/>
+                        {characterFeaturesAndTraits?.length === 0 &&
+                            <Typography variant="body2" textAlign="center">No features and traits</Typography>}
+                        {characterFeaturesAndTraits?.map(feature =>
+                            <ListItem key={feature.featureName} disablePadding>
+                                <ListItemButton sx={{textAlign: "center"}} onClick={() => {
+                                    setFeatureToEdit(feature.featureName);
+                                    setEditedFeature(feature.featureName);
+                                    setEditedFeatureDescription(feature.featureDescription);
+                                    setIsFeatureEdited(true);
+                                }}>
+                                    <ListItemText primary={feature.featureName}/>
+                                </ListItemButton>
+                            </ListItem>
+                        )}
+                    </List>
+
+                    <TextField sx={{width: "80%"}} type="text" label="Name"
+                               inputProps={{maxLength: 50}}
+                               value={featureName}
+                               onChange={(event) => setFeatureName(event.target.value)}/>
+                    <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
+                               rows={5} label="Description"
+                               value={featureDescription}
+                               onChange={(event) => setFeatureDescription(event.target.value)}/>
+
+                    <Button sx={{backgroundColor: "#F5793B"}}
+                            variant="contained"
+                            color="inherit"
+                            onClick={addFeature}>Add feature</Button>
+                </FormStep>
                 <FormStep
 
                     stepName="Monster info"
@@ -431,7 +513,8 @@ const CreateNewMonster = () => {
                 <FormStep
                     stepName="Senses"
                 >
-                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Senses</Typography>
+                    <Typography variant="h4"
+                                sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Senses</Typography>
 
                     <NumberInputField name="monsterBlindsightSense" label="Blindsight range"/>
                     <NumberInputField name="monsterDarkvisionSense" label="Darkvision range"/>
