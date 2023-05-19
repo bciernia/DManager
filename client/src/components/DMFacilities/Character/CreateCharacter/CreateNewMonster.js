@@ -90,9 +90,7 @@ const CreateNewMonster = () => {
     const [featureHitBonus, setFeatureHitBonus] = useState('');
     const [featureReach, setFeatureReach] = useState('');
 
-    const [featureToEdit, setFeatureToEdit] = useState('');
     const [editedFeature, setEditedFeature] = useState('');
-    const [editedFeatureDescription, setEditedFeatureDescription] = useState('');
     const [isFeatureEdited, setIsFeatureEdited] = useState(false);
 
     const navigate = useNavigate();
@@ -259,6 +257,14 @@ const CreateNewMonster = () => {
             });
     }
 
+    const clearFeatureAndTraitsForm = () => {
+        setFeatureName('');
+        setFeatureDescription('');
+        setFeatureReach('');
+        setFeatureDmg('');
+        setFeatureHitBonus('');
+    }
+
     const addFeature = () => {
         const newFeature = {
             featureName,
@@ -270,11 +276,37 @@ const CreateNewMonster = () => {
 
         characterFeaturesAndTraits.push(newFeature);
 
-        setFeatureName('');
-        setFeatureDescription('');
-        setFeatureReach('');
-        setFeatureDmg('');
-        setFeatureHitBonus('');
+        clearFeatureAndTraitsForm();
+    }
+
+
+
+    const editFeature = (editedFeature) => {
+        const updatedFeature = {
+            featureName,
+            featureDescription,
+            featureReach,
+            featureDmg,
+            featureHitBonus,
+        }
+
+        const indexOfEditedFeature = characterFeaturesAndTraits.indexOf(editedFeature);
+
+        characterFeaturesAndTraits[indexOfEditedFeature] = updatedFeature;
+
+        clearFeatureAndTraitsForm();
+        setIsFeatureEdited(false)
+    }
+
+    const deleteFeature = (editedFeature) => {
+        setCharacterFeaturesAndTraits(features => features.filter(feature => feature !== editedFeature));
+
+        clearFeatureAndTraitsForm();
+        setIsFeatureEdited(false)
+    }
+
+    const exitFeatureEdition = () => {
+        setIsFeatureEdited(isFeatureEdited => !isFeatureEdited);
     }
 
     return (
@@ -304,9 +336,6 @@ const CreateNewMonster = () => {
                     <Typography variant="h4"
                                 sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Features and
                         traits</Typography>
-                    <Dialog>
-
-                    </Dialog>
                     <List sx={{
                         overflow: "auto",
                         position: "absolute",
@@ -323,9 +352,12 @@ const CreateNewMonster = () => {
                         {characterFeaturesAndTraits?.map(feature =>
                             <ListItem key={feature.featureName} disablePadding>
                                 <ListItemButton sx={{textAlign: "center"}} onClick={() => {
-                                    setFeatureToEdit(feature.featureName);
-                                    setEditedFeature(feature.featureName);
-                                    setEditedFeatureDescription(feature.featureDescription);
+                                    setEditedFeature(feature);
+                                    setFeatureName(feature.featureName);
+                                    setFeatureDescription(feature.featureDescription);
+                                    setFeatureDmg(feature.featureDmg);
+                                    setFeatureHitBonus(feature.featureHitBonus);
+                                    setFeatureReach(feature.featureReach);
                                     setIsFeatureEdited(true);
                                 }}>
                                     <ListItemText primary={feature.featureName}/>
@@ -357,10 +389,27 @@ const CreateNewMonster = () => {
                                    value={featureDescription}
                                    onChange={(event) => setFeatureDescription(event.target.value)}/>
 
-                        <Button sx={{backgroundColor: "#F5793B"}}
+                        {!isFeatureEdited && <Button sx={{backgroundColor: "#F5793B"}}
                                 variant="contained"
                                 color="inherit"
-                                onClick={addFeature}>Add feature</Button>
+                                onClick={addFeature}>Add</Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={() => editFeature(editedFeature)}>Update</Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={() => deleteFeature(editedFeature)}>Delete
+                            </Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={exitFeatureEdition}>Exit edition
+                            </Button>}
                     </div>
 
                 </FormStep>
