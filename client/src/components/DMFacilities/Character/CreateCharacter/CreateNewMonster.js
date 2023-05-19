@@ -279,8 +279,6 @@ const CreateNewMonster = () => {
         clearFeatureAndTraitsForm();
     }
 
-
-
     const editFeature = (editedFeature) => {
         const updatedFeature = {
             featureName,
@@ -329,90 +327,7 @@ const CreateNewMonster = () => {
                            }}
             >
                 {/*TODO finish adding character form*/}
-                <FormStep
-                    stepName="Features and traits"
-                >
-                    {/*TODO style features and traits step, fields to add? : Weapon, hit bonus, reach, damage, */}
-                    <Typography variant="h4"
-                                sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Features and
-                        traits</Typography>
-                    <List sx={{
-                        overflow: "auto",
-                        position: "absolute",
-                        width: "17.5rem",
-                        top: "11rem",
-                        height: "20rem",
-                        left: "8.65rem",
-                        border: "solid 2px",
-                    }}>
-                        <Typography variant="h6" textAlign="center">Features and traits</Typography>
-                        <Divider/>
-                        {characterFeaturesAndTraits?.length === 0 &&
-                            <Typography variant="body2" textAlign="center">No features and traits</Typography>}
-                        {characterFeaturesAndTraits?.map(feature =>
-                            <ListItem key={feature.featureName} disablePadding>
-                                <ListItemButton sx={{textAlign: "center"}} onClick={() => {
-                                    setEditedFeature(feature);
-                                    setFeatureName(feature.featureName);
-                                    setFeatureDescription(feature.featureDescription);
-                                    setFeatureDmg(feature.featureDmg);
-                                    setFeatureHitBonus(feature.featureHitBonus);
-                                    setFeatureReach(feature.featureReach);
-                                    setIsFeatureEdited(true);
-                                }}>
-                                    <ListItemText primary={feature.featureName}/>
-                                </ListItemButton>
-                            </ListItem>
-                        )}
-                    </List>
 
-                    <div className={classes["features-and-traits"]}>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" label="Name"
-                                   inputProps={{maxLength: 50}}
-                                   value={featureName}
-                                   onChange={(event) => setFeatureName(event.target.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 100}}
-                                   label="Damage"
-                                   value={featureDmg}
-                                   onChange={(event) => setFeatureDmg(event.target.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="number" inputProps={{maxLength: 15}}
-                                   label="Hit bonus"
-                                   value={featureHitBonus}
-                                   onChange={(event) => setFeatureHitBonus(event.target.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
-                                   label="Reach"
-                                   value={featureReach}
-                                   onChange={(event) => setFeatureReach(event.target.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 1000}}
-                                   multiline
-                                   rows={5} label="Description"
-                                   value={featureDescription}
-                                   onChange={(event) => setFeatureDescription(event.target.value)}/>
-
-                        {!isFeatureEdited && <Button sx={{backgroundColor: "#F5793B"}}
-                                variant="contained"
-                                color="inherit"
-                                onClick={addFeature}>Add</Button>}
-                        {isFeatureEdited &&
-                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
-                                    variant="contained"
-                                    color="inherit"
-                                    onClick={() => editFeature(editedFeature)}>Update</Button>}
-                        {isFeatureEdited &&
-                            <Button sx={{backgroundColor: "#F5793B"}}
-                                    variant="contained"
-                                    color="inherit"
-                                    onClick={() => deleteFeature(editedFeature)}>Delete
-                            </Button>}
-                        {isFeatureEdited &&
-                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
-                                    variant="contained"
-                                    color="inherit"
-                                    onClick={exitFeatureEdition}>Exit edition
-                            </Button>}
-                    </div>
-
-                </FormStep>
                 <FormStep
 
                     stepName="Monster info"
@@ -632,7 +547,90 @@ const CreateNewMonster = () => {
                     <Button onClick={handleChosenLanguage}>Add language</Button>
 
                 </FormStep>
+                <FormStep
+                    stepName="Features and traits"
+                >
+                    {/*TODO style features and traits step, fields to add? : Weapon, hit bonus, reach, damage, */}
+                    <Typography variant="h4"
+                                sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Features and
+                        traits</Typography>
+                    <List sx={{
+                        overflow: "auto",
+                        position: "absolute",
+                        width: "17.5rem",
+                        top: "11rem",
+                        height: "20rem",
+                        left: "8.65rem",
+                        border: "solid 2px",
+                    }}>
+                        <Typography variant="h6" textAlign="center">Features and traits</Typography>
+                        <Divider/>
+                        {characterFeaturesAndTraits?.length === 0 &&
+                            <Typography variant="body2" textAlign="center">No features and traits</Typography>}
+                        {characterFeaturesAndTraits?.map(feature =>
+                            <ListItem key={feature.featureName} disablePadding>
+                                <ListItemButton sx={{textAlign: "center"}} onClick={() => {
+                                    setEditedFeature(feature);
+                                    setFeatureName(feature.featureName);
+                                    setFeatureDescription(feature.featureDescription);
+                                    setFeatureDmg(feature.featureDmg);
+                                    setFeatureHitBonus(feature.featureHitBonus);
+                                    setFeatureReach(feature.featureReach);
+                                    setIsFeatureEdited(true);
+                                }}>
+                                    <ListItemText primary={feature.featureName}/>
+                                </ListItemButton>
+                            </ListItem>
+                        )}
+                    </List>
 
+                    <div className={classes["features-and-traits"]}>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" label="Name"
+                                   inputProps={{maxLength: 50}}
+                                   value={featureName}
+                                   onChange={(event) => setFeatureName(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 100}}
+                                   label="Damage"
+                                   value={featureDmg}
+                                   onChange={(event) => setFeatureDmg(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="number" inputProps={{maxLength: 15}}
+                                   label="Hit bonus"
+                                   value={featureHitBonus}
+                                   onChange={(event) => setFeatureHitBonus(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
+                                   label="Reach"
+                                   value={featureReach}
+                                   onChange={(event) => setFeatureReach(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 1000}}
+                                   multiline
+                                   rows={5} label="Description"
+                                   value={featureDescription}
+                                   onChange={(event) => setFeatureDescription(event.target.value)}/>
+
+                        {!isFeatureEdited && <Button sx={{backgroundColor: "#F5793B"}}
+                                                     variant="contained"
+                                                     color="inherit"
+                                                     onClick={addFeature}>Add</Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={() => editFeature(editedFeature)}>Update</Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={() => deleteFeature(editedFeature)}>Delete
+                            </Button>}
+                        {isFeatureEdited &&
+                            <Button sx={{backgroundColor: "#F5793B", margin: ".5rem 0"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={exitFeatureEdition}>Exit edition
+                            </Button>}
+                    </div>
+
+                </FormStep>
 
             </MultiStepForm>
         </Box>
