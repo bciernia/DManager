@@ -3,7 +3,7 @@ import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
 import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
 import {
     Box,
-    Button,
+    Button, Dialog,
     Divider,
     Grid,
     InputLabel,
@@ -35,8 +35,7 @@ import DataTableHandler from "../../../../utils/Form/Table/DataTableHandler";
 import {MonsterInitialValues} from "../../../../utils/dndUtils/MonsterInitialValues";
 import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
 import {MonsterType} from "../../../../utils/dndUtils/MonsterType";
-import classes
-    from "../../Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddLocation/AddLocation.module.css";
+import classes from './CreateNewMonster.module.css'
 
 const CreateNewMonster = () => {
     const monsterTypeArray = Object.entries(MonsterType)
@@ -87,6 +86,9 @@ const CreateNewMonster = () => {
 
     const [featureName, setFeatureName] = useState('');
     const [featureDescription, setFeatureDescription] = useState('');
+    const [featureDmg, setFeatureDmg] = useState('');
+    const [featureHitBonus, setFeatureHitBonus] = useState('');
+    const [featureReach, setFeatureReach] = useState('');
 
     const [featureToEdit, setFeatureToEdit] = useState('');
     const [editedFeature, setEditedFeature] = useState('');
@@ -261,12 +263,18 @@ const CreateNewMonster = () => {
         const newFeature = {
             featureName,
             featureDescription,
+            featureReach,
+            featureDmg,
+            featureHitBonus,
         }
 
         characterFeaturesAndTraits.push(newFeature);
 
         setFeatureName('');
         setFeatureDescription('');
+        setFeatureReach('');
+        setFeatureDmg('');
+        setFeatureHitBonus('');
     }
 
     return (
@@ -289,10 +297,16 @@ const CreateNewMonster = () => {
                            }}
             >
                 {/*TODO finish adding character form*/}
-
                 <FormStep
                     stepName="Features and traits"
                 >
+                    {/*TODO style features and traits step, fields to add? : Weapon, hit bonus, reach, damage, */}
+                    <Typography variant="h4"
+                                sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Features and
+                        traits</Typography>
+                    <Dialog>
+
+                    </Dialog>
                     <List sx={{
                         overflow: "auto",
                         position: "absolute",
@@ -320,19 +334,35 @@ const CreateNewMonster = () => {
                         )}
                     </List>
 
-                    <TextField sx={{width: "80%"}} type="text" label="Name"
-                               inputProps={{maxLength: 50}}
-                               value={featureName}
-                               onChange={(event) => setFeatureName(event.target.value)}/>
-                    <TextField sx={{width: "80%"}} type="text" inputProps={{maxLength: 1000}} multiline
-                               rows={5} label="Description"
-                               value={featureDescription}
-                               onChange={(event) => setFeatureDescription(event.target.value)}/>
+                    <div className={classes["features-and-traits"]}>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" label="Name"
+                                   inputProps={{maxLength: 50}}
+                                   value={featureName}
+                                   onChange={(event) => setFeatureName(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 100}}
+                                   label="Damage"
+                                   value={featureDmg}
+                                   onChange={(event) => setFeatureDmg(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="number" inputProps={{maxLength: 15}}
+                                   label="Hit bonus"
+                                   value={featureHitBonus}
+                                   onChange={(event) => setFeatureHitBonus(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
+                                   label="Reach"
+                                   value={featureReach}
+                                   onChange={(event) => setFeatureReach(event.target.value)}/>
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 1000}}
+                                   multiline
+                                   rows={5} label="Description"
+                                   value={featureDescription}
+                                   onChange={(event) => setFeatureDescription(event.target.value)}/>
 
-                    <Button sx={{backgroundColor: "#F5793B"}}
-                            variant="contained"
-                            color="inherit"
-                            onClick={addFeature}>Add feature</Button>
+                        <Button sx={{backgroundColor: "#F5793B"}}
+                                variant="contained"
+                                color="inherit"
+                                onClick={addFeature}>Add feature</Button>
+                    </div>
+
                 </FormStep>
                 <FormStep
 
@@ -553,6 +583,8 @@ const CreateNewMonster = () => {
                     <Button onClick={handleChosenLanguage}>Add language</Button>
 
                 </FormStep>
+
+
             </MultiStepForm>
         </Box>
     )
