@@ -12,7 +12,7 @@ import {
     Typography,
     Card
 } from "@mui/material";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import classes from './EditScenario.module.css';
 import noMap from '../../../../../../assets/images/no_map.png';
 import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
@@ -44,10 +44,6 @@ const saveNewScenario = (scenarioId, scenario) =>
         body: JSON.stringify(scenario)
     }).then(res => res.json());
 
-const removeNoteFromPendingNotes = (scenarioNotes, pendingNotes) => {
-    return pendingNotes.filter(pendingNote => !scenarioNotes.find(scenarioNote => scenarioNote.note === pendingNote.note));
-}
-
 const EditScenario = (effect, deps) => {
     const {scenarioId} = useParams();
     const navigate = useNavigate();
@@ -62,10 +58,6 @@ const EditScenario = (effect, deps) => {
     const [scenarioHandouts, setScenarioHandouts] = useState([]);
     const [editedNote, setEditedNote] = useState('');
     const [chosenNoteId, setChosenNoteId] = useState(0);
-
-    const [scenarioNotes, setScenarioNotes] = useState([]);
-
-    const [pendingNotes, setPendingNotes] = useState([]);
 
     const [chosenLocation, setChosenLocation] = useState({});
 
@@ -92,10 +84,10 @@ const EditScenario = (effect, deps) => {
         })
     }, []);
 
-    useEffect(() => {
+    const updateScenarioNotes = useCallback(() => {
         getNotesForScenario(scenarioId)
             .then(notesData => setNotes(notesData));
-    }, [scenarioNotes])
+    }, [scenarioId]);
 
     const changeScenarioName = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
@@ -107,7 +99,7 @@ const EditScenario = (effect, deps) => {
         scenario.scenarioDescription = newScenarioDescription;
     }
 
-    const addNote = event => {
+    const addNote = async (event) => {
         event.preventDefault();
 
         const newNote = {
@@ -117,20 +109,19 @@ const EditScenario = (effect, deps) => {
 
         newNoteTextFieldRef.current.value = '';
 
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newNote`, {
+        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newNote`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(newNote)
-        })
-            .then(res => res.json())
+        });
 
-        setScenarioNotes(notes => [...notes, newNote]);
+        await updateScenarioNotes();
     }
 
 
-    const editNote = (event) => {
+    const editNote = async (event) => {
         event.preventDefault();
 
         const updatedNote = {
@@ -138,35 +129,34 @@ const EditScenario = (effect, deps) => {
             scenarioId,
         }
 
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
+        editNoteTextFieldRef.current.value = '';
+
+        handleNoteDialogClose();
+
+        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
             method: "PUT",
             headers: {
                 "Content-type": "application/json",
             },
             body: JSON.stringify(updatedNote)
-        })
-            .then(res => res.json())
-            .then(data => setScenarioNotes(data));
+        });
 
-        editNoteTextFieldRef.current.value = '';
-
-        handleNoteDialogClose();
+        await updateScenarioNotes();
     }
 
-    const deleteNote = (event) => {
+    const deleteNote = async (event) => {
         event.preventDefault();
 
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
+        handleNoteDialogClose();
+
+        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",
             },
-        }).then(res => res.json())
-            .then(data => console.log(data));
+        });
 
-        setScenarioNotes(notes => notes.filter(note => note._id !== chosenNoteId));
-
-        handleNoteDialogClose();
+        await updateScenarioNotes();
     }
 
     const showLocationDetails = (locationId) => {
@@ -340,7 +330,7 @@ const EditScenario = (effect, deps) => {
                         {/*TODO save note to db after adding them*/}
                         {notes?.length === 0 &&
                             <Typography variant="h6" textAlign="center">No notes</Typography>}
-                        {notes?.map((note) =>
+                        {notes.map((note) =>
                             <ListItem key={note._id} sx={{margin: ".25rem"}} disablePadding>
                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
                                     <ListItemButton onClick={() => previewNote(note)} sx={{textAlign: "center"}}>
