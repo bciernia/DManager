@@ -8,3 +8,8 @@
     margin: auto;
     height: 15rem;
 }
+
+.container-btns {
+    display: flex;
+    justify-content: space-between;
+}
