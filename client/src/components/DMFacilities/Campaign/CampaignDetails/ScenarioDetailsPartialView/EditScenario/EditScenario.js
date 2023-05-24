@@ -167,6 +167,10 @@ const EditScenario = (effect, deps) => {
         navigate(`newLocation`);
     }
 
+    const addCharacter = () => {
+        navigate(`newCharacter`);
+    }
+
     const addHandout = () => {
         navigate(`newHandout`);
     }
@@ -239,7 +243,7 @@ const EditScenario = (effect, deps) => {
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit" onClick={addLocation}>Add location</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
-                            variant="contained" color="inherit">Add character</Button>
+                            variant="contained" color="inherit" onClick={addCharacter}>Add character</Button>
                     <Button sx={{backgroundColor: "#F5793B"}}
                             variant="contained" color="inherit" onClick={addHandout}>Add handout</Button></>}</div>
             <Grid container sx={{padding: "1rem"}}>
