@@ -4,6 +4,7 @@ import {Card, Grid, List, ListItem, ListItemButton, ListItemText, Typography} fr
 import classes from './AddCharacterToScenario.module.css';
 import PreviewChosenCharacter from "./PreviewChosenCharacter/PreviewChosenCharacter";
 
+//TODO get all characters except PC -> they have to be chosen to whole scenario
 const getAllCharacters = () =>
     fetch(`http://127.0.0.1:3000/characters/all`)
         .then(res => res.json());
@@ -48,7 +49,12 @@ const AddCharacterToScenario = () => {
 
     useEffect(() => {
         getAllCharacters()
-            .then(data => setAllCharacters(data));
+            .then(data => {
+                setAllCharacters(data);
+                if(data[0]){
+                    setChosenCharacter(data[0]);
+                }
+            });
     }, []);
 
     return (
