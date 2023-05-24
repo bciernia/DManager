@@ -30,6 +30,8 @@ import AddHandout
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddHandout/AddHandout";
 import EditLocation
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditLocation/EditLocation";
+import AddCharacterToScenario
+    from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddCharacterToScenario/AddCharacterToScenario";
 
 const router = createBrowserRouter([
     {
@@ -104,6 +106,10 @@ const router = createBrowserRouter([
 
                     {
                         path: 'campaign/:campaignId/scenario/:scenarioId/edit/location/:locationId', element: <EditLocation/>,
+                    },
+
+                    {
+                        path:   'campaign/:campaignId/scenario/:scenarioId/edit/newCharacter', element: <AddCharacterToScenario />,
                     },
 
                     {
