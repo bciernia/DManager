@@ -10,6 +10,10 @@ const getAllCharacters = () =>
     fetch(`http://127.0.0.1:3000/characters/all`)
         .then(res => res.json());
 
+const getCharactersForScenario = (scenarioId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/characters/all`)
+        .then(res => res.json());
+
 const updateCharactersInScenario = (scenarioId, characters) => fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/updateCharacters`, {
     method: "PUT",
     headers: {
@@ -50,12 +54,17 @@ const AddCharacterToScenario = () => {
     const [chosenCharactersToScenario, setChosenCharactersToScenario] = useState([]);
 
     useEffect(() => {
-        getAllCharacters()
-            .then(data => {
-                setAllCharacters(data);
-                if (data[0]) {
-                    setChosenCharacter(data[0]);
+        Promise.all([
+            getAllCharacters(),
+            getCharactersForScenario(scenarioId),
+        ])
+            .then(([allCharacters, scenarioCharacters]) => {
+                setAllCharacters(allCharacters);
+                if (allCharacters[0]) {
+                    setChosenCharacter(allCharacters[0]);
                 }
+                setChosenCharactersToScenario(scenarioCharacters);
+                setChosenCharactersToScenario(scenarioCharacters => scenarioCharacters.map(character => ({...character, tempId: uuid()})));
             });
     }, []);
 
@@ -71,7 +80,7 @@ const AddCharacterToScenario = () => {
             ...chosenCharacter,
             tempId: uuid(),
         }
-        setChosenCharactersToScenario(characters => [...characters, newCharacter]);
+        setChosenCharactersToScenario(characters => [...characters, chosenCharacter]);
     }
 
     const removeCharacterFromScenario = (chosenCharacterTempId) => {
