@@ -352,6 +352,17 @@ dmRouter
         res.status(204).send();
     })
 
+    //GET CHARACTERS FROM THIS SCENARIO
+    .get('/scenario/:scenarioId/characters/all', async (req, res) => {
+        const {scenarioId} = req.params;
+
+        const scenario = await ScenarioRecord.find(scenarioId);
+
+        const characters = await CharacterRecord.findAllByIds(scenario.scenarioCharacters);
+
+        res.status(200).send(characters);
+    })
+
     //UPDATE SCENARIO CHARACTERS
     .put('/scenario/:scenarioId/updateCharacters', async (req, res) => {
         const {scenarioId} = req.params;

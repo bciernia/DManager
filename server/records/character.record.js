@@ -1,4 +1,4 @@
-const {characters} = require("../utils/db");
+const {characters, notes} = require("../utils/db");
 const {v4: uuid} = require('uuid');
 const {ObjectId} = require("mongodb");
 
@@ -208,6 +208,14 @@ class CharacterRecord {
         const ourArray = characterArray.map(obj => new CharacterRecord(obj));
 
         return ourArray;
+    }
+
+    static async findAllByIds(characterIdsArray) {
+        const result = await characters.find();
+        const charactersArray = await result.toArray();
+        const charactersForScenario = characterIdsArray.map(id => charactersArray.find(character => character._id.toString() === id));
+
+        return charactersForScenario;
     }
 
     static async findAllByTeamId(teamId) {

@@ -35,6 +35,10 @@ const getNotesForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/all`)
         .then(res => res.json());
 
+const getCharactersForScenario = (scenarioId) =>
+    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/characters/all`)
+        .then(res => res.json());
+
 const saveNewScenario = (scenarioId, scenario) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
         method: "PUT",
@@ -64,6 +68,8 @@ const EditScenario = (effect, deps) => {
     const [imageDialogOpen, setImageImageDialogOpen] = useState(false);
     const [noteDialogOpen, setNoteDialogOpen] = useState(false);
 
+    const [scenarioCharacters, setScenarioCharacters] = useState([]);
+
     const newNoteTextFieldRef = useRef();
     const editNoteTextFieldRef = useRef();
 
@@ -73,10 +79,12 @@ const EditScenario = (effect, deps) => {
             getLocationsForScenario(scenarioId),
             getHandoutsForScenario(scenarioId),
             getNotesForScenario(scenarioId),
-        ]).then(([scenarioData, locationsData, handoutsData, notesData]) => {
+            getCharactersForScenario(scenarioId),
+        ]).then(([scenarioData, locationsData, handoutsData, notesData, charactersData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData);
             setNotes(notesData);
+            setScenarioCharacters(charactersData);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
             setNewScenarioLocations(locationsData);
@@ -187,6 +195,10 @@ const EditScenario = (effect, deps) => {
         setEditedNote(note.note);
         setChosenNoteId(note._id);
         setNoteDialogOpen(true);
+    }
+
+    const previewCharacter = (character) => {
+        //TODO preview character
     }
 
     const handleNoteDialogClose = () => {
@@ -300,7 +312,6 @@ const EditScenario = (effect, deps) => {
                             )}
                         </Select>
                     </FormControl>
-
                 </Grid>
 
                 <Grid item md={3}>
@@ -346,7 +357,7 @@ const EditScenario = (effect, deps) => {
                     </form>
                     <List sx={{
                         position: "absolute",
-                        top: "17.5rem",
+                        top: "20rem",
                         width: "20rem",
                         display: "flex",
                         justifyContent: "center",
