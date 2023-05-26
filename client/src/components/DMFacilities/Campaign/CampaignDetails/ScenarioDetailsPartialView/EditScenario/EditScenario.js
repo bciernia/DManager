@@ -302,8 +302,30 @@ const EditScenario = (effect, deps) => {
                     </FormControl>
 
                 </Grid>
-                <Grid item md={6}
-                      sx={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flexEnd"}}>
+
+                <Grid item md={3}>
+                    <Typography variant="h4" textAlign="center" sx={{marginBottom: ".5rem"}}>Characters</Typography>
+                    <List sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        flexDirection: "column",
+                    }}>
+                        {scenarioCharacters?.length === 0 &&
+                            <Typography variant="h6" textAlign="center">No characters</Typography>}
+                        {scenarioCharacters.map((character) =>
+                            <ListItem key={character._id} sx={{margin: ".25rem"}} disablePadding>
+                                <Card sx={{backgroundColor: "whitesmoke", width: "100%", minWidth: 320}}>
+                                    <ListItemButton onClick={() => previewCharacter(character)} sx={{textAlign: "center"}}>
+                                        <ListItemText primary={<Typography variant="body2">{character.characterName}</Typography>}/>
+                                    </ListItemButton>
+                                </Card>
+                            </ListItem>
+                        )}
+                    </List>
+                </Grid>
+
+                <Grid item md={3}
+                      sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                     <form id="addNoteForm" className={classes['container--form']}
                           onSubmit={(event) => addNote(event)}>
                         <Button form="addNoteForm"
