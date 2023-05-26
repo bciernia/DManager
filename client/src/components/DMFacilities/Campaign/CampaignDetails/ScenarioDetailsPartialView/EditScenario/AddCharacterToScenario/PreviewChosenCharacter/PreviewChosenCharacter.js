@@ -31,7 +31,7 @@ const PreviewChosenCharacter = props => {
 
                 <div className={classes["container-btns"]}>
                     <Button variant="contained" sx={{margin: ".25rem", width: "5rem", backgroundColor: "#F5793B"}} color="inherit" onClick={handleCharacterDetailsDialogOpen}>Details</Button>
-                    <Button variant="contained" sx={{margin: ".25rem", width: "5rem"}} color="success" >Add</Button>
+                    <Button variant="contained" sx={{margin: ".25rem", width: "5rem"}} color="success" onClick={props.addCharacterToScenario}>Add</Button>
                 </div>
             </Card>
         </>
