@@ -9,12 +9,8 @@
 
 .buttons--container {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    position: absolute;
     gap: .5rem;
-    right: .5rem;
-    top: 6.75rem;
+    margin: .5rem;
 }
 
 .container--form {
