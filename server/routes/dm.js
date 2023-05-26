@@ -352,6 +352,21 @@ dmRouter
         res.status(204).send();
     })
 
+    //UPDATE SCENARIO CHARACTERS
+    .put('/scenario/:scenarioId/updateCharacters', async (req, res) => {
+        const {scenarioId} = req.params;
+
+        const updatedCharacters = req.body;
+
+        const scenarioToUpdate = await ScenarioRecord.find(scenarioId);
+
+        scenarioToUpdate.scenarioCharacters = updatedCharacters;
+
+        await scenarioToUpdate.update();
+
+        res.status(200).send(scenarioToUpdate);
+    })
+
 module.exports = {
     dmRouter,
 }
