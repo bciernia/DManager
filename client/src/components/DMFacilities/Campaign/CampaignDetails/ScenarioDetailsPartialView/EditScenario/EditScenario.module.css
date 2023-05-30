@@ -32,3 +32,9 @@
     gap: .5rem;
     width: 35rem;
 }
+
+.add-note-form {
+    position: absolute;
+    right: 1rem;
+    top: 7.5rem;
+}
