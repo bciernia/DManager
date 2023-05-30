@@ -307,8 +307,8 @@ const EditScenario = (effect, deps) => {
                                     inputProps={{'aria-label': 'Without label'}}
                                     labelId="select-location-label"
                                     label="Choose location"
-                                    displayEmpty={true}
                                 >
+                                    {newScenarioLocations.length === 0 && <MenuItem disabled>No locations</MenuItem>}
                                     {newScenarioLocations.map(location =>
                                         <MenuItem value={location._id}>{location.locationName}</MenuItem>
                                     )}
