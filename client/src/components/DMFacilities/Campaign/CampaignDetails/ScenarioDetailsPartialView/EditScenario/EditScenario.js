@@ -35,10 +35,6 @@ const getNotesForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/all`)
         .then(res => res.json());
 
-const getCharactersForScenario = (scenarioId) =>
-    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/characters/all`)
-        .then(res => res.json());
-
 const saveNewScenario = (scenarioId, scenario) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`, {
         method: "PUT",
@@ -79,12 +75,11 @@ const EditScenario = (effect, deps) => {
             getLocationsForScenario(scenarioId),
             getHandoutsForScenario(scenarioId),
             getNotesForScenario(scenarioId),
-            getCharactersForScenario(scenarioId),
-        ]).then(([scenarioData, locationsData, handoutsData, notesData, charactersData]) => {
+        ]).then(([scenarioData, locationsData, handoutsData, notesData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData);
             setNotes(notesData);
-            setScenarioCharacters(charactersData);
+            setScenarioCharacters(scenarioData.scenarioCharacters);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
             setNewScenarioLocations(locationsData);
@@ -198,7 +193,7 @@ const EditScenario = (effect, deps) => {
     }
 
     const previewCharacter = (character) => {
-        //TODO preview character
+        console.log(character);
     }
 
     const handleNoteDialogClose = () => {
@@ -224,6 +219,7 @@ const EditScenario = (effect, deps) => {
 
     return (
         <div>
+            <Button onClick={() => console.log(scenarioCharacters)}>test</Button>
             <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
             </Dialog>

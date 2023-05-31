@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Button, Card, Grid, List, ListItem, ListItemButton, ListItemText, Typography} from "@mui/material";
+import {Button, Card, Grid, List, ListItem, ListItemButton, ListItemText, TextField, Typography} from "@mui/material";
 import classes from './AddCharacterToScenario.module.css';
 import PreviewChosenCharacter from "./PreviewChosenCharacter/PreviewChosenCharacter";
 import {v4 as uuid} from 'uuid';
@@ -66,12 +66,21 @@ const AddCharacterToScenario = () => {
                     setChosenCharacter(allCharacters[0]);
                 }
                 setChosenCharactersToScenario(scenarioCharacters);
-                setChosenCharactersToScenario(scenarioCharacters => scenarioCharacters.map(character => ({...character, tempId: uuid()})));
+                setChosenCharactersToScenario(scenarioCharacters => scenarioCharacters.map(character => ({
+                    ...character,
+                    tempId: uuid()
+                })));
             });
     }, []);
 
     const updateCharacters = async () => {
-        const updatedIdsOfCharactersInScenario = chosenCharactersToScenario.map(({_id}) => _id);
+        const updatedIdsOfCharactersInScenario = chosenCharactersToScenario.map((character) => ({
+            ...character,
+            tempId: character.tempId,
+            characterDescriptionForScenario: character.characterDescriptionForScenario,
+        }));
+
+        console.log(updatedIdsOfCharactersInScenario);
 
         updateCharactersInScenario(scenarioId, updatedIdsOfCharactersInScenario)
             .then(() => navigate(`/dm/campaign/${campaignId}/scenario/${scenarioId}/edit`));
@@ -81,6 +90,7 @@ const AddCharacterToScenario = () => {
         const newCharacter = {
             ...chosenCharacter,
             tempId: uuid(),
+            characterDescriptionForScenario: characterDescriptionForScenarioRef.current.value,
         }
         setChosenCharactersToScenario(characters => [...characters, newCharacter]);
         characterDescriptionForScenarioRef.current.value = '';

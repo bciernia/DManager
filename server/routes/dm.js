@@ -358,7 +358,9 @@ dmRouter
 
         const scenario = await ScenarioRecord.find(scenarioId);
 
-        const characters = await CharacterRecord.findAllByIds(scenario.scenarioCharacters);
+        const scenarioCharacterIdsArray = scenario.scenarioCharacters.map(character => character._id);
+
+        const characters = await CharacterRecord.findAllByIds(scenarioCharacterIdsArray);
 
         res.status(200).send(characters);
     })
