@@ -53,6 +53,8 @@ const AddCharacterToScenario = () => {
     const [chosenCharacter, setChosenCharacter] = useState({});
     const [chosenCharactersToScenario, setChosenCharactersToScenario] = useState([]);
 
+    const characterDescriptionForScenarioRef = useRef('');
+
     useEffect(() => {
         Promise.all([
             getAllCharacters(),
@@ -80,7 +82,8 @@ const AddCharacterToScenario = () => {
             ...chosenCharacter,
             tempId: uuid(),
         }
-        setChosenCharactersToScenario(characters => [...characters, chosenCharacter]);
+        setChosenCharactersToScenario(characters => [...characters, newCharacter]);
+        characterDescriptionForScenarioRef.current.value = '';
     }
 
     const removeCharacterFromScenario = (chosenCharacterTempId) => {
@@ -122,6 +125,13 @@ const AddCharacterToScenario = () => {
                 <Grid item md={2}>
                     <PreviewChosenCharacter character={chosenCharacter}
                                             addCharacterToScenario={addCharacterToScenario}/>
+                    <div>
+                        <TextField sx={{width: "100%", marginTop: ".5rem"}} type="text" inputProps={{maxLength: 1000}}
+                                   multiline
+                                   rows={5} label="Description for scenario"
+                                   required
+                                   inputRef={characterDescriptionForScenarioRef}/>
+                    </div>
                 </Grid>
                 <Grid item md={5}>
                     <div className={classes.container}>
