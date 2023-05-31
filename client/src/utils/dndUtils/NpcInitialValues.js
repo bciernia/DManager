@@ -15,6 +15,7 @@ export const NpcInitialValues = {
     characterFlaws: '',
     characterWeakness: '',
     characterTreasure: '',
+    characterGeneralDescription: '',
     characterPhoto: '',
     characterLevel: 0,
     exp: 0,

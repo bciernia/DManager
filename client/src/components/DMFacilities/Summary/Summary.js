@@ -2,7 +2,6 @@ import { Button } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import classes from "./Summary.module.css";
 
-
 const Summary = () => {
     const navigate = useNavigate();
 

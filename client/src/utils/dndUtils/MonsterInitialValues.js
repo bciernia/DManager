@@ -13,6 +13,7 @@ export const MonsterInitialValues = {
     characterFlaws: '',
     characterWeakness: '',
     characterTreasure: '',
+    characterGeneralDescription: '',
     characterPhoto: '',
     exp: 0,
     isAlive: true,

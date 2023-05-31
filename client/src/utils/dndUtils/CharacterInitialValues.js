@@ -15,6 +15,7 @@ export const CharacterInitialValues = {
     characterFlaws: '',
     characterWeakness: '',
     characterTreasure: '',
+    characterGeneralDescription: '',
     characterPhoto: '',
     playerName: '',
     characterLevel: 0,
