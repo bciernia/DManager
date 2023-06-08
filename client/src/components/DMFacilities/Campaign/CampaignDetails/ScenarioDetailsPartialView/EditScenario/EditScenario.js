@@ -1,32 +1,24 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {
-    Box,
     Button,
+    Card,
     Dialog,
-    FormControl,
+    Divider,
     Grid,
-    InputLabel, List, ListItem, ListItemButton, ListItemText,
-    MenuItem,
-    Select,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
     TextField,
-    Typography,
-    Card, Divider
+    Typography
 } from "@mui/material";
-import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import classes from './EditScenario.module.css';
-import noMap from '../../../../../../assets/images/no_map.png';
-import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
 import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
 import PreviewLocation from "../../../../Location/PreviewLocation/PreviewLocation"
-import Spinner from "../../../../../UI/Spinner/Spinner";
-import PreviewChosenCharacter from "./AddCharacterToScenario/PreviewChosenCharacter/PreviewChosenCharacter";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
-        .then(res => res.json());
-
-const getLocationsForScenario = (scenarioId) =>
-    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/location/all`)
         .then(res => res.json());
 
 const getHandoutsForScenario = (scenarioId) =>
@@ -56,15 +48,12 @@ const EditScenario = (effect, deps) => {
     const [notes, setNotes] = useState([]);
     const [newScenarioName, setNewScenarioName] = useState();
     const [newScenarioDescription, setNewScenarioDescription] = useState();
-    const [newScenarioLocations, setNewScenarioLocations] = useState([]);
     const [scenarioHandouts, setScenarioHandouts] = useState([]);
     const [editedNote, setEditedNote] = useState('');
     const [chosenNoteId, setChosenNoteId] = useState(0);
 
-    const [chosenLocation, setChosenLocation] = useState({});
     const [chosenCharacter, setChosenCharacter] = useState({});
 
-    const [imageDialogOpen, setImageImageDialogOpen] = useState(false);
     const [noteDialogOpen, setNoteDialogOpen] = useState(false);
     const [characterPreviewDialogOpen, setCharacterPreviewDialogOpen] = useState(false);
 
@@ -76,17 +65,15 @@ const EditScenario = (effect, deps) => {
     useEffect(() => {
         Promise.all([
             getScenarioById(scenarioId),
-            getLocationsForScenario(scenarioId),
             getHandoutsForScenario(scenarioId),
             getNotesForScenario(scenarioId),
-        ]).then(([scenarioData, locationsData, handoutsData, notesData]) => {
+        ]).then(([scenarioData, handoutsData, notesData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData);
             setNotes(notesData);
             setScenarioCharacters(scenarioData.scenarioCharacters);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
-            setNewScenarioLocations(locationsData);
             setScenarioHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
         })
     }, []);
@@ -106,9 +93,6 @@ const EditScenario = (effect, deps) => {
         scenario.scenarioDescription = newScenarioDescription;
     }
 
-    const updateScenarioLocations = (locationId) => {
-        setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
-    }
 
     const addNote = async (event) => {
         event.preventDefault();
@@ -182,9 +166,6 @@ const EditScenario = (effect, deps) => {
         navigate(`newHandout`);
     }
 
-    const handleImageDialogClose = () => {
-        setImageImageDialogOpen(false);
-    };
 
     const previewNote = (note) => {
         setEditedNote(note.note);
@@ -286,10 +267,7 @@ const EditScenario = (effect, deps) => {
             </Grid>
             <Grid container sx={{padding: "1rem"}}>
                 <Grid item md={6}>
-                    <Grid container sx={{padding: "1rem"}}>
-                        <PreviewLocation locations={newScenarioLocations} scenarioId={scenarioId}
-                                         handouts={handouts} updateScenarioLocations={updateScenarioLocations} isInEditingScenario={true}/>
-                    </Grid>
+                    <PreviewLocation scenarioId={scenarioId} isInEditingScenario={true}/>
                 </Grid>
                 <Grid item md={3}>
                     <Grid container sx={{padding: "1rem"}}>
