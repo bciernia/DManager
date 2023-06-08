@@ -52,6 +52,7 @@ const StartNewSession = props => {
     const changeChosenCampaign = (campaign) => {
         setChosenCampaign(campaign);
         setChosenScenario({});
+        setSelectedScenarioListItem(0);
     }
 
     const startSession = () => {
