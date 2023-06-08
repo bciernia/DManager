@@ -16,6 +16,9 @@ const StartNewSession = props => {
 
     const navigate = useNavigate();
 
+    const [selectedCampaignListItem, setSelectedCampaignListItem] = useState(0);
+    const [selectedScenarioListItem, setSelectedScenarioListItem] = useState(0);
+
     const [isLoading, setIsLoading] = useState(false);
     const [campaignsArray, setCampaignsArray] = useState([]);
     const [chosenCampaign, setChosenCampaign] = useState({});
@@ -38,9 +41,31 @@ const StartNewSession = props => {
         setIsLoading(false);
     }, [chosenCampaign])
 
+    const handleCampaignListItemClick = (event, index) => {
+        setSelectedCampaignListItem(index);
+    };
+
+    const handleScenarioListItemClick = (event, index) => {
+        setSelectedScenarioListItem(index);
+    };
+
     const changeChosenCampaign = (campaign) => {
         setChosenCampaign(campaign);
         setChosenScenario({});
+    }
+
+    const startSession = () => {
+        if(!chosenCampaign._id){
+            alert("You have to choose campaign");
+            return;
+        }
+
+        if(!chosenScenario._id){
+            alert("You have to choose scenario");
+            return;
+        }
+
+        navigate(`/campaign/${chosenCampaign._id.toString()}/scenario/${chosenScenario._id.toString()}/session`);
     }
 
     return (
@@ -55,11 +80,15 @@ const StartNewSession = props => {
                     {campaignsArray?.length === 0 ?
                         <Typography variant="h6" textAlign="center">No campaigns</Typography> :
                         <Typography variant="h6" textAlign="center">Choose campaign to play</Typography>}
-                    {campaignsArray.map((campaign) =>
+                    {campaignsArray.map((campaign, index) =>
                         <ListItem key={campaign._id}
                                   sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
                                   disablePadding>
-                            <ListItemButton onClick={() => changeChosenCampaign(campaign)}
+                            <ListItemButton selected={selectedCampaignListItem === index + 1}
+                                            onClick={(event) => {
+                                                changeChosenCampaign(campaign)
+                                                handleCampaignListItemClick(event, index + 1)
+                                            }}
                                             sx={{textAlign: "center"}}>
                                 <ListItemText primary={<Typography
                                     variant="body2">{campaign.campaignName}</Typography>}/>
@@ -79,11 +108,15 @@ const StartNewSession = props => {
                     {scenariosFromChosenCampaign.length === 0 ?
                         <Typography variant="h6" textAlign="center">No scenarios in chosen campaign</Typography>
                         : <Typography variant="h6" textAlign="center">Choose scenario to play</Typography>}
-                    {scenariosFromChosenCampaign.map((scenario) =>
+                    {scenariosFromChosenCampaign.map((scenario, index) =>
                         <ListItem key={scenario._id}
                                   sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
                                   disablePadding>
-                            <ListItemButton onClick={() => setChosenScenario(scenario)}
+                            <ListItemButton selected={selectedScenarioListItem === index+1}
+                                            onClick={(event) => {
+                                                setChosenScenario(scenario);
+                                                handleScenarioListItemClick(event, index + 1)
+                                            }}
                                             sx={{textAlign: "center"}}>
                                 <ListItemText primary={<Typography
                                     variant="body2">{scenario.scenarioName}</Typography>}/>
@@ -92,7 +125,9 @@ const StartNewSession = props => {
                     )}
                 </List>
             </Card>}
-            <Button onClick={() => navigate(`/campaign/${chosenCampaign._id.toString()}/scenario/${chosenScenario._id.toString()}/session`)}>START SESSION</Button>
+            <Button
+                onClick={startSession}>START
+                SESSION</Button>
         </>
     )
 }

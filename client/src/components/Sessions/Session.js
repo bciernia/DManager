@@ -4,6 +4,8 @@ import {useParams} from "react-router-dom";
 import {Grid} from "@mui/material";
 
 const Session = props => {
+    // TODO ask if someone want to exit
+
     const {campaignId, scenarioId} = useParams();
 
     return (

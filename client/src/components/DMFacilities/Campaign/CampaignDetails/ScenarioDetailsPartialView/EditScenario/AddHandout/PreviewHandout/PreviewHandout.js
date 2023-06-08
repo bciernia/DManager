@@ -17,9 +17,6 @@ const PreviewHandout = props => {
 
     //TODO img scale
 
-    console.log("DZIECKO");
-
-
     return (
         <>
             <Dialog onClose={handleClose} open={dialogOpen} maxWidth="md">
