@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             {
                 path: "campaign", children: [
                     {
-                        path: ":campaignId/session/:sessionId", element: <Session/>
+                        path: ":campaignId/scenario/:scenarioId/session", element: <Session/>
                     },
                 ]
             },
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
                     },
 
                     {
-                        path: 'campaign', element: <CampaignsSummary/>,
+                        path: 'campaign', element: <CampaignsSummary />,
                     },
 
                     {
