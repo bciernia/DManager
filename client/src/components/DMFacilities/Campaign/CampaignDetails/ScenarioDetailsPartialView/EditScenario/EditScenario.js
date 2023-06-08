@@ -17,6 +17,7 @@ import classes from './EditScenario.module.css';
 import noMap from '../../../../../../assets/images/no_map.png';
 import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
 import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
+import PreviewLocation from "../../../../Location/PreviewLocation/PreviewLocation"
 import Spinner from "../../../../../UI/Spinner/Spinner";
 import PreviewChosenCharacter from "./AddCharacterToScenario/PreviewChosenCharacter/PreviewChosenCharacter";
 
@@ -105,6 +106,10 @@ const EditScenario = (effect, deps) => {
         scenario.scenarioDescription = newScenarioDescription;
     }
 
+    const updateScenarioLocations = (locationId) => {
+        setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
+    }
+
     const addNote = async (event) => {
         event.preventDefault();
 
@@ -165,10 +170,6 @@ const EditScenario = (effect, deps) => {
         await updateScenarioNotes();
     }
 
-    const showLocationDetails = (locationId) => {
-        setChosenLocation(newScenarioLocations.find(location => location._id === locationId));
-    }
-
     const addLocation = () => {
         navigate(`newLocation`);
     }
@@ -179,10 +180,6 @@ const EditScenario = (effect, deps) => {
 
     const addHandout = () => {
         navigate(`newHandout`);
-    }
-
-    const previewImg = () => {
-        setImageImageDialogOpen(true);
     }
 
     const handleImageDialogClose = () => {
@@ -208,28 +205,8 @@ const EditScenario = (effect, deps) => {
         setCharacterPreviewDialogOpen(false);
     }
 
-    const deleteLocation = (locationId) => {
-        setChosenLocation({});
-
-        fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/${locationId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-type": "application/json",
-            },
-        }).then(res => {
-            setNewScenarioLocations((locations) => locations.filter(location => location._id !== locationId))
-        });
-    }
-
-    const editLocation = (locationId) => {
-        navigate(`location/${locationId}`);
-    }
-
     return (
         <div>
-            <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
-                <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
-            </Dialog>
             <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
                 <form id="editNoteForm" className={classes['note-dialog']}
                       onSubmit={(event) => editNote(event)}>
@@ -254,7 +231,8 @@ const EditScenario = (effect, deps) => {
             <Dialog onClose={handleCharacterPreviewClose} open={characterPreviewDialogOpen} maxWidth="md">
                 <Card sx={{padding: ".5rem .5rem"}}>
                     <div className={classes["img-container"]}>
-                        <img src={chosenCharacter.characterPhoto} alt="Character photo" className={classes["character-photo"]}/>
+                        <img src={chosenCharacter.characterPhoto} alt="Character photo"
+                             className={classes["character-photo"]}/>
                     </div>
                     <Divider/>
                     <Typography>{chosenCharacter.characterName}</Typography>
@@ -272,113 +250,45 @@ const EditScenario = (effect, deps) => {
                             variant="contained" color="inherit" onClick={addHandout}>Add handout</Button></>}</div>
             <Grid container>
                 <Grid item md={6}>
-                {!isEditModeOn ? <Typography variant="h5">{scenario.scenarioName}</Typography>
-                    :
-                    <TextField
-                        sx={{width: "80%"}} type="text" label="Title"
-                        inputProps={{maxLength: 50}}
-                        required
-                        defaultValue={newScenarioName}
-                        onChange={(event) => setNewScenarioName(event.target.value)}/>
-                }
+                    {!isEditModeOn ? <Typography variant="h5">{scenario.scenarioName}</Typography>
+                        :
+                        <TextField
+                            sx={{width: "80%"}} type="text" label="Title"
+                            inputProps={{maxLength: 50}}
+                            required
+                            defaultValue={newScenarioName}
+                            onChange={(event) => setNewScenarioName(event.target.value)}/>
+                    }
 
-                {!isEditModeOn ? <Typography variant="body2" sx={{
-                        overflow: "hidden",
-                        fontStyle: "italic"
-                    }}>{scenario.scenarioDescription}</Typography>
-                    :
-                    <TextField
-                        sx={{width: "80%"}} type="text" label="Description"
-                        inputProps={{maxLength: 1000}}
-                        required
-                        multiline
-                        rows={3}
-                        defaultValue={newScenarioDescription}
-                        onChange={(event) => setNewScenarioDescription(event.target.value)}/>
-                }
-                {!isEditModeOn &&
-                    <>
-                        <Typography variant="h6">Scenario handouts</Typography>
-                        <div>
-                            {(scenarioHandouts.length === 0) ? (<Typography>No handouts in scenario</Typography>)
-                                : (scenarioHandouts.map(handout => <PreviewHandout handout={handout}/>))}
-                        </div>
-                    </>}
+                    {!isEditModeOn ? <Typography variant="body2" sx={{
+                            overflow: "hidden",
+                            fontStyle: "italic"
+                        }}>{scenario.scenarioDescription}</Typography>
+                        :
+                        <TextField
+                            sx={{width: "80%"}} type="text" label="Description"
+                            inputProps={{maxLength: 1000}}
+                            required
+                            multiline
+                            rows={3}
+                            defaultValue={newScenarioDescription}
+                            onChange={(event) => setNewScenarioDescription(event.target.value)}/>
+                    }
+                    {!isEditModeOn &&
+                        <>
+                            <Typography variant="h6">Scenario handouts</Typography>
+                            <div>
+                                {(scenarioHandouts.length === 0) ? (<Typography>No handouts in scenario</Typography>)
+                                    : (scenarioHandouts.map(handout => <PreviewHandout handout={handout}/>))}
+                            </div>
+                        </>}
                 </Grid>
             </Grid>
             <Grid container sx={{padding: "1rem"}}>
                 <Grid item md={6}>
                     <Grid container sx={{padding: "1rem"}}>
-                        <Grid item md={12} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <Typography variant="h4" textAlign="center"
-                                        sx={{marginBottom: ".5rem"}}>Locations</Typography>
-                            <FormControl sx={{minWidth: 250}}>
-                                <InputLabel id="select-location-label">Choose location</InputLabel>
-                                <Select
-                                    onChange={(event) => showLocationDetails(event.target.value)}
-                                    inputProps={{'aria-label': 'Without label'}}
-                                    labelId="select-location-label"
-                                    label="Choose location"
-                                >
-                                    {newScenarioLocations.length === 0 && <MenuItem disabled>No locations</MenuItem>}
-                                    {newScenarioLocations.map(location =>
-                                        <MenuItem value={location._id}>{location.locationName}</MenuItem>
-                                    )}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item md={12} sx={{marginTop: ".5rem"}}>
-                            {chosenLocation._id !== undefined &&
-                                <Card sx={{backgroundColor: "whitesmoke", padding: ".5rem"}}>
-                                    {/*<Button sx={{}} variant="contained">Delete location</Button>*/}
-                                    <div>
-                                        <Box sx={{width: "100%", height: "100%"}}>
-                                            <Grid container>
-                                                <Grid item md={3} sx={{marginRight: "1rem"}}>
-                                                    {chosenLocation.locationMap === null &&
-                                                        <img src={noMap} alt="No uploaded map"
-                                                             className={classes["img__preview"]}/>}
-                                                    {chosenLocation.locationMap &&
-                                                        <img src={chosenLocation.locationMap}
-                                                             alt="Uploaded image preview"
-                                                             className={classes["img__preview"]}
-                                                             onClick={previewImg}/>}
-                                                    <Box sx={{width: "100%", display: "flex", height: "rem"}}>
-
-                                                        <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
-                                                                variant="contained" color="primary"
-                                                                onClick={() => (editLocation(chosenLocation._id))}
-                                                        >Edit
-                                                        </Button>
-                                                        <Button sx={{width: "6.5rem", margin: ".25rem .5rem .25rem 0"}}
-                                                                variant="contained"
-                                                                color="error"
-                                                                onClick={() => deleteLocation(chosenLocation._id)}>Delete </Button>
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item md={8}>
-                                                    <Typography variant="h5">
-                                                        {chosenLocation.locationName}
-                                                    </Typography>
-                                                    <Typography>
-                                                        {chosenLocation.locationDescription}
-                                                    </Typography>
-                                                    <div>
-                                                        {handouts.map(
-                                                            handout => (handout.handoutLocation === chosenLocation._id.toString()) ?
-                                                                <PreviewHandout handout={handout}/>
-                                                                : <Typography></Typography>)}
-                                                    </div>
-                                                </Grid>
-                                            </Grid>
-                                            <Typography variant="h5">Rooms</Typography>
-                                            {chosenLocation.locationRooms && chosenLocation.locationRooms.map(room =>
-                                                <PreviewLocationRoom room={room} handouts={handouts}/>
-                                            )}
-                                        </Box>
-                                    </div>
-                                </Card>}
-                        </Grid>
+                        <PreviewLocation locations={newScenarioLocations} scenarioId={scenarioId}
+                                         handouts={handouts} updateScenarioLocations={updateScenarioLocations} isInEditingScenario={true}/>
                     </Grid>
                 </Grid>
                 <Grid item md={3}>
@@ -395,6 +305,7 @@ const EditScenario = (effect, deps) => {
                                     flexDirection: "column",
                                     alignContent: "center",
                                 }}>
+                                    {/*TODO many characters as one item in list*/}
                                     {scenarioCharacters?.length === 0 &&
                                         <Typography variant="h6" textAlign="center">No characters</Typography>}
                                     {scenarioCharacters.map((character) =>
