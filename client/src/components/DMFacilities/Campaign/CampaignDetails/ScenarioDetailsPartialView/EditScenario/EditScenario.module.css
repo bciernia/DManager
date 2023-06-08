@@ -38,3 +38,14 @@
     right: 1rem;
     top: 7.5rem;
 }
+
+.img-container{
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5rem;
+}
+
+.character-photo{
+    margin: auto;
+    height: 15rem;
+}

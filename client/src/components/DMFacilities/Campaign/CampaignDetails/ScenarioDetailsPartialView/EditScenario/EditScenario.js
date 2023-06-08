@@ -10,7 +10,7 @@ import {
     Select,
     TextField,
     Typography,
-    Card
+    Card, Divider
 } from "@mui/material";
 import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import classes from './EditScenario.module.css';
@@ -18,6 +18,7 @@ import noMap from '../../../../../../assets/images/no_map.png';
 import PreviewLocationRoom from "./AddLocation/PreviewLocation/PreviewLocationRoom";
 import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
 import Spinner from "../../../../../UI/Spinner/Spinner";
+import PreviewChosenCharacter from "./AddCharacterToScenario/PreviewChosenCharacter/PreviewChosenCharacter";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -60,9 +61,11 @@ const EditScenario = (effect, deps) => {
     const [chosenNoteId, setChosenNoteId] = useState(0);
 
     const [chosenLocation, setChosenLocation] = useState({});
+    const [chosenCharacter, setChosenCharacter] = useState({});
 
     const [imageDialogOpen, setImageImageDialogOpen] = useState(false);
     const [noteDialogOpen, setNoteDialogOpen] = useState(false);
+    const [characterPreviewDialogOpen, setCharacterPreviewDialogOpen] = useState(false);
 
     const [scenarioCharacters, setScenarioCharacters] = useState([]);
 
@@ -193,11 +196,16 @@ const EditScenario = (effect, deps) => {
     }
 
     const previewCharacter = (character) => {
-        console.log(character);
+        setChosenCharacter(character);
+        setCharacterPreviewDialogOpen(true);
     }
 
     const handleNoteDialogClose = () => {
         setNoteDialogOpen(false);
+    }
+
+    const handleCharacterPreviewClose = () => {
+        setCharacterPreviewDialogOpen(false);
     }
 
     const deleteLocation = (locationId) => {
@@ -219,7 +227,6 @@ const EditScenario = (effect, deps) => {
 
     return (
         <div>
-            <Button onClick={() => console.log(scenarioCharacters)}>test</Button>
             <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
             </Dialog>
@@ -243,6 +250,15 @@ const EditScenario = (effect, deps) => {
                                 onClick={(event) => deleteNote(event, chosenNoteId)}>Delete</Button>
                     </div>
                 </form>
+            </Dialog>
+            <Dialog onClose={handleCharacterPreviewClose} open={characterPreviewDialogOpen} maxWidth="md">
+                <Card sx={{padding: ".5rem .5rem"}}>
+                    <div className={classes["img-container"]}>
+                        <img src={chosenCharacter.characterPhoto} alt="Character photo" className={classes["character-photo"]}/>
+                    </div>
+                    <Divider/>
+                    <Typography>{chosenCharacter.characterName}</Typography>
+                </Card>
             </Dialog>
             <div className={classes["buttons--container"]}>
                 {!isEditModeOn ? <Button variant="contained" onClick={changeScenarioName}>Edit</Button> :
