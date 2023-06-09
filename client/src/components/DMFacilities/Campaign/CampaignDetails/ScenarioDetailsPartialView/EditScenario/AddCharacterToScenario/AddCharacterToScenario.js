@@ -139,7 +139,6 @@ const AddCharacterToScenario = () => {
                         <TextField sx={{width: "100%", marginTop: ".5rem"}} type="text" inputProps={{maxLength: 1000}}
                                    multiline
                                    rows={5} label="Description for scenario"
-                                   required
                                    inputRef={characterDescriptionForScenarioRef}/>
                     </div>
                 </Grid>

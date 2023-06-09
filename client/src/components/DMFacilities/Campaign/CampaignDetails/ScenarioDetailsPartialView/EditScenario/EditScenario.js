@@ -216,7 +216,8 @@ const EditScenario = (effect, deps) => {
                              className={classes["character-photo"]}/>
                     </div>
                     <Divider/>
-                    <Typography>{chosenCharacter.characterName}</Typography>
+                    <Typography variant="h6">{chosenCharacter.characterName}</Typography>
+                    <Typography variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
                 </Card>
             </Dialog>
             <div className={classes["buttons--container"]}>
