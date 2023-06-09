@@ -56,12 +56,12 @@ const StartNewSession = props => {
     }
 
     const startSession = () => {
-        if(!chosenCampaign._id){
+        if (!chosenCampaign._id) {
             alert("You have to choose campaign");
             return;
         }
 
-        if(!chosenScenario._id){
+        if (!chosenScenario._id) {
             alert("You have to choose scenario");
             return;
         }
@@ -113,7 +113,7 @@ const StartNewSession = props => {
                         <ListItem key={scenario._id}
                                   sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
                                   disablePadding>
-                            <ListItemButton selected={selectedScenarioListItem === index+1}
+                            <ListItemButton selected={selectedScenarioListItem === index + 1}
                                             onClick={(event) => {
                                                 setChosenScenario(scenario);
                                                 handleScenarioListItemClick(event, index + 1)
@@ -126,9 +126,7 @@ const StartNewSession = props => {
                     )}
                 </List>
             </Card>}
-            <Button
-                onClick={startSession}>START
-                SESSION</Button>
+            <Button onClick={startSession}>START SESSION</Button>
         </>
     )
 }
