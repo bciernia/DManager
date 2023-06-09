@@ -69,10 +69,9 @@ const PreviewLocation = props => {
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
             </Dialog>
             <Grid container sx={{padding: "1rem"}}>
-
                 <Grid item md={12} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    <Typography variant="h4" textAlign="center"
-                                sx={{marginBottom: ".5rem"}}>Locations</Typography>
+                    {props.isInEditingScenario ? <Typography variant="h4" textAlign="center"
+                                sx={{marginBottom: ".5rem"}}>Locations</Typography> : <Typography variant="h5">Locations</Typography>}
                     <FormControl sx={{minWidth: 250}}>
                         <InputLabel id="select-location-label">Choose location</InputLabel>
                         <Select
