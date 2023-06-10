@@ -68,10 +68,10 @@ const PreviewLocation = props => {
             <Dialog onClose={handleImageDialogClose} open={imageDialogOpen} maxWidth="md">
                 <img src={chosenLocation.locationMap} alt="Image preview dialog"/>
             </Dialog>
-            <Grid container sx={{padding: "1rem"}}>
+            <Grid container sx={{padding: "0 1rem 1rem"}}>
                 <Grid item md={12} sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                    {props.isInEditingScenario ? <Typography variant="h4" textAlign="center"
-                                sx={{marginBottom: ".5rem"}}>Locations</Typography> : <Typography variant="h5">Locations</Typography>}
+                    {props.isInEditingScenario && <Typography variant="h4" textAlign="center"
+                                sx={{marginBottom: ".5rem"}}>Locations</Typography>}
                     <FormControl sx={{minWidth: 250}}>
                         <InputLabel id="select-location-label">Choose location</InputLabel>
                         <Select
@@ -86,6 +86,7 @@ const PreviewLocation = props => {
                             )}
                         </Select>
                     </FormControl>
+
                 </Grid>
                 <Grid item md={12} sx={{marginTop: ".5rem"}}>
                     {chosenLocation._id !== undefined &&
