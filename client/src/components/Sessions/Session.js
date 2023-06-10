@@ -1,11 +1,25 @@
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Box, Card, Divider, Grid, List, ListItem, ListItemText, Tab, Tabs, Typography} from "@mui/material";
+import {
+    Box, Button,
+    Card,
+    Divider,
+    Grid,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    Tab,
+    Tabs, TextField,
+    Typography
+} from "@mui/material";
 import PreviewHandout
     from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddHandout/PreviewHandout/PreviewHandout";
 import Timer from "../Layout/Main/SessionStarter/Timer/Timer";
 import {TabContext, TabPanel} from "@mui/lab";
+import classes
+    from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditScenario.module.css";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -27,6 +41,8 @@ const Session = props => {
     const [scenario, setScenario] = useState({});
     const [handouts, setHandouts] = useState([]);
     const [notes, setNotes] = useState([]);
+    const [characters, setCharacters] = useState([]);
+    const [chosenCharacter, setChosenCharacter] = useState({});
 
     const [value, setValue] = React.useState('one');
 
@@ -39,7 +55,8 @@ const Session = props => {
             setScenario(scenarioData);
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
-        })
+            setCharacters(scenarioData.scenarioCharacters);
+        });
     }, []);
 
     const handleChange = (event, newValue) => {
@@ -99,7 +116,6 @@ const Session = props => {
                             <PreviewHandout
                                 handout={handout}/>)}</Box>
                     </Grid>
-
                     <Grid item md={7}>
                         <TabPanel value="one" index={0}>
                             <Grid container>
@@ -107,7 +123,72 @@ const Session = props => {
                             </Grid>
                         </TabPanel>
                         <TabPanel value="two" index={1}>
-                            Item Two
+                            <Grid container>
+                                <Grid item={2}>
+                                    <List sx={{
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        height: "35rem",
+                                        overflow: "auto",
+                                        overflowX: "hidden",
+                                    }}>
+                                        {characters?.length === 0 &&
+                                            <Typography variant="h6" textAlign="center">No characters</Typography>}
+                                        {characters.map((character) =>
+                                            <ListItem key={character._id}
+                                                      sx={{margin: ".25rem", display: "flex"}}
+                                                      disablePadding>
+                                                <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                                    <ListItemButton onClick={() => {
+                                                        setChosenCharacter(character);
+                                                    }}
+                                                                    sx={{textAlign: "center"}}>
+                                                        <ListItemText primary={<Typography
+                                                            variant="body2">{character.characterName}</Typography>}/>
+                                                    </ListItemButton>
+                                                </Card>
+                                            </ListItem>
+                                        )}
+                                    </List>
+                                </Grid>
+                                <Grid item={10}>
+                                    <Card sx={{marginLeft: "1rem", padding: ".5rem .5rem", width: 600}}>
+                                        <Grid container>
+                                            <Grid item xs={4}>
+                                                <div className={classes["img-container"]}>
+                                                    <img src={chosenCharacter.characterPhoto} alt="Character photo"
+                                                         className={classes["character-photo"]}/>
+                                                </div>
+                                                <div>
+                                                    <Button onClick={() => console.log(chosenCharacter.characterHP)}>Dead</Button>
+                                                    <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
+                                                        console.log(e.target.value);
+                                                        setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
+                                                        setCharacters(characters => {
+                                                            return characters.map(character => {
+                                                                if(character.tempId === chosenCharacter.tempId){
+                                                                    return {...chosenCharacter, characterHP: e.target.value};
+                                                                }else{
+                                                                    return character;
+                                                                }
+                                                            })
+                                                        })
+                                                    }}/>
+                                                </div>
+                                            </Grid>
+                                            <Divider orientation="vertical" flexItem/>
+                                            <Grid item xs={7.95}>
+                                                <Box sx={{margin: "0 .25rem"}}>
+                                                    <Typography
+                                                        variant="h6">{chosenCharacter.characterName}</Typography>
+                                                    <Typography
+                                                        variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
+                                    </Card>
+                                </Grid>
+                            </Grid>
                         </TabPanel>
                         <TabPanel value="three" index={2}>
                             <PreviewLocation scenarioId={scenarioId} isInEditingScenario={false}/>
