@@ -209,7 +209,7 @@ const EditScenario = (effect, deps) => {
                     </div>
                 </form>
             </Dialog>
-            <Dialog onClose={handleCharacterPreviewClose} open={characterPreviewDialogOpen} maxWidth="md">
+            <Dialog onClose={handleCharacterPreviewClose} open={characterPreviewDialogOpen} maxWidth="xs">
                 <Card sx={{padding: ".5rem .5rem"}}>
                     <div className={classes["img-container"]}>
                         <img src={chosenCharacter.characterPhoto} alt="Character photo"
