@@ -1,7 +1,7 @@
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
-import {Box, Card, Grid, List, ListItem, ListItemText, Tab, Tabs, Typography} from "@mui/material";
+import {Box, Card, Divider, Grid, List, ListItem, ListItemText, Tab, Tabs, Typography} from "@mui/material";
 import PreviewHandout
     from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddHandout/PreviewHandout/PreviewHandout";
 import Timer from "../Layout/Main/SessionStarter/Timer/Timer";
@@ -53,7 +53,7 @@ const Session = props => {
                     <Grid item md={3}>
                         <Grid container>
                             <Grid item md={12}>
-                                <Typography variant="h6" sx={{marginLeft:".5rem"}}>Scenario name</Typography>
+                                <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario name</Typography>
                             </Grid>
                             <Grid item md={12}>
                                 <Typography sx variant="h5" sx={{margin: ".5rem"}}>{scenario.scenarioName}</Typography>
@@ -73,7 +73,6 @@ const Session = props => {
                                 },
                             }}
                             TabIndicatorProps={{
-
                                 style: {
                                     backgroundColor: "#F5793B",
                                 }
@@ -89,13 +88,14 @@ const Session = props => {
                             sx={{display: "flex", justifyContent: "flex-end", margin: ".5rem .5rem 0 0"}}><Timer/></Box>
                     </Grid>
                 </Grid>
-
+                <Divider/>
                 <Grid container>
                     <Grid item md={2}>
-                        <Typography variant="h6" sx={{marginLeft:".5rem"}}>Scenario description</Typography>
-                        <Typography variant="body2" sx={{margin:"1rem"}}>{scenario.scenarioDescription}</Typography>
-                        <Typography variant="h6" sx={{marginLeft:".5rem"}}>Scenario handouts</Typography>
-                        <Box sx={{marginLeft:".5rem"}}>{handouts.map(handout =>
+                        <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario description</Typography>
+                        <Typography variant="body2"
+                                    sx={{marginLeft: " .5rem"}}>{scenario.scenarioDescription}</Typography>
+                        <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario handouts</Typography>
+                        <Box sx={{marginLeft: ".5rem"}}>{handouts.map(handout =>
                             <PreviewHandout
                                 handout={handout}/>)}</Box>
                     </Grid>
