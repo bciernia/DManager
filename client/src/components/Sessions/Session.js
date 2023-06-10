@@ -152,6 +152,7 @@ const Session = props => {
                                     </List>
                                 </Grid>
                                 <Grid item={10}>
+                                    {chosenCharacter._id &&
                                     <Card sx={{marginLeft: "1rem", padding: ".5rem .5rem", width: 600}}>
                                         <Grid container>
                                             <Grid item xs={4}>
@@ -186,7 +187,7 @@ const Session = props => {
                                                 </Box>
                                             </Grid>
                                         </Grid>
-                                    </Card>
+                                    </Card>}
                                 </Grid>
                             </Grid>
                         </TabPanel>
