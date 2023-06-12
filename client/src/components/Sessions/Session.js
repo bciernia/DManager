@@ -63,6 +63,11 @@ const Session = props => {
         setValue(newValue);
     };
 
+    const removeDeadCharacter = (characterId) => {
+        setCharacters(prevCharacters => prevCharacters.filter(character => character.tempId !== characterId));
+        setChosenCharacter({});
+    }
+
     return (
         <div>
             <TabContext value={value}>
@@ -135,7 +140,7 @@ const Session = props => {
                                         {characters?.length === 0 &&
                                             <Typography variant="h6" textAlign="center">No characters</Typography>}
                                         {characters.map((character) =>
-                                            <ListItem key={character._id}
+                                            <ListItem key={character.tempId}
                                                       sx={{margin: ".25rem", display: "flex"}}
                                                       disablePadding>
                                                 <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
@@ -161,7 +166,7 @@ const Session = props => {
                                                          className={classes["character-photo"]}/>
                                                 </div>
                                                 <div>
-                                                    <Button onClick={() => console.log(chosenCharacter.characterHP)}>Dead</Button>
+                                                    <Button onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
                                                     <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
                                                         console.log(e.target.value);
                                                         setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
