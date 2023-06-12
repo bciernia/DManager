@@ -80,8 +80,6 @@ const AddCharacterToScenario = () => {
             characterDescriptionForScenario: character.characterDescriptionForScenario,
         }));
 
-        console.log(updatedIdsOfCharactersInScenario);
-
         updateCharactersInScenario(scenarioId, updatedIdsOfCharactersInScenario)
             .then(() => navigate(`/dm/campaign/${campaignId}/scenario/${scenarioId}/edit`));
     }

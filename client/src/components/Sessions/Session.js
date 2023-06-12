@@ -168,7 +168,6 @@ const Session = props => {
                                                 <div>
                                                     <Button onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
                                                     <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
-                                                        console.log(e.target.value);
                                                         setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
                                                         setCharacters(characters => {
                                                             return characters.map(character => {
