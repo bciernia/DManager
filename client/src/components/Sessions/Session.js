@@ -69,7 +69,7 @@ const Session = props => {
     }
 
     return (
-        <div>
+        <>
             <TabContext value={value}>
                 <Grid container>
                     <Grid item md={3}>
@@ -227,7 +227,7 @@ const Session = props => {
                 </Grid>
 
             </TabContext>
-        </div>
+        </>
     )
 }
 
