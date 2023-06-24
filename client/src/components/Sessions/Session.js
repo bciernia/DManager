@@ -56,6 +56,9 @@ const Session = props => {
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
             setCharacters(scenarioData.scenarioCharacters);
+            if(scenarioData.scenarioCharacters.length > 0){
+                setChosenCharacter(scenarioData.scenarioCharacters[0]);
+            }
         });
     }, []);
 
