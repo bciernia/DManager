@@ -32,6 +32,7 @@ import EditLocation
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditLocation/EditLocation";
 import AddCharacterToScenario
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddCharacterToScenario/AddCharacterToScenario";
+import Spells from "./components/DMFacilities/Spells/Spells";
 
 const router = createBrowserRouter([
     {
@@ -146,6 +147,10 @@ const router = createBrowserRouter([
 
                     {
                         path: "characters/:characterId", element: <CharacterDetails/>,
+                    },
+
+                    {
+                        path: "spells", element: <Spells />
                     },
 
                 ]

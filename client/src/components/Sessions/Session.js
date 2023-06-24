@@ -44,7 +44,7 @@ const Session = props => {
     const [characters, setCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
 
-    const [value, setValue] = React.useState('one');
+    const [value, setValue] = useState('one');
 
     useEffect(() => {
         Promise.all([

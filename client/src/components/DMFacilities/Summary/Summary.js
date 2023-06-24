@@ -17,6 +17,10 @@ const Summary = () => {
         navigate('session-history');
     }
 
+    const goToSpellsMenu = () => {
+        navigate('spells');
+    }
+
     return (
         <div className={classes.container}>
             <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
@@ -25,6 +29,8 @@ const Summary = () => {
                     onClick={goToCharactersMenu}>Characters</Button>
             <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
                     onClick={goToSessionHistoryMenu}>Session history</Button>
+            <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
+                    onClick={goToSpellsMenu}>Spells</Button>
         </div>
     )
 }
