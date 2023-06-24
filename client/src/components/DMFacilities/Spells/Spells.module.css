@@ -1,0 +1,6 @@
+.spellForm {
+    display: flex;
+    flex-direction: column;
+    width: 27.5rem;
+    margin: 1rem;
+}
