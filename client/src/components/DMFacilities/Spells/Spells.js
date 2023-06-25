@@ -15,7 +15,8 @@ const Spells = () => {
     const [spellDmg, setSpellDmg] = useState('');
     const [spellIsAvailableFor, setSpellIsAvailableFor] = useState([]);
     const [spellSchool, setSpellSchool] = useState('');
-    const [spellComponents, setSpellComponents] = useState('');
+    const [spellComponents, setSpellComponents] = useState([]);
+    const [spellMaterialComponent, setSpellMaterialComponent] = useState('');
     const [spellRange, setSpellRange] = useState('');
     const [spellDuration, setSpellDuration] = useState('');
     const [spellCastingTime, setSpellCastingTime] = useState('');
@@ -40,6 +41,7 @@ const Spells = () => {
             availableFor: spellIsAvailableFor,
             school: spellSchool,
             components: spellComponents,
+            materialComponent: spellMaterialComponent,
             range: spellRange,
             duration: spellDuration,
             castingTime: spellCastingTime,

@@ -13,6 +13,7 @@ class SpellRecord {
         this.availableFor = obj.availableFor;
         this.school = obj.school;
         this.components = obj.components;
+        this.materialComponent = obj.materialComponent;
         this.range = obj.range;
         this.duration = obj.duration;
         this.castingTime = obj.castingTime;
@@ -29,6 +30,7 @@ class SpellRecord {
             availableFor: this.availableFor,
             school: this.school,
             components: this.components,
+            materialComponent: this.materialComponent,
             range: this.range,
             duration: this.duration,
             castingTime: this.castingTime,
@@ -50,6 +52,7 @@ class SpellRecord {
             availableFor: this.availableFor,
             school: this.school,
             components: this.components,
+            materialComponent: this.materialComponent,
             range: this.range,
             duration: this.duration,
             castingTime: this.castingTime,
