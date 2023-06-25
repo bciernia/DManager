@@ -385,12 +385,9 @@ dmRouter
     .post('/spells/newSpell', async (req, res) => {
         const spell = req.body;
 
-        console.log(spell);
-
         const newSpell = new SpellRecord({
             ...spell
         });
-        console.log("ASDF");
 
         const newSpellId = await newSpell.insert();
 

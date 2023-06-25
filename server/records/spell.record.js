@@ -37,8 +37,6 @@ class SpellRecord {
         });
         this._id = insertedId.toString();
 
-        console.log("INSERTOWANIE");
-
         return insertedId;
     }
 

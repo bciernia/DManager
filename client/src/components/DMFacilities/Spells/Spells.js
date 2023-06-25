@@ -31,8 +31,6 @@ const Spells = () => {
     const [spellDuration, setSpellDuration] = useState('');
     const [spellCastingTime, setSpellCastingTime] = useState('');
 
-    const [spell, setSpell] = useState({});
-
     const addClassToArray = (newSpell) => {
         if(spellIsAvailableFor.includes(newSpell)){
             setSpellIsAvailableFor(spells => spells.filter(chosenSpell => chosenSpell !== newSpell))
@@ -57,8 +55,6 @@ const Spells = () => {
             castingTime: spellCastingTime,
         }
 
-        setSpell(newSpell);
-
         fetch(`http://127.0.0.1:3000/dm/spells/newSpell`, {
             method: "POST",
             headers: {
@@ -73,9 +69,9 @@ const Spells = () => {
 
     return (
         <Box className={classes.spellForm}>
+            <Typography variant="h5">New spell</Typography>
             <Grid container>
                 <Grid md item="6" sx={{display: "flex", flexDirection: "column", marginRight: ".5rem"}}>
-                    <Typography variant="h5">New spell</Typography>
                     <TextField sx={{margin: ".5rem 0"}} type="text" label="Name"
                                inputProps={{maxLength: 50}}
                                value={spellName}
