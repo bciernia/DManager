@@ -21,12 +21,10 @@ const Spells = () => {
     const [spellName, setSpellName] = useState('');
     const [spellDescription, setSpellDescription] = useState('');
     const [spellLevel, setSpellLevel] = useState(0);
-    const [spellAtHigherLvlDescription, setSpellAtHigherLvlDescription] = useState('');
     const [spellDmg, setSpellDmg] = useState('');
     const [spellIsAvailableFor, setSpellIsAvailableFor] = useState([]);
     const [spellSchool, setSpellSchool] = useState('');
     const [spellComponents, setSpellComponents] = useState('');
-    const [spellMaterialComponent, setSpellMaterialComponent] = useState('');
     const [spellRange, setSpellRange] = useState('');
     const [spellDuration, setSpellDuration] = useState('');
     const [spellCastingTime, setSpellCastingTime] = useState('');
@@ -44,12 +42,10 @@ const Spells = () => {
             name: spellName,
             description: spellDescription,
             level: spellLevel,
-            higherLevelDesc: spellAtHigherLvlDescription,
             dmg: spellDmg,
             availableFor: spellIsAvailableFor,
             school: spellSchool,
             components: spellComponents,
-            materialComponent: spellMaterialComponent,
             range: spellRange,
             duration: spellDuration,
             castingTime: spellCastingTime,
@@ -106,11 +102,6 @@ const Spells = () => {
                                rows={5} label="Description"
                                value={spellDescription}
                                onChange={(event) => setSpellDescription(event.currentTarget.value)}/>
-                    <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 1000}}
-                               multiline
-                               rows={3} label="Higher level description"
-                               value={spellAtHigherLvlDescription}
-                               onChange={(event) => setSpellAtHigherLvlDescription(event.currentTarget.value)}/>
                     <FormControl size="small">
                         <InputLabel id="select-spell-school">School</InputLabel>
                         <Select

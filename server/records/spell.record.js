@@ -8,7 +8,6 @@ class SpellRecord {
         this.name = obj.name;
         this.description = obj.description;
         this.level = obj.level;
-        this.higherLevelDesc = obj.higherLevelDesc;
         this.dmg = obj.dmg;
         this.availableFor = obj.availableFor;
         this.school = obj.school;
@@ -26,7 +25,6 @@ class SpellRecord {
             name: this.name,
             description: this.description,
             level: this.level,
-            higherLevelDesc: this.higherLevelDesc,
             dmg: this.dmg,
             availableFor: this.availableFor,
             school: this.school,
@@ -47,7 +45,6 @@ class SpellRecord {
             name: this.name,
             description: this.description,
             level: this.level,
-            higherLevelDesc: this.higherLevelDesc,
             dmg: this.dmg,
             availableFor: this.availableFor,
             school: this.school,
