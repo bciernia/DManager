@@ -11,7 +11,6 @@ class SpellRecord {
         this.availableFor = obj.availableFor;
         this.school = obj.school;
         this.components = obj.components;
-        this.materialComponent = obj.materialComponent;
         this.range = obj.range;
         this.duration = obj.duration;
         this.castingTime = obj.castingTime;

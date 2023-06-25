@@ -381,6 +381,12 @@ dmRouter
         res.status(200).send(scenarioToUpdate);
     })
 
+    .get('/spells/all', async (req, res) => {
+        const spells = await SpellRecord.findAll();
+
+        res.status(200).send(spells);
+    })
+
     //ADD NEW SPELL
     .post('/spells/newSpell', async (req, res) => {
         const spell = req.body;
