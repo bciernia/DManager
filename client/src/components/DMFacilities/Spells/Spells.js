@@ -1,9 +1,13 @@
 import React, {useState} from "react";
-import {Box, Button, TextField, Typography} from "@mui/material";
-import SpellLevelPicker from "./SpellLevelPicker/SpellLevelPicker";
+import {Box, Button, MenuItem, Select, TextField, Typography, FormControl, InputLabel} from "@mui/material";
 import classes from './Spells.module.css';
+import {SpellSchools} from "../../../utils/dndUtils/SpellSchools";
+import SpellLevelPicker from "./SpellLevelPicker/SpellLevelPicker";
+import SpellClassPicker from "./SpellClassPicker/SpellClassPicker";
 
 const Spells = () => {
+    const spellSchools = Object.entries(SpellSchools).map(school => school[1]);
+
     const [spellName, setSpellName] = useState('');
     const [spellDescription, setSpellDescription] = useState('');
     const [spellLevel, setSpellLevel] = useState(0);
@@ -18,8 +22,30 @@ const Spells = () => {
 
     const [spell, setSpell] = useState({});
 
+    const addClassToArray = (newSpell) => {
+        if(spellIsAvailableFor.includes(newSpell)){
+            setSpellIsAvailableFor(spells => spells.filter(chosenSpell => chosenSpell !== newSpell))
+        }else {
+            setSpellIsAvailableFor(spells=> [...spells, newSpell])
+        }
+    }
+
     const addSpellToDb = () => {
-        console.log(spellLevel)
+        const newSpell = {
+            name: spellName,
+            description: spellDescription,
+            level: spellLevel,
+            higherLevelDesc: spellAtHigherLvlDescription,
+            dmg: spellDmg,
+            availableFor: spellIsAvailableFor,
+            school: spellSchool,
+            components: spellComponents,
+            range: spellRange,
+            duration: spellDuration,
+            castingTime: spellCastingTime,
+        }
+        setSpell(newSpell);
+        console.log(spell);
     }
 
     return (
@@ -38,8 +64,9 @@ const Spells = () => {
                        value={spellRange}
                        onChange={(event) => setSpellRange(event.target.value)}/>
             <SpellLevelPicker setSpellLevel={setSpellLevel}/>
+            <SpellClassPicker spellClasses={addClassToArray} />
             <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
-                       label="Casting time(sec.)"
+                       label="Casting time"
                        value={spellCastingTime}
                        onChange={(event) => setSpellCastingTime(event.target.value)}/>
             <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 1000}}
@@ -52,6 +79,20 @@ const Spells = () => {
                        rows={3} label="Higher level description"
                        value={spellAtHigherLvlDescription}
                        onChange={(event) => setSpellAtHigherLvlDescription(event.target.value)}/>
+            <FormControl size="small">
+                <InputLabel id="select-spell-school">School</InputLabel>
+                <Select
+                    labelId="select-spell-school"
+                    label="School"
+                    sx={{marginBottom: ".5rem", minWidth: "10rem"}}
+                    onChange={(e) => setSpellSchool(e.target.value)}
+                >
+                    <MenuItem><em>Choose school</em></MenuItem>
+                    {spellSchools.map(school => <MenuItem key={school}
+                                                          value={school}>{school}</MenuItem>)}
+                </Select>
+            </FormControl>
+
 
             <Button sx={{backgroundColor: "#F5793B"}}
                     variant="contained"

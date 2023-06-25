@@ -1,12 +1,12 @@
-import {FormControlLabel, Radio, RadioGroup, Typography} from "@mui/material";
+import {FormControlLabel, InputLabel, Radio, RadioGroup, Typography} from "@mui/material";
 import classes from './SpellLevelPicker.module.css';
 
 const SpellLevelPicker = props => {
     const spellLevels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     return (
-        <div>
-            <Typography>Level</Typography>
+        <>
+            <InputLabel>Level</InputLabel>
             <RadioGroup
                 defaultValue="0"
                 onChange={(e) => props.setSpellLevel(e.target.value)}
@@ -26,7 +26,7 @@ const SpellLevelPicker = props => {
                     />
                 })}
             </RadioGroup>
-        </div>
+        </>
     )
 }
 
