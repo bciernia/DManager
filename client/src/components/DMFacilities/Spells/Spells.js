@@ -21,7 +21,6 @@ const Spells = () => {
     const [spellName, setSpellName] = useState('');
     const [spellDescription, setSpellDescription] = useState('');
     const [spellLevel, setSpellLevel] = useState(0);
-    const [spellDmg, setSpellDmg] = useState('');
     const [spellIsAvailableFor, setSpellIsAvailableFor] = useState([]);
     const [spellSchool, setSpellSchool] = useState('');
     const [spellComponents, setSpellComponents] = useState('');
@@ -37,12 +36,21 @@ const Spells = () => {
         }
     }
 
+    const clearFields = () => {
+        setSpellName('');
+        setSpellDescription('');
+        setSpellLevel(0);
+        setSpellComponents('');
+        setSpellRange('');
+        setSpellDuration('');
+        setSpellCastingTime('');
+    }
+
     const addSpellToDb = () => {
         const newSpell = {
             name: spellName,
             description: spellDescription,
             level: spellLevel,
-            dmg: spellDmg,
             availableFor: spellIsAvailableFor,
             school: spellSchool,
             components: spellComponents,
@@ -61,6 +69,8 @@ const Spells = () => {
             .catch(() => {
                 alert("Something gone wrong!");
             });
+
+        clearFields();
     }
 
     return (
@@ -72,10 +82,6 @@ const Spells = () => {
                                inputProps={{maxLength: 50}}
                                value={spellName}
                                onChange={(event) => setSpellName(event.currentTarget.value)}/>
-                    <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 100}}
-                               label="Damage"
-                               value={spellDmg}
-                               onChange={(event) => setSpellDmg(event.currentTarget.value)}/>
                     <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
                                label="Range"
                                value={spellRange}
@@ -89,7 +95,7 @@ const Spells = () => {
                                label="Casting time"
                                value={spellCastingTime}
                                onChange={(event) => setSpellCastingTime(event.currentTarget.value)}/>
-                    <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
+                    <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 30}}
                                label="Duration"
                                value={spellDuration}
                                onChange={(event) => setSpellDuration(event.currentTarget.value)}/>
