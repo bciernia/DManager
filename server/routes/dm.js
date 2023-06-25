@@ -7,6 +7,7 @@ const {CharacterRecord} = require("../records/character.record");
 const {HandoutRecord} = require("../records/handout.record");
 const {LocationRecord} = require("../records/location.record");
 const {NoteRecord} = require("../records/note.record");
+const {SpellRecord} = require("../records/spell.record");
 
 const dmRouter = express.Router();
 
@@ -378,6 +379,22 @@ dmRouter
         await scenarioToUpdate.update();
 
         res.status(200).send(scenarioToUpdate);
+    })
+
+    //ADD NEW SPELL
+    .post('/spells/newSpell', async (req, res) => {
+        const spell = req.body;
+
+        console.log(spell);
+
+        const newSpell = new SpellRecord({
+            ...spell
+        });
+        console.log("ASDF");
+
+        const newSpellId = await newSpell.insert();
+
+        res.status(201).send(newSpellId);
     })
 
 module.exports = {

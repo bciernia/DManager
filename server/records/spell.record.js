@@ -20,6 +20,7 @@ class SpellRecord {
     }
 
     async insert() {
+
         const {insertedId} = await spells.insertOne({
             _id: this._id,
             name: this.name,
@@ -30,12 +31,13 @@ class SpellRecord {
             availableFor: this.availableFor,
             school: this.school,
             components: this.components,
-            materialComponent: this.materialComponent,
             range: this.range,
             duration: this.duration,
             castingTime: this.castingTime,
         });
         this._id = insertedId.toString();
+
+        console.log("INSERTOWANIE");
 
         return insertedId;
     }
@@ -52,7 +54,6 @@ class SpellRecord {
             availableFor: this.availableFor,
             school: this.school,
             components: this.components,
-            materialComponent: this.materialComponent,
             range: this.range,
             duration: this.duration,
             castingTime: this.castingTime,
