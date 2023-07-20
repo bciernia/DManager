@@ -1,10 +1,9 @@
-import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
 import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {
-    Box, Button,
-    Card,
-    Divider,
+    Box,
+    Button,
+    Card, Divider,
     Grid,
     List,
     ListItem,
@@ -14,12 +13,13 @@ import {
     Tabs, TextField,
     Typography
 } from "@mui/material";
-import PreviewHandout
-    from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddHandout/PreviewHandout/PreviewHandout";
-import Timer from "../Layout/Main/SessionStarter/Timer/Timer";
 import {TabContext, TabPanel} from "@mui/lab";
+import Timer from "../Layout/Main/SessionStarter/Timer/Timer";
 import classes
     from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditScenario.module.css";
+import sessionClasses from './Session.module.css';
+import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
+
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -44,7 +44,7 @@ const Session = props => {
     const [characters, setCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
 
-    const [value, setValue] = useState('one');
+    const [tabValue, setTabValue] = useState('one');
 
     useEffect(() => {
         Promise.all([
@@ -56,14 +56,14 @@ const Session = props => {
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
             setCharacters(scenarioData.scenarioCharacters);
-            if(scenarioData.scenarioCharacters.length > 0){
+            if (scenarioData.scenarioCharacters.length > 0) {
                 setChosenCharacter(scenarioData.scenarioCharacters[0]);
             }
         });
     }, []);
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setTabValue(newValue);
     };
 
     const removeDeadCharacter = (characterId) => {
@@ -73,22 +73,15 @@ const Session = props => {
 
     return (
         <>
-            <TabContext value={value}>
-                <Grid container>
-                    <Grid item md={3}>
-                        <Grid container>
-                            <Grid item md={12}>
-                                <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario name</Typography>
-                            </Grid>
-                            <Grid item md={12}>
-                                <Typography sx variant="h5" sx={{margin: ".5rem"}}>{scenario.scenarioName}</Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item md={6}>
+            <Box
+                sx={{display: "flex", justifyContent: "flex-end", position: "absolute", right: 0,margin: ".5rem .5rem 0 0"}}><Timer/></Box>
+            <TabContext value={tabValue}>
+                <Grid container sx={{height: "91.75vh"}}>
+                    <Grid item md={1} sx={{marginRight: ".5rem", backgroundColor: "#ececec"}}>
                         <Tabs
-                            value={value}
+                            value={tabValue}
                             onChange={handleChange}
+                            orientation="vertical"
                             textColor="inherit"
                             aria-label="secondary tabs example"
                             variant="fullWidth"
@@ -103,34 +96,29 @@ const Session = props => {
                                 }
                             }}
                         >
-                            <Tab value="one" label="Players"/>
-                            <Tab value="two" label="Characters"/>
-                            <Tab value="three" label="Locations"/>
+                            <Tab value="one" label="Scenario"/>
+                            <Tab value="two" label="Players"/>
+                            <Tab value="three" label="Characters"/>
+                            <Tab value="four" label="Locations"/>
                         </Tabs>
                     </Grid>
-                    <Grid item md={3}>
-                        <Box
-                            sx={{display: "flex", justifyContent: "flex-end", margin: ".5rem .5rem 0 0"}}><Timer/></Box>
-                    </Grid>
-                </Grid>
-                <Divider/>
-                <Grid container>
-                    <Grid item md={2}>
-                        <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario description</Typography>
-                        <Typography variant="body2"
-                                    sx={{marginLeft: " .5rem"}}>{scenario.scenarioDescription}</Typography>
-                        <Typography variant="h6" sx={{marginLeft: ".5rem"}}>Scenario handouts</Typography>
-                        <Box sx={{marginLeft: ".5rem"}}>{handouts.map(handout =>
-                            <PreviewHandout
-                                handout={handout}/>)}</Box>
-                    </Grid>
-                    <Grid item md={7}>
+                    <Grid item md={9.5} sx={{padding: ".5rem"}}>
                         <TabPanel value="one" index={0}>
                             <Grid container>
-
+                                <Grid item md={12}>
+                                    <Typography sx variant="h5"
+                                                sx={{margin: ".5rem"}}>{scenario.scenarioName}</Typography>
+                                </Grid>
+                                <Grid item md={12}>
+                                    <Typography sx variant="body2"
+                                                sx={{margin: ".5rem"}}>{scenario.scenarioDescription}</Typography>
+                                </Grid>
                             </Grid>
                         </TabPanel>
                         <TabPanel value="two" index={1}>
+                            Characters
+                        </TabPanel>
+                        <TabPanel value="three" index={2}>
                             <Grid container>
                                 <Grid item={2}>
                                     <List sx={{
@@ -161,74 +149,76 @@ const Session = props => {
                                 </Grid>
                                 <Grid item={10}>
                                     {chosenCharacter._id &&
-                                    <Card sx={{marginLeft: "1rem", padding: ".5rem .5rem", width: 600}}>
-                                        <Grid container>
-                                            <Grid item xs={4}>
-                                                <div className={classes["img-container"]}>
-                                                    <img src={chosenCharacter.characterPhoto} alt="Character photo"
-                                                         className={classes["character-photo"]}/>
-                                                </div>
-                                                <div>
-                                                    <Button onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
-                                                    <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
-                                                        setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
-                                                        setCharacters(characters => {
-                                                            return characters.map(character => {
-                                                                if(character.tempId === chosenCharacter.tempId){
-                                                                    return {...chosenCharacter, characterHP: e.target.value};
-                                                                }else{
-                                                                    return character;
-                                                                }
+                                        <Card sx={{marginLeft: "1rem", padding: ".5rem .5rem", width: 600}}>
+                                            <Grid container>
+                                                <Grid item xs={4}>
+                                                    <div className={classes["img-container"]}>
+                                                        <img src={chosenCharacter.characterPhoto} alt="Character photo"
+                                                             className={classes["character-photo"]}/>
+                                                    </div>
+                                                    <div>
+                                                        <Button onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
+                                                        <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
+                                                            setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
+                                                            setCharacters(characters => {
+                                                                return characters.map(character => {
+                                                                    if(character.tempId === chosenCharacter.tempId){
+                                                                        return {...chosenCharacter, characterHP: e.target.value};
+                                                                    }else{
+                                                                        return character;
+                                                                    }
+                                                                })
                                                             })
-                                                        })
-                                                    }}/>
-                                                </div>
+                                                        }}/>
+                                                    </div>
+                                                </Grid>
+                                                <Divider orientation="vertical" flexItem/>
+                                                <Grid item xs={7.95}>
+                                                    <Box sx={{margin: "0 .25rem"}}>
+                                                        <Typography
+                                                            variant="h6">{chosenCharacter.characterName}</Typography>
+                                                        <Typography
+                                                            variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
+                                                    </Box>
+                                                </Grid>
                                             </Grid>
-                                            <Divider orientation="vertical" flexItem/>
-                                            <Grid item xs={7.95}>
-                                                <Box sx={{margin: "0 .25rem"}}>
-                                                    <Typography
-                                                        variant="h6">{chosenCharacter.characterName}</Typography>
-                                                    <Typography
-                                                        variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
-                                                </Box>
-                                            </Grid>
-                                        </Grid>
-                                    </Card>}
+                                        </Card>}
                                 </Grid>
                             </Grid>
                         </TabPanel>
-                        <TabPanel value="three" index={2}>
+                        <TabPanel value="four" index={3}>
                             <PreviewLocation scenarioId={scenarioId} isInEditingScenario={false}/>
                         </TabPanel>
                     </Grid>
-
-                    <Grid item md={3}>
-                        <List sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            height: "35rem",
-                            overflow: "auto",
-                            overflowX: "hidden",
-                        }}>
-                            {/*TODO save note to db after adding them*/}
-                            {notes?.length === 0 &&
-                                <Typography variant="h6" textAlign="center">No notes</Typography>}
-                            {notes.map((note) =>
-                                <ListItem key={note._id}
-                                          sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
-                                          disablePadding>
-                                    <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                        <ListItemText sx={{padding: ".25rem"}}
-                                                      primary={<Typography variant="body2">{note.note}</Typography>}/>
-                                    </Card>
-                                </ListItem>
-                            )}
-                        </List>
-                    </Grid>
                 </Grid>
-
             </TabContext>
+            <div className={sessionClasses["notes-container"]}>
+                {/*TODO add new note*/}
+                NEW NOTE
+                FILTER NOTES
+                <List sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "40rem",
+                    marginTop: "8rem",
+                    overflow: "auto",
+                    overflowX: "hidden",
+                }}>
+                    {/*TODO save note to db after adding them*/}
+                    {notes?.length === 0 &&
+                        <Typography variant="h6" textAlign="center">No notes</Typography>}
+                    {notes.map((note) =>
+                        <ListItem key={note._id}
+                                  sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
+                                  disablePadding>
+                            <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                <ListItemText sx={{padding: ".25rem"}}
+                                              primary={<Typography variant="body2">{note.note}</Typography>}/>
+                            </Card>
+                        </ListItem>
+                    )}
+                </List>
+            </div>
         </>
     )
 }
