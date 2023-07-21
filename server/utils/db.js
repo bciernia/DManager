@@ -1,5 +1,5 @@
 const {MongoClient} = require('mongodb');
-const {ConnectionString} = require('../secrets/MailCredentials');
+const {ConnectionString} = require('../secrets/Credentials');
 
 //local connection
 //const client = new MongoClient('mongodb://127.0.0.1:27017');

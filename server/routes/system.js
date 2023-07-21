@@ -1,5 +1,5 @@
 const express = require('express');
-const {MailCredentials} = require("../secrets/MailCredentials");
+const {Credentials} = require("../secrets/Credentials");
 const {transporter} = require("../utils/mail");
 
 const systemRouter = express.Router();
@@ -11,7 +11,7 @@ systemRouter
 
         const mailOptions = {
             from: `${mail.fullName} <${mail.emailAddress}>`,
-            to: MailCredentials.login,
+            to: Credentials.login,
             subject: mail.emailSubject,
             text: mail.emailContent,
         }
