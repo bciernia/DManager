@@ -19,6 +19,7 @@ const handouts = db.collection('handouts');
 const locations = db.collection('locations');
 const notes = db.collection('notes');
 const spells = db.collection('spells');
+const quests = db.collection('quests');
 
 module.exports = {
     db,
@@ -32,4 +33,5 @@ module.exports = {
     locations,
     notes,
     spells,
+    quests,
 };
