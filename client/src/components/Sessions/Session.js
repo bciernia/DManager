@@ -74,7 +74,13 @@ const Session = props => {
     return (
         <>
             <Box
-                sx={{display: "flex", justifyContent: "flex-end", position: "absolute", right: 0,margin: ".5rem .5rem 0 0"}}><Timer/></Box>
+                sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    position: "absolute",
+                    right: 0,
+                    margin: ".5rem .5rem 0 0"
+                }}><Timer/></Box>
             <TabContext value={tabValue}>
                 <Grid container sx={{height: "91.75vh"}}>
                     <Grid item md={1} sx={{marginRight: ".5rem", backgroundColor: "#ececec"}}>
@@ -100,6 +106,7 @@ const Session = props => {
                             <Tab value="two" label="Players"/>
                             <Tab value="three" label="Characters"/>
                             <Tab value="four" label="Locations"/>
+                            <Tab value="five" label="Notes"/>
                         </Tabs>
                     </Grid>
                     <Grid item md={9.5} sx={{padding: ".5rem"}}>
@@ -157,19 +164,27 @@ const Session = props => {
                                                              className={classes["character-photo"]}/>
                                                     </div>
                                                     <div>
-                                                        <Button onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
-                                                        <TextField type="number" value={chosenCharacter.characterHP} onChange={(e) => {
-                                                            setChosenCharacter(character => ({...chosenCharacter, characterHP: e.target.value}));
-                                                            setCharacters(characters => {
-                                                                return characters.map(character => {
-                                                                    if(character.tempId === chosenCharacter.tempId){
-                                                                        return {...chosenCharacter, characterHP: e.target.value};
-                                                                    }else{
-                                                                        return character;
-                                                                    }
-                                                                })
-                                                            })
-                                                        }}/>
+                                                        <Button
+                                                            onClick={() => removeDeadCharacter(chosenCharacter.tempId)}>Delete</Button>
+                                                        <TextField type="number" value={chosenCharacter.characterHP}
+                                                                   onChange={(e) => {
+                                                                       setChosenCharacter(character => ({
+                                                                           ...chosenCharacter,
+                                                                           characterHP: e.target.value
+                                                                       }));
+                                                                       setCharacters(characters => {
+                                                                           return characters.map(character => {
+                                                                               if (character.tempId === chosenCharacter.tempId) {
+                                                                                   return {
+                                                                                       ...chosenCharacter,
+                                                                                       characterHP: e.target.value
+                                                                                   };
+                                                                               } else {
+                                                                                   return character;
+                                                                               }
+                                                                           })
+                                                                       })
+                                                                   }}/>
                                                     </div>
                                                 </Grid>
                                                 <Divider orientation="vertical" flexItem/>
@@ -189,36 +204,33 @@ const Session = props => {
                         <TabPanel value="four" index={3}>
                             <PreviewLocation scenarioId={scenarioId} isInEditingScenario={false}/>
                         </TabPanel>
+                        <TabPanel value="five" index={4}>
+                            <List sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "40rem",
+                                marginTop: "8rem",
+                                overflow: "auto",
+                                overflowX: "hidden",
+                            }}>
+                                {/*TODO save note to db after adding them*/}
+                                {notes?.length === 0 &&
+                                    <Typography variant="h6" textAlign="center">No notes</Typography>}
+                                {notes.map((note) =>
+                                    <ListItem key={note._id}
+                                              sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
+                                              disablePadding>
+                                        <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                            <ListItemText sx={{padding: ".25rem"}}
+                                                          primary={<Typography variant="body2">{note.note}</Typography>}/>
+                                        </Card>
+                                    </ListItem>
+                                )}
+                            </List>
+                        </TabPanel>
                     </Grid>
                 </Grid>
             </TabContext>
-            <div className={sessionClasses["notes-container"]}>
-                {/*TODO add new note*/}
-                NEW NOTE
-                FILTER NOTES
-                <List sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "40rem",
-                    marginTop: "8rem",
-                    overflow: "auto",
-                    overflowX: "hidden",
-                }}>
-                    {/*TODO save note to db after adding them*/}
-                    {notes?.length === 0 &&
-                        <Typography variant="h6" textAlign="center">No notes</Typography>}
-                    {notes.map((note) =>
-                        <ListItem key={note._id}
-                                  sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
-                                  disablePadding>
-                            <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                <ListItemText sx={{padding: ".25rem"}}
-                                              primary={<Typography variant="body2">{note.note}</Typography>}/>
-                            </Card>
-                        </ListItem>
-                    )}
-                </List>
-            </div>
         </>
     )
 }
