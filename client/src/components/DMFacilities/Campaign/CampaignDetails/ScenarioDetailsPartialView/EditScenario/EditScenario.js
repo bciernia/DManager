@@ -12,10 +12,11 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import classes from './EditScenario.module.css';
 import PreviewHandout from "./AddHandout/PreviewHandout/PreviewHandout";
 import PreviewLocation from "../../../../Location/PreviewLocation/PreviewLocation"
+import Notes from "../../../../Notes/Notes";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -23,10 +24,6 @@ const getScenarioById = (scenarioId) =>
 
 const getHandoutsForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/handout/all`)
-        .then(res => res.json());
-
-const getNotesForScenario = (scenarioId) =>
-    fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/all`)
         .then(res => res.json());
 
 const saveNewScenario = (scenarioId, scenario) =>
@@ -45,43 +42,29 @@ const EditScenario = (effect, deps) => {
     const [isEditModeOn, setIsEditModeOn] = useState(false);
     const [scenario, setScenario] = useState({});
     const [handouts, setHandouts] = useState([]);
-    const [notes, setNotes] = useState([]);
     const [newScenarioName, setNewScenarioName] = useState();
     const [newScenarioDescription, setNewScenarioDescription] = useState();
     const [scenarioHandouts, setScenarioHandouts] = useState([]);
-    const [editedNote, setEditedNote] = useState('');
-    const [chosenNoteId, setChosenNoteId] = useState(0);
 
     const [chosenCharacter, setChosenCharacter] = useState({});
 
-    const [noteDialogOpen, setNoteDialogOpen] = useState(false);
     const [characterPreviewDialogOpen, setCharacterPreviewDialogOpen] = useState(false);
 
     const [scenarioCharacters, setScenarioCharacters] = useState([]);
-
-    const newNoteTextFieldRef = useRef();
-    const editNoteTextFieldRef = useRef();
 
     useEffect(() => {
         Promise.all([
             getScenarioById(scenarioId),
             getHandoutsForScenario(scenarioId),
-            getNotesForScenario(scenarioId),
-        ]).then(([scenarioData, handoutsData, notesData]) => {
+        ]).then(([scenarioData, handoutsData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData);
-            setNotes(notesData);
             setScenarioCharacters(scenarioData.scenarioCharacters);
             setNewScenarioName(scenarioData.scenarioName);
             setNewScenarioDescription(scenarioData.scenarioDescription);
             setScenarioHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
         })
     }, []);
-
-    const updateScenarioNotes = useCallback(() => {
-        getNotesForScenario(scenarioId)
-            .then(notesData => setNotes(notesData));
-    }, [scenarioId]);
 
     const changeScenarioName = () => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
@@ -91,67 +74,6 @@ const EditScenario = (effect, deps) => {
         setIsEditModeOn(isEditModeOn => !isEditModeOn);
         scenario.scenarioName = newScenarioName;
         scenario.scenarioDescription = newScenarioDescription;
-    }
-
-
-    const addNote = async (event) => {
-        event.preventDefault();
-
-        const newNote = {
-            note: newNoteTextFieldRef.current.value,
-            scenarioId,
-        }
-
-        newNoteTextFieldRef.current.value = '';
-
-        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/newNote`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(newNote)
-        });
-
-        await updateScenarioNotes();
-    }
-
-
-    const editNote = async (event) => {
-        event.preventDefault();
-
-        const updatedNote = {
-            note: editNoteTextFieldRef.current.value,
-            scenarioId,
-        }
-
-        editNoteTextFieldRef.current.value = '';
-
-        handleNoteDialogClose();
-
-        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
-            method: "PUT",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(updatedNote)
-        });
-
-        await updateScenarioNotes();
-    }
-
-    const deleteNote = async (event) => {
-        event.preventDefault();
-
-        handleNoteDialogClose();
-
-        await fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/${chosenNoteId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-type": "application/json",
-            },
-        });
-
-        await updateScenarioNotes();
     }
 
     const addLocation = () => {
@@ -166,20 +88,9 @@ const EditScenario = (effect, deps) => {
         navigate(`newHandout`);
     }
 
-
-    const previewNote = (note) => {
-        setEditedNote(note.note);
-        setChosenNoteId(note._id);
-        setNoteDialogOpen(true);
-    }
-
     const previewCharacter = (character) => {
         setChosenCharacter(character);
         setCharacterPreviewDialogOpen(true);
-    }
-
-    const handleNoteDialogClose = () => {
-        setNoteDialogOpen(false);
     }
 
     const handleCharacterPreviewClose = () => {
@@ -188,27 +99,6 @@ const EditScenario = (effect, deps) => {
 
     return (
         <div>
-            <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
-                <form id="editNoteForm" className={classes['note-dialog']}
-                      onSubmit={(event) => editNote(event)}>
-                    <TextField sx={{width: "20rem"}} type="text" label="Note"
-                               inputProps={{maxLength: 200}}
-                               rows={3}
-                               multiline
-                               defaultValue={editedNote}
-                               inputRef={editNoteTextFieldRef}
-                               required/>
-                    {/*// onChange={(event) => setEditedNote(event.target.value)}/>*/}
-                    <div>
-                        <Button form="editNoteForm"
-                                variant="contained"
-                                color="primary"
-                                type="submit" sx={{marginRight: "1rem"}}>Update</Button>
-                        <Button color="error" variant="contained"
-                                onClick={(event) => deleteNote(event, chosenNoteId)}>Delete</Button>
-                    </div>
-                </form>
-            </Dialog>
             <Dialog onClose={handleCharacterPreviewClose} open={characterPreviewDialogOpen} maxWidth="xs">
                 <Card sx={{padding: ".5rem .5rem"}}>
                     <div className={classes["img-container"]}>
@@ -306,53 +196,7 @@ const EditScenario = (effect, deps) => {
                     </Grid>
                 </Grid>
                 <Grid item md={3}>
-                    <Grid container sx={{padding: "1rem"}}>
-                        <Grid item md={12}
-                              sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                            <Typography variant="h4" textAlign="center"
-                                        sx={{marginBottom: ".5rem"}}>Notes</Typography>
-
-                        </Grid>
-                        <div className={classes["add-note-form"]}>
-                            <form id="addNoteForm" className={classes['container--form']}
-                                  onSubmit={(event) => addNote(event)}>
-                                <Button form="addNoteForm"
-                                        sx={{backgroundColor: "#F5793B"}}
-                                        variant="contained"
-                                        color="inherit"
-                                        type="submit">Add note</Button>
-                                <TextField sx={{width: "20rem"}} type="text" label="Note"
-                                           inputProps={{maxLength: 200}}
-                                           rows={3}
-                                           multiline
-                                           inputRef={newNoteTextFieldRef}
-                                           required/>
-                            </form>
-                        </div>
-                        <Grid item md={12}>
-                            <List sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                            }}>
-                                {/*TODO save note to db after adding them*/}
-                                {notes?.length === 0 &&
-                                    <Typography variant="h6" textAlign="center">No notes</Typography>}
-                                {notes.map((note) =>
-                                    <ListItem key={note._id}
-                                              sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
-                                              disablePadding>
-                                        <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                            <ListItemButton onClick={() => previewNote(note)}
-                                                            sx={{textAlign: "center"}}>
-                                                <ListItemText
-                                                    primary={<Typography variant="body2">{note.note}</Typography>}/>
-                                            </ListItemButton>
-                                        </Card>
-                                    </ListItem>
-                                )}
-                            </List>
-                        </Grid>
-                    </Grid>
+                    <Notes scenarioId={scenarioId} />
                 </Grid>
             </Grid>
         </div>

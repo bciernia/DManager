@@ -1,0 +1,25 @@
+.note-dialog {
+    margin: 2.5rem 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    width: 35rem;
+}
+
+.add-note-form {
+    position: absolute;
+    right: 1rem;
+    top: 7.5rem;
+}
+
+.container--form {
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: .5rem;
+    width: 25rem;
+}

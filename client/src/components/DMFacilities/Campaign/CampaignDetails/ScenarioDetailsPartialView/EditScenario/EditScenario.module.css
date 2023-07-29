@@ -23,22 +23,6 @@
     width: 25rem;
 }
 
-.note-dialog {
-    margin: 2.5rem 0;
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: .5rem;
-    width: 35rem;
-}
-
-.add-note-form {
-    position: absolute;
-    right: 1rem;
-    top: 7.5rem;
-}
-
 .img-container{
     display: flex;
     justify-content: center;
