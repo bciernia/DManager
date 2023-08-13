@@ -31,7 +31,7 @@ const PreviewLocation = props => {
         ]).then(([locations, handouts]) => {
             setScenarioLocations(locations);
             setLocationHandouts(handouts);
-        })
+        });
     }, []);
 
     const editLocation = (locationId) => {

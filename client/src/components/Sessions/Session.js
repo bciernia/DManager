@@ -19,6 +19,7 @@ import classes
     from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditScenario.module.css";
 import sessionClasses from './Session.module.css';
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
+import TextareaInputField from "../../utils/Form/InputTypes/TextareaInputField";
 
 
 const getScenarioById = (scenarioId) =>
@@ -33,6 +34,11 @@ const getNotesForScenario = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}/notes/all`)
         .then(res => res.json());
 
+const getPlayerCharacters = () =>
+    fetch(`http://127.0.0.1:3000/characters/all/playerCharacters`)
+        .then(res => res.json());
+
+
 const Session = props => {
     // TODO ask if someone want to exit
 
@@ -42,19 +48,25 @@ const Session = props => {
     const [handouts, setHandouts] = useState([]);
     const [notes, setNotes] = useState([]);
     const [characters, setCharacters] = useState([]);
+    const [playerCharacters, setPlayerCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
 
+    const [newNoteValue, setNewNoteValue] = useState("");
+
     const [tabValue, setTabValue] = useState('one');
+    const [sideTabValue, setSideTabValue] = useState('one');
 
     useEffect(() => {
         Promise.all([
             getScenarioById(scenarioId),
             getHandoutsForScenario(scenarioId),
             getNotesForScenario(scenarioId),
-        ]).then(([scenarioData, handoutsData, notesData]) => {
+            getPlayerCharacters(),
+        ]).then(([scenarioData, handoutsData, notesData, playerCharacters]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
+            setPlayerCharacters(playerCharacters);
             setCharacters(scenarioData.scenarioCharacters);
             if (scenarioData.scenarioCharacters.length > 0) {
                 setChosenCharacter(scenarioData.scenarioCharacters[0]);
@@ -62,13 +74,44 @@ const Session = props => {
         });
     }, []);
 
+    const startSession = () => {
+        const newSession = {
+            campaignId: campaignId,
+            sessionName: scenario.scenarioName,
+            sessionNotes: notes,
+        }
+
+        fetch(`http://127.0.0.1:3000/game/session`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(newSession)
+        }).then(res => res.json())
+            .catch(() => {
+                alert("Something gone wrong!");
+            });
+    }
+
     const handleChange = (event, newValue) => {
         setTabValue(newValue);
+    };
+
+    const handleChangeSideTab = (event, newValue) => {
+        setSideTabValue(newValue);
     };
 
     const removeDeadCharacter = (characterId) => {
         setCharacters(prevCharacters => prevCharacters.filter(character => character.tempId !== characterId));
         setChosenCharacter({});
+    }
+
+    const addNote = () => {
+        const newNote = {
+            note: newNoteValue,
+        }
+        setNotes([...notes, newNote]);
+        setNewNoteValue("");
     }
 
     return (
@@ -80,7 +123,7 @@ const Session = props => {
                     position: "absolute",
                     right: 0,
                     margin: ".5rem .5rem 0 0"
-                }}><Timer/></Box>
+                }}><Timer startSession={startSession}/></Box>
             <TabContext value={tabValue}>
                 <Grid container sx={{height: "91.75vh"}}>
                     <Grid item md={1} sx={{marginRight: ".5rem", backgroundColor: "#ececec"}}>
@@ -103,10 +146,8 @@ const Session = props => {
                             }}
                         >
                             <Tab value="one" label="Scenario"/>
-                            <Tab value="two" label="Players"/>
-                            <Tab value="three" label="Characters"/>
-                            <Tab value="four" label="Locations"/>
-                            <Tab value="five" label="Notes"/>
+                            <Tab value="two" label="Characters"/>
+                            <Tab value="three" label="Locations"/>
                         </Tabs>
                     </Grid>
                     <Grid item md={9.5} sx={{padding: ".5rem"}}>
@@ -123,11 +164,8 @@ const Session = props => {
                             </Grid>
                         </TabPanel>
                         <TabPanel value="two" index={1}>
-                            Characters
-                        </TabPanel>
-                        <TabPanel value="three" index={2}>
                             <Grid container>
-                                <Grid item={2}>
+                                <Grid item md={2}>
                                     <List sx={{
                                         display: "flex",
                                         flexDirection: "column",
@@ -154,7 +192,7 @@ const Session = props => {
                                         )}
                                     </List>
                                 </Grid>
-                                <Grid item={10}>
+                                <Grid item md={10}>
                                     {chosenCharacter._id &&
                                         <Card sx={{marginLeft: "1rem", padding: ".5rem .5rem", width: 600}}>
                                             <Grid container>
@@ -201,36 +239,90 @@ const Session = props => {
                                 </Grid>
                             </Grid>
                         </TabPanel>
-                        <TabPanel value="four" index={3}>
-                            <PreviewLocation scenarioId={scenarioId} isInEditingScenario={false}/>
-                        </TabPanel>
-                        <TabPanel value="five" index={4}>
-                            <List sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                height: "40rem",
-                                marginTop: "8rem",
-                                overflow: "auto",
-                                overflowX: "hidden",
-                            }}>
-                                {/*TODO save note to db after adding them*/}
-                                {notes?.length === 0 &&
-                                    <Typography variant="h6" textAlign="center">No notes</Typography>}
-                                {notes.map((note) =>
-                                    <ListItem key={note._id}
-                                              sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
-                                              disablePadding>
-                                        <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                            <ListItemText sx={{padding: ".25rem"}}
-                                                          primary={<Typography variant="body2">{note.note}</Typography>}/>
-                                        </Card>
-                                    </ListItem>
-                                )}
-                            </List>
+                        <TabPanel value="three" index={2}>
+                            <Grid container>
+                                <Grid item md={10.5}>
+                                    <PreviewLocation scenarioId={scenarioId} isInEditingScenario={false}/>
+                                </Grid>
+                            </Grid>
                         </TabPanel>
                     </Grid>
                 </Grid>
             </TabContext>
+
+            <Card sx={{
+                backgroundColor: "whitesmoke", padding: ".5rem", position: "absolute",
+                top: "15rem",
+                width: "20rem",
+                right: "2rem",
+            }}>
+
+                <TabContext value={sideTabValue}>
+                    <Tabs
+                        value={sideTabValue}
+                        onChange={handleChangeSideTab}
+                        textColor="inherit"
+                        aria-label="secondary tabs example"
+                        variant="standard"
+                        sx={{
+                            ".Mui-selected": {
+                                color: "#F5793B",
+                            },
+                        }}
+                        TabIndicatorProps={{
+                            style: {
+                                backgroundColor: "#F5793B",
+                            }
+                        }}
+                    >
+                        <Tab value="one" label="Players"/>
+                        <Tab value="two" label="Notes"/>
+                    </Tabs>
+
+                    <TabPanel value="one" index={0}>
+                        {playerCharacters.map((character, index) =>
+                            <Card key={index} sx={{marginBottom: ".5rem", height: "6.75rem"}}>
+                                <Typography
+                                    variant="body1"><b>{character.characterName}</b> ({character.playerName})</Typography>
+                                <Divider/>
+                                <Typography variant="body1">Klasa pancerza: <b>{character.armorClass}</b></Typography>
+                                <Typography variant="body1">Pasywna percepcja: <b>{character.characterPassiveWisdom}</b></Typography>
+                            </Card>
+                        )}
+                    </TabPanel>
+                    <TabPanel value="two" index={1}>
+                        <List sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "auto",
+                            overflowX: "hidden",
+                            maxHeight: "27.5rem",
+                        }}>
+                            {/*TODO save note to db after adding them*/}
+                            {notes?.length === 0 &&
+                                <Typography variant="h6" textAlign="center">No notes</Typography>}
+                            {notes.map((note, index) =>
+                                <ListItem key={index}
+                                          sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
+                                          disablePadding>
+                                    <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                        <ListItemText sx={{padding: ".25rem"}}
+                                                      primary={<Typography
+                                                          variant="body2">{note.note}</Typography>}/>
+                                    </Card>
+                                </ListItem>
+                            )}
+                        </List>
+                        <TextField sx={{width: "100%"}} value={newNoteValue}
+                                   onChange={(event) => setNewNoteValue(event.target.value)}/>
+                        <Button sx={{width: "100%", backgroundColor: "#F5793B"}}
+                                variant="contained"
+                                color="inherit"
+                                onClick={addNote}
+                        >Add</Button>
+                    </TabPanel>
+                </TabContext>
+            </Card>
         </>
     )
 }

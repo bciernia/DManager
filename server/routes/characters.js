@@ -25,6 +25,13 @@ characterRouter
         res.status(200).send(character);
     })
 
+    //GET ALL PLAYER CHARACTERS
+    .get('/all/playerCharacters', async (req, res) => {
+        const characters = await CharacterRecord.findAllPlayerCharacters();
+
+        res.status(200).send(characters);
+    })
+
     //ADD CHARACTER
     .post('/newCharacter', async (req, res) => {
         const character = req.body;

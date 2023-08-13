@@ -229,8 +229,8 @@ class CharacterRecord {
 
     static async findAllPlayerCharacters() {
         const result = await characters.find();
-        const characterArray = await result.toArray();
-        const ourArray = characterArray.map(obj => obj.characterType.toString() === "Player character");
+        const charactersArray = await result.toArray();
+        const ourArray = charactersArray.filter(character => character.characterType.toString() === "Player character");
 
         return ourArray;
     }

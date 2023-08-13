@@ -12,6 +12,11 @@ const getScenariosFromChosenCampaign = (campaignId) =>
     fetch(`http://127.0.0.1:3000/dm/campaign/${campaignId}/scenario/all`)
         .then(res => res.json());
 
+const getPlayerCharacters = () =>
+    fetch(`http://127.0.0.1:3000/characters/all/playerCharacters`)
+        .then(res => res.json());
+
+
 const StartNewSession = props => {
 
     const navigate = useNavigate();
@@ -23,13 +28,18 @@ const StartNewSession = props => {
     const [campaignsArray, setCampaignsArray] = useState([]);
     const [chosenCampaign, setChosenCampaign] = useState({});
     const [chosenScenario, setChosenScenario] = useState({});
+    const [chosenPlayerCharacters, setChosenPlayerCharacters] = useState([]);
     const [scenariosFromChosenCampaign, setScenariosFromChosenCampaign] = useState([]);
+    const [allPlayerCharacters, setAllPlayerCharacters] = useState([]);
 
     useEffect(() => {
-        getAllCampaigns()
-            .then(campaigns => {
-                setCampaignsArray(campaigns);
-            });
+        Promise.all([
+            getAllCampaigns(),
+            getPlayerCharacters(),
+        ]).then(([allCampaigns, playerCharacters]) => {
+            setCampaignsArray(allCampaigns);
+            setAllPlayerCharacters(playerCharacters);
+        });
     }, []);
 
     useEffect(() => {
@@ -47,6 +57,10 @@ const StartNewSession = props => {
 
     const handleScenarioListItemClick = (event, index) => {
         setSelectedScenarioListItem(index);
+    };
+
+    const handlePlayerCharacterListItemClick = (event, index) => {
+        setChosenPlayerCharacters(index);
     };
 
     const changeChosenCampaign = (campaign) => {
@@ -126,6 +140,31 @@ const StartNewSession = props => {
                     )}
                 </List>
             </Card>}
+            {/*{chosenScenario._id && <Card>*/}
+            {/*    {isLoading && <Spinner/>}*/}
+            {/*    <List sx={{*/}
+            {/*        display: "flex",*/}
+            {/*        justifyContent: "center",*/}
+            {/*        flexDirection: "column",*/}
+            {/*        alignContent: "center",*/}
+            {/*    }}>*/}
+            {/*        <Typography variant="h6" textAlign="center">Choose player characters</Typography>*/}
+            {/*        {allPlayerCharacters.map((character, index) =>*/}
+            {/*            <ListItem key={character._id}*/}
+            {/*                      sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}*/}
+            {/*                      disablePadding>*/}
+            {/*                <ListItemButton selected={selectedScenarioListItem === index + 1}*/}
+            {/*                                onClick={(event) => {*/}
+            {/*                                    handlePlayerCharacterListItemClick(event, index + 1)*/}
+            {/*                                }}*/}
+            {/*                                sx={{textAlign: "center"}}>*/}
+            {/*                    <ListItemText primary={<Typography*/}
+            {/*                        variant="body2">{character.characterName}</Typography>}/>*/}
+            {/*                </ListItemButton>*/}
+            {/*            </ListItem>*/}
+            {/*        )}*/}
+            {/*    </List>*/}
+            {/*</Card>}*/}
             <Button onClick={startSession}>START SESSION</Button>
         </>
     )

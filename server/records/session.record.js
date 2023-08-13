@@ -8,6 +8,8 @@ class SessionRecord {
         this.sessionName = obj.sessionName;
         this.campaignId = obj.campaignId;
         this.sessionTime = obj.sessionTime;
+        this.sessionNotes = obj.sessionNotes;
+        this.sessionCharacters = obj.sessionCharacters;
     }
 
     _validate() {
@@ -27,7 +29,8 @@ class SessionRecord {
             sessionName: this.sessionName.toString(),
             campaignId: this.campaignId.toString(),
             sessionTime: this.sessionTime,
-
+            sessionNotes: this.sessionNotes,
+            sessionCharacters: this.sessionCharacters,
         });
         this._id = insertedId.toString();
 
@@ -41,6 +44,8 @@ class SessionRecord {
             sessionName: this.sessionName.toString(),
             campaignId: this.campaignId.toString(),
             sessionTime: this.sessionTime,
+            sessionNotes: this.sessionNotes,
+            sessionCharacters: this.sessionCharacters,
         });
     }
 

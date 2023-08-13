@@ -7,7 +7,7 @@ import startBtnImg from '../../../../../assets/buttons/play_button.png'
 import stopBtnImg from '../../../../../assets/buttons/stop_button.png'
 import pauseBtnImg from '../../../../../assets/buttons/pause_button.png'
 
-const Timer = () => {
+const Timer = (props) => {
     const [latestTime, setLatestTime] = useState([]);
     const [isSessionStarted, setIsSessionStarted] = useState(false);
     const [isSessionPaused, setIsSessionPaused] = useState(false);
@@ -33,6 +33,7 @@ const Timer = () => {
     const startSessionHandler = () => {
         start();
         setIsSessionStarted(true);
+        props.startSession();
     }
 
     const pauseSessionHandler = () => {

@@ -90,6 +90,7 @@ const CreateNewPlayerCharacter = () => {
         CharacterInitialValues.armorClass = randomNumber(1, 30);
         CharacterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         CharacterInitialValues.characterHP = randomNumber(1, 1000);
+        CharacterInitialValues.characterPassiveWisdom = randomNumber(1,30);
         CharacterInitialValues.characterHPDice = "1d6";
     }, []);
 
@@ -304,6 +305,7 @@ const CreateNewPlayerCharacter = () => {
                             <NumberInputField name="characterIntelligence" label="Character intelligence"/>
                             <NumberInputField name="characterWisdom" label="Character wisdom"/>
                             <NumberInputField name="characterCharisma" label="Character charisma"/>
+                            <NumberInputField name="characterPassiveWisdom" label="Passive wisdom"/>
                         </Grid>
                         <Grid item md={6}>
                             <NumberInputField name="characterLevel" label="Character level"/>
