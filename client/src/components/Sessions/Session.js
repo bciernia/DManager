@@ -50,6 +50,9 @@ const Session = props => {
     const [characters, setCharacters] = useState([]);
     const [playerCharacters, setPlayerCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
+    const [chosenNote, setChosenNote] = useState("");
+    const [foundNote, setFoundNote] = useState("");
+    const [notesToShow, setNotesToShow] = useState([]);
 
     const [newNoteValue, setNewNoteValue] = useState("");
 
@@ -113,6 +116,16 @@ const Session = props => {
         setNotes([...notes, newNote]);
         setNewNoteValue("");
     }
+
+    //TODO SEARCHING FOR NOTE
+    // const findNotes = (e) => {
+    //     const noteToFind = e.target.value;
+    //
+    //     console.log(noteToFind);
+    //     console.log(notes);
+    //
+    //     setNotesToShow(notes.map(note => note.note.includes(noteToFind)));
+    // }
 
     return (
         <>
@@ -255,6 +268,7 @@ const Session = props => {
                 top: "15rem",
                 width: "20rem",
                 right: "2rem",
+                height: "42rem",
             }}>
 
                 <TabContext value={sideTabValue}>
@@ -277,6 +291,7 @@ const Session = props => {
                     >
                         <Tab value="one" label="Players"/>
                         <Tab value="two" label="Notes"/>
+                        <Tab value="three" label="Spells"/>
                     </Tabs>
 
                     <TabPanel value="one" index={0}>
@@ -291,6 +306,10 @@ const Session = props => {
                         )}
                     </TabPanel>
                     <TabPanel value="two" index={1}>
+                        <Typography>{chosenNote}</Typography>
+                        {/*<Typography variant="body2">Search for note</Typography>*/}
+                        {/*<TextField sx={{width: "100%"}} value={foundNote}*/}
+                        {/*           onChange={(event) => setFoundNote(event.target.value)}/>*/}
                         <List sx={{
                             display: "flex",
                             flexDirection: "column",
@@ -303,23 +322,39 @@ const Session = props => {
                                 <Typography variant="h6" textAlign="center">No notes</Typography>}
                             {notes.map((note, index) =>
                                 <ListItem key={index}
-                                          sx={{margin: ".25rem", display: "flex", justifyContent: "center"}}
-                                          disablePadding>
+                                          sx={{
+                                              maxWidth: "16.5rem",
+                                              margin: ".25rem",
+                                              display: "flex",
+                                              justifyContent: "center"
+                                          }}
+                                          disablePadding
+
+                                >
                                     <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                        <ListItemText sx={{padding: ".25rem"}}
-                                                      primary={<Typography
-                                                          variant="body2">{note.note}</Typography>}/>
+                                        <ListItemButton onClick={() => setChosenNote(note.note)}
+                                                        sx={{textAlign: "center"}}>
+                                            <ListItemText sx={{padding: ".25rem"}}
+                                                          primary={<Typography
+                                                              variant="body2">{note.note}</Typography>}/>
+                                        </ListItemButton>
+
                                     </Card>
                                 </ListItem>
                             )}
                         </List>
-                        <TextField sx={{width: "100%"}} value={newNoteValue}
-                                   onChange={(event) => setNewNoteValue(event.target.value)}/>
-                        <Button sx={{width: "100%", backgroundColor: "#F5793B"}}
-                                variant="contained"
-                                color="inherit"
-                                onClick={addNote}
-                        >Add</Button>
+                        <Box sx={{position: "absolute", bottom: "1rem",}}>
+                            <TextField sx={{width: "100%"}} value={newNoteValue}
+                                       onChange={(event) => setNewNoteValue(event.target.value)}/>
+
+                            <Button sx={{width: "100%", backgroundColor: "#F5793B"}}
+                                    variant="contained"
+                                    color="inherit"
+                                    onClick={addNote}
+                            >Add</Button>
+
+                        </Box>
+
                     </TabPanel>
                 </TabContext>
             </Card>
