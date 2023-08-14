@@ -147,12 +147,27 @@ const Session = props => {
     return (
         <>
             <Dialog onClose={handleSpellDialogClose} open={spellDialogOpen}>
-                <Typography variant="h3">
-                    {chosenSpell.name}
-                </Typography>
-                <Typography variant="body1">
-                    {chosenSpell.description}
-                </Typography>
+                <Box sx={{padding: ".5rem"}}>
+                    <Typography variant="h6">
+                        {chosenSpell.name}
+                    </Typography>
+                    <Typography variant="body2">
+                        {chosenSpell.description}
+                    </Typography>
+                    <Divider/>
+                    <Typography variant="body2">
+                        <b>Komponenty: </b>{chosenSpell.components}
+                    </Typography>
+                    <Typography variant="body2">
+                        <b>Czas rzucania: </b>{chosenSpell.castingTime}
+                    </Typography>
+                    <Typography variant="body2">
+                        <b>Czas trwania: </b>{chosenSpell.duration}
+                    </Typography>
+                    <Typography variant="body2">
+                        <b>Zasięg: </b>{chosenSpell.range}
+                    </Typography>
+                </Box>
             </Dialog>
 
             <Box
