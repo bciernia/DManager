@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {
     Box,
     Button,
-    Card, Divider,
+    Card, Dialog, Divider,
     Grid,
     List,
     ListItem,
@@ -38,6 +38,10 @@ const getPlayerCharacters = () =>
     fetch(`http://127.0.0.1:3000/characters/all/playerCharacters`)
         .then(res => res.json());
 
+const getSpells = () =>
+    fetch(`http://127.0.0.1:3000/dm/spells/all`)
+        .then(res => res.json());
+
 const Session = props => {
     // TODO ask if someone want to exit
 
@@ -45,18 +49,21 @@ const Session = props => {
 
     const [scenario, setScenario] = useState({});
     const [handouts, setHandouts] = useState([]);
+    const [spells, setSpells] = useState([]);
     const [notes, setNotes] = useState([]);
     const [characters, setCharacters] = useState([]);
     const [playerCharacters, setPlayerCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
     const [chosenNote, setChosenNote] = useState("");
     const [foundNote, setFoundNote] = useState("");
-    const [notesToShow, setNotesToShow] = useState([]);
+    const [spellSearchValue, setSpellSearchValue] = useState("");
 
     const [newNoteValue, setNewNoteValue] = useState("");
 
     const [tabValue, setTabValue] = useState('one');
     const [sideTabValue, setSideTabValue] = useState('one');
+    const [spellDialogOpen, setSpellDialogOpen] = useState(false);
+    const [chosenSpell, setChosenSpell] = useState({});
 
     useEffect(() => {
         Promise.all([
@@ -64,11 +71,13 @@ const Session = props => {
             getHandoutsForScenario(scenarioId),
             getNotesForScenario(scenarioId),
             getPlayerCharacters(),
-        ]).then(([scenarioData, handoutsData, notesData, playerCharacters]) => {
+            getSpells(),
+        ]).then(([scenarioData, handoutsData, notesData, playerCharacters, spellsData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
             setPlayerCharacters(playerCharacters);
+            setSpells(spellsData);
             setCharacters(scenarioData.scenarioCharacters);
             if (scenarioData.scenarioCharacters.length > 0) {
                 setChosenCharacter(scenarioData.scenarioCharacters[0]);
@@ -126,8 +135,26 @@ const Session = props => {
     //     setNotesToShow(notes.map(note => note.note.includes(noteToFind)));
     // }
 
+    const previewSpell = (spell) => {
+        setChosenSpell(spell);
+        setSpellDialogOpen(true);
+    }
+
+    const handleSpellDialogClose = () => {
+        setSpellDialogOpen(false);
+    }
+
     return (
         <>
+            <Dialog onClose={handleSpellDialogClose} open={spellDialogOpen}>
+                <Typography variant="h3">
+                    {chosenSpell.name}
+                </Typography>
+                <Typography variant="body1">
+                    {chosenSpell.description}
+                </Typography>
+            </Dialog>
+
             <Box
                 sx={{
                     display: "flex",
@@ -362,6 +389,43 @@ const Session = props => {
                             >Add</Button>
                         </Box>
 
+                    </TabPanel>
+                    <TabPanel value="three" index={2}>
+                        <TextField sx={{width: "100%"}} value={spellSearchValue} placeholder="Search for spell"
+                                   onChange={(event) => setSpellSearchValue(event.target.value)}/>
+                        <List sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "auto",
+                            overflowX: "hidden",
+                            maxHeight: "27.5rem",
+                        }}>
+                            {/*TODO save note to db after adding them*/}
+                            {spells?.length === 0 &&
+                                <Typography variant="h6" textAlign="center">No spells</Typography>}
+                            {spells.filter(spell => spell.name.toLowerCase().includes(spellSearchValue.toLowerCase())).map((spell, index) =>
+                                <ListItem key={index}
+                                          sx={{
+                                              maxWidth: "16.5rem",
+                                              margin: ".25rem",
+                                              display: "flex",
+                                              justifyContent: "center"
+                                          }}
+                                          disablePadding
+
+                                >
+                                    <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                        <ListItemButton onClick={() => previewSpell(spell)}
+                                                        sx={{textAlign: "center"}}>
+                                            <ListItemText sx={{padding: ".25rem"}}
+                                                          primary={<Typography
+                                                              variant="body2">{spell.name}</Typography>}/>
+                                        </ListItemButton>
+
+                                    </Card>
+                                </ListItem>
+                            )}
+                        </List>
                     </TabPanel>
                 </TabContext>
             </Card>

@@ -104,7 +104,6 @@ const Notes = params => {
         setNoteDialogOpen(false);
     }
 
-
     return (
         <div>
             <Dialog onClose={handleNoteDialogClose} open={noteDialogOpen}>
