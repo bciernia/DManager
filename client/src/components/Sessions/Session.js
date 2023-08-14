@@ -38,7 +38,6 @@ const getPlayerCharacters = () =>
     fetch(`http://127.0.0.1:3000/characters/all/playerCharacters`)
         .then(res => res.json());
 
-
 const Session = props => {
     // TODO ask if someone want to exit
 
@@ -306,7 +305,16 @@ const Session = props => {
                         )}
                     </TabPanel>
                     <TabPanel value="two" index={1}>
-                        <Typography>{chosenNote}</Typography>
+                        {chosenNote && (
+                            <Box sx={{
+                                border: "1px solid black",
+                                borderRadius: "5px",
+                                padding: ".125rem",
+                            }}>
+                                <Typography>{chosenNote}</Typography>
+                            </Box>
+                        )}
+
                         {/*<Typography variant="body2">Search for note</Typography>*/}
                         {/*<TextField sx={{width: "100%"}} value={foundNote}*/}
                         {/*           onChange={(event) => setFoundNote(event.target.value)}/>*/}
@@ -352,7 +360,6 @@ const Session = props => {
                                     color="inherit"
                                     onClick={addNote}
                             >Add</Button>
-
                         </Box>
 
                     </TabPanel>
