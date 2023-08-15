@@ -45,6 +45,19 @@ characterRouter
         res.status(201).send(newCharacterId);
     })
 
+    //ADD SIMPLE NPC
+    .post('/newSimplyNPC', async (req, res) => {
+        const character = req.body;
+
+        const newCharacter = new CharacterRecord({
+            ...character
+        })
+
+        const newCharacterId = await newCharacter.insert();
+
+        res.status(201).send(newCharacterId);
+    })
+
     //ADD MONSTER
     .post('/newMonster', async (req, res) => {
         const monster = req.body;

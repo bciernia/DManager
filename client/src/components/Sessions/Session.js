@@ -118,6 +118,10 @@ const Session = props => {
     }
 
     const addNote = () => {
+        if(newNoteValue === ""){
+            return;
+        }
+
         const newNote = {
             note: newNoteValue,
         }

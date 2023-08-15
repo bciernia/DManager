@@ -13,6 +13,7 @@ class MonsterRecord {
         this.characterMonsterType = obj.characterMonsterType;
         this.characterName = obj.characterName;
         this.characterAlignment = obj.characterAlignment;
+        this.characterDescription = obj.characterDescription;
         this.characterBackground = obj.characterBackground;
         this.characterBackstory = obj.characterBackstory;
         this.characterAllies = obj.characterAllies;
@@ -90,6 +91,7 @@ class MonsterRecord {
             characterMonsterType: this.characterMonsterType.toString(),
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
+            characterDescription: this.characterDescription.toString(),
             characterAlignment: this.characterAlignment.toString(),
             characterBackstory: this.characterBackstory.toString(),
             characterBackground: this.characterBackground.toString(),
@@ -161,6 +163,7 @@ class MonsterRecord {
             characterMonsterType: this.characterMonsterType.toString(),
             characterName: this.characterName.toString(),
             characterPhoto: this.characterPhoto,
+            characterDescription: this.characterDescription.toString(),
             characterAlignment: this.characterAlignment.toString(),
             characterBackstory: this.characterBackstory.toString(),
             characterBackground: this.characterBackground.toString(),

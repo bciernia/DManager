@@ -33,6 +33,7 @@ import EditLocation
 import AddCharacterToScenario
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddCharacterToScenario/AddCharacterToScenario";
 import Spells from "./components/DMFacilities/Spells/Spells";
+import CreateNewSimplifiedNpc from "./components/DMFacilities/Character/CreateCharacter/CreateNewSimplifiedNpc";
 
 const router = createBrowserRouter([
     {
@@ -135,6 +136,10 @@ const router = createBrowserRouter([
 
                     {
                         path: "characters/newCharacter/npc", element: <CreateNewNpc/>,
+                    },
+
+                    {
+                        path: "characters/newCharacter/simpleNpc", element: <CreateNewSimplifiedNpc/>,
                     },
 
                     {

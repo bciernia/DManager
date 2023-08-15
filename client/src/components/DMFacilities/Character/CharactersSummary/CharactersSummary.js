@@ -63,6 +63,10 @@ const CharactersSummary = () => {
         navigate('newCharacter/monster')
     }
 
+    const createSimpleNPC = () => {
+        navigate('newCharacter/simpleNpc')
+    }
+
     return (
         <div className={classes.container}>
             <div>
@@ -74,6 +78,8 @@ const CharactersSummary = () => {
                 <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
                         onClick={createMonster}>Create
                     monster</Button>
+                <Button sx={{backgroundColor: "#F5793B", margin: "0 .5rem 0 0"}} variant="contained" color="inherit"
+                        onClick={createSimpleNPC}>Create simple NPC</Button>
             </div>
             <Grid container>
                 <Grid item md={2} sx={{display: "flex", flexDirection: "column"}}>
@@ -116,7 +122,7 @@ const CharactersSummary = () => {
                                 <Typography sx={{display: "flex", justifyContent: "center"}} variant="h2">Choose one of
                                     yours characters to display</Typography>) :
                             (
-                                <CharacterDetails character={chosenCharacter}/>
+                                 <CharacterDetails character={chosenCharacter}/>
                             )}
                     </Box>
                 </Grid>

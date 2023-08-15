@@ -3,6 +3,7 @@ export const CharacterTypes = {
     npc: 'Non-player character',
     monster: 'Monster',
     beast: 'Beast',
+    simpleNpc: 'Simple npc',
 
     //TODO new character types
     // enemy: 'Enemy',
