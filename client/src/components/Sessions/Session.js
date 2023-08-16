@@ -20,7 +20,7 @@ import classes
 import sessionClasses from './Session.module.css';
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
 import TextareaInputField from "../../utils/Form/InputTypes/TextareaInputField";
-
+import CharacterDetails from "../DMFacilities/Character/CharacterDetails/CharacterDetails";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -118,7 +118,7 @@ const Session = props => {
     }
 
     const addNote = () => {
-        if(newNoteValue === ""){
+        if (newNoteValue === "") {
             return;
         }
 
@@ -257,7 +257,7 @@ const Session = props => {
                                                 <Grid item xs={4}>
                                                     <div className={classes["img-container"]}>
                                                         <img src={chosenCharacter.characterPhoto} alt="Character photo"
-                                                             className={classes["character-photo"]}/>
+                                                             className={sessionClasses["character-photo"]}/>
                                                     </div>
                                                     <div>
                                                         <Button
@@ -286,10 +286,53 @@ const Session = props => {
                                                 <Divider orientation="vertical" flexItem/>
                                                 <Grid item xs={7.95}>
                                                     <Box sx={{margin: "0 .25rem"}}>
+
                                                         <Typography
                                                             variant="h6">{chosenCharacter.characterName}</Typography>
                                                         <Typography
                                                             variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
+                                                        <Box> {chosenCharacter.featuresAndTraits.map((feature) =>
+                                                            <ListItem key={feature.tempId}
+                                                                      sx={{margin: ".25rem", display: "flex"}}
+                                                                      disablePadding>
+                                                                <Card sx={{
+                                                                    backgroundColor: "whitesmoke",
+                                                                    padding: ".25rem",
+                                                                    minWidth: 200
+                                                                }}>
+                                                                    <Typography
+                                                                        variant="h6">{feature.featureName}</Typography>
+                                                                    <Typography variant="body2">
+                                                                        {feature.featureDescription}
+                                                                    </Typography>
+                                                                    {feature.featureReach && (
+                                                                        <Typography variant="body2">
+                                                                            <b>Bonus
+                                                                                ataku:</b> {feature.featureHitBonus}
+                                                                        </Typography>
+                                                                    )}
+                                                                    {feature.featureDmg && (
+                                                                        <Typography variant="body2">
+                                                                            <b>Obrażenia:</b> {feature.featureDmg}
+                                                                        </Typography>
+                                                                    )}
+                                                                    {feature.featureReach && (
+                                                                        <Typography variant="body2">
+                                                                            <b>Zasięg:</b> {feature.featureReach}
+                                                                        </Typography>
+                                                                    )}
+
+                                                                </Card>
+
+                                                            </ListItem>
+                                                        )}
+
+                                                            {/*TODO PO DODANIU EDYCJI POPRAWIĆ*/}
+                                                            {chosenCharacter.characterName === "Wilk" &&
+                                                                <Typography>
+                                                                    Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 -> niepowodzenie -> powalenie
+                                                                </Typography>}
+                                                        </Box>
                                                     </Box>
                                                 </Grid>
                                             </Grid>

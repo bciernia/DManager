@@ -102,6 +102,7 @@ const CharacterDetails = props => {
                         </ListItem>
                     )}
                 </List>
+                {/*TODO DMG TYPE*/}
             </Box>
         </div>
     )

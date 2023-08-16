@@ -116,7 +116,7 @@ const AddCharacterToScenario = () => {
                         }}>
                             {allCharacters?.length === 0 &&
                                 <Typography variant="h6" textAlign="center">No characters</Typography>}
-                            {allCharacters.map((character) =>
+                            {allCharacters.sort((a, b) => (a.characterName > b.characterName) ? 1 : -1).map((character) =>
                                 <ListItem key={character._id} sx={{margin: ".25rem"}} disablePadding>
                                     <Card sx={{backgroundColor: "whitesmoke", minWidth: 320}}>
                                         <ListItemButton onClick={() => setChosenCharacter(character)}

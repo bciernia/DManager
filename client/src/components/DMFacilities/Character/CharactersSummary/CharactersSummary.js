@@ -94,7 +94,7 @@ const CharactersSummary = () => {
                                 {isLoading && <Spinner/>}
                                 {charactersArray.length === 0 &&
                                     <Typography variant="h6" textAlign="center">No characters</Typography>}
-                                {charactersArray.map(character =>
+                                {charactersArray.sort((a,b) => (a.characterName > b.characterName) ? 1 : -1).map(character =>
                                     <ListItem key={character._id} disablePadding>
                                         <ListItemButton sx={{textAlign: "center"}}
                                                         onClick={() => showCharacterDetails(character._id)}>

@@ -1,3 +1,7 @@
 .session-footer{
     position: fixed;
 }
+
+.character-photo{
+    max-width: 12.5rem;
+}
