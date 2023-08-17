@@ -21,8 +21,14 @@ const Summary = () => {
         navigate('spells');
     }
 
+    const goToArtifactsMenu = () => {
+        navigate('artifacts');
+    }
+
     return (
         <div className={classes.container}>
+            <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
+                    onClick={goToArtifactsMenu}>Artifacts</Button>
             <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"
                     onClick={goToCampaignMenu}>Campaigns</Button>
             <Button sx={{backgroundColor: "#F5793B"}} variant="contained" color="inherit"

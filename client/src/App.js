@@ -34,6 +34,7 @@ import AddCharacterToScenario
     from "./components/DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/AddCharacterToScenario/AddCharacterToScenario";
 import Spells from "./components/DMFacilities/Spells/Spells";
 import CreateNewSimplifiedNpc from "./components/DMFacilities/Character/CreateCharacter/CreateNewSimplifiedNpc";
+import Artifacts from "./components/DMFacilities/Artifacts/Artifacts";
 
 const router = createBrowserRouter([
     {
@@ -156,6 +157,10 @@ const router = createBrowserRouter([
 
                     {
                         path: "spells", element: <Spells />
+                    },
+
+                    {
+                        path: "artifacts", element: <Artifacts />
                     },
 
                 ]

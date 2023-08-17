@@ -154,6 +154,7 @@ const Spells = () => {
                                           disablePadding>
                                     <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
                                         <ListItemButton onClick={() => {
+                                            //TODO DISPLAYING SPELL
                                             console.log(spell)
                                         }}
                                                         sx={{textAlign: "center"}}>
