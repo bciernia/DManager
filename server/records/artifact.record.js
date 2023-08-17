@@ -48,7 +48,7 @@ class ArtifactRecord {
     }
 
     static async findAll() {
-        const result = await spells.find();
+        const result = await artifacts.find();
         const artifactsArray = await result.toArray();
         const ourArray = artifactsArray.map(obj => new ArtifactRecord(obj));
 

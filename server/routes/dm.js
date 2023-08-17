@@ -401,6 +401,13 @@ dmRouter
         res.status(201).send(newSpellId);
     })
 
+    //GET ALL ARTIFACTS
+    .get('/artifacts/all', async (req, res) => {
+        const artifacts = await ArtifactRecord.findAll();
+
+        res.status(200).send(artifacts);
+    })
+
     //ADD NEW ARTIFACT
     .post('/artifacts/newArtifact', async (req, res) => {
         const artifact = req.body;

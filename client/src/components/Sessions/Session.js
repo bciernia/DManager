@@ -42,6 +42,10 @@ const getSpells = () =>
     fetch(`http://127.0.0.1:3000/dm/spells/all`)
         .then(res => res.json());
 
+const getArtifacts = () =>
+    fetch(`http://127.0.0.1:3000/dm/artifacts/all`)
+        .then(res => res.json());
+
 const Session = props => {
     // TODO ask if someone want to exit
 
@@ -51,19 +55,24 @@ const Session = props => {
     const [handouts, setHandouts] = useState([]);
     const [spells, setSpells] = useState([]);
     const [notes, setNotes] = useState([]);
+    const [artifacts, setArtifacts] = useState([]);
     const [characters, setCharacters] = useState([]);
     const [playerCharacters, setPlayerCharacters] = useState([]);
     const [chosenCharacter, setChosenCharacter] = useState({});
     const [chosenNote, setChosenNote] = useState("");
-    const [foundNote, setFoundNote] = useState("");
     const [spellSearchValue, setSpellSearchValue] = useState("");
+    const [artifactSearchValue, setArtifactSearchValue] = useState("");
 
     const [newNoteValue, setNewNoteValue] = useState("");
 
     const [tabValue, setTabValue] = useState('one');
     const [sideTabValue, setSideTabValue] = useState('one');
+
     const [spellDialogOpen, setSpellDialogOpen] = useState(false);
     const [chosenSpell, setChosenSpell] = useState({});
+
+    const [artifactDialogOpen, setArtifactDialogOpen] = useState(false);
+    const [chosenArtifact, setChosenArtifact] = useState({});
 
     useEffect(() => {
         Promise.all([
@@ -72,12 +81,14 @@ const Session = props => {
             getNotesForScenario(scenarioId),
             getPlayerCharacters(),
             getSpells(),
-        ]).then(([scenarioData, handoutsData, notesData, playerCharacters, spellsData]) => {
+            getArtifacts(),
+        ]).then(([scenarioData, handoutsData, notesData, playerCharacters, spellsData, artifactsData]) => {
             setScenario(scenarioData);
             setHandouts(handoutsData.filter(handout => handout.handoutLocation === scenarioId));
             setNotes(notesData);
             setPlayerCharacters(playerCharacters);
             setSpells(spellsData);
+            setArtifacts(artifactsData);
             setCharacters(scenarioData.scenarioCharacters);
             if (scenarioData.scenarioCharacters.length > 0) {
                 setChosenCharacter(scenarioData.scenarioCharacters[0]);
@@ -148,6 +159,15 @@ const Session = props => {
         setSpellDialogOpen(false);
     }
 
+    const previewArtifact = (artifact) => {
+        setChosenArtifact(artifact);
+        setArtifactDialogOpen(true);
+    }
+
+    const handleArtifactDialogClose = () => {
+        setArtifactDialogOpen(false);
+    }
+
     return (
         <>
             <Dialog onClose={handleSpellDialogClose} open={spellDialogOpen}>
@@ -170,6 +190,21 @@ const Session = props => {
                     </Typography>
                     <Typography variant="body2">
                         <b>Zasięg: </b>{chosenSpell.range}
+                    </Typography>
+                </Box>
+            </Dialog>
+
+            <Dialog onClose={handleArtifactDialogClose} open={artifactDialogOpen}>
+                <Box sx={{padding: ".5rem"}}>
+                    <Typography variant="h6">
+                        {chosenArtifact.name}
+                    </Typography>
+                    <Typography variant="body2">
+                        {chosenArtifact.description}
+                    </Typography>
+                    <Divider />
+                    <Typography variant="body2">
+                        <b>Typ: </b>{chosenArtifact.type}
                     </Typography>
                 </Box>
             </Dialog>
@@ -354,7 +389,7 @@ const Session = props => {
             <Card sx={{
                 backgroundColor: "whitesmoke", padding: ".5rem", position: "absolute",
                 top: "15rem",
-                width: "20rem",
+                width: "23.75rem",
                 right: "2rem",
                 height: "42rem",
             }}>
@@ -379,7 +414,8 @@ const Session = props => {
                     >
                         <Tab value="one" label="Players"/>
                         <Tab value="two" label="Notes"/>
-                        <Tab value="three" label="Spells"/>
+                        <Tab value="three" label="Artifacts"/>
+                        <Tab value="four" label="Spells"/>
                     </Tabs>
 
                     <TabPanel value="one" index={0}>
@@ -453,6 +489,43 @@ const Session = props => {
 
                     </TabPanel>
                     <TabPanel value="three" index={2}>
+                        <TextField sx={{width: "100%"}} value={artifactSearchValue} placeholder="Search for artifact"
+                                   onChange={(event) => setArtifactSearchValue(event.target.value)}/>
+                        <List sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "auto",
+                            overflowX: "hidden",
+                            maxHeight: "27.5rem",
+                        }}>
+                            {/*TODO save note to db after adding them*/}
+                            {artifacts?.length === 0 &&
+                                <Typography variant="h6" textAlign="center">No artifacts</Typography>}
+                            {artifacts.filter(artifact => artifact.name.toLowerCase().includes(artifactSearchValue.toLowerCase())).map((artifact, index) =>
+                                <ListItem key={index}
+                                          sx={{
+                                              maxWidth: "16.5rem",
+                                              margin: ".25rem",
+                                              display: "flex",
+                                              justifyContent: "center"
+                                          }}
+                                          disablePadding
+
+                                >
+                                    <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                        <ListItemButton onClick={() => previewArtifact(artifact)}
+                                                        sx={{textAlign: "center"}}>
+                                            <ListItemText sx={{padding: ".25rem"}}
+                                                          primary={<Typography
+                                                              variant="body2">{artifact.name}</Typography>}/>
+                                        </ListItemButton>
+
+                                    </Card>
+                                </ListItem>
+                            )}
+                        </List>
+                    </TabPanel>
+                    <TabPanel value="four" index={3}>
                         <TextField sx={{width: "100%"}} value={spellSearchValue} placeholder="Search for spell"
                                    onChange={(event) => setSpellSearchValue(event.target.value)}/>
                         <List sx={{
