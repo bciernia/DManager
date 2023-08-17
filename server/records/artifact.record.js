@@ -7,7 +7,8 @@ class ArtifactRecord {
         this._id = new ObjectId(obj._id);
         this.name = obj.name;
         this.description = obj.description;
-        this.img = obj.img;
+        // this.img = obj.img;
+        this.type = obj.type;
     }
 
     async insert() {
@@ -16,7 +17,8 @@ class ArtifactRecord {
             _id: this._id,
             name: this.name,
             description: this.description,
-            img: this.img,
+            // img: this.img,
+            type: this.type,
         });
         this._id = insertedId.toString();
 
@@ -29,7 +31,8 @@ class ArtifactRecord {
         }, {
             name: this.name,
             description: this.description,
-            img: this.img,
+            // img: this.img,
+            type: this.type,
         });
     }
 
