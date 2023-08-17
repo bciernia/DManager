@@ -148,7 +148,7 @@ const Spells = () => {
                         }}>
                             {spells?.length === 0 &&
                                 <Typography variant="h6" textAlign="center">No spells</Typography>}
-                            {spells.map((spell) =>
+                            {spells.filter(spell => spell.name.toLowerCase().includes(spellName.toLowerCase())).map((spell) =>
                                 <ListItem key={spell._id}
                                           sx={{margin: ".25rem", display: "flex"}}
                                           disablePadding>
