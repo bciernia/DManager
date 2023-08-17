@@ -94,7 +94,7 @@ const Spells = () => {
                                    inputProps={{maxLength: 50}}
                                    value={spellName}
                                    onChange={(event) => setSpellName(event.currentTarget.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 30}}
                                    label="Range"
                                    value={spellRange}
                                    onChange={(event) => setSpellRange(event.currentTarget.value)}/>
