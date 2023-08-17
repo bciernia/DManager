@@ -20,6 +20,7 @@ const locations = db.collection('locations');
 const notes = db.collection('notes');
 const spells = db.collection('spells');
 const quests = db.collection('quests');
+const artifacts = db.collection('artifacts');
 
 module.exports = {
     db,
@@ -34,4 +35,5 @@ module.exports = {
     notes,
     spells,
     quests,
+    artifacts,
 };
