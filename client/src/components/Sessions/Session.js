@@ -202,7 +202,7 @@ const Session = props => {
                     <Typography variant="body2">
                         {chosenArtifact.description}
                     </Typography>
-                    <Divider />
+                    <Divider/>
                     <Typography variant="body2">
                         <b>Typ: </b>{chosenArtifact.type}
                     </Typography>
@@ -357,15 +357,20 @@ const Session = props => {
                                                                         </Typography>
                                                                     )}
 
+
                                                                 </Card>
 
                                                             </ListItem>
                                                         )}
+                                                            <Typography variant="body2">
+                                                                <b>KP:</b> {chosenCharacter.armorClass}
+                                                            </Typography>
 
                                                             {/*TODO PO DODANIU EDYCJI POPRAWIĆ*/}
                                                             {chosenCharacter.characterName === "Wilk" &&
                                                                 <Typography>
-                                                                    Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 -> niepowodzenie -> powalenie
+                                                                    Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 ->
+                                                                    niepowodzenie -> powalenie
                                                                 </Typography>}
                                                         </Box>
                                                     </Box>

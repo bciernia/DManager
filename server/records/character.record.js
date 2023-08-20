@@ -32,7 +32,7 @@ class CharacterRecord {
         this.howCharacterDied = obj.howCharacterDied;
         this.teamId = obj.teamId;
         this.characterSize = obj.characterSize;
-        this.characterDescription = obj.characterDescription;
+        // this.characterDescription = obj.characterDescription;
 
         //STATISTICS
         this.characterStrength = obj.characterStrength;
@@ -101,8 +101,9 @@ class CharacterRecord {
             characterIdeals: this.characterIdeals.toString(),
             characterBonds: this.characterBonds.toString(),
             characterFlaws: this.characterFlaws.toString(),
-            characterDescription: this.characterDescription.toString(),
+            // characterDescription: this.characterDescription.toString(),
             characterWeakness: this.characterWeakness.toString(),
+
             characterPersonalityTraits: this.characterPersonalityTraits.toString(),
             characterTreasure: this.characterTreasure.toString(),
             playerName: this.playerName.toString(),
@@ -156,7 +157,7 @@ class CharacterRecord {
             characterPhoto: this.characterPhoto,
             characterClass: this.characterClass.toString(),
             characterAlignment: this.characterAlignment.toString(),
-            characterDescription: this.characterDescription.toString(),
+            // characterDescription: this.characterDescription.toString(),
             playerName: this.playerName.toString(),
             characterLevel: Number(this.characterLevel),
             exp: Number(this.exp),
