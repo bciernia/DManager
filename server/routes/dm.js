@@ -8,6 +8,7 @@ const {HandoutRecord} = require("../records/handout.record");
 const {LocationRecord} = require("../records/location.record");
 const {NoteRecord} = require("../records/note.record");
 const {SpellRecord} = require("../records/spell.record");
+const {ArtifactRecord} = require("../records/artifact.record");
 
 const dmRouter = express.Router();
 
@@ -398,6 +399,26 @@ dmRouter
         const newSpellId = await newSpell.insert();
 
         res.status(201).send(newSpellId);
+    })
+
+    //GET ALL ARTIFACTS
+    .get('/artifacts/all', async (req, res) => {
+        const artifacts = await ArtifactRecord.findAll();
+
+        res.status(200).send(artifacts);
+    })
+
+    //ADD NEW ARTIFACT
+    .post('/artifacts/newArtifact', async (req, res) => {
+        const artifact = req.body;
+
+        const newArtifact = new ArtifactRecord({
+            ...artifact
+        });
+
+        const newArtifactId = await newArtifact.insert();
+
+        res.status(201).send(newArtifactId);
     })
 
 module.exports = {

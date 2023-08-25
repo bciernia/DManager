@@ -94,7 +94,7 @@ const Spells = () => {
                                    inputProps={{maxLength: 50}}
                                    value={spellName}
                                    onChange={(event) => setSpellName(event.currentTarget.value)}/>
-                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 15}}
+                        <TextField sx={{margin: ".5rem 0"}} type="text" inputProps={{maxLength: 30}}
                                    label="Range"
                                    value={spellRange}
                                    onChange={(event) => setSpellRange(event.currentTarget.value)}/>
@@ -148,12 +148,13 @@ const Spells = () => {
                         }}>
                             {spells?.length === 0 &&
                                 <Typography variant="h6" textAlign="center">No spells</Typography>}
-                            {spells.map((spell) =>
+                            {spells.filter(spell => spell.name.toLowerCase().includes(spellName.toLowerCase())).map((spell) =>
                                 <ListItem key={spell._id}
                                           sx={{margin: ".25rem", display: "flex"}}
                                           disablePadding>
                                     <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
                                         <ListItemButton onClick={() => {
+                                            //TODO DISPLAYING SPELL
                                             console.log(spell)
                                         }}
                                                         sx={{textAlign: "center"}}>

@@ -214,8 +214,8 @@ const CreateNewPlayerCharacter = () => {
         }
     }
 
-    const randomNumber = (min ,max) => {
-        return ((Math.random() * (max-min) + min).toFixed());
+    const randomNumber = (min, max) => {
+        return ((Math.random() * (max - min) + min).toFixed());
     }
 
     const addNewCharacterHandler = (character) => {
@@ -256,6 +256,22 @@ const CreateNewPlayerCharacter = () => {
                            }}
             >
                 {/*TODO finish adding character form*/}
+                <FormStep
+                    stepName="Character saving throws"
+                    onSubmit={() => {
+                        console.log("Step3 submit");
+                    }}
+                    validationSchema={characterSavingThrowsValidationSchema}
+                >
+
+                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
+                        saving throws</Typography>
+
+                    <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
+                                       handleChosenRadio={handleChosenSavingThrows}
+                                       radioButtonGroup={savingThrows}
+                                       radioButtonOptions={proficiencyLevel}/>
+                </FormStep>
                 <FormStep
 
                     stepName="Character info"
@@ -317,22 +333,6 @@ const CreateNewPlayerCharacter = () => {
                             <NumberInputField name="armorClass" label="Armor class"/>
                         </Grid>
                     </Grid>
-                </FormStep>
-                <FormStep
-                    stepName="Character saving throws"
-                    onSubmit={() => {
-                        console.log("Step3 submit");
-                    }}
-                    validationSchema={characterSavingThrowsValidationSchema}
-                >
-
-                    <Typography variant="h4" sx={{width: "100%", textAlign: "center", marginBottom: "2rem"}}>Character
-                        saving throws</Typography>
-
-                    <RadioButtonsGroup columnName={["Saving throws", "Proficiency Level"]}
-                                       handleChosenRadio={handleChosenSavingThrows}
-                                       radioButtonGroup={savingThrows}
-                                       radioButtonOptions={proficiencyLevel}/>
                 </FormStep>
                 <FormStep
                     stepName="Character skills"
