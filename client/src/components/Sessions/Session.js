@@ -148,6 +148,10 @@ const Session = props => {
         setSpellDialogOpen(false);
     }
 
+    const getStatisticBonus = stat => {
+        return Math.floor((stat-10)/2);
+    }
+
     return (
         <>
             <Dialog onClose={handleSpellDialogClose} open={spellDialogOpen}>
