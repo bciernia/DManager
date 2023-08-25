@@ -149,7 +149,7 @@ const Session = props => {
     }
 
     const getStatisticBonus = stat => {
-        return Math.floor((stat-10)/2);
+        return Math.floor((stat - 10) / 2);
     }
 
     return (
@@ -295,6 +295,20 @@ const Session = props => {
                                                             variant="h6">{chosenCharacter.characterName}</Typography>
                                                         <Typography
                                                             variant="body">{chosenCharacter.characterDescriptionForScenario}</Typography>
+                                                        <Box sx={{display: "flex"}}>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>S {chosenCharacter.characterStrength}<b>({getStatisticBonus(chosenCharacter.characterStrength)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>ZR {chosenCharacter.characterDexterity}<b>({getStatisticBonus(chosenCharacter.characterDexterity)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>KON {chosenCharacter.characterConstitution}<b>({getStatisticBonus(chosenCharacter.characterConstitution)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>INT {chosenCharacter.characterIntelligence}<b>({getStatisticBonus(chosenCharacter.characterIntelligence)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>MDR {chosenCharacter.characterWisdom}<b>({getStatisticBonus(chosenCharacter.characterWisdom)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>CHA {chosenCharacter.characterCharisma}<b>({getStatisticBonus(chosenCharacter.characterCharisma)})</b></Typography>
+                                                        </Box>
                                                         <Box> {chosenCharacter.featuresAndTraits.map((feature) =>
                                                             <ListItem key={feature.tempId}
                                                                       sx={{margin: ".25rem", display: "flex"}}
@@ -334,7 +348,8 @@ const Session = props => {
                                                             {/*TODO PO DODANIU EDYCJI POPRAWIĆ*/}
                                                             {chosenCharacter.characterName === "Wilk" &&
                                                                 <Typography>
-                                                                    Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 -> niepowodzenie -> powalenie
+                                                                    Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 ->
+                                                                    niepowodzenie -> powalenie
                                                                 </Typography>}
                                                         </Box>
                                                     </Box>
