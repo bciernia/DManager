@@ -151,6 +151,12 @@ const Session = props => {
         setInitiativeTrackerDialogOpen(true);
     }
 
+    const handleInitiativeTrackerDialogOpenAndClearTmpInitiativeTracker = () => {
+        setInitiativeTrackerDialogOpen(true);
+
+        setTmpInitiativeTracker([]);
+    }
+
     const addNote = () => {
         if (newNoteValue === "") {
             return;
@@ -197,6 +203,11 @@ const Session = props => {
     }
 
     const removeCharacterFromInitiativeTracker = characterId => {
+        setInitiativeTracker(initiativeTracker.filter(character => character.id !== characterId));
+        setTmpInitiativeTracker(initiativeTracker.filter(character => character.id !== characterId));
+    }
+
+    const removeCharacterFromTmpInitiativeTracker = characterId => {
         setTmpInitiativeTracker(tmpInitiativeTracker.filter(character => character.id !== characterId));
     }
 
@@ -210,7 +221,6 @@ const Session = props => {
         console.log(tmpInitiativeTracker);
 
         setInitiativeTracker([...tmpInitiativeTracker.sort((a, b) => b.initiative - a.initiative)]);
-        setTmpInitiativeTracker([]);
         setInitiativeTrackerDialogOpen(false);
     }
 
@@ -312,7 +322,7 @@ const Session = props => {
                                               disablePadding>
                                         <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
                                             <ListItemButton onClick={() => {
-                                                removeCharacterFromInitiativeTracker(character.id);
+                                                removeCharacterFromTmpInitiativeTracker(character.id);
                                             }}
                                                             sx={{textAlign: "center"}}>
                                                 <ListItemText primary={<Typography
@@ -321,6 +331,7 @@ const Session = props => {
                                             <div>
                                                 <input
                                                     type="number"
+                                                    placeholder={character.initiative}
                                                     onChange={(e) => {
                                                         const newValue = parseInt(e.target.value, 10);
                                                         if (!isNaN(newValue)) {
@@ -682,7 +693,7 @@ const Session = props => {
                         }}>
                             {/*TODO save note to db after adding them*/}
                             {spells?.length === 0 &&
-                                <Typography variant="h6" textAlign="center">Create new initiative</Typography>}
+                                <Typography variant="h6" textAlign="center">No spells</Typography>}
                             {spells.filter(spell => spell.name.toLowerCase().includes(spellSearchValue.toLowerCase())).map((spell, index) =>
                                 <ListItem key={index}
                                           sx={{
@@ -708,10 +719,6 @@ const Session = props => {
                         </List>
                     </TabPanel>
                     <TabPanel value="five" index={4}>
-                        <Button sx={{width: "100%", backgroundColor: "#F5793B", marginBottom: ".25rem"}}
-                                variant="contained"
-                                color="inherit" onClick={handleInitiativeTrackerDialogOpen}>Create new initiative
-                            tracker</Button>
                         <List sx={{
                             display: "flex",
                             flexDirection: "column",
@@ -730,7 +737,7 @@ const Session = props => {
                                           disablePadding
                                 >
                                     <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                        <ListItemButton>
+                                        <ListItemButton onClick={() => removeCharacterFromInitiativeTracker(character.id)}>
                                             <ListItemText sx={{padding: ".25rem"}}
                                                           primary={<Typography
                                                               variant="body2">{character.name} {character.initiative}</Typography>}/>
@@ -740,6 +747,16 @@ const Session = props => {
                                 </ListItem>
                             )}
                         </List>
+                        <Box sx={{position: "absolute", bottom: ".5rem", right: ".25rem"}}>
+                            <Button sx={{width: "100%", backgroundColor: "#F5793B", marginBottom: ".25rem"}}
+                                    variant="contained"
+                                    color="inherit" onClick={handleInitiativeTrackerDialogOpen}>Update initiative
+                                tracker</Button>
+                            <Button sx={{width: "100%", backgroundColor: "#F5793B", marginBottom: ".25rem"}}
+                                    variant="contained"
+                                    color="inherit" onClick={handleInitiativeTrackerDialogOpenAndClearTmpInitiativeTracker}>Create new initiative
+                                tracker</Button>
+                        </Box>
                     </TabPanel>
                 </TabContext>
             </Card>
