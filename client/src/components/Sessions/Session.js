@@ -21,6 +21,8 @@ import sessionClasses from './Session.module.css';
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
 import TextareaInputField from "../../utils/Form/InputTypes/TextareaInputField";
 import CharacterDetails from "../DMFacilities/Character/CharacterDetails/CharacterDetails";
+import {v4 as uuid} from 'uuid';
+import NumberInputField from "../../utils/Form/InputTypes/NumberInputField";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -62,6 +64,10 @@ const Session = props => {
     const [chosenNote, setChosenNote] = useState("");
     const [spellSearchValue, setSpellSearchValue] = useState("");
     const [artifactSearchValue, setArtifactSearchValue] = useState("");
+
+    const [tmpInitiativeTracker, setTmpInitiativeTracker] = useState([]);
+    const [initiativeTracker, setInitiativeTracker] = useState([]);
+    const [initiativeTrackerDialogOpen, setInitiativeTrackerDialogOpen] = useState(false);
 
     const [newNoteValue, setNewNoteValue] = useState("");
 
@@ -137,6 +143,14 @@ const Session = props => {
         setArtifactDialogOpen(false);
     }
 
+    const handleInitiativeTrackerDialogClose = () => {
+        setInitiativeTrackerDialogOpen(false);
+    }
+
+    const handleInitiativeTrackerDialogOpen = () => {
+        setInitiativeTrackerDialogOpen(true);
+    }
+
     const addNote = () => {
         if (newNoteValue === "") {
             return;
@@ -170,6 +184,34 @@ const Session = props => {
 
     const getStatisticBonus = stat => {
         return Math.floor((stat - 10) / 2);
+    }
+
+    const addCharacterToTmpInitiativeTracker = (name) => {
+        const character = {
+            id: uuid(),
+            name,
+            initiative: 0,
+        }
+
+        setTmpInitiativeTracker(tmpInitiativeTracker => [...tmpInitiativeTracker, character]);
+    }
+
+    const removeCharacterFromInitiativeTracker = characterId => {
+        setTmpInitiativeTracker(tmpInitiativeTracker.filter(character => character.id !== characterId));
+    }
+
+    const updateCharacterInitiativeNumber = (characterId, initiativeValue) => {
+        const initiativeCharacter = tmpInitiativeTracker.find(character => character.id === characterId);
+
+        initiativeCharacter.initiative = initiativeValue;
+    }
+
+    const saveInitiativeTracker = () => {
+        console.log(tmpInitiativeTracker);
+
+        setInitiativeTracker([...tmpInitiativeTracker.sort((a, b) => b.initiative - a.initiative)]);
+        setTmpInitiativeTracker([]);
+        setInitiativeTrackerDialogOpen(false);
     }
 
     return (
@@ -213,6 +255,91 @@ const Session = props => {
                 </Box>
             </Dialog>
 
+            <Dialog onClose={handleInitiativeTrackerDialogClose} open={initiativeTrackerDialogOpen}>
+                <Box sx={{width: "35rem", height: "40rem"}}>
+                    <Grid container>
+                        <Grid item md={5}>
+                            <List sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "35rem",
+                                overflow: "auto",
+                                overflowX: "hidden",
+                            }}>
+                                {playerCharacters.map((character) =>
+                                    <ListItem key={character.tempId}
+                                              sx={{margin: ".25rem", display: "flex"}}
+                                              disablePadding>
+                                        <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                            <ListItemButton onClick={() => {
+                                                addCharacterToTmpInitiativeTracker(character.characterName);
+                                            }}
+                                                            sx={{textAlign: "center"}}>
+                                                <ListItemText primary={<Typography
+                                                    variant="body2">{character.characterName}</Typography>}/>
+                                            </ListItemButton>
+                                        </Card>
+                                    </ListItem>
+                                )}
+                                {characters.map((character) =>
+                                    <ListItem key={character._id}
+                                              sx={{margin: ".25rem", display: "flex"}}
+                                              disablePadding>
+                                        <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                            <ListItemButton onClick={() => {
+                                                addCharacterToTmpInitiativeTracker(character.characterName);
+                                            }}
+                                                            sx={{textAlign: "center"}}>
+                                                <ListItemText primary={<Typography
+                                                    variant="body2">{character.characterName}</Typography>}/>
+                                            </ListItemButton>
+                                        </Card>
+                                    </ListItem>
+                                )}
+                            </List>
+                        </Grid>
+                        <Grid item md={1}></Grid>
+                        <Grid item md={5}>
+                            <List sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "35rem",
+                                overflow: "auto",
+                                overflowX: "hidden",
+                            }}>
+                                {tmpInitiativeTracker.map((character) =>
+                                    <ListItem key={character.id} sx={{margin: ".25rem", display: "flex"}}
+                                              disablePadding>
+                                        <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                            <ListItemButton onClick={() => {
+                                                removeCharacterFromInitiativeTracker(character.id);
+                                            }}
+                                                            sx={{textAlign: "center"}}>
+                                                <ListItemText primary={<Typography
+                                                    variant="body2">{character.name}</Typography>}/>
+                                            </ListItemButton>
+                                            <div>
+                                                <input
+                                                    type="number"
+                                                    onChange={(e) => {
+                                                        const newValue = parseInt(e.target.value, 10);
+                                                        if (!isNaN(newValue)) {
+                                                            updateCharacterInitiativeNumber(character.id, newValue);
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </Card>
+                                    </ListItem>
+                                )}
+                            </List>
+                        </Grid>
+                    </Grid>
+                    <Button sx={{width: "100%", backgroundColor: "#F5793B", marginTop: ".5rem"}}
+                            variant="contained"
+                            color="inherit" onClick={saveInitiativeTracker}>Start fight!</Button>
+                </Box>
+            </Dialog>
             <Box
                 sx={{
                     display: "flex",
@@ -408,7 +535,6 @@ const Session = props => {
             <Card sx={{
                 backgroundColor: "whitesmoke", padding: ".5rem", position: "absolute",
                 top: "15rem",
-                width: "23.75rem",
                 right: "2rem",
                 height: "42rem",
             }}>
@@ -434,6 +560,7 @@ const Session = props => {
                         <Tab value="two" label="Notes"/>
                         <Tab value="three" label="Artifacts"/>
                         <Tab value="four" label="Spells"/>
+                        <Tab value="five" label="Initiative"/>
                     </Tabs>
 
                     <TabPanel value="one" index={0}>
@@ -555,7 +682,7 @@ const Session = props => {
                         }}>
                             {/*TODO save note to db after adding them*/}
                             {spells?.length === 0 &&
-                                <Typography variant="h6" textAlign="center">No spells</Typography>}
+                                <Typography variant="h6" textAlign="center">Create new initiative</Typography>}
                             {spells.filter(spell => spell.name.toLowerCase().includes(spellSearchValue.toLowerCase())).map((spell, index) =>
                                 <ListItem key={index}
                                           sx={{
@@ -573,6 +700,40 @@ const Session = props => {
                                             <ListItemText sx={{padding: ".25rem"}}
                                                           primary={<Typography
                                                               variant="body2">{spell.name}</Typography>}/>
+                                        </ListItemButton>
+
+                                    </Card>
+                                </ListItem>
+                            )}
+                        </List>
+                    </TabPanel>
+                    <TabPanel value="five" index={4}>
+                        <Button sx={{width: "100%", backgroundColor: "#F5793B", marginBottom: ".25rem"}}
+                                variant="contained"
+                                color="inherit" onClick={handleInitiativeTrackerDialogOpen}>Create new initiative
+                            tracker</Button>
+                        <List sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            overflow: "auto",
+                            overflowX: "hidden",
+                            maxHeight: "27.5rem",
+                        }}>
+                            {initiativeTracker.map(character =>
+                                <ListItem key={character.id}
+                                          sx={{
+                                              maxWidth: "16.5rem",
+                                              margin: ".25rem",
+                                              display: "flex",
+                                              justifyContent: "center"
+                                          }}
+                                          disablePadding
+                                >
+                                    <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
+                                        <ListItemButton>
+                                            <ListItemText sx={{padding: ".25rem"}}
+                                                          primary={<Typography
+                                                              variant="body2">{character.name} {character.initiative}</Typography>}/>
                                         </ListItemButton>
 
                                     </Card>
