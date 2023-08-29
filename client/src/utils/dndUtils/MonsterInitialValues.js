@@ -64,4 +64,18 @@ export const MonsterInitialValues = {
 
     //TALENTS
     featuresAndTraits: [],
+
+    //SPELLS
+    spells: [],
+
+    //SPELL SLOTS
+    level1: 0,
+    level2: 0,
+    level3: 0,
+    level4: 0,
+    level5: 0,
+    level6: 0,
+    level7: 0,
+    level8: 0,
+    level9: 0,
 }

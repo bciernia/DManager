@@ -3,7 +3,7 @@ import {ConditionTypes} from "../../../../utils/dndUtils/ConditionTypes";
 import {DamageTypes} from "../../../../utils/dndUtils/DamageTypes";
 import {
     Box,
-    Button, Dialog,
+    Button, Card, Dialog,
     Divider,
     Grid,
     InputLabel,
@@ -36,6 +36,10 @@ import {MonsterInitialValues} from "../../../../utils/dndUtils/MonsterInitialVal
 import {CharacterSize} from "../../../../utils/dndUtils/CharacterSize";
 import {MonsterType} from "../../../../utils/dndUtils/MonsterType";
 import classes from './CreateNewMonster.module.css'
+
+const getAllSpells = () =>
+    fetch(`http://127.0.0.1:3000/dm/spells/all`)
+    .then(res => res.json());
 
 const CreateNewMonster = () => {
     const monsterTypeArray = Object.entries(MonsterType)
@@ -84,11 +88,16 @@ const CreateNewMonster = () => {
 
     const [characterFeaturesAndTraits, setCharacterFeaturesAndTraits] = useState([]);
 
+    const [allSpells, setAllSpells] = useState([]);
+    const [chosenSpells, setChosenSpells] = useState([]);
+
     const [featureName, setFeatureName] = useState('');
     const [featureDescription, setFeatureDescription] = useState('');
     const [featureDmg, setFeatureDmg] = useState('');
     const [featureHitBonus, setFeatureHitBonus] = useState('');
     const [featureReach, setFeatureReach] = useState('');
+
+    const [spells, setSpells] = useState([]);
 
     const [editedFeature, setEditedFeature] = useState('');
     const [isFeatureEdited, setIsFeatureEdited] = useState(false);
@@ -111,6 +120,9 @@ const CreateNewMonster = () => {
         MonsterInitialValues.characterMovementSpeed = randomNumber(1, 500);
         MonsterInitialValues.characterHP = randomNumber(1, 1000);
         MonsterInitialValues.characterHPDice = "1d6";
+
+        getAllSpells()
+            .then(res => setSpells(res));
     }, []);
 
     useEffect(() => {
@@ -124,6 +136,7 @@ const CreateNewMonster = () => {
         MonsterInitialValues.characterRace = characterRaceArray;
         MonsterInitialValues.characterAlignment = characterAlignmentArray;
         MonsterInitialValues.featuresAndTraits = characterFeaturesAndTraits;
+        MonsterInitialValues.spells = chosenSpells;
 
     }, [chosenLanguageAndLevel, chosenSavingThrowsAndLevel, chosenSkillAndLevel]);
 
@@ -321,6 +334,7 @@ const CreateNewMonster = () => {
                                values.conditionImmunities = characterConditionImmunities;
                                values.characterPhoto = characterPhoto;
                                values.featuresAndTraits = characterFeaturesAndTraits;
+                               values.spells = chosenSpells;
                                console.log(values)
 
                                addNewCharacterHandler(values);
@@ -630,6 +644,54 @@ const CreateNewMonster = () => {
                             </Button>}
                     </div>
 
+                </FormStep>
+                <FormStep
+                    stepName="Spells"
+                >
+                    {/*TODO style features and traits step, fields to add? : Weapon, hit bonus, reach, damage, */}
+                    <Grid container>
+                        <Grid item md={3}>
+                            <NumberInputField name="level1" label="1st level slots"/>
+                            <NumberInputField name="level2" label="2nd level slots"/>
+                            <NumberInputField name="level3" label="3rd level slots"/>
+                            <NumberInputField name="level4" label="4th level slots"/>
+                            <NumberInputField name="level5" label="5th level slots"/>
+                            <NumberInputField name="level6" label="6th level slots"/>
+                            <NumberInputField name="level7" label="7th level slots"/>
+                            <NumberInputField name="level8" label="8th level slots"/>
+                            <NumberInputField name="level9" label="9th level slots"/>
+                        </Grid>
+                        <Grid item md={4}>
+                            <List sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                height: "35rem",
+                                overflow: "auto",
+                                overflowX: "hidden",
+                            }}>
+                                {spells?.length === 0 &&
+                                    <Typography variant="h6" textAlign="center">No spells</Typography>}
+                                {spells.map((spell) =>
+                                    <ListItem key={spell._id}
+                                              sx={{margin: ".25rem", display: "flex"}}
+                                              disablePadding>
+                                        <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                            <ListItemButton onClick={() => {
+                                                console.log(spell)
+                                            }}
+                                                            sx={{textAlign: "center"}}>
+                                                <ListItemText primary={<Typography
+                                                    variant="body2">{spell.name}</Typography>}/>
+                                            </ListItemButton>
+                                        </Card>
+                                    </ListItem>
+                                )}
+                            </List>
+                        </Grid>
+                        <Grid item md={4}>
+
+                        </Grid>
+                    </Grid>
                 </FormStep>
 
             </MultiStepForm>
