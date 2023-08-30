@@ -10,6 +10,7 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
+import RadioButton from "./RadioButton/RadioButton";
 
 const RadioButtonsGroup = props => {
     const radioButtonGroup = props.radioButtonGroup;
@@ -37,13 +38,26 @@ const RadioButtonsGroup = props => {
                             <RadioGroup
                                 defaultValue="0"
                                 onChange={(e) => props.handleChosenRadio(e.target.value, index)}
+                                sx={{
+                                    height: "100%",
+                                    display: "flex",
+                                    justifyContent: " center",
+                                    alignItems: "center",
+                                    flexDirection: "row"
+                                }}
                             >
                                 {radioButtonOptions.map(profLevel => {
-                                    return <FormControlLabel value={profLevel[0]}
-                                                             control={<Radio size="small"/>}
-                                                             label={profLevel[1]}
-
-                                                             labelPlacement="end"/>
+                                    return (
+                                        <div>
+                                            {profLevel[1][0]}
+                                            <FormControlLabel
+                                                value={profLevel[0]}
+                                                // control={<RadioButton label={profLevel[1]}/>}
+                                                label={" "}
+                                                control={<Radio size="small"/>}
+                                                labelPlacement="end"/>
+                                        </div>
+                                    )
                                 })}
                             </RadioGroup>
                         </TableRow>

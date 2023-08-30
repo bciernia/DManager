@@ -71,6 +71,21 @@ class CharacterRecord {
 
         //TALENTS
         this.featuresAndTraits = obj.featuresAndTraits;
+
+        //SPELLS
+        this.spells = obj.spells;
+
+        //SPELL SLOTS
+        this.level1 = obj.level1;
+        this.level2 = obj.level2;
+        this.level3 = obj.level3;
+        this.level4 = obj.level4;
+        this.level5 = obj.level5;
+        this.level6 = obj.level6;
+        this.level7 = obj.level7;
+        this.level8 = obj.level8;
+        this.level9 = obj.level9;
+
     }
 
     _validate() {
@@ -142,6 +157,20 @@ class CharacterRecord {
             conditionImmunities: this.conditionImmunities,
 
             featuresAndTraits: this.featuresAndTraits,
+
+            //SPELLS
+            spells: this.spells,
+
+            //SPELL SLOTS
+            level1: this.level1,
+            level2: this.level2,
+            level3: this.level3,
+            level4: this.level4,
+            level5: this.level5,
+            level6: this.level6,
+            level7: this.level7,
+            level8: this.level8,
+            level9: this.level9,
         });
         this._id = insertedId.toString();
 
@@ -192,6 +221,19 @@ class CharacterRecord {
             conditionImmunities: this.conditionImmunities,
 
             featuresAndTraits: this.featuresAndTraits,
+            //SPELLS
+            spells: this.spells,
+
+            //SPELL SLOTS
+            level1: this.level1,
+            level2: this.level2,
+            level3: this.level3,
+            level4: this.level4,
+            level5: this.level5,
+            level6: this.level6,
+            level7: this.level7,
+            level8: this.level8,
+            level9: this.level9,
         });
     }
 

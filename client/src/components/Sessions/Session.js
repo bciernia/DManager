@@ -517,13 +517,17 @@ const Session = props => {
 
                                                             </ListItem>
                                                         )}
-
                                                             {/*TODO PO DODANIU EDYCJI POPRAWIĆ*/}
                                                             {chosenCharacter.characterName === "Wilk" &&
                                                                 <Typography>
                                                                     Ugryzienie, +4, 2k4+2, rzut obronny na siłe ST 11 ->
                                                                     niepowodzenie -> powalenie
                                                                 </Typography>}
+                                                        </Box>
+                                                        <Box>
+                                                            {chosenCharacter.spells && chosenCharacter.spells.map(spell =>
+                                                                <Typography>{spell.name}</Typography>
+                                                            )}
                                                         </Box>
                                                     </Box>
                                                 </Grid>
@@ -737,7 +741,8 @@ const Session = props => {
                                           disablePadding
                                 >
                                     <Card sx={{backgroundColor: "whitesmoke", width: 320}}>
-                                        <ListItemButton onClick={() => removeCharacterFromInitiativeTracker(character.id)}>
+                                        <ListItemButton
+                                            onClick={() => removeCharacterFromInitiativeTracker(character.id)}>
                                             <ListItemText sx={{padding: ".25rem"}}
                                                           primary={<Typography
                                                               variant="body2">{character.name} {character.initiative}</Typography>}/>
@@ -754,7 +759,9 @@ const Session = props => {
                                 tracker</Button>
                             <Button sx={{width: "100%", backgroundColor: "#F5793B", marginBottom: ".25rem"}}
                                     variant="contained"
-                                    color="inherit" onClick={handleInitiativeTrackerDialogOpenAndClearTmpInitiativeTracker}>Create new initiative
+                                    color="inherit"
+                                    onClick={handleInitiativeTrackerDialogOpenAndClearTmpInitiativeTracker}>Create new
+                                initiative
                                 tracker</Button>
                         </Box>
                     </TabPanel>

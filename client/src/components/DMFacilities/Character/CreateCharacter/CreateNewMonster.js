@@ -39,7 +39,7 @@ import classes from './CreateNewMonster.module.css'
 
 const getAllSpells = () =>
     fetch(`http://127.0.0.1:3000/dm/spells/all`)
-    .then(res => res.json());
+        .then(res => res.json());
 
 const CreateNewMonster = () => {
     const monsterTypeArray = Object.entries(MonsterType)
@@ -649,49 +649,75 @@ const CreateNewMonster = () => {
                     stepName="Spells"
                 >
                     {/*TODO style features and traits step, fields to add? : Weapon, hit bonus, reach, damage, */}
-                    <Grid container>
-                        <Grid item md={3}>
-                            <NumberInputField name="level1" label="1st level slots"/>
-                            <NumberInputField name="level2" label="2nd level slots"/>
-                            <NumberInputField name="level3" label="3rd level slots"/>
-                            <NumberInputField name="level4" label="4th level slots"/>
-                            <NumberInputField name="level5" label="5th level slots"/>
-                            <NumberInputField name="level6" label="6th level slots"/>
-                            <NumberInputField name="level7" label="7th level slots"/>
-                            <NumberInputField name="level8" label="8th level slots"/>
-                            <NumberInputField name="level9" label="9th level slots"/>
+                    <Box sx={{width: "60rem"}}>
+                        <Grid container>
+                            <Grid item md={3}>
+                                <NumberInputField name="level1" label="1st level slots"/>
+                                <NumberInputField name="level2" label="2nd level slots"/>
+                                <NumberInputField name="level3" label="3rd level slots"/>
+                                <NumberInputField name="level4" label="4th level slots"/>
+                                <NumberInputField name="level5" label="5th level slots"/>
+                                <NumberInputField name="level6" label="6th level slots"/>
+                                <NumberInputField name="level7" label="7th level slots"/>
+                                <NumberInputField name="level8" label="8th level slots"/>
+                                <NumberInputField name="level9" label="9th level slots"/>
+                            </Grid>
+                            <Grid item md={4}>
+                                <List sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    height: "35rem",
+                                    overflow: "auto",
+                                    overflowX: "hidden",
+                                }}>
+                                    {spells?.length === 0 &&
+                                        <Typography variant="h6" textAlign="center">No spells</Typography>}
+                                    {spells.map((spell) =>
+                                        <ListItem key={spell._id}
+                                                  sx={{margin: ".25rem", display: "flex"}}
+                                                  disablePadding>
+                                            <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                                <ListItemButton onClick={() => {
+                                                    setChosenSpells([...chosenSpells, spell]);
+                                                }}
+                                                                sx={{textAlign: "center"}}>
+                                                    <ListItemText primary={<Typography
+                                                        variant="body2">{spell.name}</Typography>}/>
+                                                </ListItemButton>
+                                            </Card>
+                                        </ListItem>
+                                    )}
+                                </List>
+                            </Grid>
+                            <Grid item md={4}>
+                                <List sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    height: "35rem",
+                                    overflow: "auto",
+                                    overflowX: "hidden",
+                                }}>
+                                    {chosenSpells?.length === 0 &&
+                                        <Typography variant="h6" textAlign="center">No spells</Typography>}
+                                    {chosenSpells.map((spell) =>
+                                        <ListItem key={spell._id}
+                                                  sx={{margin: ".25rem", display: "flex"}}
+                                                  disablePadding>
+                                            <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
+                                                <ListItemButton onClick={() => {
+                                                    alert(spell);
+                                                }}
+                                                                sx={{textAlign: "center"}}>
+                                                    <ListItemText primary={<Typography
+                                                        variant="body2">{spell.name}</Typography>}/>
+                                                </ListItemButton>
+                                            </Card>
+                                        </ListItem>
+                                    )}
+                                </List>
+                            </Grid>
                         </Grid>
-                        <Grid item md={4}>
-                            <List sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                height: "35rem",
-                                overflow: "auto",
-                                overflowX: "hidden",
-                            }}>
-                                {spells?.length === 0 &&
-                                    <Typography variant="h6" textAlign="center">No spells</Typography>}
-                                {spells.map((spell) =>
-                                    <ListItem key={spell._id}
-                                              sx={{margin: ".25rem", display: "flex"}}
-                                              disablePadding>
-                                        <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
-                                            <ListItemButton onClick={() => {
-                                                console.log(spell)
-                                            }}
-                                                            sx={{textAlign: "center"}}>
-                                                <ListItemText primary={<Typography
-                                                    variant="body2">{spell.name}</Typography>}/>
-                                            </ListItemButton>
-                                        </Card>
-                                    </ListItem>
-                                )}
-                            </List>
-                        </Grid>
-                        <Grid item md={4}>
-
-                        </Grid>
-                    </Grid>
+                    </Box>
                 </FormStep>
 
             </MultiStepForm>
