@@ -192,10 +192,11 @@ const Session = props => {
         return Math.floor((stat - 10) / 2);
     }
 
-    const addCharacterToTmpInitiativeTracker = (name) => {
+    const addCharacterToTmpInitiativeTracker = (name, hp) => {
         const character = {
             id: uuid(),
             name,
+            hp,
             initiative: 0,
         }
 
@@ -218,8 +219,6 @@ const Session = props => {
     }
 
     const saveInitiativeTracker = () => {
-        console.log(tmpInitiativeTracker);
-
         setInitiativeTracker([...tmpInitiativeTracker.sort((a, b) => b.initiative - a.initiative)]);
         setInitiativeTrackerDialogOpen(false);
     }
@@ -297,7 +296,7 @@ const Session = props => {
                                               disablePadding>
                                         <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
                                             <ListItemButton onClick={() => {
-                                                addCharacterToTmpInitiativeTracker(character.characterName);
+                                                addCharacterToTmpInitiativeTracker(character.characterName, character.characterHP);
                                             }}
                                                             sx={{textAlign: "center"}}>
                                                 <ListItemText primary={<Typography
@@ -747,6 +746,7 @@ const Session = props => {
                                                           primary={<Typography
                                                               variant="body2">{character.name} {character.initiative}</Typography>}/>
                                         </ListItemButton>
+                                        <input placeholder={character.hp} />
 
                                     </Card>
                                 </ListItem>
