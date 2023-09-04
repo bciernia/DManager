@@ -19,10 +19,7 @@ import classes
     from "../DMFacilities/Campaign/CampaignDetails/ScenarioDetailsPartialView/EditScenario/EditScenario.module.css";
 import sessionClasses from './Session.module.css';
 import PreviewLocation from "../DMFacilities/Location/PreviewLocation/PreviewLocation";
-import TextareaInputField from "../../utils/Form/InputTypes/TextareaInputField";
-import CharacterDetails from "../DMFacilities/Character/CharacterDetails/CharacterDetails";
 import {v4 as uuid} from 'uuid';
-import NumberInputField from "../../utils/Form/InputTypes/NumberInputField";
 
 const getScenarioById = (scenarioId) =>
     fetch(`http://127.0.0.1:3000/dm/scenario/${scenarioId}`)
@@ -192,11 +189,12 @@ const Session = props => {
         return Math.floor((stat - 10) / 2);
     }
 
-    const addCharacterToTmpInitiativeTracker = (name, hp) => {
+    const addCharacterToTmpInitiativeTracker = (name, hp, dex) => {
         const character = {
             id: uuid(),
             name,
             hp,
+            dexterity: getStatisticBonus(dex),
             initiative: 0,
         }
 
@@ -222,6 +220,22 @@ const Session = props => {
         setInitiativeTracker([...tmpInitiativeTracker.sort((a, b) => b.initiative - a.initiative)]);
         setInitiativeTrackerDialogOpen(false);
     }
+
+    const randomizeInitiative = () => {
+        setTmpInitiativeTracker(tmpInitiativeTracker => {
+            return tmpInitiativeTracker.map(character => {
+                const dexterityValue = parseInt(character.dexterity);
+                if (isNaN(dexterityValue)) {
+                    return character;
+                }
+                const initiativeValue = Math.floor(Math.random() * 20) + 1 + dexterityValue;
+                return {
+                    ...character,
+                    initiative: initiativeValue,
+                };
+            });
+        });
+    };
 
     return (
         <>
@@ -296,7 +310,7 @@ const Session = props => {
                                               disablePadding>
                                         <Card sx={{backgroundColor: "whitesmoke", minWidth: 200}}>
                                             <ListItemButton onClick={() => {
-                                                addCharacterToTmpInitiativeTracker(character.characterName, character.characterHP);
+                                                addCharacterToTmpInitiativeTracker(character.characterName, character.characterHP, character.characterDexterity);
                                             }}
                                                             sx={{textAlign: "center"}}>
                                                 <ListItemText primary={<Typography
@@ -306,6 +320,9 @@ const Session = props => {
                                     </ListItem>
                                 )}
                             </List>
+                            <Button sx={{width: "100%", backgroundColor: "#F5793B", marginTop: ".5rem"}}
+                                    variant="contained"
+                                    color="inherit" onClick={saveInitiativeTracker}>Start fight!</Button>
                         </Grid>
                         <Grid item md={1}></Grid>
                         <Grid item md={5}>
@@ -330,7 +347,7 @@ const Session = props => {
                                             <div>
                                                 <input
                                                     type="number"
-                                                    placeholder={character.initiative}
+                                                    placeholder={character.initiative.toString()}
                                                     onChange={(e) => {
                                                         const newValue = parseInt(e.target.value, 10);
                                                         if (!isNaN(newValue)) {
@@ -343,11 +360,12 @@ const Session = props => {
                                     </ListItem>
                                 )}
                             </List>
+                            <Button sx={{width: "100%", backgroundColor: "#F5793B", marginTop: ".5rem"}}
+                                    variant="contained"
+                                    color="inherit" onClick={randomizeInitiative}>Randomize initiative</Button>
                         </Grid>
                     </Grid>
-                    <Button sx={{width: "100%", backgroundColor: "#F5793B", marginTop: ".5rem"}}
-                            variant="contained"
-                            color="inherit" onClick={saveInitiativeTracker}>Start fight!</Button>
+                    <Button onClick={() => console.log(tmpInitiativeTracker)}>test</Button>
                 </Box>
             </Dialog>
             <Box
@@ -746,7 +764,7 @@ const Session = props => {
                                                           primary={<Typography
                                                               variant="body2">{character.name} {character.initiative}</Typography>}/>
                                         </ListItemButton>
-                                        <input placeholder={character.hp} />
+                                        <input placeholder={character.hp}/>
 
                                     </Card>
                                 </ListItem>
