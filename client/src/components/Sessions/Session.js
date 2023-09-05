@@ -427,7 +427,7 @@ const Session = props => {
                                     }}>
                                         {characters?.length === 0 &&
                                             <Typography variant="h6" textAlign="center">No characters</Typography>}
-                                        {characters.map((character) =>
+                                        {characters.filter(character => character.characterType !== "Player character").map((character) =>
                                             <ListItem key={character.tempId}
                                                       sx={{margin: ".25rem", display: "flex"}}
                                                       disablePadding>
