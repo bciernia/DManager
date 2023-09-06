@@ -365,7 +365,6 @@ const Session = props => {
                                     color="inherit" onClick={randomizeInitiative}>Randomize initiative</Button>
                         </Grid>
                     </Grid>
-                    <Button onClick={() => console.log(tmpInitiativeTracker)}>test</Button>
                 </Box>
             </Dialog>
             <Box
