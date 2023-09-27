@@ -497,6 +497,13 @@ const Session = props => {
                                                                         sx={{marginRight: ".25rem"}}>MDR {chosenCharacter.characterWisdom}<b>({getStatisticBonus(chosenCharacter.characterWisdom)})</b></Typography>
                                                             <Typography variant="body2"
                                                                         sx={{marginRight: ".25rem"}}>CHA {chosenCharacter.characterCharisma}<b>({getStatisticBonus(chosenCharacter.characterCharisma)})</b></Typography>
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>KP {chosenCharacter.armorClass}<b>({getStatisticBonus(chosenCharacter.characterCharisma)})</b></Typography>
+
+                                                            <Typography variant="body2"
+                                                                        sx={{marginRight: ".25rem"}}>EXP {chosenCharacter.exp}<b>({getStatisticBonus(chosenCharacter.characterCharisma)})</b></Typography>
+
+
                                                         </Box>
                                                         <Box> {chosenCharacter.featuresAndTraits.map((feature) =>
                                                             <ListItem key={feature.tempId}
